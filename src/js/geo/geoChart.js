@@ -12,10 +12,13 @@ export default class GeoChart extends Chart {
 		super.initChart(self, params);
 
 		self._projectionType = params.projectionType || d3.geoMercator;
-		self._fn_geoProjection = self._projectionType();
-		self._fn_geoPath = d3.geoPath().projection(self._fn_geoProjection);
+		self._projectionObject = params.projectionObject || undefined;
 		
+		self._fn_geoProjection = self._projectionType();
 		self.fn_fitExtent(self)
+
+		self._fn_geoPath = d3.geoPath().projection(self._fn_geoProjection)
+
 	}
 
 
@@ -26,8 +29,9 @@ export default class GeoChart extends Chart {
 			[ self._size.width - self._padding.right, self._size.height - self._padding.bottom ] 
 		]
 
-		// modifying geoPath as a consequence
-		self._fn_geoProjection.fitExtent(extent, {type: "FeatureCollection", features: self._data})
+		// modifying geoPaths as well
+
+		self._projectionObject && self._fn_geoProjection.fitExtent(extent, self._projectionObject)
 
 	}
 
@@ -48,30 +52,27 @@ export default class GeoChart extends Chart {
 		self.fn_fitExtent(self)
 	}
 
-	/**
-	 *	@override
-	 */
-	get data() {
-		return super.data;
+	get projectionObject() {
+		let self = this;
+		return self._projectionObject;
 	}
 
-	set data(data) {
-		super.data = data;
-
+	set projectionObject(projectionObject) {
 		let self = this;
+		self._projectionObject = projectionObject;
 		self.fn_fitExtent(self)
 	}
 
 	get fn_geoPath() {
 		let self = this;
-		return self._fn_geoPath
+		return self._fn_geoPath;
 	}
 
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 		self._group.classed("map-chart", true);

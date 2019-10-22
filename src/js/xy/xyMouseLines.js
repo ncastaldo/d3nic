@@ -19,11 +19,9 @@ export default class XyMouseLines extends Component {
 
 		const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i)) + chart.fn_xScale.bandwidth()/2
 
-		self._fn_draw = (mouseLines, options) => {
+		self._fn_draw = (mouseLines, transition) => {
 
 			const yExtent = chart.fn_yScale.range()
-
-			const t = d3.transition().duration(500);
 
 			mouseLines.join(
 				enter => enter
@@ -36,15 +34,13 @@ export default class XyMouseLines extends Component {
 					.call(self._fn_enter)
 					.call(enter => 
 						enter
-							.transition()
-							.duration(options.duration)
+							.transition(transition)
 							.attr("d", (d, i) => `M ${fn_x(d, i)}, ${yExtent[0]} ${fn_x(d, i)}, ${yExtent[1]}`)
 							.style("opacity", self._opacity)),
 				update => update
 					.call(update => 
 						update
-							.transition()
-							.duration(options.duration)
+							.transition(transition)
 							.style("opacity", self._opacity)
 							.attr("d", (d, i) => "M" + fn_x(d, i) + "," + yExtent[0] + " " 
 								+ fn_x(d, i) + "," + yExtent[1]),
@@ -52,8 +48,7 @@ export default class XyMouseLines extends Component {
 				exit => exit
 					.call(exit => 
 						exit
-							.transition()
-							.duration(options.duration)
+							.transition(transition)
 							.style("opacity", 0)
 							.remove())
 			)
@@ -63,8 +58,8 @@ export default class XyMouseLines extends Component {
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 
@@ -73,6 +68,6 @@ export default class XyMouseLines extends Component {
 		self._group
 			.selectAll("path")
 			.data(self._chart.data.filter(self._fn_defined), self._chart.fn_key)
-			.call(self._fn_draw, options);
+			.call(self._fn_draw, transition);
 	}
 }

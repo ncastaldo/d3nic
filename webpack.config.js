@@ -3,10 +3,10 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        entry: __dirname + '/src/index.js'
+        entry: __dirname + '/src/app.js'
     },
     output: {
-        filename: 'd3nic.bundle.js',
+        filename: 'd3nic.min.js',
         libraryTarget: 'var', // tells webpack to make the library available as a global variable.
         library: 'd3nic' // names that global variable (in this case, it's d3nic.
     },
@@ -19,8 +19,13 @@ module.exports = {
 			}
 		]
     },
+    devServer: {
+        contentBase: __dirname + '/test',
+        compress: true,
+        port: 8080
+    },
     optimization:{
-        minimize: false,
+        minimize: true,
         minimizer: [new UglifyJsPlugin()],
     }
 }

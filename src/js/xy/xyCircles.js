@@ -22,7 +22,7 @@ export default class XyCircles extends Component {
 		const fn_cx = (d, i) => chart.fn_xScale(chart.fn_key(d, i))
 		const fn_cy = (d, i) => chart.fn_yScale(self._fn_value(d, i))
 
-		self._fn_draw = (circles, options) => {
+		self._fn_draw = (circles, transition) => {
 
 			circles.join(
 				enter =>
@@ -36,16 +36,13 @@ export default class XyCircles extends Component {
 						.style("opacity", self._fn_opacity)
 						.attr("r", 0)
 						.call(enter => {
-							enter.transition()
-								.duration((d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
-								.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
+							enter.transition(transition)
 								.attr("r", self._fn_radius)
 						}),
 				update =>
 					update.call(update =>
 						update
-							.transition()
-							.duration(options.duration)
+							.transition(transition)
 							.attr("cx", fn_cx)
 							.attr("cy", fn_cy)
 							.attr("r", self._fn_radius)
@@ -53,23 +50,19 @@ export default class XyCircles extends Component {
 				exit =>
 					exit.call(exit =>
 						exit
-							.transition()
-							.duration((d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
-							.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
+							.transition(transition)
 							.attr("r", 0)
 							.remove()
 					)
 			);
 		};
-
-		return self._
 	}
 
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 
@@ -78,7 +71,7 @@ export default class XyCircles extends Component {
 		self._group
 			.selectAll("circle")
 			.data(self._chart.data.filter(self._fn_defined), self._chart.fn_key)
-			.call(self._fn_draw, options);
+			.call(self._fn_draw, transition);
 
 		return self._
 	}

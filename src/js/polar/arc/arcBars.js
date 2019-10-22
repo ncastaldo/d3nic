@@ -29,7 +29,7 @@ export default class ArcBars extends PolarComponent {
 		const fn_innerRadius = (d, i) => chart.fn_radiusScale(chart.fn_key(d, i))
 		const fn_outerRadius = (d, i) => chart.fn_radiusScale(chart.fn_key(d, i)) + chart.fn_radiusScale.bandwidth()
 
-		self._fn_draw = (arcBars, options={}) => {
+		self._fn_draw = (arcBars, transition) => {
 
 			arcBars.join(
 				enter => enter
@@ -53,8 +53,7 @@ export default class ArcBars extends PolarComponent {
 					
 					})
 					.call(enter => 
-						enter.transition()
-							.duration(options.duration)//.duration((d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
+						enter.transition(transition)
 							//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
 							.attrTween("d", self._fn_arcTween)
 							.style("opacity", self._fn_opacity)),
@@ -74,8 +73,7 @@ export default class ArcBars extends PolarComponent {
 					
 					})
 					.call(update => 
-						update.transition()
-							.duration(options.duration)//.duration((d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
+						update.transition(transition)
 							//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
 							.attrTween("d", self._fn_arcTween)
 							.style("fill", self._fn_fill)
@@ -96,8 +94,7 @@ export default class ArcBars extends PolarComponent {
 
 					})
 					.call(exit => 
-						exit.transition()
-							.duration(options.duration)//.duration((d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
+						exit.transition(transition)
 							//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
 							.attrTween("d", self.fn_arcTween)
 							.style("opacity", 0)

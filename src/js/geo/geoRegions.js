@@ -1,6 +1,6 @@
 import Component from '../component.js'
 
-export default class GeoPath extends Component {
+export default class GeoRegions extends Component {
 	constructor(params = {}) {
 		super(params);
 	}
@@ -12,14 +12,15 @@ export default class GeoPath extends Component {
 		super.chart = chart;
 
 		let self = this;
-		self._fn_draw = (geoPaths, options) => {
 
-			const t = d3.transition().duration(options.duration)
+		const fn_path = (d, i) => chart.fn_geoPath(self._fn_value(d, i))
 
-			geoPaths.join(
+		self._fn_draw = (geoRegions, transition) => {
+
+			geoRegions.join(
 				enter => enter
 					.append("path")
-					.attr("d", chart.fn_geoPath)
+					.attr("d", fn_path)
 					.style("stroke", self._fn_stroke)
 					.style("stroke-width", self._fn_strokeWidth)
 					.style("fill", self._fn_fill)
@@ -27,15 +28,15 @@ export default class GeoPath extends Component {
 					.call(self._fn_enter)
 					.call(enter => {
 
-						enter.transition(t)
+						enter.transition(transition)
 							.style("opacity", self._fn_opacity)
 			
 					}),
 				update => update
 					.call(update => {
 
-						update.transition(t)
-							.attr("d", chart.fn_geoPath)
+						update.transition(transition)
+							.attr("d", fn_path)
 							.style("stroke", self._fn_stroke)
 							.style("stroke-width", self._fn_strokeWidth)
 							.style("fill", self._fn_fill)
@@ -45,7 +46,7 @@ export default class GeoPath extends Component {
 					}),
 				exit => exit
 					.call(exit => {
-						exit.transition(t)
+						exit.transition(transition)
 							.style("opacity", 0)
 							.remove()
 					}),
@@ -59,16 +60,16 @@ export default class GeoPath extends Component {
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 
-		self._group.classed("geo-paths", true);
+		self._group.classed("geo-regions", true);
 
 		self._group
 			.selectAll("path")
 			.data(self._chart.data, self._chart.fn_key)
-			.call(self._fn_draw, options);
+			.call(self._fn_draw, transition);
 	}
 }

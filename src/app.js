@@ -3,7 +3,7 @@ import Component from "./js/component.js";
 
 // geo
 import GeoChart from "./js/geo/geoChart.js";
-import GeoPaths from "./js/geo/geoPaths.js";
+import GeoRegions from "./js/geo/geoRegions.js";
 import GeoSvgs from "./js/geo/geoSvgs.js";
 import GeoTooltips from "./js/geo/geoTooltips.js";
 
@@ -41,7 +41,7 @@ export {
 	Component,
 
 	GeoChart,
-	GeoPaths,
+	GeoRegions,
 	GeoSvgs,
 	GeoTooltips,
 

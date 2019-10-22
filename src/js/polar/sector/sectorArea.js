@@ -28,10 +28,14 @@ export default class SectorArea extends PolarComponent {
 			.outerRadius(fn_outerRadius)
 			.curve(d3.curveLinearClosed);
 
-		self._fn_draw = (area, options) => {
+		self._fn_draw = (area, transition) => {
 
 			fn_scalePoint.domain(chart.data.map(chart.fn_key))	
 				.range(chart.fn_angleScale.range())
+
+			const halfTransition = d3
+				.transition(transition._name + ".half")
+				.duration(transition.duration() / 2)
 
 			area.join(
 				enter => enter
@@ -47,25 +51,21 @@ export default class SectorArea extends PolarComponent {
 					.call(enter => {
 						fn_area.outerRadius(fn_outerRadius)
 
-						enter.transition()
-							.duration(options.duration)
+						enter.transition(transition)
 							.attr("d", fn_area)
 					}),
 				update => update
 					.call(update => {
-						if (options.name === "data") {
-							update.transition()
-								.duration(options.duration / 2)
+						if (transition._name === "data") {
+							update.transition(halfTransition)
 								.style("opacity", 0)
 								.on("end", () => {
 									update.attr("d", fn_area)
 								})
-								.transition(options.name)
-								.duration(options.duration / 2)
+								.transition(halfTransition)
 								.style("opacity", self._fn_opacity)
 						} else {
-							update.transition()
-								.duration(options.duration)
+							update.transition(transition)
 								.attr("d", fn_area)
 						}
 						
@@ -80,8 +80,8 @@ export default class SectorArea extends PolarComponent {
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 
@@ -90,6 +90,6 @@ export default class SectorArea extends PolarComponent {
 		self._group
 			.selectAll("path")
 			.data([self._chart.data])
-			.call(self._fn_draw, options);
+			.call(self._fn_draw, transition);
 	}
 }

@@ -37,8 +37,8 @@ export default class PolarChart extends Chart {
 	/**
 	 *	@override
 	 */
-	draw(options) { 
-		super.draw(options);
+	draw(transition) { 
+		super.draw(transition);
 
 		let self = this;
 
@@ -47,7 +47,7 @@ export default class PolarChart extends Chart {
 
 		const centroid = self.fn_getCentroid(self)
 
-		const g = init ? self._group : self._group.transition().duration(options.duration)
+		const g = init ? self._group : self._group.transition(transition)
 		g.attr("transform", `translate(${centroid[0]}, ${centroid[1]})`);
 
 

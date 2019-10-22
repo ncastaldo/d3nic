@@ -90,8 +90,8 @@ export default class SectorChart extends PolarChart {
 	/**
 	 *	@override
 	 */
-	draw(options) { 
-		super.draw(options);
+	draw(transition) { 
+		super.draw(transition);
 
 		let self = this;
 

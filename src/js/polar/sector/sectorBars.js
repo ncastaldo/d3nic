@@ -22,9 +22,9 @@ export default class SectorBars extends PolarComponent {
 		const fn_innerRadius = (d, i) => chart.fn_radiusScale.range()[0]
 		const fn_outerRadius = (d, i) => chart.fn_radiusScale(self._fn_value(d, i))
 
-		self._fn_draw = (radialBars, options={}) => {
+		self._fn_draw = (sectorBars, transition) => {
 
-			radialBars.join(
+			sectorBars.join(
 				enter => enter
 					.append("path")
 					.style("stroke", self._fn_stroke)
@@ -46,8 +46,7 @@ export default class SectorBars extends PolarComponent {
 					
 					})
 					.call(enter => 
-						enter.transition()
-							.duration(options.duration)//.duration((d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
+						enter.transition(transition)
 							//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
 							.attrTween("d", self._fn_arcTween)
 							.style("opacity", self._fn_opacity)),
@@ -67,8 +66,7 @@ export default class SectorBars extends PolarComponent {
 
 					})
 					.call(update => 
-						update.transition()
-							.duration(options.duration)//.duration((d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
+						update.transition(transition)
 							//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
 							.attrTween("d", self._fn_arcTween)
 							.style("fill", self._fn_fill)
@@ -89,8 +87,7 @@ export default class SectorBars extends PolarComponent {
 
 					})
 					.call(exit => 
-						exit.transition()
-							.duration(options.duration)//.duration((d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
+						exit.transition(transition)
 							//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
 							.attrTween("d", self._fn_arcTween)
 							.style("opacity", 0)
@@ -104,8 +101,8 @@ export default class SectorBars extends PolarComponent {
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 
@@ -113,7 +110,7 @@ export default class SectorBars extends PolarComponent {
 
 		self._group.selectAll("path")
 			.data(self._chart.data.filter(self._fn_defined), self._chart.fn_key)
-			.call(self._fn_draw, options)
+			.call(self._fn_draw, transition)
 
 		return self;
 	}

@@ -43,13 +43,12 @@ export default class XyAxes extends Component {
 			.tickSizeOuter(0);
 
 
-		self._fn_draw = (axes, options) => {
+		self._fn_draw = (axes, transition) => {
 
 			if(self._xAxisVisible) {
 				const xAxis = axes.select("g.axis.x-axis")
 				if(!xAxis.empty()) {
-					xAxis.transition()
-						.duration(options.duration)
+					xAxis.transition(transition)
 						.attr(
 							"transform",
 							`translate(0, ${chart.fn_yScale.range()[0]})`
@@ -63,8 +62,7 @@ export default class XyAxes extends Component {
 						)
 						.call(fn_xAxis)
 						.style("opacity", 0)
-						.transition()
-						.duration(options.duration)
+						.transition(transition)
 						.style("opacity", 1)
 				}
 			}
@@ -73,8 +71,7 @@ export default class XyAxes extends Component {
 				const yAxis = axes.select("g.axis.y-axis")
 
 				if(!yAxis.empty()) {
-					yAxis.transition()
-						.duration(options.duration)
+					yAxis.transition(transition)
 						.attr(
 							"transform",
 							`translate(${chart.fn_xScale.range()[0]}, 0)`
@@ -88,8 +85,7 @@ export default class XyAxes extends Component {
 						)
 						.call(fn_yAxis)
 						.style("opacity", 0)
-						.transition()
-						.duration(options.duration)
+						.transition(transition)
 						.style("opacity", 1)
 				}
 			}
@@ -104,13 +100,13 @@ export default class XyAxes extends Component {
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 
 		self._group.classed("xy-axes", true);
-		self._group.call(self._fn_draw, options);
+		self._group.call(self._fn_draw, transition);
 
 		return self;
 	}

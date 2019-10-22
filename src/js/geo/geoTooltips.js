@@ -32,7 +32,7 @@ export default class GeoTooltips extends Component {
 			Math.min(fn_bounds(d)[1][1], chart.size.height - self.size.height) :
 			Math.max(fn_bounds(d)[0][1] - self.size.height, 0) ;
 
-		self.fn_draw = (geoSvgs, options) => {
+		self.fn_draw = (geoSvgs, transition) => {
 
 			geoSvgs.join(
 				enter => enter
@@ -41,7 +41,7 @@ export default class GeoTooltips extends Component {
 					.attr("width", self._size.width)
 					.attr("y", fn_y)
 					.attr("height", self._size.height)
-					.call(enter => self._fn_enter(enter, options))
+					.call(enter => self._fn_enter(enter, transition))
 					.append("circle")
 					.attr("cx", self._size.width/2)
 					.attr("cy", self._size.height/2)
@@ -68,8 +68,8 @@ export default class GeoTooltips extends Component {
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 
@@ -78,7 +78,7 @@ export default class GeoTooltips extends Component {
 		self._group
 			.selectAll("svg")
 			.data(self._chart.data, self._chart.fn_key)
-			.call(self._fn_draw, options);
+			.call(self._fn_draw, transition);
 
 		return self;
 	}

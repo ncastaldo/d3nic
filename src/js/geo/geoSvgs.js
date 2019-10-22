@@ -21,7 +21,7 @@ export default class GeoSvgs extends Component {
 		const fn_y = d => fn_bounds(d)[0][1]
 		const fn_height = d => fn_bounds(d)[1][1] - fn_bounds(d)[0][1]
 
-		self.fn_draw = (geoSvgs, options) => {
+		self.fn_draw = (geoSvgs, transition) => {
 
 			geoSvgs.join(
 				enter => enter
@@ -47,8 +47,8 @@ export default class GeoSvgs extends Component {
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 
@@ -57,7 +57,7 @@ export default class GeoSvgs extends Component {
 		self._group
 			.selectAll("svg")
 			.data(self._chart.data, self._chart.fn_key)
-			.call(self._fn_draw, options);
+			.call(self._fn_draw, transition);
 
 		return self;
 	}

@@ -11,9 +11,9 @@ export default class Chart {
 	initChart(self, params) {
 
 		self._size = {
-			width: +self._container.attr("width"),
-			height: +self._container.attr("height") 
-		};
+			width: 400,
+			height: 300
+		}
 
 		self._padding = {
 			top: 10,
@@ -23,6 +23,8 @@ export default class Chart {
 		};
 
 		Object.assign(self._size, params.size || {});
+		self.fn_fitSize(self);
+
 		Object.assign(self._padding, params.padding || {});
 
 		self._fn_key = params.fn_key || ((d, i) => i);
@@ -36,6 +38,13 @@ export default class Chart {
 		self._components.filter(c => !c.chart).forEach(c => c.chart = self)
 	}
 
+	// fits the size of the svg
+	fn_fitSize(self) {
+		if(self._container.node().tagName === "svg") {
+			self._container.attr("width", `${self._size.width}px`);
+			self._container.attr("height", `${self._size.height}px`);
+		}
+	}
 
 	fn_getValueDomain(self) {
 	
@@ -60,8 +69,8 @@ export default class Chart {
 	
 	set size(size) {
 		let self = this;
-
 		Object.assign(self._size, size);
+		self.fn_fitSize(self);
 	}
 
 	get fn_key() {
@@ -96,24 +105,17 @@ export default class Chart {
 	}
 
 
-	draw(options={}) {
+	draw(transition) {
 		let self = this;
 
-		// adjusting 'options' object
-		if(!options.hasOwnProperty("type")) {
-			options.type = "data";
-		}
-		if(!options.hasOwnProperty("duration")) {
-			options.duration = 250;
-		}
-
+		transition = transition || d3.transition().duration(0);
 
 		// appending the group 
 		self._group = self._group || self._container.append("g").classed("chart", true);
 
 		// drawing the components
 
-		self._components.forEach(component => component.draw(options));
+		self._components.forEach(component => component.draw(transition));
 
 		// handling old components
 		//self.components.forEach(component => component.group.classed("js__keep-chart-component", true));

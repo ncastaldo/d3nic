@@ -119,8 +119,8 @@ export default class XyChart extends Chart {
 	/**
 	 *	@override
 	 */
-	draw(options) { 
-		super.draw(options);
+	draw(transition) { 
+		super.draw(transition);
 
 		let self = this;
 
