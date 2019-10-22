@@ -23,8 +23,6 @@ export default class Chart {
 		};
 
 		Object.assign(self._size, params.size || {});
-		self.fn_fitSize(self);
-
 		Object.assign(self._padding, params.padding || {});
 
 		self._fn_key = params.fn_key || ((d, i) => i);
@@ -70,7 +68,6 @@ export default class Chart {
 	set size(size) {
 		let self = this;
 		Object.assign(self._size, size);
-		self.fn_fitSize(self);
 	}
 
 	get fn_key() {
@@ -109,6 +106,8 @@ export default class Chart {
 		let self = this;
 
 		transition = transition || d3.transition().duration(0);
+
+		self.fn_fitSize(self);
 
 		// appending the group 
 		self._group = self._group || self._container.append("g").classed("chart", true);

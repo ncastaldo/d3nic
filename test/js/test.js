@@ -103,11 +103,13 @@
 	const geoChart = new d3nic.GeoChart(svg4, {
 		projectionObject: featureCollection,
 		data: featureCollection.features,
+		size: {width: 500, height: 400},
 		fn_key: d => d.properties.NC_KEY,
 		components: [
 			new d3nic.GeoRegions({
 				fn_fill: (d, i, nodes) => d3.interpolateViridis(Math.random()),
-				fn_value: d => d
+				fn_value: d => d,
+				fn_strokeWidth: () => 0
 			}),
 			/*new GeoTooltips({
 				fn_enter: (enter, options) => enter.each((d, i, nodes) => {
@@ -158,7 +160,7 @@
 
 	const draw = async () => {
 
-		t = null//const t = d3.transition("data").duration(1000);
+		const t = d3.transition("data").duration(1000);
 		xyChart.draw(t)
 		arcChart.draw(t);
 		sectorChart.draw(t);
@@ -167,7 +169,6 @@
 		//t.end().then((res) => console.log(res))
 
 	}
-
 
 	draw()
 
