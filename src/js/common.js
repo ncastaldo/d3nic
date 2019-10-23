@@ -60,10 +60,10 @@ const sb_strokeWidth = (strokeWidth, duration) => s =>
     fn_transition(s, "stroke-width", duration).attr("stroke-width", strokeWidth)
 
 const sb_stroke = (stroke, duration) => s => 
-    fn_transition(s, "stroke", duration).style("stroke", stroke)
+    fn_transition(s, "stroke", duration).attr("stroke", stroke)
 
 const sb_opacity = (opacity, duration) => s => 
-    fn_transition(s, "opacity", duration).style("opacity", opacity)
+    fn_transition(s, "opacity", duration).attr("opacity", opacity)
 
 const sb_arcOuterRadius = (toRadius, duration) => s => 
     fn_transition(s, "arc-outer-radius", duration).attr("d", fn_arcRadius(true, toRadius))

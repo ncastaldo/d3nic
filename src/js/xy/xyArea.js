@@ -46,7 +46,7 @@ export default class XyArea extends Component {
 			if(!oldArea.empty()) {
 
 				oldArea.transition(transition)
-					.style("opacity", 0)
+					.attr("opacity", 0)
 					.remove()
 
 			}
@@ -54,14 +54,14 @@ export default class XyArea extends Component {
 			newArea.call(area => {
 					oldArea.empty() ? 
 						area.attr("d", fn_areaBottom) : 
-						area.style("opacity", 0)
+						area.attr("opacity", 0)
 				})
 				.classed("drawn", true)
 				.attr("fill", self._fn_fill) 
 				.attr("fill-opacity", self._fn_fillOpacity)
 				.call(self._fn_enter)
 				.transition(transition)
-				.style("opacity", self._fn_opacity)
+				.attr("opacity", self._fn_opacity)
 				.attr("d", fn_area)
 
 		};

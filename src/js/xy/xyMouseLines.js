@@ -27,21 +27,21 @@ export default class XyMouseLines extends Component {
 				enter => enter
 					.append("path")
 					.attr("d", (d, i) => `M ${fn_x(d, i)}, ${yExtent[0]} ${fn_x(d, i)}, ${yExtent[0]}`)
-					.style("stroke", self._fn_stroke)
-					.style("stroke-width", self._fn_strokeWidth)
-					.style("stroke-dasharray", (d, i) => `${self._fn_strokeDasharray(d, i)[0]}, ${self._fn_strokeDasharray(d, i)[1]}`)
-					.style("opacity", 0)
+					.attr("stroke", self._fn_stroke)
+					.attr("stroke-width", self._fn_strokeWidth)
+					.attr("stroke-dasharray", (d, i) => `${self._fn_strokeDasharray(d, i)[0]}, ${self._fn_strokeDasharray(d, i)[1]}`)
+					.attr("opacity", 0)
 					.call(self._fn_enter)
 					.call(enter => 
 						enter
 							.transition(transition)
 							.attr("d", (d, i) => `M ${fn_x(d, i)}, ${yExtent[0]} ${fn_x(d, i)}, ${yExtent[1]}`)
-							.style("opacity", self._opacity)),
+							.attr("opacity", self._opacity)),
 				update => update
 					.call(update => 
 						update
 							.transition(transition)
-							.style("opacity", self._opacity)
+							.attr("opacity", self._opacity)
 							.attr("d", (d, i) => "M" + fn_x(d, i) + "," + yExtent[0] + " " 
 								+ fn_x(d, i) + "," + yExtent[1]),
 					),
@@ -49,7 +49,7 @@ export default class XyMouseLines extends Component {
 					.call(exit => 
 						exit
 							.transition(transition)
-							.style("opacity", 0)
+							.attr("opacity", 0)
 							.remove())
 			)
 		};

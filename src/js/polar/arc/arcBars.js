@@ -34,10 +34,10 @@ export default class ArcBars extends PolarComponent {
 			arcBars.join(
 				enter => enter
 					.append("path")
-					.style("stroke", self._fn_stroke)
-					.style("stroke-width", self._fn_strokeWidth)
-					.style("fill", self._fn_fill)
-					.style("opacity", 0)
+					.attr("stroke", self._fn_stroke)
+					.attr("stroke-width", self._fn_strokeWidth)
+					.attr("fill", self._fn_fill)
+					.attr("opacity", 0)
 					.each((d, i, nodes) => {
 
 						const selection = d3.select(nodes[i])
@@ -56,7 +56,7 @@ export default class ArcBars extends PolarComponent {
 						enter.transition(transition)
 							//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
 							.attrTween("d", self._fn_arcTween)
-							.style("opacity", self._fn_opacity)),
+							.attr("opacity", self._fn_opacity)),
 				update => update
 					.each((d, i, nodes) => {
 
@@ -76,8 +76,8 @@ export default class ArcBars extends PolarComponent {
 						update.transition(transition)
 							//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
 							.attrTween("d", self._fn_arcTween)
-							.style("fill", self._fn_fill)
-							.style("opacity", self._fn_opacity)),
+							.attr("fill", self._fn_fill)
+							.attr("opacity", self._fn_opacity)),
 				exit => exit
 					.each((d, i, nodes) => {
 
@@ -97,7 +97,7 @@ export default class ArcBars extends PolarComponent {
 						exit.transition(transition)
 							//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
 							.attrTween("d", self.fn_arcTween)
-							.style("opacity", 0)
+							.attr("opacity", 0)
 							.remove()),
 			)
 		}

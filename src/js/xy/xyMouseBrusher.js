@@ -160,8 +160,8 @@ export default class XyMouseBrusher extends Component {
 				.attr("y", chart.fn_yScale.range()[1])
 
 			brush.select("rect.selection")
-				.style("fill", "#6a51a3")
-				.style("fill-opacity", 0.1)
+				.attr("fill", "#6a51a3")
+				.attr("fill-opacity", 0.1)
 				.attr("stroke", "")
 
 

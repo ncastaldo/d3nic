@@ -61,9 +61,9 @@ export default class XyAxes extends Component {
 							`translate(0, ${chart.fn_yScale.range()[0]})`
 						)
 						.call(fn_xAxis)
-						.style("opacity", 0)
+						.attr("opacity", 0)
 						.transition(transition)
-						.style("opacity", 1)
+						.attr("opacity", 1)
 				}
 			}
 
@@ -84,9 +84,9 @@ export default class XyAxes extends Component {
 							`translate(${chart.fn_xScale.range()[0]}, 0)`
 						)
 						.call(fn_yAxis)
-						.style("opacity", 0)
+						.attr("opacity", 0)
 						.transition(transition)
-						.style("opacity", 1)
+						.attr("opacity", 1)
 				}
 			}
 

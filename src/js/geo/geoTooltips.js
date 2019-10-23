@@ -46,8 +46,8 @@ export default class GeoTooltips extends Component {
 					.attr("cx", self._size.width/2)
 					.attr("cy", self._size.height/2)
 					.attr("r", 5)
-					.style("fill", (d, i, nodes) => d3.interpolateViridis(1-i/nodes.length))
-					.style("fill-opacity", 0.3),
+					.attr("fill", (d, i, nodes) => d3.interpolateViridis(1-i/nodes.length))
+					.attr("fill-opacity", 0.3),
 				update => update
 					.attr("x", fn_x)
 					.attr("width", self._size.width)

@@ -21,15 +21,15 @@ export default class GeoRegions extends Component {
 				enter => enter
 					.append("path")
 					.attr("d", fn_path)
-					.style("stroke", self._fn_stroke)
-					.style("stroke-width", self._fn_strokeWidth)
-					.style("fill", self._fn_fill)
-					.style("opacity", 0)
+					.attr("stroke", self._fn_stroke)
+					.attr("stroke-width", self._fn_strokeWidth)
+					.attr("fill", self._fn_fill)
+					.attr("opacity", 0)
 					.call(self._fn_enter)
 					.call(enter => {
 
 						enter.transition(transition)
-							.style("opacity", self._fn_opacity)
+							.attr("opacity", self._fn_opacity)
 			
 					}),
 				update => update
@@ -38,10 +38,10 @@ export default class GeoRegions extends Component {
 
 						update.transition(transition)
 							.attr("d", fn_path)
-							.style("stroke", self._fn_stroke)
-							.style("stroke-width", self._fn_strokeWidth)
-							.style("fill", self._fn_fill)
-							.style("opacity", self._fn_opacity)
+							.attr("stroke", self._fn_stroke)
+							.attr("stroke-width", self._fn_strokeWidth)
+							.attr("fill", self._fn_fill)
+							.attr("opacity", self._fn_opacity)
 
 					
 					}),
@@ -49,7 +49,7 @@ export default class GeoRegions extends Component {
 					.call(self._fn_exit)
 					.call(exit => {
 						exit.transition(transition)
-							.style("opacity", 0)
+							.attr("opacity", 0)
 							.remove()
 					}),
 			)

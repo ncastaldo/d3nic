@@ -126,13 +126,11 @@
 
 	const mouseoverGeoRegions = (d, i, nodes) => {
 		d3.select(nodes[i])
-			.classed("over", true)
 			.style("fill-opacity", 0.7)
 	}
 
 	const mouseoutGeoRegions = (d, i, nodes) => {
 		d3.select(nodes[i])
-			.classed("over", false)
 			.style("fill-opacity", 1)
 	}
 
@@ -146,7 +144,6 @@
 		components: [
 			new d3nic.GeoRegions({
 				fn_fill: (d, i, nodes) => d3.interpolateViridis(nodes.length > 0 ? i/nodes.length : 0.5),
-				fn_fillOpacity: (d, i, nodes) => d3.select(nodes[i]).classed("over") ? 1 : 0.7,
 				fn_value: d => d,
 				fn_enter: enter => enter
 					.on("mouseover", mouseoverGeoRegions)
@@ -195,7 +192,7 @@
 		arcChart.data = data
 		sectorChart.data = data
 		
-		const t = d3.transition("data").duration(500);
+		const t = d3.transition("data").duration(2000);
 		draw(t)
 	})
 

@@ -44,7 +44,7 @@ export default class XyLine extends Component {
 			if(!oldLine.empty()) {
 
 				oldLine.transition(transition)
-					.style("opacity", 0)
+					.attr("opacity", 0)
 					.remove()
 
 			}
@@ -52,7 +52,7 @@ export default class XyLine extends Component {
 			newLine.call(line => {
 					oldLine.empty() ? 
 						line.attr("d", fn_lineBottom) : 
-						line.style("opacity", 0)
+						line.attr("opacity", 0)
 				})
 				.classed("drawn", true)
 				.attr("fill", "none")
@@ -60,7 +60,7 @@ export default class XyLine extends Component {
 				.attr("stroke-width", self._fn_strokeWidth) 
 				.call(self._fn_enter)
 				.transition(transition)
-				.style("opacity", self._fn_opacity)
+				.attr("opacity", self._fn_opacity)
 				.attr("d", fn_line)
 
 

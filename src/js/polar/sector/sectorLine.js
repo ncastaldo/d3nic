@@ -38,7 +38,7 @@ export default class SectorLine extends PolarComponent {
 					.attr("fill", "none") // to make it a line
 					.attr("stroke", self._fn_stroke)
 					.attr("stroke-width", self._fn_strokeWidth)
-					.style("opacity", self._fn_opacity)
+					.attr("opacity", self._fn_opacity)
 					.attr("d", fn_line)
 					.call(self._fn_enter)
 					.call(enter => {
@@ -58,12 +58,12 @@ export default class SectorLine extends PolarComponent {
 					.call(update => { 
 						if(transition._name === "data") {
 							update.transition(halfTransition)
-								.style("opacity", 0)
+								.attr("opacity", 0)
 								.on("end", () => {
 									update.attr("d", fn_line)
 								})
 								.transition(halfTransition)
-								.style("opacity", self._fn_opacity)
+								.attr("opacity", self._fn_opacity)
 						} else {
 							update.transition(transition)
 								.attr("d", fn_line)

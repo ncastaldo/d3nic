@@ -34,7 +34,7 @@ export default class GeoSvgs extends Component {
 					.attr("cx", d => fn_width(d)/2)
 					.attr("cy", d => fn_height(d)/2)
 					.attr("r", d => d3.min([fn_width(d), fn_height(d)])/2)
-					.style("fill", (d, i, nodes) => d3.interpolateViridis(1-i/nodes.length)),
+					.attr("fill", (d, i, nodes) => d3.interpolateViridis(1-i/nodes.length)),
 				update => update,
 				exit => exit,
 			)
