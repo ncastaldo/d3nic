@@ -22,7 +22,7 @@ export default class XyBars extends Component {
 
 			const barWidth = chart.fn_xScale.bandwidth()
 
-			bars.join(
+			self._join = bars.join(
 				enter => enter
 					.append("rect")
 					.attr("x", (d, i) => chart.fn_xScale(chart.fn_key(d, i)))

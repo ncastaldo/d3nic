@@ -17,7 +17,7 @@ export default class GeoRegions extends Component {
 
 		self._fn_draw = (geoRegions, transition) => {
 
-			geoRegions.join(
+			self._join = geoRegions.join(
 				enter => enter
 					.append("path")
 					.attr("d", fn_path)

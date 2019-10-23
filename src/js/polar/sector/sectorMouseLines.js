@@ -26,7 +26,7 @@ export default class SectorMouseLines extends PolarComponent {
 
 			const radiusExtent = chart.fn_radiusScale.range()
 
-			mouseLines.join(
+			self._join = mouseLines.join(
 				enter => enter
 					.append("path")
 					.attr("d", (d, i) => `M ${fn_angle(d, i)}, ${radiusExtent[0]} ${fn_angle(d, i)}, ${radiusExtent[0]}`)

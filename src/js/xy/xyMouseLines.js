@@ -18,15 +18,16 @@ export default class XyMouseLines extends Component {
 		let self = this;
 
 		const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i)) + chart.fn_xScale.bandwidth()/2
+		const fn_y0 = (d, i) => chart.fn_yScale.range()[0]
+		const fn_y1 = (d, i) => chart.fn_yScale.range()[1]
+
 
 		self._fn_draw = (mouseLines, transition) => {
 
-			const yExtent = chart.fn_yScale.range()
-
-			mouseLines.join(
+			self._join = mouseLines.join(
 				enter => enter
 					.append("path")
-					.attr("d", (d, i) => `M ${fn_x(d, i)}, ${yExtent[0]} ${fn_x(d, i)}, ${yExtent[0]}`)
+					.attr("d", (d, i) => `M ${fn_x(d, i)}, ${fn_y0(d, i)} ${fn_x(d, i)}, ${fn_y0(d, i)}`)
 					.attr("stroke", self._fn_stroke)
 					.attr("stroke-width", self._fn_strokeWidth)
 					.attr("stroke-dasharray", (d, i) => `${self._fn_strokeDasharray(d, i)[0]}, ${self._fn_strokeDasharray(d, i)[1]}`)
@@ -35,15 +36,15 @@ export default class XyMouseLines extends Component {
 					.call(enter => 
 						enter
 							.transition(transition)
-							.attr("d", (d, i) => `M ${fn_x(d, i)}, ${yExtent[0]} ${fn_x(d, i)}, ${yExtent[1]}`)
-							.attr("opacity", self._opacity)),
+							.attr("d", (d, i) => `M ${fn_x(d, i)}, ${fn_y0(d, i)} ${fn_x(d, i)}, ${fn_y1(d, i)}`)
+							.attr("opacity", self._fn_opacity)),
 				update => update
 					.call(update => 
 						update
 							.transition(transition)
-							.attr("opacity", self._opacity)
-							.attr("d", (d, i) => "M" + fn_x(d, i) + "," + yExtent[0] + " " 
-								+ fn_x(d, i) + "," + yExtent[1]),
+							.attr("opacity", self._fn_opacity)
+							.attr("d", (d, i) => "M" + fn_x(d, i) + "," + fn_y0(d, i) + " " 
+								+ fn_x(d, i) + "," + fn_y1(d, i)),
 					),
 				exit => exit
 					.call(exit => 
@@ -52,6 +53,7 @@ export default class XyMouseLines extends Component {
 							.attr("opacity", 0)
 							.remove())
 			)
+
 		};
 	}
 
@@ -68,6 +70,6 @@ export default class XyMouseLines extends Component {
 		self._group
 			.selectAll("path")
 			.data(self._chart.data.filter(self._fn_defined), self._chart.fn_key)
-			.call(self._fn_draw, transition);
+			.call(self._fn_draw, transition)
 	}
 }

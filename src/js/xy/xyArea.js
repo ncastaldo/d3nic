@@ -51,7 +51,7 @@ export default class XyArea extends Component {
 
 			}
 					
-			newArea.call(area => {
+			self._join = newArea.call(area => {
 					oldArea.empty() ? 
 						area.attr("d", fn_areaBottom) : 
 						area.attr("opacity", 0)

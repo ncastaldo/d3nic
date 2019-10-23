@@ -42,6 +42,11 @@ export default class Component {
 		self._chart = chart;
 	}
 
+	get join() {
+		let self = this;
+		return self._join || d3.select(null);
+	}
+
 	draw(chart, options) {
 		let self = this;
 

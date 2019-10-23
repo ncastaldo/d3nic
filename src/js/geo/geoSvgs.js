@@ -23,7 +23,7 @@ export default class GeoSvgs extends Component {
 
 		self.fn_draw = (geoSvgs, transition) => {
 
-			geoSvgs.join(
+			self._join = geoSvgs.join(
 				enter => enter
 					.append("svg")
 					.attr("x", fn_x)

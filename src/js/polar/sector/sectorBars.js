@@ -24,7 +24,7 @@ export default class SectorBars extends PolarComponent {
 
 		self._fn_draw = (sectorBars, transition) => {
 
-			sectorBars.join(
+			self._join = sectorBars.join(
 				enter => enter
 					.append("path")
 					.attr("stroke", self._fn_stroke)

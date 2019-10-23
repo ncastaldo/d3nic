@@ -9,7 +9,6 @@ export default class XyMouseBrusher extends Component {
 		self._fn_onBrushAction = params.fn_onBrushAction || ((brushed, unbrushed) => {}); // RETURNS THE CHANGES, not all the brushed elements
 		self._fn_onEndAction = params.fn_onEndAction || ((brushed, unbrushed) => {});
 
-		return self._
 	}
 
 	/**
@@ -167,8 +166,6 @@ export default class XyMouseBrusher extends Component {
 
 		}
 		
-
-		return self._
 	}
 
 	/**
@@ -183,6 +180,5 @@ export default class XyMouseBrusher extends Component {
 
 		self._group.call(self._fn_draw, transition)
 
-		return self._
 	}
 }

@@ -24,7 +24,7 @@ export default class XyCircles extends Component {
 
 		self._fn_draw = (circles, transition) => {
 
-			circles.join(
+			self._join = circles.join(
 				enter =>
 					enter
 						.append("circle")

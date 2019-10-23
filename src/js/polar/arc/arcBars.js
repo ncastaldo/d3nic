@@ -31,7 +31,7 @@ export default class ArcBars extends PolarComponent {
 
 		self._fn_draw = (arcBars, transition) => {
 
-			arcBars.join(
+			self._join = arcBars.join(
 				enter => enter
 					.append("path")
 					.attr("stroke", self._fn_stroke)
