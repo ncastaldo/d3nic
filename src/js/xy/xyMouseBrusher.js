@@ -24,7 +24,7 @@ export default class XyMouseBrusher extends Component {
 
 		const fn_brush = d3.brushX()
 
-		self._fn_draw = (brush, options) => {
+		self._fn_draw = (brush, transition) => {
 
 			const dataBrush = chart.data.map((d, i) => { 
 				return { d: d, i: i, brushed: true, change: false } 
@@ -174,14 +174,14 @@ export default class XyMouseBrusher extends Component {
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 
 		self._group.classed("xy-mouse-brusher", true)
 
-		self._group.call(self._fn_draw, options)
+		self._group.call(self._fn_draw, transition)
 
 		return self._
 	}

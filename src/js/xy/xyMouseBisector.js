@@ -24,7 +24,7 @@ export default class XyMouseBisector extends Component {
 
 		const mouseScale = d3.scaleQuantize();
 
-		self._fn_draw = (mouseBisector, options) => {
+		self._fn_draw = (mouseBisector, transition) => {
 			const x0 = chart.fn_xScale.range()[0];
 			const x1 = chart.fn_xScale.range()[1];
 
@@ -105,14 +105,14 @@ export default class XyMouseBisector extends Component {
 	/**
 	 *	@override
 	 */
-	draw(options) {
-		super.draw(options);
+	draw(transition) {
+		super.draw(transition);
 
 		let self = this;
 
 		self._group.classed("xy-mouse-bisector js__empty-group", true);
 
-		self._chart.group.call(self._fn_draw, options);
+		self._chart.group.call(self._fn_draw, transition);
 
 		return self._
 	}

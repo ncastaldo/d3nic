@@ -5,7 +5,7 @@
 		{ key: 0, v1: 4, v2: 9 },
 		{ key: 1, v1: 5, v2: 5 },
 		{ key: 2, v1: 3, v2: 4 },
-		{ key: 3, v1: 7, v2: 8 },
+		{ key: 3, v1: NaN, v2: 8 },
 		{ key: 4, v1: 2, v2: 1 },
 		{ key: 5, v1: 2, v2: 2 },
 		{ key: 6, v1: 6, v2: 8 },
@@ -21,8 +21,10 @@
 
 	const xyChart = new d3nic.XyChart(svg1, {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
+		size: {width: 800, height: 400},
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
+		data: data,
 		components: [
 			new d3nic.XyAxes(),
 			new d3nic.XyMouseBisector(),
@@ -47,8 +49,7 @@
 				fn_radius: 5,
 				fn_fill: "red"
 			})
-		],
-		data: data,
+		]
 	})
 
 
@@ -61,6 +62,7 @@
 		},
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
+		data: data,
 		components: [
 			new d3nic.ArcBars({
 				fn_value: (d, i) => d.v1,
@@ -68,7 +70,6 @@
 				fn_strokeWidth: () => 0,
 			})
 		],
-		data: data
 	})
 
 
@@ -79,6 +80,7 @@
 		sectorPadding: {inner: 0, outer: 0},
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
+		data: data,
 		components: [
 			new d3nic.SectorBars({
 				fn_value: (d, i) => d.v1,
@@ -93,23 +95,63 @@
 				fn_strokeWidth: () => 2,
 			})
 		],
-		data: data,
 	})
 
 		
-	let map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/0.json")
-	let featureCollection = topojson.feature(map, map.objects.nutsrg)
+	let map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/2.json")
+	let features = topojson.feature(map, map.objects.nutsrg).features.filter(f => f.properties.id.startsWith("FR") && f.properties.id.length > 3 )
+
+	let featureCollection = { type: "FeatureCollection", features: features }
+
+
+
+	const clickGeoRegions = (d, i, nodes) => {
+
+		const zoomed = d3.select(nodes[i]).classed("zoomed")
+
+		geoChart.projectionObject = zoomed ? 
+			{ type: "FeatureCollection", features: d3.selectAll(nodes).data() } : d
+
+
+		d3.selectAll(nodes).filter(f => f !== d)
+			.classed("zoomed", false)
+
+		d3.select(nodes[i])
+			.classed("zoomed", !zoomed)
+
+		
+		const t = d3.transition().duration(1000)
+		draw(t)
+	}
+
+	const mouseoverGeoRegions = (d, i, nodes) => {
+		d3.select(nodes[i])
+			.classed("over", true)
+			.style("fill-opacity", 0.7)
+	}
+
+	const mouseoutGeoRegions = (d, i, nodes) => {
+		d3.select(nodes[i])
+			.classed("over", false)
+			.style("fill-opacity", 1)
+	}
+
 
 	const geoChart = new d3nic.GeoChart(svg4, {
 		projectionObject: featureCollection,
 		data: featureCollection.features,
 		size: {width: 500, height: 400},
-		fn_key: d => d.properties.NC_KEY,
+		fn_key: d => d.properties.id,
+		data: featureCollection.features,
 		components: [
 			new d3nic.GeoRegions({
-				fn_fill: (d, i, nodes) => d3.interpolateViridis(Math.random()),
+				fn_fill: (d, i, nodes) => d3.interpolateViridis(nodes.length > 0 ? i/nodes.length : 0.5),
+				fn_fillOpacity: (d, i, nodes) => d3.select(nodes[i]).classed("over") ? 1 : 0.7,
 				fn_value: d => d,
-				fn_strokeWidth: () => 0
+				fn_enter: enter => enter
+					.on("mouseover", mouseoverGeoRegions)
+					.on("mouseout", mouseoutGeoRegions)
+					.on("click", clickGeoRegions),
 			}),
 			/*new GeoTooltips({
 				fn_enter: (enter, options) => enter.each((d, i, nodes) => {
@@ -128,7 +170,6 @@
 				})
 			})*/
 		],
-		data: featureCollection.features
 	})
 
 
@@ -154,23 +195,22 @@
 		arcChart.data = data
 		sectorChart.data = data
 		
-		draw()
+		const t = d3.transition("data").duration(500);
+		draw(t)
 	})
 
 
-	const draw = async () => {
+	const draw = (t=undefined) => {
 
-		const t = d3.transition("data").duration(1000);
 		xyChart.draw(t)
 		arcChart.draw(t);
 		sectorChart.draw(t);
 		geoChart.draw(t);
 
-		//t.end().then((res) => console.log(res))
-
 	}
 
-	draw()
+	const t = d3.transition("data").duration(1000);
+	draw(t)
 
 /*
 

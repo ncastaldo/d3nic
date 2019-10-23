@@ -19,59 +19,52 @@ export default class XyLine extends Component {
 		const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i))
 		const fn_y = (d, i) => chart.fn_yScale(self._fn_value(d, i))
 
+		const fn_y0 = (d, i) => chart.fn_yScale.range()[0]
+
 		const fn_line = d3.line()
 			.defined(self._fn_defined)
 			.x(fn_x)
 			.y(fn_y)
 			.curve(d3.curveMonotoneX);
 
-		self._fn_draw = (line, transition) => {
+		const fn_lineBottom = d3.line()
+			.defined(self._fn_defined)
+			.x(fn_x)
+			.y(fn_y0)
+			.curve(d3.curveMonotoneX);
 
-			const halfTransition = d3
-				.transition(transition._name + ".half")
-				.duration(transition.duration() / 2)
+		self._fn_draw = (group, transition) => {
 
-			line.join(
-				enter =>
-					enter
-						.append("path")
-						.attr("fill", "none") // to make it a line
-						.attr("stroke", self._fn_stroke)
-						.attr("stroke-width", self._fn_strokeWidth)
-						.attr("d", fn_line)
-						.style("opacity", self._fn_opacity)
-						.call(self._fn_enter)
-						.call(enter => {
-							const lineLength = enter.node()
-								? enter.node().getTotalLength()
-								: 0;
-							enter.attr("stroke-dasharray", `${lineLength} ${lineLength}`)
-								.attr("stroke-dashoffset", lineLength)
-								.transition(transition)
-								.attr("stroke-dashoffset", 0)
-						}),
-				update =>
-					update
-						.attr("stroke-dasharray", null)
-						.attr("stroke-dashoffset", null)
-						.call(update => { 
-							if(transition._name === "data") {
-								update.transition(halfTransition)
-									.style("opacity", 0)
-									.on("end", () => {
-										update.attr("d", fn_line)
-									})
-									.transition(halfTransition)
-									.style("opacity", self._fn_opacity)
-							} else {
-								update.transition(transition)
-									.attr("d", fn_line)
-							}
-						})
-			);
+			const oldLine = group.selectAll("path.drawn")
+
+			const newLine = group
+					.datum(chart.data)
+					.append("path")
+
+			if(!oldLine.empty()) {
+
+				oldLine.transition(transition)
+					.style("opacity", 0)
+					.remove()
+
+			}
+					
+			newLine.call(line => {
+					oldLine.empty() ? 
+						line.attr("d", fn_lineBottom) : 
+						line.style("opacity", 0)
+				})
+				.classed("drawn", true)
+				.attr("fill", "none")
+				.attr("stroke", self._fn_stroke) 
+				.attr("stroke-width", self._fn_strokeWidth) 
+				.call(self._fn_enter)
+				.transition(transition)
+				.style("opacity", self._fn_opacity)
+				.attr("d", fn_line)
+
+
 		};
-
-		return self._
 	}
 
 	/**
@@ -84,11 +77,6 @@ export default class XyLine extends Component {
 
 		self._group.classed("xy-line", true);
 
-		self._group
-			.selectAll("path")
-			.data([self._chart.data])
-			.call(self._fn_draw, transition);
-
-		return self._
+		self._group.call(self._fn_draw, transition);
 	}
 }

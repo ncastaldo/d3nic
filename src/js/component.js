@@ -10,7 +10,7 @@ export default class Component {
 		self._fn_fill = params.fn_fill || ( (d, i) => "red" );
 		self._fn_fillOpacity = params.fn_fillOpacity || ( (d, i) => 1 );
 		self._fn_opacity = params.fn_opacity || ( (d, i) => 1 ); 
-
+		
 		self._fn_value = params.fn_value || (() => NaN);
 		self._fn_defined = params.fn_defined || 
 			((d, i) => self.fn_value && !isNaN(self.fn_value(d, i)) ); 

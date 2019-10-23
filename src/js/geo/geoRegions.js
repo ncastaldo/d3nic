@@ -33,6 +33,7 @@ export default class GeoRegions extends Component {
 			
 					}),
 				update => update
+					.call(self._fn_update)
 					.call(update => {
 
 						update.transition(transition)
@@ -45,6 +46,7 @@ export default class GeoRegions extends Component {
 					
 					}),
 				exit => exit
+					.call(self._fn_exit)
 					.call(exit => {
 						exit.transition(transition)
 							.style("opacity", 0)
