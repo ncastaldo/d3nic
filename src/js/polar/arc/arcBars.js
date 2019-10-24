@@ -96,7 +96,7 @@ export default class ArcBars extends PolarComponent {
 					.call(exit => 
 						exit.transition(transition)
 							//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
-							.attrTween("d", self.fn_arcTween)
+							.attrTween("d", self._fn_arcTween)
 							.attr("opacity", 0)
 							.remove()),
 			)

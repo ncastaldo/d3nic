@@ -63,7 +63,6 @@ export default class XyLine extends Component {
 				.attr("opacity", self._fn_opacity)
 				.attr("d", fn_line)
 
-
 		};
 	}
 

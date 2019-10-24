@@ -28,53 +28,48 @@ export default class SectorArea extends PolarComponent {
 			.outerRadius(fn_outerRadius)
 			.curve(d3.curveLinearClosed);
 
-		self._fn_draw = (area, transition) => {
+		const fn_innerArea = d3.radialArea()
+			.defined(self._fn_defined)
+			.angle(fn_angle)
+			.innerRadius(fn_innerRadius)
+			.outerRadius(fn_innerRadius)
+			.curve(d3.curveLinearClosed);
 
-			fn_scalePoint.domain(chart.data.map(chart.fn_key))	
+		(group, transition) => {
+
+			fn_scalePoint
+				.domain(chart.data.map(chart.fn_key))	
 				.range(chart.fn_angleScale.range())
 
-			const halfTransition = d3
-				.transition(transition._name + ".half")
-				.duration(transition.duration() / 2)
+			const oldArea = group.selectAll("path.drawn")
 
-			area.join(
-				enter => enter
+			const newArea = group
+					.datum(chart.data)
 					.append("path")
-					.call(enter => {
-						fn_area.outerRadius(fn_innerRadius) // bottom -> up
-						enter.attr("d", fn_area)
-					})
-					.attr("fill", self._fn_fill) 
-					.attr("fill-opacity", self._fn_fillOpacity)
-					.attr("opacity", self._fn_opacity)
-					.call(self._fn_enter)
-					.call(enter => {
-						fn_area.outerRadius(fn_outerRadius)
 
-						enter.transition(transition)
-							.attr("d", fn_area)
-					}),
-				update => update
-					.call(update => {
-						if (transition._name === "data") {
-							update.transition(halfTransition)
-								.attr("opacity", 0)
-								.on("end", () => {
-									update.attr("d", fn_area)
-								})
-								.transition(halfTransition)
-								.attr("opacity", self._fn_opacity)
-						} else {
-							update.transition(transition)
-								.attr("d", fn_area)
-						}
-						
-					})
-			)
+			if(!oldArea.empty()) {
+
+				oldArea.transition(transition)
+					.attr("opacity", 0)
+					.remove()
+
+			}
+
+			self._join = newArea
+				.call(area => {
+					oldArea.empty() ? 
+						area.attr("d", fn_innerArea) : 
+						area.attr("opacity", 0)
+				})
+				.classed("drawn", true)
+				.attr("fill", self._fn_fill) 
+				.attr("fill-opacity", self._fn_fillOpacity)
+				.call(self._fn_enter)
+				.transition(transition)
+				.attr("opacity", self._fn_opacity)
+				.attr("d", fn_area)
 
 		};
-
-		return self;
 	}
 
 	/**
@@ -85,11 +80,9 @@ export default class SectorArea extends PolarComponent {
 
 		let self = this;
 
-		self._group.classed("xy-area", true);
+		self._group.classed("sector-area", true);
 
-		self._group
-			.selectAll("path")
-			.data([self._chart.data])
-			.call(self._fn_draw, transition);
+		self._group.call(self._fn_draw, transition);
+
 	}
 }

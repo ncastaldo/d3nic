@@ -1,23 +1,36 @@
 (async () => {
 
 
-	let data = [
+	const data = [
 		{ key: 0, v1: 4, v2: 9 },
 		{ key: 1, v1: 5, v2: 5 },
 		{ key: 2, v1: 3, v2: 4 },
-		{ key: 3, v1: NaN, v2: 8 },
+		{ key: 3, v1: 3, v2: 8 },
 		{ key: 4, v1: 2, v2: 1 },
 		{ key: 5, v1: 2, v2: 2 },
 		{ key: 6, v1: 6, v2: 8 },
 		{ key: 7, v1: 7, v2: 3 },
 		{ key: 8, v1: 9, v2: 2 },
+		{ key: 9, v1: 6, v2: 2 },
+		{ key: 10, v1: 6, v2: 5 },
+		{ key: 11, v1: 1, v2: 1 },
+		{ key: 12, v1: 3, v2: 7 },
+		{ key: 13, v1: 8, v2: 4 },
+		{ key: 14, v1: 6, v2: 7 },
+		{ key: 15, v1: 9, v2: 5 },
+		{ key: 16, v1: 2, v2: 2 },
+		{ key: 17, v1: 2, v2: 6 },
+		{ key: 18, v1: 4, v2: 7 },
 	];
 
+	const fn_fill = d => d3.interpolateViridis(data.length ? 1-d.key/data.length : 0)
+	
 
 	const svg1 = d3.select(".container").append("svg")
 	const svg2 = d3.select(".container").append("svg")
 	const svg3 = d3.select(".container").append("svg")
 	const svg4 = d3.select(".container").append("svg")
+	const svg5 = d3.select(".container").append("svg")
 
 	const mouseoverXyBisector = (d, i) => {
 		xyMouseLines.join.style("opacity", f => d===f ? 1 : null)
@@ -31,6 +44,7 @@
 		xyCircles.join.style("r", null)
 		arcBars.join.style("opacity", null)
 		sectorBars.join.style("opacity", null)
+		xyBars.join.style("opacity", null)
 	}
 
 	const xyMouseLines = new d3nic.XyMouseLines({
@@ -77,7 +91,7 @@
 
 	const arcBars = new d3nic.ArcBars({
 		fn_value: (d, i) => d.v1,
-		fn_fill: (d, i, nodes) => d3.interpolateViridis(1-i/nodes.length),
+		fn_fill: fn_fill,
 		fn_strokeWidth: () => 0,
 	})
 
@@ -98,7 +112,7 @@
 
 	const sectorBars = new d3nic.SectorBars({
 		fn_value: (d, i) => d.v1,
-		fn_fill: (d, i, nodes) => d3.interpolateViridis(1-i/nodes.length),
+		fn_fill: fn_fill,
 		fn_strokeWidth: () => 0,
 	})
 
@@ -116,7 +130,7 @@
 				fn_value: (d, i) => d.v1,
 				//fn_fill: d3.schemeReds[9][4],
 				//fn_fillOpacity: 0.5,
-				fn_stroke: () => "white",
+				fn_stroke: () => "black",
 				fn_strokeWidth: () => 2,
 			})
 		],
@@ -132,25 +146,27 @@
 
 	const clickGeoRegions = (d, i, nodes) => {
 
-		const zoomed = d3.select(nodes[i]).classed("zoomed")
+		const zoomed = d3.selectAll(nodes)
+			.filter(f => f === d)
+			.classed("zoomed")
 
 		geoChart.projectionObject = zoomed ? 
 			{ type: "FeatureCollection", features: d3.selectAll(nodes).data() } : d
 
-
-		d3.selectAll(nodes).filter(f => f !== d)
+		d3.selectAll(nodes)
+			.classed("outside", !zoomed)
 			.classed("zoomed", false)
-
-		d3.select(nodes[i])
+			.filter(f => f === d)
+			.classed("outside", false)
 			.classed("zoomed", !zoomed)
 
-		
 		const t = d3.transition().duration(1000)
-		draw(t)
+		geoChart.draw(t)
 	}
 
 	const mouseoverGeoRegions = (d, i, nodes) => {
-		geoRegions.join.style("fill-opacity", f => f === d ? 0.7 : null)
+		geoRegions.join.style("fill-opacity", 
+			f => f === d && !d3.select(nodes[i]).classed("outside") ? 0.7 : null)
 	}
 
 	const mouseoutGeoRegions = (d, i, nodes) => {
@@ -160,6 +176,7 @@
 	const geoRegions = new d3nic.GeoRegions({
 			fn_fill: (d, i, nodes) => d3.interpolateViridis(nodes.length > 0 ? i/nodes.length : 0.5),
 			fn_value: d => d,
+			fn_opacity: (d, i, nodes) => d3.select(nodes[i]).classed("outside") ? 0 : 1,
 			fn_enter: enter => enter
 				.on("mouseover", mouseoverGeoRegions)
 				.on("mouseout", mouseoutGeoRegions)
@@ -193,34 +210,48 @@
 		],
 	})
 
+	const fn_onBrushAction = brushData => {
+		xyBars.join.style("fill-opacity", (d, i) => !brushData[i].brushed ? 0.2 : null) // working on indexes, not so pretty	
+		const newData = brushData.filter(bd => bd.brushed).map(bd => bd.d);
+		xyChart.data = newData;
+		arcChart.data = newData;
+		sectorChart.data = newData;
+		drawUpdate();
+	}	
+	
+	const fn_onEndAction = brushData => {
+		/*const newData = brushData.filter(bd => bd.brushed).map(bd => bd.d);
+		xyChart.data = newData;
+		arcChart.data = newData;
+		sectorChart.data = newData;
+		drawUpdate(d3.transition());*/
+	}
 
 
-	const fn_randomNatural = (range) => Math.floor(( Math.random() * range[1] )) + range[0]
-
-	svg1.on("click", () => {
-
-		const start = data[data.length - 1].key
-
-		const rem = fn_randomNatural([0, data.length]) - 1
-		const add = fn_randomNatural([0, data.length])
-		
-
-		for(let i = 0; i<rem; i++)
-			data.shift();
-
-		for(let j = 0; j<add; j++)
-			data.push({ key: start + j + 1, v1: fn_randomNatural([2, 12]), v2: fn_randomNatural([4, 8]) });
-
-
-		xyChart.data = data
-		arcChart.data = data
-		sectorChart.data = data
-		
-		const t = d3.transition("data").duration(500);
-		draw(t)
+	const xyBars = new d3nic.XyBars({
+		fn_value: d => d.v1,
+		fn_strokeWidth: d => 0,
+		fn_fill: fn_fill,
 	})
 
-	const draw = (t=undefined) => {
+	const xyMouseBrusher = new d3nic.XyMouseBrusher({
+		fn_onBrushAction: fn_onBrushAction,
+		fn_onEndAction: fn_onEndAction
+	})
+
+	const xyBrushChart = new d3nic.XyChart(svg5, {
+		padding: { top: 50, right: 50, bottom: 50, left: 50 },
+		xPadding: { inner: 0, outside: 0},
+		size: { width: 700 },
+		fn_key: d => d.key,
+		valueDomain: [0, NaN],
+		data: data,
+		components: [
+			xyBars, xyMouseBrusher
+		]
+	})
+
+	const drawUpdate = (t=undefined) => {
 
 		xyChart.draw(t)
 		arcChart.draw(t);
@@ -230,7 +261,8 @@
 	}
 
 	const t = d3.transition("data").duration(1000);
-	draw(t)
+	xyBrushChart.draw(t)
+	drawUpdate(t)
 
 /*
 

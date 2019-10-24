@@ -14,21 +14,23 @@ export default class XyBars extends Component {
 
 		let self = this;
 
+		const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i));
+		const fn_width = (d, i) => chart.fn_xScale.bandwidth();
+		const fn_y = (d, i) => chart.fn_yScale(self._fn_value(d, i));
+		const fn_height = (d, i) => chart.fn_yScale.range()[0] - chart.fn_yScale(self._fn_value(d, i));
+
+		const fn_yBottom = (d, i) => chart.fn_yScale.range()[0];
+		const fn_heightBottom = (d, i) => 0;
+
 		self._fn_draw = (bars, transition) => {
-
-			// fn_barScale refers to the height of the bars
-			const fn_barScale = chart.fn_yScale.copy()
-				.range([0, chart.fn_yScale.range()[0] - chart.fn_yScale.range()[1] ])
-
-			const barWidth = chart.fn_xScale.bandwidth()
 
 			self._join = bars.join(
 				enter => enter
 					.append("rect")
-					.attr("x", (d, i) => chart.fn_xScale(chart.fn_key(d, i)))
-					.attr("width", barWidth)
-					.attr("y", (d, i) => chart.fn_yScale.range()[0])
-					.attr("height", 0)
+					.attr("x", fn_x)
+					.attr("width", fn_width)
+					.attr("y", fn_yBottom)
+					.attr("height", fn_heightBottom)
 					.attr("stroke", self._fn_stroke)
 					.attr("stroke-width", self._fn_strokeWidth)
 					.attr("fill", self._fn_fill)
@@ -37,25 +39,24 @@ export default class XyBars extends Component {
 					.call(enter => enter.transition(transition)
 						//(d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
 						//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
-						.attr("width", (d, i) => barWidth)
-						.attr("y", (d, i) => chart.fn_yScale(self._fn_value(d, i)))
-						.attr("height", (d, i) => self._fn_defined(d, i) ? fn_barScale(self._fn_value(d, i)) : 0)
+						.attr("y", fn_y)
+						.attr("height", fn_height)
 						.attr("opacity", self._fn_opacity)),
 				update => update
 					.call(update => update.transition(transition)
 						.attr("fill", self._fn_fill)
-						.attr("x", (d, i) => chart.fn_xScale(chart.fn_key(d, i)))
-						.attr("width", (d, i) => barWidth)
-						.attr("y", (d, i) => chart.fn_yScale(self._fn_value(d, i)))
-						.attr("height", (d, i) => self._fn_defined(d, i) ? fn_barScale(self._fn_value(d, i)) : 0)
+						.attr("x", fn_x)
+						.attr("width", fn_width)
+						.attr("y", fn_y)
+						.attr("height", fn_height)
 						.attr("opacity", self._fn_opacity)),
 				exit => exit
 					.call(exit => exit.transition(transition)
 						//(d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
 						//.delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
 						//.attr("width", (d, i) => barWidth)
-						.attr("y", (d, i) => chart.fn_yScale.range()[0])
-						.attr("height", (d, i) => 0)
+						.attr("y", fn_yBottom)
+						.attr("height", fn_heightBottom)
 						.attr("opacity", 0)
 						.remove())
 			)

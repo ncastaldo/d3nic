@@ -6,8 +6,8 @@ export default class XyMouseBrusher extends Component {
 
 		let self = this;
 
-		self._fn_onBrushAction = params.fn_onBrushAction || ((brushed, unbrushed) => {}); // RETURNS THE CHANGES, not all the brushed elements
-		self._fn_onEndAction = params.fn_onEndAction || ((brushed, unbrushed) => {});
+		self._fn_onBrushAction = params.fn_onBrushAction || (dataBrush => {});
+		self._fn_onEndAction = params.fn_onEndAction || (dataBrush => {});
 
 	}
 
@@ -30,7 +30,9 @@ export default class XyMouseBrusher extends Component {
 			})
 
 			mouseScale.domain(chart.fn_xScale.range())
-				.range(dataBrush.map((d, i) => i)) // use index to keep information on it
+				.range(chart.data.length ? 
+					chart.data.map((d, i) => i) :  // use index to keep information on it
+					[0])
 
 			const halfStep = (mouseScale.thresholds()[1] - mouseScale.thresholds()[0]) / 2
 

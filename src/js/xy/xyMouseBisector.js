@@ -24,7 +24,7 @@ export default class XyMouseBisector extends Component {
 
 		const mouseScale = d3.scaleQuantize();
 
-		self._fn_draw = (mouseBisector, transition) => {
+		self._fn_draw = (group, transition) => {
 			const x0 = chart.fn_xScale.range()[0];
 			const x1 = chart.fn_xScale.range()[1];
 
@@ -33,11 +33,15 @@ export default class XyMouseBisector extends Component {
 
 			// ADJUSTING THE STEP for lines/areas... put flag in case of bars...
 
-			const step = Math.abs((x0 - x1) / chart.data.length); // what if 0?
+			const step = chart.data.length ? Math.abs((x0 - x1) / chart.data.length) : 0;
 
 			const domain = [x0 - step / 2, x1 + step / 2]; // if negative?
 
-			mouseScale.domain(domain).range(chart.data.map((d, i) => i)); // use index to keep information on it
+			mouseScale
+				.domain(domain)
+				.range(chart.data.length ? 
+					chart.data.map((d, i) => i) :  // use index to keep information on it
+					[0]);
 
 			// helpers
 			let dLast;
@@ -95,8 +99,10 @@ export default class XyMouseBisector extends Component {
 				}
 			};
 
-			mouseBisector.on("mousemove.mouse-bisector", fn_onMousemove);
-			mouseBisector.on("mouseleave.mouse-bisector", fn_onMouseleave);
+			// TODO APPEND RECT
+
+			group.on("mousemove.mouse-bisector", fn_onMousemove);
+			group.on("mouseleave.mouse-bisector", fn_onMouseleave);
 		};
 
 		return self._
@@ -110,7 +116,7 @@ export default class XyMouseBisector extends Component {
 
 		let self = this;
 
-		self._group.classed("xy-mouse-bisector js__empty-group", true);
+		self._group.classed("xy-mouse-bisector", true)
 
 		self._chart.group.call(self._fn_draw, transition);
 

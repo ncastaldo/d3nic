@@ -17,8 +17,13 @@ export default class SectorLine extends PolarComponent {
 		let self = this;
 
 		// fn_scaleBand refers to the position of the bars
-		const fn_angle = (d, i) => chart.fn_angleScale(chart.fn_key(d, i)) + chart.fn_angleScale.bandwidth()/2
+		const fn_scalePoint = d3.scalePoint()	
+			.padding(0.5) // CENTERING THINGS LIKE A BOSS
+
+		const fn_angle = (d, i) => fn_scalePoint(chart.fn_key(d, i))
 		const fn_radius = (d, i) => chart.fn_radiusScale(self._fn_value(d, i))
+
+		const fn_innerRadius = (d, i) => chart.fn_radiusScale.range()[0]
 
 		const fn_line = d3.radialLine()
 			.defined(self._fn_defined)
@@ -26,54 +31,47 @@ export default class SectorLine extends PolarComponent {
 			.radius(fn_radius)
 			.curve(d3.curveLinearClosed);
 
-		self._fn_draw = (line, transition) => {
+		const fn_innerLine = d3.radialLine()
+			.defined(self._fn_defined)
+			.angle(fn_angle)
+			.radius(fn_innerRadius)
+			.curve(d3.curveLinearClosed);
 
-			const halfTransition = d3
-				.transition(transition._name + ".half")
-				.duration(transition.duration() / 2)
+		self._fn_draw = (group, transition) => {
 
-			line.join(
-				enter => enter
+			fn_scalePoint
+				.domain(chart.data.map(chart.fn_key))	
+				.range(chart.fn_angleScale.range())
+
+			const oldLine = group.selectAll("path.drawn")
+
+			const newLine = group
+					.datum(chart.data)
 					.append("path")
-					.attr("fill", "none") // to make it a line
-					.attr("stroke", self._fn_stroke)
-					.attr("stroke-width", self._fn_strokeWidth)
-					.attr("opacity", self._fn_opacity)
-					.attr("d", fn_line)
-					.call(self._fn_enter)
-					.call(enter => {
-						const lineLength = enter.node()
-							? enter.node().getTotalLength()
-							: 0;
-						enter.attr("stroke-dasharray", `${lineLength} ${lineLength}`)
-							.attr("stroke-dashoffset", lineLength)
-							.transition(transition)
-							.attr("stroke-dashoffset", 0)
-							.on("end", () => {
-								enter.attr("stroke-dasharray", null)
-									.attr("stroke-dashoffset", null);
-							})
-					}),
-				update => update
-					.call(update => { 
-						if(transition._name === "data") {
-							update.transition(halfTransition)
-								.attr("opacity", 0)
-								.on("end", () => {
-									update.attr("d", fn_line)
-								})
-								.transition(halfTransition)
-								.attr("opacity", self._fn_opacity)
-						} else {
-							update.transition(transition)
-								.attr("d", fn_line)
-						}
-					})
-			)
+
+			if(!oldLine.empty()) {
+
+				oldLine.transition(transition)
+					.attr("opacity", 0)
+					.remove()
+
+			}
+					
+			self._join = newLine.call(line => {
+					oldLine.empty() ? 
+						line.attr("d", fn_innerLine) : 
+						line.attr("opacity", 0)
+				})
+				.classed("drawn", true)
+				.attr("fill", "none")
+				.attr("stroke", self._fn_stroke) 
+				.attr("stroke-width", self._fn_strokeWidth) 
+				.call(self._fn_enter)
+				.transition(transition)
+				.attr("opacity", self._fn_opacity)
+				.attr("d", fn_line)
 
 		};
-
-		return self;
 	}
 
 	/**
@@ -84,11 +82,8 @@ export default class SectorLine extends PolarComponent {
 
 		let self = this;
 
-		self._group.classed("xy-line", true);
+		self._group.classed("sector-line", true);
 
-		self._group
-			.selectAll("path")
-			.data([self._chart.data])
-			.call(self._fn_draw, transition);
+		self._group.call(self._fn_draw, transition);
 	}
 }
