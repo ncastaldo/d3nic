@@ -9,7 +9,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
-        libraryTarget: 'var', // tells webpack to make the library available as a global variable.
+        libraryTarget: 'umd', 
         library: 'd3nic' // names that global variable (in this case, it's d3nic.
     },
     module: {
