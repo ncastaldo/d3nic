@@ -22,7 +22,7 @@ module.exports = {
     devServer: {
         contentBase: __dirname + '/test',
         compress: true,
-        port: 8080
+        port: 7777
     },
     optimization:{
         minimize: true,

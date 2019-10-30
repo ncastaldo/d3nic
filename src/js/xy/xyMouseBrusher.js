@@ -6,6 +6,9 @@ export default class XyMouseBrusher extends Component {
 
 		let self = this;
 
+		self._brushFill = params.brushFill || d3.schemeBlues[5][3];
+		self._brushFillOpacity = params.brushFillOpacity || 0.1;
+
 		self._fn_onBrushAction = params.fn_onBrushAction || (dataBrush => {});
 		self._fn_onEndAction = params.fn_onEndAction || (dataBrush => {});
 
@@ -161,8 +164,8 @@ export default class XyMouseBrusher extends Component {
 				.attr("y", chart.fn_yScale.range()[1])
 
 			brush.select("rect.selection")
-				.attr("fill", "#6a51a3")
-				.attr("fill-opacity", 0.1)
+				.attr("fill", self._brushFill)
+				.attr("fill-opacity", self._brushFillOpacity)
 				.attr("stroke", "")
 
 

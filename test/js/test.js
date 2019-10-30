@@ -137,11 +137,12 @@
 	})
 
 		
-	let map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/2.json")
-	let features = topojson.feature(map, map.objects.nutsrg).features.filter(f => f.properties.id.startsWith("FR") && f.properties.id.length > 3 )
+	let map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/3.json")
+	let features = topojson.feature(map, map.objects.nutsrg).features.filter(f => f.properties.id.startsWith("IT") && f.properties.id.length > 3 )
 
 	let featureCollection = { type: "FeatureCollection", features: features }
 
+	console.log(features)
 
 
 	const clickGeoRegions = (d, i, nodes) => {
@@ -247,7 +248,7 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			xyBars, xyMouseBrusher
+			new d3nic.XyAxes(), xyBars, xyMouseBrusher
 		]
 	})
 
