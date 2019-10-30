@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
@@ -6,7 +7,8 @@ module.exports = {
         entry: __dirname + '/src/app.js'
     },
     output: {
-        filename: 'd3nic.min.js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'index.js',
         libraryTarget: 'var', // tells webpack to make the library available as a global variable.
         library: 'd3nic' // names that global variable (in this case, it's d3nic.
     },
