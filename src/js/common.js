@@ -1,3 +1,5 @@
+import * as d3 from "d3";
+
 /* ------------------------------------------------------ */
 /* ------------------------------------------------------ */
 /* ------------------------------------------------------ */
@@ -119,20 +121,6 @@ function removeFunction(id) {
 
 d3.transition.prototype.remove = function() {
     return this.on("end.remove", removeFunction(this._id));
-};
-
-
-/* ------------------------------------------------------ */
-/* ------------------------------------------------------ */
-/* ------------------------------------------------------ */
-
-// modifying the extent to 10% more and 10% less
-d3.modExtent = function(data, fn) {
-	let extent = d3.extent(data, fn);
-    let diff = Math.abs(extent[1] - extent[0])
-	extent[1] = extent[1] + diff * 0.1;
-	extent[0] = extent[0] - diff * 0.1;
-	return extent;
 };
 
 
