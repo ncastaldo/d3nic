@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import PolarChart from '../polarChart.js'
 
 export default class ArcChart extends PolarChart {

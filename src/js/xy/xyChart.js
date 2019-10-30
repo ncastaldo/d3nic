@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import Chart from '../chart.js'
 
 export default class XyChart extends Chart {

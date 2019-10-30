@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import PolarComponent from '../polarComponent.js'
 
 export default class SectorLine extends PolarComponent {

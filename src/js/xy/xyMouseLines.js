@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import Component from '../component.js'
 
 export default class XyMouseLines extends Component {
