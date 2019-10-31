@@ -26,11 +26,13 @@
 	const fn_fill = d => d3.interpolateViridis(data.length ? 1-d.key/data.length : 0)
 	
 
-	const svg1 = d3.select(".container").append("svg")
-	const svg2 = d3.select(".container").append("svg")
-	const svg3 = d3.select(".container").append("svg")
-	const svg4 = d3.select(".container").append("svg")
-	const svg5 = d3.select(".container").append("svg")
+	d3.select(".container").call(container => {
+		container.append("svg").classed("svg1", true)
+		container.append("svg").classed("svg2", true)
+		container.append("svg").classed("svg3", true)
+		container.append("svg").classed("svg4", true)
+		container.append("svg").classed("svg5", true)
+	})
 
 	const mouseoverXyBisector = (d, i) => {
 		xyMouseLines.join.style("opacity", f => d===f ? 1 : null)
@@ -58,7 +60,7 @@
 		fn_fill: "red"
 	})
 
-	const xyChart = new d3nic.XyChart(svg1, {
+	const xyChart = new d3nic.XyChart(".svg1", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		//size: {width: 800, height: 400},
 		fn_key: (d, i) => d.key,
@@ -95,7 +97,7 @@
 		fn_strokeWidth: () => 0,
 	})
 
-	const arcChart = new d3nic.ArcChart(svg2, {
+	const arcChart = new d3nic.ArcChart(".svg2", {
 		padding: { top: 0, right: 0, bottom: 0, left: 0 },
 		radiusRangeProportions: [0.1, 0.8],
 		angleRange: [ 1/2 * Math.PI, - Math.PI],
@@ -116,7 +118,7 @@
 		fn_strokeWidth: () => 0,
 	})
 
-	const sectorChart = new d3nic.SectorChart(svg3, {
+	const sectorChart = new d3nic.SectorChart(".svg3", {
 		padding: { top: 0, right: 0, bottom: 0, left: 0 },
 		radiusRangeProportions: [0.1, 0.8],
 		angleRange: [ 2*Math.PI, 0],
@@ -184,7 +186,7 @@
 				.on("click", clickGeoRegions),
 		})
 
-	const geoChart = new d3nic.GeoChart(svg4, {
+	const geoChart = new d3nic.GeoChart(".svg4", {
 		projectionObject: featureCollection,
 		data: featureCollection.features,
 		size: {width: 500, height: 400},
@@ -240,7 +242,7 @@
 		fn_onEndAction: fn_onEndAction
 	})
 
-	const xyBrushChart = new d3nic.XyChart(svg5, {
+	const xyBrushChart = new d3nic.XyChart(".svg5", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		xPadding: { inner: 0, outside: 0},
 		size: { width: 700 },

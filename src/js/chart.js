@@ -1,10 +1,10 @@
 import * as d3 from "d3";
 
 export default class Chart {
-	constructor(container, params = {}) {
+	constructor(selector, params = {}) {
 		let self = this;
 
-		self._container = container;
+		self._selector = selector;
 
 		self.initChart(self, params)
 		self.initComponents(self)
@@ -40,9 +40,10 @@ export default class Chart {
 
 	// fits the size of the svg
 	fn_fitSize(self) {
-		if(self._container.node().tagName === "svg") {
-			self._container.attr("width", `${self._size.width}px`);
-			self._container.attr("height", `${self._size.height}px`);
+		const selection = d3.select(self._selector);
+		if(selection.node().tagName === "svg") {
+			selection.attr("width", `${self._size.width}px`);
+			selection.attr("height", `${self._size.height}px`);
 		}
 	}
 
@@ -112,7 +113,7 @@ export default class Chart {
 		self.fn_fitSize(self);
 
 		// appending the group 
-		self._group = self._group || self._container.append("g").classed("chart", true);
+		self._group = self._group || d3.select(self._selector).append("g").classed("chart", true);
 
 		// drawing the components
 
