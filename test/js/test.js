@@ -263,6 +263,8 @@
 
 	}
 
+	console.log(d3)
+
 	const t = d3.transition("data").duration(1000);
 	xyBrushChart.draw(t)
 	drawUpdate(t)

@@ -6,6 +6,8 @@ export default class Chart {
 
 		self._selector = selector;
 
+		self._selection = d3.select(selector)
+
 		self.initChart(self, params)
 		self.initComponents(self)
 	}
@@ -113,8 +115,9 @@ export default class Chart {
 		self.fn_fitSize(self);
 
 		// appending the group 
-		self._group = self._group || d3.select(self._selector).append("g").classed("chart", true);
+		//self._group = self._group || d3.select(self._selector).append("g").classed("chart", true);
 
+		self._group = self._selection.append("g").classed("chart", true);
 		// drawing the components
 
 		self._components.forEach(component => component.draw(transition));

@@ -21,6 +21,9 @@ module.exports = {
 			}
 		]
     },
+    externals: {
+        d3: 'd3'
+    },
     devServer: {
         contentBase: __dirname + '/test',
         compress: true,
