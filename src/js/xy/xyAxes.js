@@ -7,11 +7,11 @@ export default class XyAxes extends Component {
 
 		let self = this;
 
-		self._xAxisVisible = params.xAxisVisible || true;
-		self._yAxisVisible = params.yAxisVisible || true;
+		self._xAxisVisible = 'xAxisVisible' in params ? params.xAxisVisible : true;
+		self._yAxisVisible = 'yAxisVisible' in params ? params.yAxisVisible : true;
 
-		self._xTicks = params.xTicks || 5;
-		self._yTicks = params.yTicks || 5;
+		self._xTicks = 'xTicks' in params ? params.xTicks : 5;
+		self._yTicks = 'yTicks' in params ? params.yTicks : 5;
 
 		self._xTickFormat = params.xTickFormat || d3.format(".0f");
 		self._yTickFormat = params.yTickFormat || d3.format(".0f");

@@ -49,7 +49,7 @@ export default class Component {
 		return self._join || d3.select(null);
 	}
 
-	draw(chart, options) {
+	draw(transition) {
 		let self = this;
 
 		self._group = self._group || self._chart.group.append("g").classed("component", true);

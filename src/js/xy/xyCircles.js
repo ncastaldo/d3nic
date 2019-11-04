@@ -8,8 +8,6 @@ export default class XyCircles extends Component {
 		let self = this;
 
 		self._fn_radius = params.fn_radius || ((d, i) => 3);
-
-		return self._
 	}
 
 	/**
@@ -36,6 +34,7 @@ export default class XyCircles extends Component {
 						.attr("fill", self._fn_fill)
 						.attr("opacity", self._fn_opacity)
 						.attr("r", 0)
+						.call(self._fn_enter)
 						.call(enter => {
 							enter.transition(transition)
 								.attr("r", self._fn_radius)
@@ -73,7 +72,5 @@ export default class XyCircles extends Component {
 			.selectAll("circle")
 			.data(self._chart.data.filter(self._fn_defined), self._chart.fn_key)
 			.call(self._fn_draw, transition);
-
-		return self._
 	}
 }

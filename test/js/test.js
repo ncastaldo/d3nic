@@ -67,7 +67,9 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.XyAxes(),
+			new d3nic.XyAxes({
+				yAxisVisible: false
+			}),
 			new d3nic.XyMouseBisector({
 				fn_onMouseoverAction: mouseoverXyBisector,
 				fn_onMouseoutAction: mouseoutXyBisector,
