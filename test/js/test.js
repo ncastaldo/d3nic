@@ -32,6 +32,7 @@
 		container.append("svg").classed("svg3", true)
 		container.append("svg").classed("svg4", true)
 		container.append("svg").classed("svg5", true)
+		container.append("svg").classed("svg6", true)
 	})
 
 	const mouseoverXyBisector = (d, i) => {
@@ -258,12 +259,35 @@
 		]
 	})
 
+	const xyStatisticChart = new d3nic.XyChart(".svg6", {
+		padding: { top: 50, right: 50, bottom: 50, left: 50 },
+		xPadding: { inner: 0, outside: 0},
+		size: { width: 400 },
+		fn_key: d => d.key,
+		valueDomain: [0, NaN],
+		data: data,
+		components: [
+			new d3nic.XyAxes(),
+			new d3nic.XyBoxPlots({
+				fn_minValue: d => d.v1 - 1,
+				fn_q1Value: d => d.v1 - 1,
+				fn_medianValue: d => d.v1,
+				fn_q3Value: d => d.v1 + 1,
+				fn_maxValue: d => d.v1 + 1,
+				fn_fill: (d, i, nodes) => d3.interpolateViridis(nodes.length > 0 ? i/nodes.length : 0.5)
+			})
+		]
+	})
+
 	const drawUpdate = (t=undefined) => {
 
 		xyChart.draw(t)
 		arcChart.draw(t);
 		sectorChart.draw(t);
 		geoChart.draw(t);
+
+
+	xyStatisticChart.draw(t)
 
 	}
 

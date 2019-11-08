@@ -34,6 +34,7 @@ export default class GeoRegions extends Component {
 					.attr("stroke", self._fn_stroke)
 					.attr("stroke-width", self._fn_strokeWidth)
 					.attr("fill", self._fn_fill)
+					.attr("fill-opacity", self._fn_fillOpacity)
 					.attr("opacity", 0)
 					.call(self._fn_enter)
 					.call(enter => {

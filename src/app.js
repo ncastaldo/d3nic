@@ -26,6 +26,7 @@ import SectorMouseLines from "./js/polar/sector/sectorMouseLines.js";
 import XyArea from "./js/xy/xyArea.js";
 import XyAxes from "./js/xy/xyAxes.js";
 import XyBars from "./js/xy/xyBars.js";
+import XyBoxPlots from "./js/xy/xyBoxPlots";
 import XyChart from "./js/xy/xyChart.js";
 import XyCircles from "./js/xy/xyCircles.js";
 import XyLine from "./js/xy/xyLine.js";
@@ -60,6 +61,7 @@ export {
 	XyArea,
 	XyAxes,
 	XyBars,
+	XyBoxPlots,
 	XyChart,
 	XyCircles,
 	XyLine,
