@@ -4,7 +4,16 @@ import Component from '../component.js'
 export default class XyBars extends Component {
 	constructor(params = {}) {
 		super(params);
+
 		let self = this;
+
+		self._fn_bottomValue = params.fn_bottomValue || ((d) => NaN)
+		self._fn_topValue = params.fn_topValue || ((d) => d)
+
+		self._fn_valueDomain = (d, i) => [
+			self._fn_bottomValue(d, i),
+			self._fn_topValue(d, i)
+		]
 	}
 
 	/**
@@ -17,10 +26,13 @@ export default class XyBars extends Component {
 
 		const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i));
 		const fn_width = (d, i) => chart.fn_xScale.bandwidth();
-		const fn_y = (d, i) => chart.fn_yScale(self._fn_value(d, i));
-		const fn_height = (d, i) => chart.fn_yScale.range()[0] - chart.fn_yScale(self._fn_value(d, i));
-
-		const fn_yBottom = (d, i) => chart.fn_yScale.range()[0];
+		
+		const fn_y = (d, i) => chart.fn_yScale(self._fn_topValue(d, i));
+		const fn_yBottom = (d, i) => !isNaN(self._fn_bottomValue(d, i))
+			? chart.fn_yScale(self._fn_bottomValue(d, i))
+			: chart.fn_yScale.range()[0]
+		
+		const fn_height = (d, i) => fn_yBottom(d, i) - fn_y(d, i);
 		const fn_heightBottom = (d, i) => 0;
 
 		self._fn_draw = (bars, transition) => {

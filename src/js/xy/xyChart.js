@@ -31,7 +31,7 @@ export default class XyChart extends Chart {
 
 		self._fn_yScale = d3
 			.scaleLinear()
-			.domain(self.fn_getValueDomain(self))
+			.domain(self.getValueDomain(self))
 			.range([
 				self._size.height - self._padding.bottom,
 				self._padding.top
@@ -83,7 +83,7 @@ export default class XyChart extends Chart {
 
 		let self = this;
 		
-		self._fn_yScale.domain(self.fn_getValueDomain(self));
+		self._fn_yScale.domain(self.getValueDomain(self));
 	}
 
 	/**
@@ -102,7 +102,7 @@ export default class XyChart extends Chart {
 		let self = this;
 
 		self._fn_xScale.domain(self._data.map(self._fn_key));
-		self._fn_yScale.domain(self.fn_getValueDomain(self));
+		self._fn_yScale.domain(self.getValueDomain(self));
 	}
 
 

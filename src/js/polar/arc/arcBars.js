@@ -7,14 +7,13 @@ export default class ArcBars extends PolarComponent {
 
 		let self = this;
 
-		self._padding = {
-			inner: 0,
-			outer: 0
-		}
+		self._fn_bottomValue = params.fn_bottomValue || ((d) => NaN)
+		self._fn_topValue = params.fn_topValue || ((d) => d)
 
-		Object.assign(self._padding, params.padding || {})
-
-		return self;
+		self._fn_valueDomain = (d, i) => [
+			self._fn_bottomValue(d, i),
+			self._fn_topValue(d, i)
+		]
 	}
 
 	/**
@@ -25,11 +24,15 @@ export default class ArcBars extends PolarComponent {
 
 		let self = this;
 
-		const fn_startAngle = (d, i) => chart.fn_angleScale.range()[0]
-		const fn_endAngle = (d, i) => chart.fn_angleScale(self._fn_value(d, i))
 		const fn_innerRadius = (d, i) => chart.fn_radiusScale(chart.fn_key(d, i))
 		const fn_outerRadius = (d, i) => chart.fn_radiusScale(chart.fn_key(d, i)) + chart.fn_radiusScale.bandwidth()
 
+		const fn_startAngle = (d, i) => !isNaN(self._fn_bottomValue(d, i))
+			? chart.fn_angleScale(self._fn_bottomValue(d, i))
+			: chart.fn_angleScale.range()[0]
+		const fn_endAngle = (d, i) => chart.fn_angleScale(self._fn_topValue(d, i))
+		
+		
 		self._fn_draw = (arcBars, transition) => {
 
 			self._join = arcBars.join(

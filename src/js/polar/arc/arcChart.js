@@ -24,11 +24,11 @@ export default class ArcChart extends PolarChart {
 			.paddingInner(self._arcPadding.inner)
 			.paddingOuter(self._arcPadding.outer)
 			.domain(self._data.map(self._fn_key))
-			.range(self.fn_getRadiusRange(self));
+			.range(self.getRadiusRange(self));
 
 		self._fn_angleScale = d3
 			.scaleLinear()
-			.domain(self.fn_getValueDomain(self))
+			.domain(self.getValueDomain(self))
 			.range(self._angleRange);
 	}
 
@@ -40,7 +40,7 @@ export default class ArcChart extends PolarChart {
 		super.size = size;
 
 		let self = this;
-		self._fn_radiusScale.range(self.fn_getRadiusRange(self));
+		self._fn_radiusScale.range(self.getRadiusRange(self));
 	}
 
 	/**
@@ -57,7 +57,7 @@ export default class ArcChart extends PolarChart {
 		super.components = components;
 
 		let self = this;
-		self._fn_angleScale.domain(self.fn_getValueDomain(self));
+		self._fn_angleScale.domain(self.getValueDomain(self));
 	}
 
 	/**
@@ -75,7 +75,7 @@ export default class ArcChart extends PolarChart {
 
 		let self = this;
 		self._fn_radiusScale.domain(self._data.map(self._fn_key))
-		self._fn_angleScale.domain(self.fn_getValueDomain(self));
+		self._fn_angleScale.domain(self.getValueDomain(self));
 	}
 
 	get fn_radiusScale() {

@@ -4,6 +4,16 @@ import PolarComponent from '../polarComponent.js'
 export default class SectorArea extends PolarComponent {
 	constructor(params = {}) {
 		super(params);
+
+		let self = this;
+
+		self._fn_innerValue = params.fn_innerValue || ((d) => NaN)
+		self._fn_outerValue = params.fn_outerValue || ((d) => d)
+
+		self._fn_valueDomain = (d, i) => [
+			self._fn_innerValue(d, i),
+			self._fn_outerValue(d, i)
+		]
 	}
 
 	/**
@@ -19,8 +29,11 @@ export default class SectorArea extends PolarComponent {
 			.padding(0.5) // CENTERING THINGS LIKE A BOSS
 
 		const fn_angle = (d, i) => fn_scalePoint(chart.fn_key(d, i))
-		const fn_innerRadius = (d, i) => chart.fn_radiusScale.range()[0]
-		const fn_outerRadius = (d, i) => chart.fn_radiusScale(self._fn_value(d, i))
+		
+		const fn_innerRadius = (d, i) => !isNaN(self._fn_innerValue(d, i))
+			? chart.fn_radiusScale(self._fn_innerValue(d, i))
+			: chart.fn_radiusScale.range()[0]
+		const fn_outerRadius = (d, i) => chart.fn_radiusScale(self._fn_outerValue(d, i))
 
 		const fn_area = d3.radialArea()
 			.defined(self._fn_defined)

@@ -8,6 +8,13 @@ export default class XyCircles extends Component {
 		let self = this;
 
 		self._fn_radius = params.fn_radius || ((d, i) => 3);
+
+		self._fn_value = params.fn_value || ((d, i) => d)
+
+		self._fn_valueDomain = (d, i) => [
+			self._fn_value(d, i),
+			self._fn_value(d, i)
+		]
 	}
 
 	/**

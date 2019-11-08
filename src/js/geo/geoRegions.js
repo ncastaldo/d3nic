@@ -4,6 +4,15 @@ import Component from '../component.js'
 export default class GeoRegions extends Component {
 	constructor(params = {}) {
 		super(params);
+
+		let self = this;
+
+		self._fn_value = params.fn_value || ((d, i) => d)
+
+		self._fn_valueExtent = (d, i) => [
+			self._fn_value(d, i), 
+			self._fn_value(d, i)
+		]
 	}
 
 	/**

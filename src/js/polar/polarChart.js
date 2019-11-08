@@ -17,7 +17,7 @@ export default class PolarChart extends Chart {
 	}
 
 
-	fn_getRadiusRange(self) {
+	getRadiusRange(self) {
 
 		const radius = Math.min(self._size.width - self._padding.left - self._padding.right, self._size.height - self._padding.top - self._padding.bottom) / 2;
 		
@@ -25,7 +25,7 @@ export default class PolarChart extends Chart {
 
 	}
 
-	fn_getCentroid(self) {
+	getCentroid(self) {
 
 		return [
 			self._size.width + self._padding.left - self._padding.right, 
@@ -46,7 +46,7 @@ export default class PolarChart extends Chart {
 		const init = !self._group.classed("polar-chart"); // if not classed as polar-chart then init
 		self._group.classed("polar-chart", true)
 
-		const centroid = self.fn_getCentroid(self)
+		const centroid = self.getCentroid(self)
 
 		const g = init ? self._group : self._group.transition(transition)
 		g.attr("transform", `translate(${centroid[0]}, ${centroid[1]})`);

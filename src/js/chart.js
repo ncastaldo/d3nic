@@ -39,7 +39,7 @@ export default class Chart {
 	}
 
 	// fits the size of the svg
-	fn_fitSize(self) {
+	fitSize(self) {
 		const selection = d3.select(self._selector);
 		if(selection.node().tagName === "svg") {
 			selection.attr("width", `${self._size.width}px`);
@@ -47,20 +47,10 @@ export default class Chart {
 		}
 	}
 
-	fn_getValueDomain(self) {
-	
-		const x = self._components
-			.filter(c => c.fn_value)
-			.map(c => d3.extent(self._data, c.fn_value))
-			.reduce(
-				(acc, cur) => [
-					d3.min([cur[0], acc[0]]),
-					d3.max([cur[1], acc[1]])
-				],
-				self._valueDomain
-			);
-
-		return x
+	getValueDomain(self) {
+		return d3.extent(self._components
+			.map(c => self._data.map((d, i) => c.fn_valueDomain(d, i)))
+			.flat(2))
 	}
 
 	get size() {
@@ -110,7 +100,7 @@ export default class Chart {
 
 		transition = transition || d3.transition().duration(0);
 
-		self.fn_fitSize(self);
+		self.fitSize(self);
 
 		// appending the group 
 		self._group = self._group || d3.select(self._selector).append("g").classed("chart", true);

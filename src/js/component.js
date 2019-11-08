@@ -13,9 +13,9 @@ export default class Component {
 		self._fn_fillOpacity = params.fn_fillOpacity || ( (d, i) => 1 );
 		self._fn_opacity = params.fn_opacity || ( (d, i) => 1 ); 
 		
-		self._fn_value = params.fn_value || (() => NaN);
-		self._fn_defined = params.fn_defined || 
-			((d, i) => self.fn_value && !isNaN(self.fn_value(d, i)) ); 
+		self._fn_defined = params.fn_defined || ( (d, i) => true )
+		
+		self._fn_valueDomain = (d, i) => [NaN, NaN] // might be replaced in components
 
 		self._fn_enter = params.fn_enter || (component => {})
 		self._fn_update = params.fn_update || (component => {})
@@ -24,9 +24,9 @@ export default class Component {
 		return self;
 	}
 
-	get fn_value() {
+	get fn_valueDomain() {
 		let self = this;
-		return self._fn_value;
+		return self._fn_valueDomain;
 	}
 
 	get fn_defined() {

@@ -21,8 +21,8 @@ export default class SectorChart extends PolarChart {
  
 		self._fn_radiusScale = d3
 			.scaleLinear()
-			.domain(self.fn_getValueDomain(self))
-			.range(self.fn_getRadiusRange(self));
+			.domain(self.getValueDomain(self))
+			.range(self.getRadiusRange(self));
 
 		self._fn_angleScale = d3
 			.scaleBand()
@@ -39,7 +39,7 @@ export default class SectorChart extends PolarChart {
 		super.size = size;
 
 		let self = this;
-		self._fn_radiusScale.range(self.fn_getRadiusRange(self));
+		self._fn_radiusScale.range(self.getRadiusRange(self));
 	}
 
 	/**
@@ -56,7 +56,7 @@ export default class SectorChart extends PolarChart {
 		super.components = components;
 
 		let self = this;
-		self._fn_radiusScale.domain(self.fn_getValueDomain(self));
+		self._fn_radiusScale.domain(self.getValueDomain(self));
 
 	}
 
@@ -75,7 +75,7 @@ export default class SectorChart extends PolarChart {
 
 		let self = this;
 		self._fn_angleScale.domain(self._data.map(self._fn_key))
-		self._fn_radiusScale.domain(self.fn_getValueDomain(self));
+		self._fn_radiusScale.domain(self.getValueDomain(self));
 	}
 
 	get fn_radiusScale() {

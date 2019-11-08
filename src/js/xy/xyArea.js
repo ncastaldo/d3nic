@@ -7,7 +7,13 @@ export default class XyArea extends Component {
 
 		let self = this;
 
-		return self;
+		self._fn_bottomValue = params.fn_bottomValue || ((d) => NaN)
+		self._fn_topValue = params.fn_topValue || ((d) => d)
+
+		self._fn_valueDomain = (d, i) => [
+			self._fn_bottomValue(d, i),
+			self._fn_topValue(d, i)
+		]
 	}
 
 	/**
@@ -19,8 +25,11 @@ export default class XyArea extends Component {
 		let self = this;
 
 		const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i))
-		const fn_y0 = (d, i) => chart.fn_yScale.range()[0]
-		const fn_y1 = (d, i) => chart.fn_yScale(self._fn_value(d, i))
+
+		const fn_y0 = (d, i) => !isNaN(self._fn_bottomValue(d, i))
+			? chart.fn_yScale(self._fn_bottomValue(d, i))
+			: chart.fn_yScale.range()[0]
+		const fn_y1 = (d, i) => chart.fn_yScale(self._fn_topValue(d, i))
 
 		const fn_area = d3.area()
 			.defined(self._fn_defined)

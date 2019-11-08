@@ -6,7 +6,13 @@ export default class XyLine extends Component {
 		super(params);
 
 		let self = this;
-		return self._
+		
+		self._fn_value = params.fn_value || ((d, i) => d)
+
+		self._fn_valueDomain = (d, i) => [
+			self._fn_value(d, i),
+			self._fn_value(d, i)
+		]
 	}
 
 	/**

@@ -6,8 +6,14 @@ export default class SectorBars extends PolarComponent {
 		super(params);
 
 		let self = this;
+		
+		self._fn_bottomValue = params.fn_bottomValue || ((d) => NaN)
+		self._fn_topValue = params.fn_topValue || ((d) => d)
 
-		return self;
+		self._fn_valueDomain = (d, i) => [
+			self._fn_bottomValue(d, i),
+			self._fn_topValue(d, i)
+		]
 	}
 
 	/**
@@ -20,8 +26,11 @@ export default class SectorBars extends PolarComponent {
 
 		const fn_startAngle = (d, i) => chart.fn_angleScale(chart.fn_key(d, i))
 		const fn_endAngle = (d, i) => chart.fn_angleScale(chart.fn_key(d, i)) + chart.fn_angleScale.bandwidth()
-		const fn_innerRadius = (d, i) => chart.fn_radiusScale.range()[0]
-		const fn_outerRadius = (d, i) => chart.fn_radiusScale(self._fn_value(d, i))
+		
+		const fn_innerRadius = (d, i) => !isNaN(self._fn_bottomValue(d, i))
+			? chart.fn_radiusScale(self._fn_bottomValue(d, i))
+			: chart.fn_radiusScale.range()[0]
+		const fn_outerRadius = (d, i) => chart.fn_radiusScale(self._fn_topValue(d, i))
 
 		self._fn_draw = (sectorBars, transition) => {
 

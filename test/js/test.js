@@ -80,7 +80,7 @@
 				fn_strokeWidth: 3
 			}),
 			new d3nic.XyArea({
-				fn_value: d => d.v1,
+				fn_topValue: d => d.v1,
 				fn_fill: d3.schemeReds[9][4],
 			}),
 			new d3nic.XyLine({
@@ -94,7 +94,8 @@
 
 
 	const arcBars = new d3nic.ArcBars({
-		fn_value: (d, i) => d.v1,
+		fn_bottomValue: (d, i) => d.v1,
+		fn_topValue: (d, i) => d.v1 + d.v2,
 		fn_fill: fn_fill,
 		fn_strokeWidth: () => 0,
 	})
@@ -115,7 +116,7 @@
 	})
 
 	const sectorBars = new d3nic.SectorBars({
-		fn_value: (d, i) => d.v1,
+		fn_topValue: (d, i) => d.v1,
 		fn_fill: fn_fill,
 		fn_strokeWidth: () => 0,
 	})
@@ -234,7 +235,8 @@
 
 
 	const xyBars = new d3nic.XyBars({
-		fn_value: d => d.v1,
+		// fn_bottomValue: d => d.v1,
+		fn_topValue: d => d.v1+d.v2,
 		fn_strokeWidth: d => 0,
 		fn_fill: fn_fill,
 	})
@@ -267,7 +269,7 @@
 
 	console.log(d3)
 
-	const t = d3.transition("data").duration(1000);
+	const t = d3.transition("data").duration(3000);
 	xyBrushChart.draw(t)
 	drawUpdate(t)
 

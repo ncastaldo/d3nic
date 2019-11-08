@@ -6,7 +6,10 @@ export default class SectorLine extends PolarComponent {
 		super(params);
 
 		let self = this;
-		return self;
+
+		self._fn_value = params.fn_value || ((d, i) => d)
+
+		self._fn_valueDomain = (d, i) => [self._fn_value(d, i)]
 	}
 
 	/**
