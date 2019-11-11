@@ -10,10 +10,13 @@ export default class XyArea extends Component {
 		self._fn_bottomValue = params.fn_bottomValue || ((d) => NaN)
 		self._fn_topValue = params.fn_topValue || ((d) => d)
 
-		self._fn_valueDomain = (d, i) => [
-			self._fn_bottomValue(d, i),
-			self._fn_topValue(d, i)
-		]
+		self._fn_valueDomain = (data) => d3.extent(
+			data.map((d, i) => [
+				self._fn_bottomValue(d, i),
+				self._fn_topValue(d, i)
+			]).flat()
+		)
+	
 	}
 
 	/**

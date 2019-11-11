@@ -1,5 +1,12 @@
 import * as d3 from "d3";
 
+
+/**
+ * GOLDEN RULE!
+ * In order to stop an exit transition and make it work correctly, the join.update
+ * part whould operate on the attributes that are modified by the exit phase!
+ */
+
 /* ------------------------------------------------------ */
 /* ------------------------------------------------------ */
 /* ------------------------------------------------------ */

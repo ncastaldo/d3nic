@@ -167,7 +167,7 @@
 			.classed("outside", false)
 			.classed("zoomed", !zoomed)
 
-		const t = d3.transition().duration(1000)
+		const t = d3.transition().duration(2000)
 		geoChart.draw(t)
 	}
 
@@ -217,21 +217,22 @@
 		],
 	})
 
-	const fn_onBrushAction = brushData => {
-		xyBars.join.style("fill-opacity", (d, i) => !brushData[i].brushed ? 0.2 : null) // working on indexes, not so pretty	
+	const fn_update = (brushData, t) => {
 		const newData = brushData.filter(bd => bd.brushed).map(bd => bd.d);
 		xyChart.data = newData;
 		arcChart.data = newData;
 		sectorChart.data = newData;
-		drawUpdate();
+		xyStatisticChart.data = newData;
+		drawUpdate(t);
+	}
+
+	const fn_onBrushAction = brushData => {
+		//xyBars.join.style("fill-opacity", (d, i) => !brushData[i].brushed ? 0.2 : null) // working on indexes, not so pretty	
+		fn_update(brushData)
 	}	
 	
 	const fn_onEndAction = brushData => {
-		/*const newData = brushData.filter(bd => bd.brushed).map(bd => bd.d);
-		xyChart.data = newData;
-		arcChart.data = newData;
-		sectorChart.data = newData;
-		drawUpdate(d3.transition());*/
+		fn_update(brushData, d3.transition().duration(1000));
 	}
 
 
@@ -269,32 +270,35 @@
 		components: [
 			new d3nic.XyAxes(),
 			new d3nic.XyBoxPlots({
-				fn_minValue: d => d.v1 - 1,
+				fn_minValue: d => d.v1 - 2,
 				fn_q1Value: d => d.v1 - 1,
 				fn_medianValue: d => d.v1,
 				fn_q3Value: d => d.v1 + 1,
-				fn_maxValue: d => d.v1 + 1,
-				fn_fill: (d, i, nodes) => d3.interpolateViridis(nodes.length > 0 ? i/nodes.length : 0.5)
+				fn_maxValue: d => d.v1 + 2,
+				fn_minWidth: d => 5,
+				fn_maxWidth: d => 10,
+				fn_fill: fn_fill,
+				fn_fillOpacity: d => 0.5,
+				fn_stroke: fn_fill,
+				fn_strokeWidth: d => 2,
 			})
 		]
 	})
 
 	const drawUpdate = (t=undefined) => {
 
-		xyChart.draw(t)
-		arcChart.draw(t);
-		sectorChart.draw(t);
-		geoChart.draw(t);
-
-
-	xyStatisticChart.draw(t)
+		//xyChart.draw(t)
+		//arcChart.draw(t);
+		//sectorChart.draw(t);
+	  xyStatisticChart.draw(t)
 
 	}
 
 	console.log(d3)
 
-	const t = d3.transition("data").duration(3000);
+	const t = d3.transition("data").duration(1000);
 	xyBrushChart.draw(t)
+	//geoChart.draw(t);
 	drawUpdate(t)
 
 /*

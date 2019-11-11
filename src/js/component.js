@@ -15,7 +15,7 @@ export default class Component {
 		
 		self._fn_defined = params.fn_defined || ( (d, i) => true )
 		
-		self._fn_valueDomain = (d, i) => [NaN, NaN] // might be replaced in components
+		self._fn_valueDomain = (data) => [NaN, NaN] // might be replaced in components
 
 		self._fn_enter = params.fn_enter || (component => {})
 		self._fn_update = params.fn_update || (component => {})

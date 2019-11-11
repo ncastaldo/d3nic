@@ -11,8 +11,6 @@ export default class XyMouseBisector extends Component {
 		self._fn_onMouseoverAction = params.fn_onMouseoverAction || ((d, i) => {});
 		self._fn_onMouseoutAction = params.fn_onMouseoutAction || ((d, i) => {});
 		self._fn_onMouseleaveAction = params.fn_onMouseleaveAction || (() => {});
-
-		return self._
 	}
 
 	/**

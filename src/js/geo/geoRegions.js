@@ -9,10 +9,7 @@ export default class GeoRegions extends Component {
 
 		self._fn_value = params.fn_value || ((d, i) => d)
 
-		self._fn_valueExtent = (d, i) => [
-			self._fn_value(d, i), 
-			self._fn_value(d, i)
-		]
+		self._fn_valueExtent = (data) => d3.extent(data, self._fn_value)
 	}
 
 	/**

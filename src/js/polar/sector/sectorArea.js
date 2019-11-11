@@ -10,10 +10,12 @@ export default class SectorArea extends PolarComponent {
 		self._fn_innerValue = params.fn_innerValue || ((d) => NaN)
 		self._fn_outerValue = params.fn_outerValue || ((d) => d)
 
-		self._fn_valueDomain = (d, i) => [
-			self._fn_innerValue(d, i),
-			self._fn_outerValue(d, i)
-		]
+		self._fn_valueDomain = (data) => d3.extent(
+			data.map((d, i) => [
+				self._fn_bottomValue(d, i),
+				self._fn_topValue(d, i)
+			]).flat()
+		)
 	}
 
 	/**

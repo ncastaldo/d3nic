@@ -48,9 +48,11 @@ export default class Chart {
 	}
 
 	getValueDomain(self) {
-		return d3.extent(self._components
-			.map(c => self._data.map((d, i) => c.fn_valueDomain(d, i)))
-			.flat(2))
+		return self._components
+			.map(c => c.fn_valueDomain(self._data))
+			.reduce((acc, cur) => {
+				return d3.extent(acc.concat(cur))
+			}, [NaN, NaN])
 	}
 
 	get size() {
