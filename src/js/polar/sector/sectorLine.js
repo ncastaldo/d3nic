@@ -1,5 +1,5 @@
-import * as d3 from "d3";
-import PolarComponent from '../polarComponent.js'
+import * as d3 from '@/js/d3-modules.js';
+import PolarComponent from '@/js/polar/polarComponent.js'
 
 export default class SectorLine extends PolarComponent {
 	constructor(params = {}) {

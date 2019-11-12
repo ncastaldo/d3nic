@@ -1,5 +1,5 @@
-import * as d3 from "d3";
-import Chart from '../chart.js'
+import * as d3 from '@/js/d3-modules.js';
+import Chart from '@/js/chart.js'
 
 export default class GeoChart extends Chart {
 	constructor(container, params = {}) {

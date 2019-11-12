@@ -4,7 +4,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     entry: {
-        entry: __dirname + '/src/app.js'
+        entry: path.resolve(__dirname, 'src', 'app.js')
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -21,9 +21,15 @@ module.exports = {
 			}
 		]
     },
-    externals: {
-        d3: 'd3'
+    resolve: {
+        extensions: [".js"],
+        alias: {
+            ["@"]: path.resolve(__dirname, "src")
+        }
     },
+    /*externals: {
+        d3: 'd3'
+    },*/
     devServer: {
         contentBase: __dirname + '/test',
         compress: true,

@@ -1,5 +1,5 @@
-import * as d3 from "d3";
-import PolarChart from '../polarChart.js'
+import * as d3 from '@/js/d3-modules.js';
+import PolarChart from '@/js/polar/polarChart.js'
 
 export default class SectorChart extends PolarChart {
 	constructor(container, params = {}) {

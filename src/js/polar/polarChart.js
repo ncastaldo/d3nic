@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import * as d3 from '@/js/d3-modules.js';
 import Chart from '../chart.js'
 
 export default class PolarChart extends Chart {

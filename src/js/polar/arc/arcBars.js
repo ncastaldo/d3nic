@@ -1,5 +1,5 @@
-import * as d3 from "d3";
-import PolarComponent from '../polarComponent.js'
+import * as d3 from '@/js/d3-modules.js';
+import PolarComponent from '@/js/polar/polarComponent.js'
 
 export default class ArcBars extends PolarComponent {
 	constructor(params = {}) {
@@ -92,7 +92,7 @@ export default class ArcBars extends PolarComponent {
 							.attr("startAngleInitial", selection.attr("startAngle"))
 							//.attr("startAngle", selection.attr("startAngle"))
 							.attr("endAngleInitial", selection.attr("endAngle"))
-							.attr("endAngle", fn_startAngle(d, i))  // START ANGLE, NOT END
+							.attr("endAngle", selection.attr("startAngle"))  // START ANGLE, NOT END
 							.attr("innerRadiusInitial", selection.attr("innerRadius"))
 							//.attr("innerRadius", selection.attr("innerRadius"))
 							.attr("outerRadiusInitial", selection.attr("outerRadius")) // the interpolator will act on this

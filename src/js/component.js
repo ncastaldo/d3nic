@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import * as d3 from '@/js/d3-modules.js';
 
 export default class Component {
 	constructor(params = {}) {

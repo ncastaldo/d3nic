@@ -1,5 +1,5 @@
-import * as d3 from "d3";
-import Component from '../component.js'
+import * as d3 from '@/js/d3-modules.js';
+import Component from '@/js/component.js'
 
 export default class XyMouseLines extends Component {
 	constructor(params = {}) {
@@ -27,8 +27,11 @@ export default class XyMouseLines extends Component {
 
 			self._join = mouseLines.join(
 				enter => enter
-					.append("path")
-					.attr("d", (d, i) => `M ${fn_x(d, i)}, ${fn_y0(d, i)} ${fn_x(d, i)}, ${fn_y0(d, i)}`)
+					.append("line")
+					.attr("x1", fn_x)
+					.attr("x2", fn_x)
+					.attr("y1", fn_y0)
+					.attr("y2", fn_y0)
 					.attr("stroke", self._fn_stroke)
 					.attr("stroke-width", self._fn_strokeWidth)
 					.attr("stroke-dasharray", (d, i) => `${self._fn_strokeDasharray(d, i)[0]}, ${self._fn_strokeDasharray(d, i)[1]}`)
@@ -37,20 +40,24 @@ export default class XyMouseLines extends Component {
 					.call(enter => 
 						enter
 							.transition(transition)
-							.attr("d", (d, i) => `M ${fn_x(d, i)}, ${fn_y0(d, i)} ${fn_x(d, i)}, ${fn_y1(d, i)}`)
+							.attr("y2", fn_y1)
 							.attr("opacity", self._fn_opacity)),
 				update => update
 					.call(update => 
 						update
 							.transition(transition)
 							.attr("opacity", self._fn_opacity)
-							.attr("d", (d, i) => "M" + fn_x(d, i) + "," + fn_y0(d, i) + " " 
-								+ fn_x(d, i) + "," + fn_y1(d, i)),
+							.attr("x1", fn_x)
+							.attr("x2", fn_x)
+							.attr("y1", fn_y0)
+							.attr("y2", fn_y1)
 					),
 				exit => exit
 					.call(exit => 
 						exit
 							.transition(transition)
+							.attr("y1", fn_y0)
+							.attr("y2", fn_y0)
 							.attr("opacity", 0)
 							.remove())
 			)

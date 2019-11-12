@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+import * as d3 from '@/js/d3-modules.js';
 
 export default class Chart {
 	constructor(selector, params = {}) {
@@ -97,10 +97,17 @@ export default class Chart {
 	}
 
 
-	draw(transition) {
+	draw(tObject={}) {
 		let self = this;
 
-		transition = transition || d3.transition().duration(0);
+		const tName = tObject.hasOwnProperty('name') ? tObject.name : null
+		const	tDuration = tObject.hasOwnProperty('duration') ? tObject.duration : 0	
+		const	tDelay = tObject.hasOwnProperty('delay') ? tObject.delay : 0		
+
+		const transition = d3
+			.transition(tName)
+			.duration(tDuration)
+			.delay(tDelay)
 
 		self.fitSize(self);
 
@@ -116,6 +123,5 @@ export default class Chart {
 		//self.group.selectAll(".component:not(.js__keep-chart-component)").remove(); // may be a problem with nested charts
 		//self.components.forEach(component => component.group.classed("js__keep-chart-component", false));
 
-		return self;
 	}
 }

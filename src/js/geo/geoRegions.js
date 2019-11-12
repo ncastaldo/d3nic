@@ -1,5 +1,5 @@
-import * as d3 from "d3";
-import Component from '../component.js'
+import * as d3 from '@/js/d3-modules.js';
+import Component from '@/js/component.js'
 
 export default class GeoRegions extends Component {
 	constructor(params = {}) {

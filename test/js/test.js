@@ -167,7 +167,7 @@
 			.classed("outside", false)
 			.classed("zoomed", !zoomed)
 
-		const t = d3.transition().duration(2000)
+		const t = {duration: 1000, delay: 2000}
 		geoChart.draw(t)
 	}
 
@@ -232,7 +232,7 @@
 	}	
 	
 	const fn_onEndAction = brushData => {
-		fn_update(brushData, d3.transition().duration(1000));
+		//fn_update(brushData, {duration: 1000});
 	}
 
 
@@ -287,18 +287,16 @@
 
 	const drawUpdate = (t=undefined) => {
 
-		//xyChart.draw(t)
-		//arcChart.draw(t);
-		//sectorChart.draw(t);
+		xyChart.draw(t)
+		arcChart.draw(t);
+		sectorChart.draw(t);
 	  xyStatisticChart.draw(t)
 
 	}
 
-	console.log(d3)
-
-	const t = d3.transition("data").duration(1000);
+	const t = {duration: 1000}
 	xyBrushChart.draw(t)
-	//geoChart.draw(t);
+	geoChart.draw(t);
 	drawUpdate(t)
 
 /*
