@@ -52,7 +52,7 @@ export default class Chart {
 			.map(c => c.fn_valueDomain(self._data))
 			.reduce((acc, cur) => {
 				return d3.extent(acc.concat(cur))
-			}, [NaN, NaN])
+			}, self._valueDomain)
 	}
 
 	get size() {

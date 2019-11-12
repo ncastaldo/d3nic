@@ -262,7 +262,7 @@
 
 	const xyStatisticChart = new d3nic.XyChart(".svg6", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
-		xPadding: { inner: 0, outside: 0},
+		xPadding: { outer: 0.5},
 		size: { width: 400 },
 		fn_key: d => d.key,
 		valueDomain: [0, NaN],
@@ -275,13 +275,16 @@
 				fn_medianValue: d => d.v1,
 				fn_q3Value: d => d.v1 + 1,
 				fn_maxValue: d => d.v1 + 2,
-				fn_minWidth: d => 5,
-				fn_maxWidth: d => 10,
+				fn_minWidth: d => 10,
+				fn_maxWidth: d => 20,
 				fn_fill: fn_fill,
 				fn_fillOpacity: d => 0.5,
 				fn_stroke: fn_fill,
 				fn_strokeWidth: d => 2,
-			})
+			}),
+			new d3nic.XyLine({
+				fn_value: d => d.v1
+			}),
 		]
 	})
 

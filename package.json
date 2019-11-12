@@ -22,6 +22,7 @@
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
     "babel-loader": "^8.0.6",
+    "terser-webpack-plugin": "^2.2.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.41.1",
     "webpack-cli": "^3.3.9",
