@@ -9,7 +9,17 @@ export default class GeoRegions extends Component {
 
 		self._fn_value = params.fn_value || ((d, i) => d)
 
-		self._fn_valueExtent = (data) => d3.extent(data, self._fn_value)
+		self._fn_valueDomain = (data) => data.reduce((acc, cur) => {
+			const object = self._fn_value(cur)
+			if (object) {
+				const bounds = d3.geoBounds(object)
+				acc[0][0] = d3.min([acc[0][0], bounds[0][0]])
+				acc[0][1] = d3.min([acc[0][1], bounds[0][1]])
+				acc[1][0] = d3.max([acc[1][0], bounds[1][0]])
+				acc[1][1] = d3.max([acc[1][1], bounds[1][1]])
+			}
+			return acc
+		}, [[NaN, NaN], [NaN, NaN]])
 	}
 
 	/**
