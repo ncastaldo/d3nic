@@ -156,7 +156,7 @@
 				type: 'Point',
 				coordinates: c
 			}
-		}).slice(0, 10000)
+		})
 
 	const geoRegions = new d3nic.GeoRegions({
 		fn_defined: d => d.type === "Feature",
@@ -263,9 +263,9 @@
 
 	}
 
-	const t = {duration: 4000}
+	const t = {duration: 1000}
 	xyBrushChart.draw(t)
-	geoChart.draw(t);
+	geoChart.draw({duration: 0});
 
 	drawUpdate(t)
 

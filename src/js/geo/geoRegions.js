@@ -71,8 +71,8 @@ export default class GeoRegions extends Component {
 	/**
 	 *	@override
 	 */
-	drawCanvas(context){
-		super.drawCanvas(context)
+	drawCanvas(transition){
+		/*super.drawCanvas(context)
 
 		let self = this;
 
@@ -95,7 +95,7 @@ export default class GeoRegions extends Component {
 			context.fill(path)
 			context.stroke(path)
 			context.closePath()
-		})
+		})*/
 
 	}
 

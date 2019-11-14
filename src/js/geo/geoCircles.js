@@ -23,8 +23,8 @@ export default class GeoCircles extends Component {
 
 		const fn_geoPath = d3.geoPath().projection(chart.fn_geoProjection)
 
-    const fn_cx = (d, i) => fn_geoPath.centroid(self._fn_value(d, i))[0]
-    const fn_cy = (d, i) => fn_geoPath.centroid(self._fn_value(d, i))[1]
+    self._fn_cx = (d, i) => fn_geoPath.centroid(self._fn_value(d, i))[0]
+    self._fn_cy = (d, i) => fn_geoPath.centroid(self._fn_value(d, i))[1]
 
 		self._fn_draw = (geoCircles, transition) => {
 
@@ -36,8 +36,8 @@ export default class GeoCircles extends Component {
 					.attr("fill", self._fn_fill)
 					.attr("fill-opacity", self._fn_fillOpacity)
           .attr("opacity", 0)
-          .attr("cx", fn_cx)
-          .attr("cy", fn_cy)
+          .attr("cx", self._fn_cx)
+          .attr("cy", self._fn_cy)
           .attr("r", 0)
 					.call(self._fn_enter)
 					.call(enter => {
@@ -52,8 +52,8 @@ export default class GeoCircles extends Component {
 					.call(update => {
 
 						update.transition(transition)
-              .attr("cx", fn_cx)
-              .attr("cy", fn_cy)
+              .attr("cx", self._fn_cx)
+              .attr("cy", self._fn_cy)
               .attr("r", self._fn_radius)
 							.attr("stroke", self._fn_stroke)
 							.attr("stroke-width", self._fn_strokeWidth)
@@ -66,8 +66,8 @@ export default class GeoCircles extends Component {
 					.call(self._fn_exit)
 					.call(exit => {
             exit.transition(transition)
-              .attr("cx", fn_cx)
-              .attr("cy", fn_cy)
+              .attr("cx", self._fn_cx)
+              .attr("cy", self._fn_cy)
               .attr("r", 0)
 							.attr("opacity", 0)
 							.remove()
@@ -82,8 +82,8 @@ export default class GeoCircles extends Component {
 	/**
 	 *	@override
 	 */
-	drawCanvas(context){
-		super.drawCanvas(context)
+	drawCanvas(transition){
+		super.drawCanvas(transition)
 
 		let self = this;
 		
@@ -93,24 +93,34 @@ export default class GeoCircles extends Component {
 
 		//context.lineJoin = "round";
 		//context.lineCap = "round";
-		
-		self._join.each((d, i, nodes) => {
-			const selection = d3.select(nodes[i]) 
 
-			context.fillStyle = selection.attr("fill")
-			context.lineWidth = selection.attr("stroke-width")
-			context.strokeStyle = selection.attr("stroke")
+		const context = self._chart.group.node().getContext("2d")
 
-			const cx = selection.attr("cx")
-			const cy = selection.attr("cy")
-			const r = selection.attr("r")
+		const fn_render = (d, i, nodes) => {
+
+			const s = transition.duration() ? d3.select(nodes[i]) : null
+
+			context.fillStyle = s ? s.attr("fill") : self._fn_fill(d, i)
+			context.lineWidth = s ? s.attr("stroke-width") : self._fn_strokeWidth(d, i)
+			context.strokeStyle = s ? s.attr("stroke") : self._fn_stroke(d, i)
+			const cx = s ? s.attr("cx") : self._fn_cx(d, i)
+			const cy = s ? s.attr("cy") : self._fn_cy(d, i)
+			const r = s ? s.attr("r") : self._fn_radius(d, i)
 
 			context.beginPath()
 			context.arc(cx, cy, r, 0, 2 * Math.PI)
 			context.fillStyle && context.fill()
 			+context.lineWidth && context.stroke()
-			context.closePath()
-		})
+			context.closePath() 
+
+		}
+
+		if (transition.duration()) {
+			const fn_interval = d3.interval(() => self._join.each(fn_render), transition.delay(), 50)
+			transition.on("end.canvas interrupt.canvas", () => fn_interval.stop())
+		} else {
+			self._chart.data.forEach(fn_render)
+		}
 
 	}
 

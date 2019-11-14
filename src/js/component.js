@@ -56,7 +56,7 @@ export default class Component {
 		return self._join || d3.select(null);
 	}
 
-	drawCanvas(context) {}
+	drawCanvas(transition) {}
 
 	draw(transition) {
 		let self = this;

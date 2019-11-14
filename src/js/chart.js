@@ -106,16 +106,7 @@ export default class Chart {
 	draw(tObject={}) {
 		let self = this;
 
-		const tName = tObject.hasOwnProperty('name') ? tObject.name : null
-		const	tDuration = tObject.hasOwnProperty('duration') ? tObject.duration : 0	
-		const	tDelay = tObject.hasOwnProperty('delay') ? tObject.delay : 0		
-
 		const selection = d3.select(self._selector)
-
-		const transition = selection
-			.transition(tName)
-			.duration(tDuration)
-			.delay(tDelay)
 
 		self.fitSize(self);
 
@@ -125,17 +116,31 @@ export default class Chart {
 			self._group = self._tagName !== "canvas" ? selection.append("g") : selection
 			self._group.classed("chart", true)
 		}
+
+		const tName = tObject.hasOwnProperty('name') ? tObject.name : null
+		const	tDuration = tObject.hasOwnProperty('duration') ? tObject.duration : 0	
+		const	tDelay = tObject.hasOwnProperty('delay') ? tObject.delay : 0	
 		
-		// drawing the components
-		self._components.forEach(component => component.draw(transition));
+		const transition = selection
+			.transition(tName)
+			.duration(tDuration)
+			.delay(tDelay)
+
+		if(self._tagName !== "canvas" || tDuration) {
+			self._components.forEach(component => component.draw(transition));
+		}
 
 		if(self._tagName === "canvas") {
 			const context = self._group.node().getContext("2d")
-			const callback = () => {
-				self._components.forEach(c => c.drawCanvas(context))
-			}
-			transition.on("start.canvas", callback)
-				.on("end.canvas interrupt.canvas", callback)
+			context.fillStyle = '#fff';
+			context.fillRect(
+				self._padding.left, 
+				self._padding.top, 
+				self._size.width - self._padding.right, 
+				self._size.height - self._padding.bottom
+			); 
+			self._components.forEach(c => c.drawCanvas(transition))			
+			//.on("end.canvas interrupt.canvas", callback)
 		}
 
 		// handling old components
