@@ -41,10 +41,11 @@ export default class Chart {
 	// fits the size of the svg
 	fitSize(self) {
 		const selection = d3.select(self._selector);
-		if(selection.node().tagName === "svg") {
-			selection.attr("width", `${self._size.width}px`);
-			selection.attr("height", `${self._size.height}px`);
-		}
+		const tagName = selection.node().tagName;
+		//if(tagName === "svg" || tagName === "canvas") {
+			selection.attr("width", self._size.width);
+			selection.attr("height", self._size.height);
+		//}
 	}
 
 	getValueDomain(self) {
@@ -96,6 +97,11 @@ export default class Chart {
 		return self._group;
 	}
 
+	get tagName() {
+		let self = this;
+		return self._tagName;
+	}
+
 
 	draw(tObject={}) {
 		let self = this;
@@ -104,7 +110,9 @@ export default class Chart {
 		const	tDuration = tObject.hasOwnProperty('duration') ? tObject.duration : 0	
 		const	tDelay = tObject.hasOwnProperty('delay') ? tObject.delay : 0		
 
-		const transition = d3
+		const selection = d3.select(self._selector)
+
+		const transition = selection
 			.transition(tName)
 			.duration(tDuration)
 			.delay(tDelay)
@@ -112,11 +120,23 @@ export default class Chart {
 		self.fitSize(self);
 
 		// appending the group 
-		self._group = self._group || d3.select(self._selector).append("g").classed("chart", true);
+		if (!self._group) {
+			self._tagName = selection.node().tagName.toLowerCase()
+			self._group = self._tagName !== "canvas" ? selection.append("g") : selection
+			self._group.classed("chart", true)
+		}
 		
 		// drawing the components
-
 		self._components.forEach(component => component.draw(transition));
+
+		if(self._tagName === "canvas") {
+			const context = self._group.node().getContext("2d")
+			const callback = () => {
+				self._components.forEach(c => c.drawCanvas(context))
+			}
+			transition.on("start.canvas", callback)
+				.on("end.canvas interrupt.canvas", callback)
+		}
 
 		// handling old components
 		//self.components.forEach(component => component.group.classed("js__keep-chart-component", true));

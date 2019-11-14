@@ -12,18 +12,11 @@ export default class GeoChart extends Chart {
 	initChart(self, params) {
 		super.initChart(self, params);
 
-		self._valueDomain = params.valueDomain || [[NaN, NaN], [NaN, NaN]]
-
+		self._valueDomain = params.valueDomain || null
 		self._projectionType = params.projectionType || d3.geoMercator;
-		
 		self._fn_geoProjection = self._projectionType()
-		
-		self._fn_geoProjection.clipExtent(self.getExtent(self))
-			//.center(self.getValueDomain(self));
 
-		console.log(self._fn_geoProjection)
-
-		self._fn_geoPath = d3.geoPath().projection(self._fn_geoProjection)
+		self.fitProjection(self)
 
 	}
 
@@ -31,30 +24,21 @@ export default class GeoChart extends Chart {
 	 *	@override
 	 */
 	getValueDomain(self) {
-		console.log(self._valueDomain)
-		return self._components
+		return self._valueDomain || self._components
 			.map(c => c.fn_valueDomain(self._data))
-			.reduce((acc, cur) => {
-				acc[0][0] = d3.min([acc[0][0], cur[0][0]])
-				acc[0][1] = d3.min([acc[0][1], cur[0][1]])
-				acc[1][0] = d3.max([acc[1][0], cur[1][0]])
-				acc[1][1] = d3.max([acc[1][1], cur[1][1]])
-				return acc
-			}, self._valueDomain)
+			.flat(1)
 	}
 
 
-	getExtent(self) {
-
-		return [ 
+	fitProjection(self) {
+		const extent = [ 
 			[ self._padding.left, self._padding.top ],
 			[ self._size.width - self._padding.right, self._size.height - self._padding.bottom ] 
 		]
-
-		// modifying geoPaths as well
-
-		//self._projectionObject && self._fn_geoProjection.fitExtent(extent, self._projectionObject)
-
+		self._fn_geoProjection.fitExtent(extent, {
+			type: 'GeometryCollection',
+			geometries: self.getValueDomain(self)
+		})
 	}
 
 	/**
@@ -71,23 +55,29 @@ export default class GeoChart extends Chart {
 		super.size = size;
 
 		let self = this;
-		//self.fn_fitExtent(self)
+		self.fitProjection(self)
 	}
 
-	get projectionObject() {
-		let self = this;
-		return self._projectionObject;
+	/**
+	 *	@override
+	 */
+	get data() {
+		return super.data;
 	}
 
-	set projectionObject(projectionObject) {
+	/**
+	 *	@override
+	 */
+	set data(data) {
+		super.data = data;
+
 		let self = this;
-		self._projectionObject = projectionObject;
-		//self.fn_fitExtent(self)
+		self.fitProjection(self)
 	}
 
-	get fn_geoPath() {
+	get fn_geoProjection() {
 		let self = this;
-		return self._fn_geoPath;
+		return self._fn_geoProjection;
 	}
 
 	/**

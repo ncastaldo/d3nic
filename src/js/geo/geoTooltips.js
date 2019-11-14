@@ -5,6 +5,8 @@ export default class GeoTooltips extends Component {
 	constructor(params = {}) {
 		super(params);
 
+		self._fn_valueDomain = (data) => []
+
 		let self = this;
 		self._size = {
 			width: 100,

@@ -4,6 +4,8 @@ import Component from '@/js/component.js'
 export default class GeoSvgs extends Component {
 	constructor(params = {}) {
 		super(params);
+
+		self._fn_valueDomain = (data) => []
 	}
 
 	/**

@@ -21,6 +21,8 @@ export default class Component {
 		self._fn_update = params.fn_update || (component => {})
 		self._fn_exit = params.fn_exit || (component => {})
 
+		//self._join = []
+
 		return self;
 	}
 
@@ -44,15 +46,28 @@ export default class Component {
 		self._chart = chart;
 	}
 
+	get group() {
+		let self = this;
+		return self._group;
+	}
+
 	get join() {
 		let self = this;
 		return self._join || d3.select(null);
 	}
 
+	drawCanvas(context) {}
+
 	draw(transition) {
 		let self = this;
 
-		self._group = self._group || self._chart.group.append("g").classed("component", true);
+		// appending the group 
+		if (!self._group) {
+			self._group = self._chart.tagName !== "canvas" 
+				? self._chart.group.append("g")
+				: self._chart.group.append("custom")
+			self._group.classed("component", true);
+		}
 
 		return self;
 	}

@@ -31,6 +31,7 @@
 		container.append("svg").classed("svg2", true)
 		container.append("svg").classed("svg3", true)
 		container.append("svg").classed("svg4", true)
+		container.append("canvas").classed("canvas4", true).style("pointer-events", "none")
 		container.append("svg").classed("svg5", true)
 		container.append("svg").classed("svg6", true)
 	})
@@ -143,77 +144,41 @@
 	})
 
 		
-	let map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/3.json")
-	let features = topojson.feature(map, map.objects.nutsrg).features.filter(f => f.properties.id.startsWith("IT") && f.properties.id.length > 3 )
+	let map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/2.json")
+	let features = topojson.feature(map, map.objects.nutsrg).features.filter(f => f.properties.id.startsWith("IT")) //&& f.properties.id.length > 3 )
+	let tweetsReceived = await d3.json("http://localhost:8000/rest/tweets?location=IT")
 
-	let featureCollection = { type: "FeatureCollection", features: features }
-
-	console.log(features)
-
-
-	const clickGeoRegions = (d, i, nodes) => {
-
-		const zoomed = d3.selectAll(nodes)
-			.filter(f => f === d)
-			.classed("zoomed")
-
-		geoChart.projectionObject = zoomed ? 
-			{ type: "FeatureCollection", features: d3.selectAll(nodes).data() } : d
-
-		d3.selectAll(nodes)
-			.classed("outside", !zoomed)
-			.classed("zoomed", false)
-			.filter(f => f === d)
-			.classed("outside", false)
-			.classed("zoomed", !zoomed)
-
-		const t = {duration: 1000, delay: 2000}
-		geoChart.draw(t)
-	}
-
-	const mouseoverGeoRegions = (d, i, nodes) => {
-		geoRegions.join.style("fill-opacity", 
-			f => f === d && !d3.select(nodes[i]).classed("outside") ? 0.7 : null)
-	}
-
-	const mouseoutGeoRegions = (d, i, nodes) => {
-		geoRegions.join.style("fill-opacity",null)
-	}
+	let tweets = tweetsReceived
+		.map(t => t.geometry.coordinates)
+		.flat(1)
+		.map(c => {
+			return {
+				type: 'Point',
+				coordinates: c
+			}
+		}).slice(0, 10000)
 
 	const geoRegions = new d3nic.GeoRegions({
-			fn_fill: (d, i, nodes) => d3.interpolateViridis(nodes.length > 0 ? i/nodes.length : 0.5),
-			fn_value: d => d,
-			fn_opacity: (d, i, nodes) => d3.select(nodes[i]).classed("outside") ? 0 : 1,
-			fn_enter: enter => enter
-				.on("mouseover", mouseoverGeoRegions)
-				.on("mouseout", mouseoutGeoRegions)
-				.on("click", clickGeoRegions),
-		})
+		fn_defined: d => d.type === "Feature",
+		fn_fill: (d) => 'lightgray',
+		fn_value: d => d.geometry,
+		fn_fillOpacity: (d) => 0.4
+	})
 
-	const geoChart = new d3nic.GeoChart(".svg4", {
-		projectionObject: featureCollection,
-		data: featureCollection.features,
-		size: {width: 500, height: 400},
-		fn_key: d => d.properties.id,
-		data: featureCollection.features,
+	const geoCircles = new d3nic.GeoCircles({
+		fn_defined: d => d.type === "Point",
+		fn_value: d => d,
+		fn_radius: d => 3,
+		fn_fill: d => d3.interpolateViridis(Math.random()),
+		fn_strokeWidth: d => 0
+	})
+
+	const geoChart = new d3nic.GeoChart(".canvas4", {
+		size: {width: 400, height: 400},
+		data: features.concat(tweets),
 		components: [
 			geoRegions,
-			/*new GeoTooltips({
-				fn_enter: (enter, options) => enter.each((d, i, nodes) => {
-					const xyChart = new XyChart(d3.select(nodes[i]),{
-						padding: { top: 0, right: 0, bottom: 0, left: 0 },
-						fn_key: (d, i) => d.key,
-						valueDomain: [0, NaN],
-						components: [
-							new XyArea({
-								fn_value: d => d.v1
-							})
-						],
-						data: data,
-					})
-					xyChart.draw({ init: true, name: "data", duration: 1000 })
-				})
-			})*/
+			geoCircles
 		],
 	})
 
@@ -228,6 +193,7 @@
 
 	const fn_onBrushAction = brushData => {
 		//xyBars.join.style("fill-opacity", (d, i) => !brushData[i].brushed ? 0.2 : null) // working on indexes, not so pretty	
+		console.log(new Date().getTime())
 		fn_update(brushData)
 	}	
 	
@@ -297,9 +263,10 @@
 
 	}
 
-	const t = {duration: 1000}
+	const t = {duration: 4000}
 	xyBrushChart.draw(t)
 	geoChart.draw(t);
+
 	drawUpdate(t)
 
 /*
