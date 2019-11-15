@@ -64,10 +64,10 @@ export default class Component {
 	drawCanvas(){
 		let self = this;
 
-		self._fn_path2D.context() || self._fn_path2D.context(context)
-
 		const context = self._chart.context
 		const regex = /translate\((-?\d+\.?\d*),?\s*(-?\d+[.]?\d*)?\)/
+
+		self._fn_path2D.context && self._fn_path2D.context(context)
 
 		context.lineJoin = "round";
 		context.lineCap = "round";
@@ -117,7 +117,7 @@ export default class Component {
 			context.translate(x, y)
 
 			context.beginPath()
-			self._fn_path2D(self._fn_value(d, i))
+			self._fn_path(d, i)
 
 			if(lineWidth) {
 				context.lineWidth = lineWidth

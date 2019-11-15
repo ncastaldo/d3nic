@@ -29,11 +29,11 @@ import XyAxes from "@/js/xy/xyAxes.js";
 import XyBars from "@/js/xy/xyBars.js";
 import XyBoxPlots from "@/js/xy/xyBoxPlots.js";
 import XyChart from "@/js/xy/xyChart.js";
-import XyCircles from "@/js/xy/xyCircles.js";
 import XyLine from "@/js/xy/xyLine.js";
 import XyMouseBisector from "@/js/xy/xyMouseBisector.js";
 import XyMouseBrusher from "@/js/xy/xyMouseBrusher.js";
 import XyMouseLines from "@/js/xy/xyMouseLines.js";
+import XySymbols from "@/js/xy/xySymbols.js";
 
 // import common from "@/js/common.js"
 
@@ -65,10 +65,10 @@ export {
 	XyBars,
 	XyBoxPlots,
 	XyChart,
-	XyCircles,
 	XyLine,
 	XyMouseBisector,
 	XyMouseBrusher,
 	XyMouseLines,
+	XySymbols,
 
 }

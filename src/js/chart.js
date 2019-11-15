@@ -157,7 +157,7 @@ export default class Chart {
 			.delay(self._transition.delay)
 
 		// draw the nodes if it is not a canvas or the duration is zero
-		if(!self._context || tDuration) {
+		if(!self._context || self._transition.duration) {
 			self._components.forEach(component => component.draw(transition));
 		}
 
@@ -169,15 +169,15 @@ export default class Chart {
 			//self.clearCanvas(self)
 
 			const fn_drawComponentsCanvas = (elapsed) => {
-				console.log('rendering canvas: ' + elapsed)
+				console.log('rendering canvas: ' + (elapsed || "immediate"))
 
 				self.clearCanvas(self)
 				self._components.forEach(c => c.drawCanvas())
 
-				if(elapsed>tDuration) self._fn_interval.stop()
+				if(elapsed>self._transition.duration) self._fn_interval.stop()
 			}
 
-			if (tDuration) {
+			if (self._transition.duration) {
 				self._fn_interval = d3.interval(fn_drawComponentsCanvas, 34)
 			} else {
 				transition.on("end.canvas interrupt.canvas", fn_drawComponentsCanvas)

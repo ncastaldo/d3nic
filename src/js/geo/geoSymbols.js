@@ -24,19 +24,18 @@ export default class GeoSymbols extends Component {
 
 		const fn_geoPath = d3.geoPath().projection(chart.fn_geoProjection)
 
-		self._fn_path2D = d3.symbol().type(self._fn_type).size(self._fn_size)
+		self._fn_path2D = d3.symbol()
 
 		self._fn_x = (d, i) => fn_geoPath.centroid(self._fn_value(d, i))[0]
 		self._fn_y = (d, i) => fn_geoPath.centroid(self._fn_value(d, i))[1]
-		self._fn_path = (d, i) => self._fn_path2D(self._fn_value(d, i)) 
+		self._fn_path = (d, i) => self._fn_path2D
+			.type(self._fn_type(d, i))
+			.size(self._fn_size(d, i))
+			(self._fn_value(d, i))
 
-		const fn_pathInitial = d3.symbol()
-			.type(self._fn_type)
-			.size(0)
+		const fn_pathInitial = (d, i) => d3.symbol().type(self._fn_type(d, i)).size(1)()
 
 		self._fn_draw = (geoSymbols, transition) => {
-
-			console.log(geoSymbols)
 
 			self._join = geoSymbols.join(
 				enter => enter

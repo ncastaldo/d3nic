@@ -38,14 +38,14 @@
 
 	const mouseoverXyBisector = (d, i) => {
 		xyMouseLines.join.style("opacity", f => d===f ? 1 : null)
-		xyCircles.join.style("r", f => f === d ? 8 : null)
+		//xySymbols.join.style("r", f => f === d ? 8 : null)
 		arcBars.join.style("opacity", f => d!==f ? 0.5 : null)
 		sectorBars.join.style("opacity", f => d!==f ? 0.5 : null)
 	}
 
 	const mouseoutXyBisector = (d, i) => {
 		xyMouseLines.join.style("opacity", null)
-		xyCircles.join.style("r", null)
+		//xySymbols.join.style("r", null)
 		arcBars.join.style("opacity", null)
 		sectorBars.join.style("opacity", null)
 		xyBars.join.style("opacity", null)
@@ -56,16 +56,17 @@
 		fn_opacity: d => 0,
 	})
 
-	const xyCircles = new d3nic.XyCircles({
+	const xySymbols = new d3nic.XySymbols({
 		fn_value: d => d.v1,
-		fn_radius: 5,
-		fn_fill: "red"
+		fn_size: d => 70,
+		fn_type: (d, i) => i%2 ? d3.symbolWye : d3.symbolSquare,
+		fn_fill: d => "red"
 	})
 
 	const xyChart = new d3nic.XyChart(".svg1", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		//size: {width: 800, height: 400},
-		transition: { duration: 1000 },
+		transition: { duration: 5000 },
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
 		data: data,
@@ -91,7 +92,7 @@
 				fn_stroke: d3.schemeReds[9][6],
 				fn_strokeWidth: 3
 			}),
-			xyCircles,
+			xySymbols,
 		]
 	})
 
@@ -175,13 +176,13 @@
 		fn_strokeWidth: d => 0,
 		fn_stroke: d => "black",
 		fn_size: d => 70,
-		fn_type: d => d3.symbolWye,
+		fn_type: (d, i) => i%2 ? d3.symbolWye : d3.symbolSquare,
 		fn_fill: d => d3.interpolateViridis(Math.random()),
 	})
 
-	const geoChart = new d3nic.GeoChart(".svg4", {
+	const geoChart = new d3nic.GeoChart("canvas", {
 		size: {width: 400, height: 400},
-		transition: { duration: 1000 },
+		transition: { duration: 0 },
 		data: features.concat(tweets.slice(0, 1000)),
 		components: [
 			geoRegions,
@@ -198,7 +199,7 @@
 		random = d3.randomInt(0, tweets.length-100)()
 		geoChart.data = features.concat(tweets.slice(random, random+100)),
 		drawUpdate(t);
-		geoChart.draw({duration: 1000})
+		geoChart.draw()
 	}
 
 	const fn_onBrushAction = brushData => {
