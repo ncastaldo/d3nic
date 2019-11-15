@@ -38,21 +38,27 @@ export default class PolarChart extends Chart {
 	/**
 	 *	@override
 	 */
-	draw(transition) { 
-		super.draw(transition);
+	draw(tObject) { 
+		super.draw(tObject);
 
 		let self = this;
 
-		const init = !self._group.classed("polar-chart"); // if not classed as polar-chart then init
-		self._group.classed("polar-chart", true)
+		// for the moment polar charts do not support canvas:
+		// need to reposition element based on group-centroid
 
-		const centroid = self.getCentroid(self)
+		const fn_translateGroup = (group) => {
+			const centroid = self.getCentroid(self)
+			const firstTime = self._group.classed("polar-chart")
+			group.classed("polar-chart", true)
 
-		const g = init ? self._group : self._group.transition(transition)
-		g.attr("transform", `translate(${centroid[0]}, ${centroid[1]})`);
+			group.transition(firstTime ? self._transition : group.transition("empty").duration(0) )
+				.attr("transform", `translate(${centroid[0]}, ${centroid[1]})`)
+		}
 
+		// if first time
+		
+		self._group.call(fn_translateGroup)	
 
-		return self;
 	}
 
 }

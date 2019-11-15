@@ -144,7 +144,7 @@
 	})
 
 		
-	let map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/2.json")
+	let map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/0.json")
 	let features = topojson.feature(map, map.objects.nutsrg).features.filter(f => f.properties.id.startsWith("IT")) //&& f.properties.id.length > 3 )
 	let tweetsReceived = await d3.json("http://localhost:8000/rest/tweets?location=IT")
 
@@ -162,23 +162,26 @@
 		fn_defined: d => d.type === "Feature",
 		fn_fill: (d) => 'lightgray',
 		fn_value: d => d.geometry,
-		fn_fillOpacity: (d) => 0.4
+		fn_strokeWidth: d => 1, 
+		fn_stroke: d => "black",
 	})
 
-	const geoCircles = new d3nic.GeoCircles({
+	const geoSymbols = new d3nic.GeoSymbols({
 		fn_defined: d => d.type === "Point",
 		fn_value: d => d,
-		fn_radius: d => 3,
+		fn_strokeWidth: d => 0,
+		fn_stroke: d => "black",
+		fn_size: d => 30,
+		fn_type: d => d3.symbolTriangle,
 		fn_fill: d => d3.interpolateViridis(Math.random()),
-		fn_strokeWidth: d => 0
 	})
 
 	const geoChart = new d3nic.GeoChart(".canvas4", {
 		size: {width: 400, height: 400},
-		data: features.concat(tweets),
+		data: features.concat(tweets.slice(0, 1000)),
 		components: [
 			geoRegions,
-			geoCircles
+			geoSymbols
 		],
 	})
 
@@ -188,17 +191,19 @@
 		arcChart.data = newData;
 		sectorChart.data = newData;
 		xyStatisticChart.data = newData;
+		random = d3.randomInt(0, tweets.length-100)()
+		geoChart.data = features.concat(tweets.slice(random, random+100)),
 		drawUpdate(t);
+		geoChart.draw({duration: 2000})
 	}
 
 	const fn_onBrushAction = brushData => {
-		//xyBars.join.style("fill-opacity", (d, i) => !brushData[i].brushed ? 0.2 : null) // working on indexes, not so pretty	
-		console.log(new Date().getTime())
-		fn_update(brushData)
+		xyBars.join.style("fill-opacity", (d, i) => !brushData[i].brushed ? 0.2 : null) // working on indexes, not so pretty
+		//fn_update(brushData)
 	}	
 	
 	const fn_onEndAction = brushData => {
-		//fn_update(brushData, {duration: 1000});
+		fn_update(brushData, {duration: 1000});
 	}
 
 
@@ -265,7 +270,7 @@
 
 	const t = {duration: 1000}
 	xyBrushChart.draw(t)
-	geoChart.draw({duration: 0});
+	geoChart.draw(t)//{duration: 0, delay: 1000});
 
 	drawUpdate(t)
 

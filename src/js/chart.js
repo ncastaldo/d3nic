@@ -12,6 +12,10 @@ export default class Chart {
 
 	initChart(self, params) {
 
+		self._container = null
+		self._context = null
+		self._fn_interval = null
+
 		self._size = {
 			width: 400,
 			height: 300
@@ -38,14 +42,11 @@ export default class Chart {
 		self._components.filter(c => !c.chart).forEach(c => c.chart = self)
 	}
 
-	// fits the size of the svg
-	fitSize(self) {
-		const selection = d3.select(self._selector);
-		const tagName = selection.node().tagName;
-		//if(tagName === "svg" || tagName === "canvas") {
-			selection.attr("width", self._size.width);
-			selection.attr("height", self._size.height);
-		//}
+	// fits the size of the svg or canvas
+	fitContainer(self) {
+		self._container
+			.attr("width", self._size.width)
+			.attr("height", self._size.height)
 	}
 
 	getValueDomain(self) {
@@ -54,6 +55,16 @@ export default class Chart {
 			.reduce((acc, cur) => {
 				return d3.extent(acc.concat(cur))
 			}, self._valueDomain)
+	}
+
+	clearCanvas(self) {
+		self._context.fillStyle = '#fff';
+		self._context.fillRect(
+			self._padding.left, 
+			self._padding.top, 
+			self._size.width - self._padding.right, 
+			self._size.height - self._padding.bottom
+		); 
 	}
 
 	get size() {
@@ -97,50 +108,68 @@ export default class Chart {
 		return self._group;
 	}
 
-	get tagName() {
+	get transition() {
 		let self = this;
-		return self._tagName;
+		return self._transition;
 	}
 
+	get context() {
+		let self = this;
+		return self._context;
+	}
 
 	draw(tObject={}) {
 		let self = this;
 
-		const selection = d3.select(self._selector)
-
-		self.fitSize(self);
-
-		// appending the group 
+		// first draw?
 		if (!self._group) {
-			self._tagName = selection.node().tagName.toLowerCase()
-			self._group = self._tagName !== "canvas" ? selection.append("g") : selection
-			self._group.classed("chart", true)
+			self._container = d3.select(self._selector)
+
+			if (self._container.node() instanceof HTMLCanvasElement) {
+				self._context = self._container.node().getContext("2d")
+			}
+
+			self._group = self._container
+				.append("g")
+				.classed("chart", true)
 		}
 
+		// adjusting the size
+		self.fitContainer(self);
+
+		// creating the transition
 		const tName = tObject.hasOwnProperty('name') ? tObject.name : null
 		const	tDuration = tObject.hasOwnProperty('duration') ? tObject.duration : 0	
 		const	tDelay = tObject.hasOwnProperty('delay') ? tObject.delay : 0	
 		
-		const transition = selection
+		self._transition = d3
 			.transition(tName)
 			.duration(tDuration)
 			.delay(tDelay)
 
-		if(self._tagName !== "canvas" || tDuration) {
-			self._components.forEach(component => component.draw(transition));
+		// draw the nodes if it is not a canvas or the duration is zero
+		if(!self._context || tDuration) {
+			self._components.forEach(component => component.draw(self._transition));
 		}
 
-		if(self._tagName === "canvas") {
-			const context = self._group.node().getContext("2d")
-			context.fillStyle = '#fff';
-			context.fillRect(
-				self._padding.left, 
-				self._padding.top, 
-				self._size.width - self._padding.right, 
-				self._size.height - self._padding.bottom
-			); 
-			self._components.forEach(c => c.drawCanvas(transition))			
-			//.on("end.canvas interrupt.canvas", callback)
+		if(self._context) {
+
+			if(self._fn_interval) self._fn_interval.stop()
+
+			self.clearCanvas(self)
+
+			const fn_drawComponentsCanvas = (elapsed) => {
+				console.log('rendering canvas: ' + new Date().getTime())
+				self._components.forEach(c => c.drawCanvas())
+
+				if(elapsed>tDuration) self._fn_interval.stop()
+			}
+
+			if (tDuration) {
+				self._fn_interval = d3.interval(fn_drawComponentsCanvas, 34)
+			} else {
+				self._transition.on("end.canvas interrupt.canvas", () => fn_drawComponentsCanvas(true))
+			}
 		}
 
 		// handling old components

@@ -3,9 +3,9 @@ import Component from "@/js/component.js";
 
 // geo
 import GeoChart from "@/js/geo/geoChart.js";
-import GeoCircles from "@/js/geo/geoCircles.js";
 import GeoRegions from "@/js/geo/geoRegions.js";
 import GeoSvgs from "@/js/geo/geoSvgs.js";
+import GeoSymbols from "@/js/geo/geoSymbols.js";
 import GeoTooltips from "@/js/geo/geoTooltips.js";
 
 // polar
@@ -43,9 +43,9 @@ export {
 	Component,
 
 	GeoChart,
-	GeoCircles,
 	GeoRegions,
 	GeoSvgs,
+	GeoSymbols,
 	GeoTooltips,
 
 	PolarChart,
