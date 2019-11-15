@@ -28,8 +28,15 @@ export default class Chart {
 			left: 10
 		};
 
+		self._transition = {
+			name: null,
+			duration: 0,
+			delay: 0
+		};
+
 		Object.assign(self._size, params.size || {});
 		Object.assign(self._padding, params.padding || {});
+		Object.assign(self._transition, params.transition || {});
 
 		self._fn_key = params.fn_key || ((d, i) => i);
 		self._valueDomain = params.valueDomain || [NaN, NaN]
@@ -70,6 +77,11 @@ export default class Chart {
 	set size(size) {
 		let self = this;
 		Object.assign(self._size, size);
+	}
+
+	set transition(transition) {
+		let self = this;
+		Object.assign(self._transition, transition);
 	}
 
 	get fn_key() {
@@ -113,8 +125,10 @@ export default class Chart {
 		return self._context;
 	}
 
-	draw(tObject={}) {
+	draw(t) {
 		let self = this;
+
+		Object.assign(self._transition, t || {})
 
 		// first draw?
 		if (!self._group) {
@@ -133,18 +147,18 @@ export default class Chart {
 		self.fitContainer(self);
 
 		// creating the transition
-		const tName = tObject.hasOwnProperty('name') ? tObject.name : null
-		const	tDuration = tObject.hasOwnProperty('duration') ? tObject.duration : 0	
-		const	tDelay = tObject.hasOwnProperty('delay') ? tObject.delay : 0	
+		//const tName = tObject.hasOwnProperty('name') ? tObject.name : null
+		//const	tDuration = tObject.hasOwnProperty('duration') ? tObject.duration : 0	
+		//const	tDelay = tObject.hasOwnProperty('delay') ? tObject.delay : 0	
 		
-		self._transition = d3
-			.transition(tName)
-			.duration(tDuration)
-			.delay(tDelay)
+		const transition = d3
+			.transition(self._transition.name)
+			.duration(self._transition.duration)
+			.delay(self._transition.delay)
 
 		// draw the nodes if it is not a canvas or the duration is zero
 		if(!self._context || tDuration) {
-			self._components.forEach(component => component.draw(self._transition));
+			self._components.forEach(component => component.draw(transition));
 		}
 
 		if(self._context) {
@@ -166,7 +180,7 @@ export default class Chart {
 			if (tDuration) {
 				self._fn_interval = d3.interval(fn_drawComponentsCanvas, 34)
 			} else {
-				self._transition.on("end.canvas interrupt.canvas", fn_drawComponentsCanvas)
+				transition.on("end.canvas interrupt.canvas", fn_drawComponentsCanvas)
 			}
 		}
 

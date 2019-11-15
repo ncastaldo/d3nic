@@ -65,6 +65,7 @@
 	const xyChart = new d3nic.XyChart(".svg1", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		//size: {width: 800, height: 400},
+		transition: { duration: 1000 },
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
 		data: data,
@@ -104,6 +105,7 @@
 
 	const arcChart = new d3nic.ArcChart(".svg2", {
 		padding: { top: 0, right: 0, bottom: 0, left: 0 },
+		transition: { duration: 1000 },
 		radiusRangeProportions: [0.1, 0.8],
 		angleRange: [ 1/2 * Math.PI, - Math.PI],
 		arcPadding: {
@@ -125,6 +127,7 @@
 
 	const sectorChart = new d3nic.SectorChart(".svg3", {
 		padding: { top: 0, right: 0, bottom: 0, left: 0 },
+		transition: { duration: 1000 },
 		radiusRangeProportions: [0.1, 0.8],
 		angleRange: [ 2*Math.PI, 0],
 		sectorPadding: {inner: 0, outer: 0},
@@ -178,6 +181,7 @@
 
 	const geoChart = new d3nic.GeoChart(".svg4", {
 		size: {width: 400, height: 400},
+		transition: { duration: 1000 },
 		data: features.concat(tweets.slice(0, 1000)),
 		components: [
 			geoRegions,
@@ -221,6 +225,7 @@
 
 	const xyBrushChart = new d3nic.XyChart(".svg5", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
+		transition: { duration: 1000 },
 		xPadding: { inner: 0, outside: 0},
 		size: { width: 700 },
 		fn_key: d => d.key,
@@ -233,6 +238,7 @@
 
 	const xyStatisticChart = new d3nic.XyChart(".svg6", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
+		transition: { duration: 1000 },
 		xPadding: { outer: 0.5},
 		size: { width: 400 },
 		fn_key: d => d.key,
@@ -259,20 +265,19 @@
 		]
 	})
 
-	const drawUpdate = (t=undefined) => {
+	const drawUpdate = () => {
 
-		xyChart.draw(t)
-		arcChart.draw(t);
-		sectorChart.draw(t);
-	  xyStatisticChart.draw(t)
+		xyChart.draw()
+		arcChart.draw();
+		sectorChart.draw();
+	  xyStatisticChart.draw()
 
 	}
 
-	const t = {duration: 1000}
-	xyBrushChart.draw(t)
-	geoChart.draw(t)//{duration: 0, delay: 1000});
+	xyBrushChart.draw()
+	geoChart.draw()//{duration: 0, delay: 1000});
 
-	drawUpdate(t)
+	drawUpdate()
 
 /*
 
