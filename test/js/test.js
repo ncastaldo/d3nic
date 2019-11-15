@@ -171,7 +171,7 @@
 		fn_value: d => d,
 		fn_strokeWidth: d => 0,
 		fn_stroke: d => "black",
-		fn_size: d => 30,
+		fn_size: d => 70,
 		fn_type: d => d3.symbolWye,
 		fn_fill: d => d3.interpolateViridis(Math.random()),
 	})
