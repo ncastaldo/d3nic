@@ -58,13 +58,8 @@ export default class Chart {
 	}
 
 	clearCanvas(self) {
-		self._context.fillStyle = '#fff';
-		self._context.fillRect(
-			self._padding.left, 
-			self._padding.top, 
-			self._size.width - self._padding.right, 
-			self._size.height - self._padding.bottom
-		); 
+		self._context.fillStyle = '#fff'
+		self._context.fillRect(0, 0, self._size.width, self._size.height) 
 	}
 
 	get size() {
@@ -156,10 +151,13 @@ export default class Chart {
 
 			if(self._fn_interval) self._fn_interval.stop()
 
-			self.clearCanvas(self)
+
+			//self.clearCanvas(self)
 
 			const fn_drawComponentsCanvas = (elapsed) => {
-				console.log('rendering canvas: ' + new Date().getTime())
+				console.log('rendering canvas: ' + elapsed)
+
+				self.clearCanvas(self)
 				self._components.forEach(c => c.drawCanvas())
 
 				if(elapsed>tDuration) self._fn_interval.stop()
@@ -168,7 +166,7 @@ export default class Chart {
 			if (tDuration) {
 				self._fn_interval = d3.interval(fn_drawComponentsCanvas, 34)
 			} else {
-				self._transition.on("end.canvas interrupt.canvas", () => fn_drawComponentsCanvas(true))
+				self._transition.on("end.canvas interrupt.canvas", fn_drawComponentsCanvas)
 			}
 		}
 

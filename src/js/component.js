@@ -7,7 +7,7 @@ export default class Component {
 		self._chart = undefined;
 		self._group = undefined;
 
-		self._fn_path2D = (d, i) => ""
+		self._fn_path2D = (d, i) => {} 
 
 		self._fn_path = (d, i) => ""
 		self._fn_x = (d, i) => 0
@@ -144,7 +144,7 @@ export default class Component {
 	draw(transition) {
 		let self = this;
 
-		self._fn_path2D.context() || self._fn_path2D.context(null)
+		self._fn_path2D.context && self._fn_path2D.context(null)
 
 		// appending the group 
 		if (!self._group) {

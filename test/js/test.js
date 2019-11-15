@@ -172,11 +172,11 @@
 		fn_strokeWidth: d => 0,
 		fn_stroke: d => "black",
 		fn_size: d => 30,
-		fn_type: d => d3.symbolTriangle,
+		fn_type: d => d3.symbolWye,
 		fn_fill: d => d3.interpolateViridis(Math.random()),
 	})
 
-	const geoChart = new d3nic.GeoChart(".canvas4", {
+	const geoChart = new d3nic.GeoChart(".svg4", {
 		size: {width: 400, height: 400},
 		data: features.concat(tweets.slice(0, 1000)),
 		components: [
@@ -194,7 +194,7 @@
 		random = d3.randomInt(0, tweets.length-100)()
 		geoChart.data = features.concat(tweets.slice(random, random+100)),
 		drawUpdate(t);
-		geoChart.draw({duration: 2000})
+		geoChart.draw({duration: 1000})
 	}
 
 	const fn_onBrushAction = brushData => {
