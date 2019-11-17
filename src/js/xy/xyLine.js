@@ -1,85 +1,81 @@
-import * as d3 from '@/js/d3-modules.js';
+import * as d3 from '@/js/d3-modules.js'
 import Component from '@/js/component.js'
 
 export default class XyLine extends Component {
-	constructor(params = {}) {
-		super(params);
+  constructor (params = {}) {
+    super(params)
 
-		let self = this;
-		
-		self._fn_value = params.fn_value || ((d, i) => d)
+    const self = this
 
-		self._fn_valueDomain = (data) => d3.extent(data, self._fn_value)
-	}
+    self._fn_value = params.fn_value || ((d, i) => d)
 
-	/**
-	 *	@override
-	 */
-	set chart(chart) {
-		super.chart = chart;
+    self._fn_valueDomain = (data) => d3.extent(data, self._fn_value)
+  }
 
-		let self = this;
+  /**
+   * @override
+   */
+  set chart (chart) {
+    super.chart = chart
 
-		const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i))
-		const fn_y = (d, i) => chart.fn_yScale(self._fn_value(d, i))
+    const self = this
 
-		const fn_y0 = (d, i) => chart.fn_yScale.range()[0]
+    const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i))
+    const fn_y = (d, i) => chart.fn_yScale(self._fn_value(d, i))
 
-		const fn_line = d3.line()
-			.defined(self._fn_defined)
-			.x(fn_x)
-			.y(fn_y)
-			.curve(d3.curveMonotoneX);
+    const fn_y0 = (d, i) => chart.fn_yScale.range()[0]
 
-		const fn_lineBottom = d3.line()
-			.defined(self._fn_defined)
-			.x(fn_x)
-			.y(fn_y0)
-			.curve(d3.curveMonotoneX);
+    const fn_line = d3.line()
+      .defined(self._fn_defined)
+      .x(fn_x)
+      .y(fn_y)
+      .curve(d3.curveMonotoneX)
 
-		self._fn_draw = (group, transition) => {
+    const fn_lineBottom = d3.line()
+      .defined(self._fn_defined)
+      .x(fn_x)
+      .y(fn_y0)
+      .curve(d3.curveMonotoneX)
 
-			const oldLine = group.selectAll("path.drawn")
+    self._fn_draw = (group, transition) => {
+      const oldLine = group.selectAll('path.drawn')
 
-			const newLine = group
-					.datum(chart.data)
-					.append("path")
+      const newLine = group
+        .datum(chart.data)
+        .append('path')
 
-			if(!oldLine.empty()) {
+      if (!oldLine.empty()) {
+        oldLine.transition(transition)
+          .attr('opacity', 0)
+          .remove()
+      }
 
-				oldLine.transition(transition)
-					.attr("opacity", 0)
-					.remove()
+      self._join = newLine.call(line => {
+        oldLine.empty()
+          ? line.attr('d', fn_lineBottom)
+          : line.attr('opacity', 0)
+      })
+        .classed('drawn', true)
+        .attr('fill', 'none')
+        .attr('stroke', self._fn_stroke)
+        .attr('stroke-width', self._fn_strokeWidth)
+        .call(self._fn_enter)
+        .transition(transition)
+        .attr('opacity', self._fn_opacity)
+        .attr('d', fn_line)
+    }
+  }
 
-			}
-					
-			self._join = newLine.call(line => {
-					oldLine.empty() ? 
-						line.attr("d", fn_lineBottom) : 
-						line.attr("opacity", 0)
-				})
-				.classed("drawn", true)
-				.attr("fill", "none")
-				.attr("stroke", self._fn_stroke) 
-				.attr("stroke-width", self._fn_strokeWidth) 
-				.call(self._fn_enter)
-				.transition(transition)
-				.attr("opacity", self._fn_opacity)
-				.attr("d", fn_line)
+  /**
+   * @override
+   */
+  draw (transition) {
+    super.draw(transition)
 
-		};
-	}
+    const self = this
 
-	/**
-	 *	@override
-	 */
-	draw(transition) {
-		super.draw(transition);
+    self._group.classed('xy-line', true)
 
-		let self = this;
-
-		self._group.classed("xy-line", true);
-
-		self._group.call(self._fn_draw, transition);
-	}
+    self._group.call(self._fn_draw, transition)
+  }
 }

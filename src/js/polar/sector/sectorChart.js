@@ -1,102 +1,100 @@
-import * as d3 from '@/js/d3-modules.js';
+import * as d3 from '@/js/d3-modules.js'
 import PolarChart from '@/js/polar/polarChart.js'
 
 export default class SectorChart extends PolarChart {
-	constructor(container, params = {}) {
-		super(container, params);
-	}
+  constructor (container, params = {}) {
+    super(container, params)
+  }
 
-	/**
-	 *	@override
-	 */
-	initChart(self, params) {
-		super.initChart(self, params)
+  /**
+   * @override
+   */
+  initChart (self, params) {
+    super.initChart(self, params)
 
-		self._sectorPadding = {
-			inner: 0,
-			outer: 0
-		}
+    self._sectorPadding = {
+      inner: 0,
+      outer: 0
+    }
 
-		Object.assign(self._sectorPadding, params.sectorPadding || {})
- 
-		self._fn_radiusScale = d3
-			.scaleLinear()
-			.domain(self.getValueDomain(self))
-			.range(self.getRadiusRange(self));
+    Object.assign(self._sectorPadding, params.sectorPadding || {})
 
-		self._fn_angleScale = d3
-			.scaleBand()
-			.paddingInner(self._sectorPadding.inner)
-			.paddingOuter(self._sectorPadding.outer)
-			.domain(self._data.map(self._fn_key))
-			.range(self._angleRange);
-	}
+    self._fn_radiusScale = d3
+      .scaleLinear()
+      .domain(self.getValueDomain(self))
+      .range(self.getRadiusRange(self))
 
-	/**
-	 *	@override
-	 */
-	set size(size) {
-		super.size = size;
+    self._fn_angleScale = d3
+      .scaleBand()
+      .paddingInner(self._sectorPadding.inner)
+      .paddingOuter(self._sectorPadding.outer)
+      .domain(self._data.map(self._fn_key))
+      .range(self._angleRange)
+  }
 
-		let self = this;
-		self._fn_radiusScale.range(self.getRadiusRange(self));
-	}
+  /**
+   * @override
+   */
+  set size (size) {
+    super.size = size
 
-	/**
-	 *	@override
-	 */
-	get components() {
-		return super.components;
-	}
+    const self = this
+    self._fn_radiusScale.range(self.getRadiusRange(self))
+  }
 
-	/**
-	 *	@override
-	 */
-	set components(components) {
-		super.components = components;
+  /**
+   * @override
+   */
+  get components () {
+    return super.components
+  }
 
-		let self = this;
-		self._fn_radiusScale.domain(self.getValueDomain(self));
+  /**
+   * @override
+   */
+  set components (components) {
+    super.components = components
 
-	}
+    const self = this
+    self._fn_radiusScale.domain(self.getValueDomain(self))
+  }
 
-	/**
-	 *	@override
-	 */
-	get data() {
-		return super.data;
-	}
+  /**
+   * @override
+   */
+  get data () {
+    return super.data
+  }
 
-	/**
-	 *	@override
-	 */
-	set data(data) {
-		super.data = data;
+  /**
+   * @override
+   */
+  set data (data) {
+    super.data = data
 
-		let self = this;
-		self._fn_angleScale.domain(self._data.map(self._fn_key))
-		self._fn_radiusScale.domain(self.getValueDomain(self));
-	}
+    const self = this
+    self._fn_angleScale.domain(self._data.map(self._fn_key))
+    self._fn_radiusScale.domain(self.getValueDomain(self))
+  }
 
-	get fn_radiusScale() {
-		let self = this;
-		return self._fn_radiusScale;
-	}
+  get fn_radiusScale () {
+    const self = this
+    return self._fn_radiusScale
+  }
 
-	get fn_angleScale() {
-		let self = this;
-		return self._fn_angleScale;
-	}
+  get fn_angleScale () {
+    const self = this
+    return self._fn_angleScale
+  }
 
-	/**
-	 *	@override
-	 */
-	draw(transition) { 
-		super.draw(transition);
+  /**
+   * @override
+   */
+  draw (transition) {
+    super.draw(transition)
 
-		let self = this;
+    const self = this
 
-		self._group.classed("sector-chart", true);
-	}
-
+    self._group.classed('sector-chart', true)
+  }
 }

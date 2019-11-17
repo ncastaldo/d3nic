@@ -150,7 +150,7 @@
 		
 	let map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/0.json")
 	let features = topojson.feature(map, map.objects.nutsrg).features.filter(f => f.properties.id.startsWith("IT")) //&& f.properties.id.length > 3 )
-	let tweetsReceived = await d3.json("http://localhost:8000/rest/tweets?location=IT")
+	let tweetsReceived = await d3.json("/resources/tweets.json")
 
 	let tweets = tweetsReceived
 		.map(t => t.geometry.coordinates)
