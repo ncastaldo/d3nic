@@ -36,7 +36,7 @@ export default class XyAxisComponent extends Component {
 
     self._fn_axis = axisType()
       .ticks(self._ticks)
-      .tickFormat(self._xTickFormat)
+      .tickFormat(self._tickFormat)
       .tickSizeInner(self._tickSizeInner)
       .tickSizeOuter(self._tickSizeOuter)
       .tickPadding(self._tickPadding)
