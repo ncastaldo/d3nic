@@ -7,7 +7,9 @@ export default class XyAxisX extends XyAxisComponent {
 
     const self = this
 
-    self._axisType = 'axisType' in params ? params.axisType : d3.axisBottom()
+    self._position = 'position' in params && params.position in self._axisTypes
+      ? params.position
+      : 'bottom'
   }
 
   /**
@@ -20,7 +22,7 @@ export default class XyAxisX extends XyAxisComponent {
 
     self._fn_axis.scale(chart.fn_xScale)
 
-    const fn_axisTransform = () => `translate(0, ${chart.fn_yScale.range()[0]})`
+    const fn_axisTransform = () => `translate(0, ${chart.fn_yScale.range()[self._position === 'top' ? 1 : 0]})`
 
     const fn_recursive = (tot, max, j) => {
       if (tot / j <= max) return j
@@ -39,7 +41,7 @@ export default class XyAxisX extends XyAxisComponent {
     self._fn_draw = (group, transition) => {
       self._fn_axis.tickValues(fn_tickValues())
 
-      const firstTime = group.attr('transform') // if already transformed
+      const firstTime = !group.attr('transform') // if already transformed
 
       self._join = group
         .call(axis => {
@@ -62,6 +64,6 @@ export default class XyAxisX extends XyAxisComponent {
 
     self._group.classed('x-axis', true)
 
-    self._chart.group.call(self._fn_draw, transition)
+    self._group.call(self._fn_draw, transition)
   }
 }

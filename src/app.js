@@ -25,7 +25,6 @@ import SectorMouseLines from '@/js/polar/sector/sectorMouseLines.js'
 
 // xy
 import XyArea from '@/js/xy/xyArea.js'
-import XyAxes from '@/js/xy/xyAxes.js'
 import XyAxisX from '@/js/xy/axis/xyAxisX.js'
 import XyAxisY from '@/js/xy/axis/xyAxisY.js'
 import XyBars from '@/js/xy/xyBars.js'
@@ -63,7 +62,6 @@ export {
   SectorMouseLines,
 
   XyArea,
-  XyAxes,
   XyAxisX,
   XyAxisY,
   XyBars,

@@ -7,7 +7,9 @@ export default class XyAxisY extends XyAxisComponent {
 
     const self = this
 
-    self._axisType = 'axisType' in params ? params.axisType : d3.axisLeft()
+    self._position = 'position' in params && params.position in self._axisTypes
+      ? params.position
+      : 'left'
   }
 
   /**
@@ -20,10 +22,12 @@ export default class XyAxisY extends XyAxisComponent {
 
     self._fn_axis.scale(chart.fn_yScale)
 
-    const fn_axisTransform = () => `translate(${chart.fn_xScale.range()[0]}, 0)`
+    console.log(self._axisType)
+
+    const fn_axisTransform = () => `translate(${chart.fn_xScale.range()[self._position === 'right' ? 1 : 0]}, 0)`
 
     self._fn_draw = (group, transition) => {
-      const firstTime = group.attr('transform') // if already transformed
+      const firstTime = !group.attr('transform') // if already transformed
 
       self._join = group
         .call(axis => {
@@ -46,6 +50,6 @@ export default class XyAxisY extends XyAxisComponent {
 
     self._group.classed('y-axis', true)
 
-    self._chart.group.call(self._fn_draw, transition)
+    self._group.call(self._fn_draw, transition)
   }
 }

@@ -52,7 +52,8 @@
 	}
 
 	const xyMouseLines = new d3nic.XyMouseLines({
-		fn_value: d => d.v1 + d.v2,
+		fn_bottomValue: d => d.v1,
+		fn_topValue: d => d.v1 + d.v2,
 		fn_defined: d => !isNaN(d.v1) && !isNaN(d.v2),
 		fn_opacity: d => 0,
 	})
@@ -73,7 +74,8 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.XyAxisX(),
+			new d3nic.XyAxisX({ position: 'bottom', ticks: 10 }),
+			new d3nic.XyAxisY({ position: 'left' }),
 			new d3nic.XyMouseBisector({
 				fn_onMouseoverAction: mouseoverXyBisector,
 				fn_onMouseoutAction: mouseoutXyBisector,
@@ -240,20 +242,21 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.XyAxes(), xyBars, xyMouseBrusher
+			new d3nic.XyAxisX(), xyBars, xyMouseBrusher
 		]
 	})
 
 	const xyStatisticChart = new d3nic.XyChart(".svg6", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		transition: { duration: 1000 },
-		xPadding: { outer: 0.5},
+		xPadding: { outer: 0.5 },
 		size: { width: 400 },
 		fn_key: d => d.key,
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.XyAxes(),
+			new d3nic.XyAxisX({ tickSizeInner: 0, tickSizeOuter: 0 }),
+			new d3nic.XyAxisY({ tickSizeInner: 0, tickSizeOuter: 0 }),
 			new d3nic.XyBoxPlots({
 				fn_minValue: d => d.v1 - 2,
 				fn_q1Value: d => d.v1 - 1,
@@ -262,7 +265,7 @@
 				fn_maxValue: d => d.v1 + 2,
 				fn_defined: d => !isNaN(d.v1),
 				fn_minWidth: d => 10,
-				fn_maxWidth: d => 20,
+				fn_maxWidth: d => 30,
 				fn_fill: fn_fill,
 				fn_fillOpacity: d => 0.5,
 				fn_stroke: fn_fill,
@@ -270,7 +273,10 @@
 			}),
 			new d3nic.XyLine({
 				fn_value: d => d.v1,
-				fn_defined: d => !isNaN(d.v1)
+				fn_defined: d => !isNaN(d.v1),
+				fn_strokeWidth: d => 2,
+				fn_stroke: d => "#555",
+				fn_strokeDasharray: d => [4, 1]
 			}),
 		]
 	})
@@ -285,26 +291,8 @@
 	}
 
 	xyBrushChart.draw()
-	//geoChart.draw()//{duration: 0, delay: 1000});
+	geoChart.draw()//{duration: 0, delay: 1000});
 
 	drawUpdate()
 
-/*
-
-
-
-	setTimeout(() => {
-		components.splice(2, 2);
-		components.push(
-			new XyArea({
-				fn_value: d => d.v2,
-				fn_fill: d3.schemeBlues[9][6],
-				fn_fillOpacity: 0.3,
-			})
-		);
-
-		xyChart.setComponents(components).draw({ name: "components", duration: 1000 });
-	}, 4000);
-
-	*/
 })()

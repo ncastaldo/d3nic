@@ -1,4 +1,4 @@
-// import * as d3 from '@/js/d3-modules.js'
+import * as d3 from '@/js/d3-modules.js'
 import Component from '@/js/component.js'
 
 export default class XyMouseLines extends Component {
@@ -7,7 +7,18 @@ export default class XyMouseLines extends Component {
 
     const self = this
 
+    /** @Override */
     self._fn_strokeDasharray = params.fn_strokeDasharray || ((d, i) => [2, 2])
+
+    self._fn_bottomValue = params.fn_bottomValue || ((d) => NaN)
+    self._fn_topValue = params.fn_topValue || ((d) => NaN)
+
+    self._fn_valueDomain = (data) => d3.extent(
+      data.map((d, i) => [
+        self._fn_bottomValue(d, i),
+        self._fn_topValue(d, i)
+      ]).flat()
+    )
   }
 
   /**
@@ -19,8 +30,14 @@ export default class XyMouseLines extends Component {
     const self = this
 
     const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i)) + chart.fn_xScale.bandwidth() / 2
-    const fn_y0 = (d, i) => chart.fn_yScale.range()[0]
-    const fn_y1 = (d, i) => chart.fn_yScale.range()[1]
+
+    const fn_yTop = (d, i) => !isNaN(self._fn_topValue(d, i))
+      ? chart.fn_yScale(self._fn_topValue(d, i))
+      : chart.fn_yScale.range()[1]
+
+    const fn_yBottom = (d, i) => !isNaN(self._fn_bottomValue(d, i))
+      ? chart.fn_yScale(self._fn_bottomValue(d, i))
+      : chart.fn_yScale.range()[0]
 
     self._fn_draw = (mouseLines, transition) => {
       self._join = mouseLines.join(
@@ -28,17 +45,17 @@ export default class XyMouseLines extends Component {
           .append('line')
           .attr('x1', fn_x)
           .attr('x2', fn_x)
-          .attr('y1', fn_y0)
-          .attr('y2', fn_y0)
+          .attr('y1', fn_yBottom)
+          .attr('y2', fn_yBottom)
           .attr('stroke', self._fn_stroke)
           .attr('stroke-width', self._fn_strokeWidth)
-          .attr('stroke-dasharray', (d, i) => `${self._fn_strokeDasharray(d, i)[0]}, ${self._fn_strokeDasharray(d, i)[1]}`)
+          .attr('stroke-dasharray', self._fn_strokeDasharray)
           .attr('opacity', 0)
           .call(self._fn_enter)
           .call(enter =>
             enter
               .transition(transition)
-              .attr('y2', fn_y1)
+              .attr('y2', fn_yTop)
               .attr('opacity', self._fn_opacity)),
         update => update
           .call(update =>
@@ -47,15 +64,14 @@ export default class XyMouseLines extends Component {
               .attr('opacity', self._fn_opacity)
               .attr('x1', fn_x)
               .attr('x2', fn_x)
-              .attr('y1', fn_y0)
-              .attr('y2', fn_y1)
+              .attr('y1', fn_yBottom)
+              .attr('y2', fn_yTop)
           ),
         exit => exit
           .call(exit =>
             exit
               .transition(transition)
-              .attr('y1', fn_y0)
-              .attr('y2', fn_y0)
+              .attr('y2', fn_yBottom)
               .attr('opacity', 0)
               .remove())
       )

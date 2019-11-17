@@ -59,6 +59,7 @@ export default class XyLine extends Component {
         .attr('fill', 'none')
         .attr('stroke', self._fn_stroke)
         .attr('stroke-width', self._fn_strokeWidth)
+        .attr('stroke-dasharray', self._fn_strokeDasharray)
         .call(self._fn_enter)
         .transition(transition)
         .attr('opacity', self._fn_opacity)
