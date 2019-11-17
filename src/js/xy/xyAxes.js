@@ -15,8 +15,6 @@ export default class XyAxes extends Component {
 
     self._xTickFormat = params.xTickFormat || d3.format('.0f')
     self._yTickFormat = params.yTickFormat || d3.format('.0f')
-
-    return self
   }
 
   /**
@@ -30,11 +28,11 @@ export default class XyAxes extends Component {
     const fn_xAxis = d3
       .axisBottom()
       .scale(chart.fn_xScale)
-      .ticks(self._xTicks)
       .tickFormat(self._xTickFormat)
-      .tickSizeInner(0)
-      .tickSizeOuter(0)
+      .tickSize(0)
       .tickPadding(8)
+
+    const fn_xAxisTransform = () => `translate(0, ${chart.fn_yScale.range()[0]})`
 
     const fn_yAxis = d3
       .axisLeft()
@@ -43,46 +41,56 @@ export default class XyAxes extends Component {
       .tickFormat(self._yTickFormat)
       .tickSizeOuter(0)
 
-    self._fn_draw = (axes, transition) => {
+    const fn_yAxisTransform = () => `translate(${chart.fn_xScale.range()[0]}, 0)`
+
+    const fn_recursive = (tot, max, j) => {
+      if (tot / j <= max) return j
+      return fn_recursive(tot, max, j + 1)
+    }
+
+    const fn_tickValues = () => {
+      const domain = chart.fn_xScale.domain()
+      if (self._xTicks <= 0) return domain
+      const j = fn_recursive(domain.length, self._xTicks, 1)
+      const correction = Math.floor((domain.length - 1) % j / 2) // how many on the right -> shift in case
+      const fn_filter = (d, i) => i % j === correction
+      return domain.filter(fn_filter)
+    }
+
+    self._fn_draw = (group, transition) => {
+
       if (self._xAxisVisible) {
-        const xAxis = axes.select('g.axis.x-axis')
-        if (!xAxis.empty()) {
-          xAxis.transition(transition)
-            .attr(
-              'transform', `translate(0, ${chart.fn_yScale.range()[0]})`
-            )
-            .call(fn_xAxis)
-        } else {
-          axes.append('g').classed('axis x-axis', true)
-            .attr(
-              'transform', `translate(0, ${chart.fn_yScale.range()[0]})`
-            )
-            .call(fn_xAxis)
-            .attr('opacity', 0)
-            .transition(transition)
-            .attr('opacity', 1)
-        }
+        fn_xAxis.tickValues(fn_tickValues())
+
+        self._xAxis = self._xAxis || group.append('g')
+
+        const firstTime = !self._xAxis.classed('x-axis')
+        self._xAxis.classed('axis x-axis', true)
+
+        self._xAxis
+          .call(axis => {
+            firstTime && axis.attr('opacity', 0).attr('transform', fn_xAxisTransform)
+          })
+          .transition(transition)
+          .attr('transform', fn_xAxisTransform)
+          .attr('opacity', self._fn_opacity)
+          .call(fn_xAxis)
       }
 
       if (self._yAxisVisible) {
-        const yAxis = axes.select('g.axis.y-axis')
+        self._yAxis = self._yAxis || group.append('g')
 
-        if (!yAxis.empty()) {
-          yAxis.transition(transition)
-            .attr(
-              'transform', `translate(${chart.fn_xScale.range()[0]}, 0)`
-            )
-            .call(fn_yAxis)
-        } else {
-          axes.append('g').classed('axis y-axis', true)
-            .attr(
-              'transform', `translate(${chart.fn_xScale.range()[0]}, 0)`
-            )
-            .call(fn_yAxis)
-            .attr('opacity', 0)
-            .transition(transition)
-            .attr('opacity', 1)
-        }
+        const firstTime = !self._yAxis.classed('y-axis')
+        self._yAxis.classed('axis y-axis', true)
+
+        self._yAxis
+          .call(axis => {
+            firstTime && axis.attr('opacity', 0).attr('transform', fn_yAxisTransform)
+          })
+          .transition(transition)
+          .attr('transform', fn_yAxisTransform)
+          .attr('opacity', self._fn_opacity)
+          .call(fn_yAxis)
       }
     }
   }

@@ -54,6 +54,7 @@ export default class XySymbols extends Component {
             update
               .transition(transition)
               .attr('transform', (d, i) => `translate(${self._fn_x(d, i)}, ${self._fn_y(d, i)})`)
+              .attr('opacity', self._fn_opacity)
               .attr('d', self._fn_path)
           ),
         exit =>
