@@ -72,7 +72,7 @@ export default class Rect extends Component {
 
     self._group
       .selectAll('rect')
-      .data([1])
+      .data([null])
       .call(self._fn_draw, transition)
   }
 }
