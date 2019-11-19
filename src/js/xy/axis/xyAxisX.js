@@ -1,4 +1,4 @@
-import * as d3 from '@/js/d3-modules.js'
+// import * as d3 from '@/js/d3-modules.js'
 import XyAxisComponent from '@/js/xy/axis/xyAxisComponent.js'
 
 export default class XyAxisX extends XyAxisComponent {

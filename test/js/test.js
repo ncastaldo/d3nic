@@ -74,7 +74,7 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.Rect({ fn_opacity: d => 0 }),
+			new d3nic.Rect({ fn_opacity: d => 0, cover: true, fn_enter: enter => enter.on("mouseenter", () => console.log('entered')) }),
 			new d3nic.XyAxisX({ position: 'bottom', ticks: 10, tickFormat: d => d }),
 			new d3nic.XyAxisY({ position: 'left' }),
 			new d3nic.XyMouseBisector({

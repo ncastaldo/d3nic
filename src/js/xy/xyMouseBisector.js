@@ -103,8 +103,6 @@ export default class XyMouseBisector extends Component {
       group.on('mousemove.mouse-bisector', fn_onMousemove)
       group.on('mouseleave.mouse-bisector', fn_onMouseleave)
     }
-
-    return self._
   }
 
   /**
@@ -115,10 +113,9 @@ export default class XyMouseBisector extends Component {
 
     const self = this
 
-    self._group.classed('xy-mouse-bisector', true)
+    // self._group.classed('xy-mouse-bisector', true)
 
+    // direct call on chart
     self._chart.group.call(self._fn_draw, transition)
-
-    return self._
   }
 }
