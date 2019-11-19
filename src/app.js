@@ -1,6 +1,8 @@
 import Chart from '@/js/chart.js'
 import Component from '@/js/component.js'
 
+import Rect from '@/js/rect.js'
+
 // geo
 import GeoChart from '@/js/geo/geoChart.js'
 import GeoRegions from '@/js/geo/geoRegions.js'
@@ -42,6 +44,8 @@ export {
 
   Chart,
   Component,
+
+  Rect,
 
   GeoChart,
   GeoRegions,

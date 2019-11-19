@@ -77,6 +77,11 @@ export default class Chart {
     Object.assign(self._size, size)
   }
 
+  get padding () {
+    const self = this
+    return self._padding
+  }
+
   set transition (transition) {
     const self = this
     Object.assign(self._transition, transition)
