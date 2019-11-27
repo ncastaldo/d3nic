@@ -5,6 +5,7 @@ import Rect from '@/js/rect.js'
 
 // geo
 import GeoChart from '@/js/geo/geoChart.js'
+import GeoHexbin from '@/js/geo/geoHexbin.js'
 import GeoRegions from '@/js/geo/geoRegions.js'
 import GeoSvgs from '@/js/geo/geoSvgs.js'
 import GeoSymbols from '@/js/geo/geoSymbols.js'
@@ -48,6 +49,7 @@ export {
   Rect,
 
   GeoChart,
+  GeoHexbin,
   GeoRegions,
   GeoSvgs,
   GeoSymbols,

@@ -16,6 +16,7 @@ export default class GeoChart extends Chart {
     self._projectionType = params.projectionType || d3.geoMercator
     self._fn_geoProjection = self._projectionType()
 
+    self._extent = self.getExtent(self)
     self.fitProjection(self)
   }
 
@@ -28,12 +29,16 @@ export default class GeoChart extends Chart {
       .flat(1)
   }
 
-  fitProjection (self) {
-    const extent = [
+  // helper function
+  getExtent (self) {
+    return [
       [self._padding.left, self._padding.top],
       [self._size.width - self._padding.right, self._size.height - self._padding.bottom]
     ]
-    self._fn_geoProjection.fitExtent(extent, {
+  }
+
+  fitProjection (self) {
+    self._fn_geoProjection.fitExtent(self._extent, {
       type: 'GeometryCollection',
       geometries: self.getValueDomain(self)
     })
@@ -53,7 +58,16 @@ export default class GeoChart extends Chart {
     super.size = size
 
     const self = this
+    self._extent = self.getExtent(self)
     self.fitProjection(self)
+  }
+
+  /**
+   * @override
+   */
+  get extent () {
+    const self = this
+    return self._extent
   }
 
   /**

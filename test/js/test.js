@@ -34,6 +34,7 @@
 		container.append("canvas").classed("canvas4", true).style("pointer-events", "none")
 		container.append("svg").classed("svg5", true)
 		container.append("svg").classed("svg6", true)
+		container.append("svg").classed("svg7", true)
 	})
 
 	const mouseoverXyBisector = (d, i) => {
@@ -171,6 +172,9 @@
 			}
 		})
 
+	console.log(tweets.length)
+	console.log(tweets[0])
+
 	const geoRegions = new d3nic.GeoRegions({
 		fn_defined: d => d.type === "Feature",
 		fn_fill: (d) => 'lightgray',
@@ -265,8 +269,8 @@
 				fn_q3Value: d => d.v1 + 1,
 				fn_maxValue: d => d.v1 + 2,
 				fn_defined: d => !isNaN(d.v1),
-				fn_minWidth: d => 10,
-				fn_maxWidth: d => 30,
+				// fn_minWidth: d => 10,
+				// fn_maxWidth: d => 30,
 				fn_fill: fn_fill,
 				fn_fillOpacity: d => 0.5,
 				fn_stroke: fn_fill,
@@ -282,6 +286,36 @@
 		]
 	})
 
+
+
+
+	const geoRegions2 = new d3nic.GeoRegions({
+		fn_defined: d => d.type === "Feature",
+		fn_fill: (d) => 'lightgray',
+		fn_value: d => d.geometry,
+		fn_strokeWidth: d => 1, 
+		fn_stroke: d => "black",
+	})
+
+	const geoHexbin = new d3nic.GeoHexbin({
+		fn_defined: d => d.type === "Point",
+		fn_value: d => d,
+		fn_strokeWidth: d => 0,
+		fn_stroke: d => "black",
+		fn_fill: d => d3.interpolateViridis(Math.random()),
+	})
+
+	const geoChart2 = new d3nic.GeoChart(".svg7", {
+		size: {width: 400, height: 400},
+		transition: { duration: 0 },
+		//data: features.concat(tweets.slice(0, 2000)),
+		data: tweets,
+		components: [
+			geoRegions2,
+			geoHexbin
+		],
+	})
+
 	const drawUpdate = () => {
 
 		xyChart.draw()
@@ -293,6 +327,8 @@
 
 	xyBrushChart.draw()
 	geoChart.draw()//{duration: 0, delay: 1000});
+
+	geoChart2.draw()
 
 	drawUpdate()
 
