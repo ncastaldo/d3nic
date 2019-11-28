@@ -22,8 +22,6 @@ export default class XyAxisY extends XyAxisComponent {
 
     self._fn_axis.scale(chart.fn_yScale)
 
-    console.log(self._axisType)
-
     const fn_axisTransform = () => `translate(${chart.fn_xScale.range()[self._position === 'right' ? 1 : 0]}, 0)`
 
     self._fn_draw = (group, transition) => {

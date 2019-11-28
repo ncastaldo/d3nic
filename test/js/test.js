@@ -35,6 +35,7 @@
 		container.append("svg").classed("svg5", true)
 		container.append("svg").classed("svg6", true)
 		container.append("svg").classed("svg7", true)
+		container.append("canvas").classed("canvas7", true)
 	})
 
 	const mouseoverXyBisector = (d, i) => {
@@ -172,9 +173,6 @@
 			}
 		})
 
-	console.log(tweets.length)
-	console.log(tweets[0])
-
 	const geoRegions = new d3nic.GeoRegions({
 		fn_defined: d => d.type === "Feature",
 		fn_fill: (d) => 'lightgray',
@@ -193,7 +191,7 @@
 		fn_fill: d => d3.interpolateViridis(Math.random()),
 	})
 
-	const geoChart = new d3nic.GeoChart("canvas", {
+	const geoChart = new d3nic.GeoChart(".svg4", {
 		size: {width: 400, height: 400},
 		transition: { duration: 0 },
 		data: features.concat(tweets.slice(0, 1000)),
@@ -209,10 +207,12 @@
 		arcChart.data = newData;
 		sectorChart.data = newData;
 		xyStatisticChart.data = newData;
-		random = d3.randomInt(0, tweets.length-100)()
+		random = d3.randomInt(0, tweets.length-1000)()
 		geoChart.data = features.concat(tweets.slice(random, random+100)),
-		drawUpdate(t);
+		geoChart2.data = tweets.slice(random, random+1000)
+
 		geoChart.draw()
+		drawUpdate(t);
 	}
 
 	const fn_onBrushAction = brushData => {
@@ -254,7 +254,7 @@
 	const xyStatisticChart = new d3nic.XyChart(".svg6", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		transition: { duration: 1000 },
-		xPadding: { outer: 0.5 },
+		xPadding: { inner: 0.5, outer: 0.5 },
 		size: { width: 400 },
 		fn_key: d => d.key,
 		valueDomain: [0, NaN],
@@ -289,14 +289,6 @@
 
 
 
-	const geoRegions2 = new d3nic.GeoRegions({
-		fn_defined: d => d.type === "Feature",
-		fn_fill: (d) => 'lightgray',
-		fn_value: d => d.geometry,
-		fn_strokeWidth: d => 1, 
-		fn_stroke: d => "black",
-	})
-
 	const geoHexbin = new d3nic.GeoHexbin({
 		fn_defined: d => d.type === "Point",
 		fn_value: d => d,
@@ -305,13 +297,12 @@
 		fn_fill: d => d3.interpolateViridis(Math.random()),
 	})
 
-	const geoChart2 = new d3nic.GeoChart(".svg7", {
+	const geoChart2 = new d3nic.GeoChart(".canvas7", {
 		size: {width: 400, height: 400},
-		transition: { duration: 0 },
+		transition: {duration: 1000},
 		//data: features.concat(tweets.slice(0, 2000)),
 		data: tweets,
 		components: [
-			geoRegions2,
 			geoHexbin
 		],
 	})
@@ -321,14 +312,14 @@
 		xyChart.draw()
 		arcChart.draw();
 		sectorChart.draw();
-	  xyStatisticChart.draw()
+		xyStatisticChart.draw()
+		
+		geoChart2.draw()
 
 	}
 
 	xyBrushChart.draw()
 	geoChart.draw()//{duration: 0, delay: 1000});
-
-	geoChart2.draw()
 
 	drawUpdate()
 

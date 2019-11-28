@@ -32,14 +32,14 @@ export default class XyBoxPlots extends Component {
 
     const self = this
 
-    const fn_bandwidth = (d, i) => chart.fn_xScale.bandwidth()
+    const fn_bandwidth = chart.fn_xScale.bandwidth
 
     const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i))
-    const fn_width = (d, i) => fn_bandwidth(d, i) > self._fn_maxWidth(d, i)
+    const fn_width = (d, i) => fn_bandwidth() > self._fn_maxWidth(d, i)
       ? self._fn_maxWidth(d, i)
-      : fn_bandwidth(d, i) < self._fn_minWidth(d, i)
+      : fn_bandwidth() < self._fn_minWidth(d, i)
         ? self._fn_minWidth(d, i)
-        : fn_bandwidth(d, i)
+        : fn_bandwidth()
 
     const fn_yMin = (d, i) => chart.fn_yScale(self._fn_minValue(d, i))
     const fn_yQ1 = (d, i) => chart.fn_yScale(self._fn_q1Value(d, i))
@@ -140,7 +140,7 @@ export default class XyBoxPlots extends Component {
           .attr('stroke', self._fn_stroke)
           .attr('stroke-width', self._fn_strokeWidth)
           .attr('opacity', self._fn_opacity)
-          .attr('transform', (d, i) => `translate(${fn_x(d, i) + fn_bandwidth(d, i) / 2}, ${fn_yMedian(d, i)})`)
+          .attr('transform', (d, i) => `translate(${fn_x(d, i) + fn_bandwidth() / 2}, ${fn_yMedian(d, i)})`)
           .call(enterRect, transition)
           .call(enterHLine, transition, 'h-center')
           .call(enterHLine, transition, 'h-bottom')

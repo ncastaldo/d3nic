@@ -27,6 +27,8 @@ export default class Component {
     self._fn_enter = params.fn_enter || (component => {})
     self._fn_update = params.fn_update || (component => {})
     self._fn_exit = params.fn_exit || (component => {})
+
+    self._componentData = []
   }
 
   get fn_valueDomain () {
@@ -54,9 +56,19 @@ export default class Component {
     return self._group
   }
 
+  get componentData () {
+    const self = this
+    return self._componentData
+  }
+
   get join () {
     const self = this
     return self._join || d3.select(null)
+  }
+
+  // may be overridden in cases in which data is modified
+  setComponentData (self) {
+    self._componentData = self._chart.data.filter(self._fn_defined)
   }
 
   drawCanvas () {
@@ -76,8 +88,8 @@ export default class Component {
       const t = regex.exec(s.attr('transform')) || []
       const x = t.length > 1 ? t[1] : 0
       const y = t.length > 2 ? t[2] : 0
-      const lineWidth = s.attr('stroke-width') || 0
-      const fillOpacity = s.attr('fill-opacity') || 0
+      const lineWidth = parseInt(s.attr('stroke-width') || 0)
+      const fillOpacity = parseInt(s.attr('fill-opacity') || 0)
 
       const path = new Path2D(s.attr('d'))
 
@@ -112,17 +124,19 @@ export default class Component {
       context.translate(x, y)
 
       context.beginPath()
-      self._fn_path(d, i)
+
+      const svgPath = self._fn_path(d, i)
+      const path = svgPath ? new Path2D(svgPath) : null
 
       if (lineWidth) {
         context.lineWidth = lineWidth
         context.strokeStyle = self._fn_stroke(d, i)
-        context.stroke()
+        context.stroke(path)
       }
 
       if (fillOpacity) {
         context.fillStyle = self._fn_fill(d, i)
-        context.fill()
+        context.fill(path)
       }
 
       context.restore()
@@ -131,12 +145,15 @@ export default class Component {
     if (self._group) { // if the draw has been called
       self._join.each(fn_renderNodes)
     } else {
-      self._chart.data.filter(self._fn_defined).forEach(fn_renderData)
+      self.setComponentData(self)
+      self._componentData.forEach(fn_renderData)
     }
   }
 
   draw (transition) {
     const self = this
+
+    self.setComponentData(self)
 
     self._fn_path2D.context && self._fn_path2D.context(null)
 

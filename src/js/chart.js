@@ -170,7 +170,7 @@ export default class Chart {
       // self.clearCanvas(self)
 
       const fn_drawComponentsCanvas = (elapsed) => {
-        console.log('rendering canvas: ' + (elapsed || 'immediate'))
+        // console.log('rendering canvas: ' + (elapsed || 'immediate'))
 
         self.clearCanvas(self)
         self._components.forEach(c => c.drawCanvas())

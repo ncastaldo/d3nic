@@ -85,8 +85,6 @@ export default class GeoSymbols extends Component {
 
     self._group.classed('geo-symbols', true)
 
-    console.log(self._chart.data)
-
     self._group
       .selectAll('path')
       .data(self._chart.data.filter(self._fn_defined), self._chart.fn_key)
