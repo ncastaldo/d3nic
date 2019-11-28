@@ -15,4 +15,6 @@ src
 webpack.config.js
 
 .babelrc
+.eslintignore
+.eslintrc.json
 test
