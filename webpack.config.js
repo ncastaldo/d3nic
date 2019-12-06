@@ -8,7 +8,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    filename: 'd3nic.js',
     libraryTarget: 'umd',
     library: 'd3nic' // names that global variable (in this case, it's d3nic.
   },

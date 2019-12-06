@@ -2,7 +2,7 @@
   "name": "d3nic",
   "version": "0.0.1",
   "description": "D3 New Interactive Charts",
-  "main": "dist/index.js",
+  "main": "dist/d3nic.js",
   "scripts": {
     "test": "webpack-dev-server",
     "lint": "eslint . --fix",
