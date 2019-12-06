@@ -211,8 +211,8 @@
 		],
 	})
 
-	const fn_update = (brushExtent, t) => {
-		const newData = data.filter(d => d.key >= brushExtent[0] && d.key <= brushExtent[1])
+	const fn_update = (brushKeys, t) => {
+		const newData = data.filter(d => d.key >= brushKeys[0] && d.key <= brushKeys[1])
 		xyChart.data = newData;
 		arcChart.data = newData;
 		sectorChart.data = newData;
@@ -225,14 +225,14 @@
 		drawUpdate(t);
 	}
 
-	const fn_onBrushAction = brushExtent => {
-		// console.log(JSON.stringify(brushExtent))
-		xyBars.join.style("fill-opacity", d => brushExtent && d.key >= brushExtent[0] && d.key <= brushExtent[1] ? null : 0.2)
+	const fn_onBrushAction = brushKeys => {
+		// console.log(JSON.stringify(brushKeys))
+		xyBars.join.style("fill-opacity", d => brushKeys && d.key >= brushKeys[0] && d.key <= brushKeys[1] ? null : 0.2)
 		//fn_update(brushData)
 	}	
 	
-	const fn_onEndAction = brushExtent => {
-		fn_update(brushExtent, {duration: 1000});
+	const fn_onEndAction = brushKeys => {
+		fn_update(brushKeys, {duration: 1000});
 	}
 
 
