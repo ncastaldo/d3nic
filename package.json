@@ -14,7 +14,7 @@
     "url": "git+https://github.com/ncastaldo/d3nic.git"
   },
   "author": "ncastaldo",
-  "license": "ISC",
+  "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/ncastaldo/d3nic/issues"
   },
