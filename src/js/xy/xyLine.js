@@ -20,7 +20,7 @@ export default class XyLine extends Component {
 
     const self = this
 
-    const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i))
+    const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i)) + chart.fn_xScale.bandwidth() / 2
     const fn_y = (d, i) => chart.fn_yScale(self._fn_value(d, i))
 
     const fn_y0 = (d, i) => chart.fn_yScale.range()[0]
