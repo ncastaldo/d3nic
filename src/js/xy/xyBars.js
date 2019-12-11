@@ -48,6 +48,7 @@ export default class XyBars extends Component {
           .attr('stroke', self._fn_stroke)
           .attr('stroke-width', self._fn_strokeWidth)
           .attr('fill', self._fn_fill)
+          .attr('fill-opacity', self._fn_fillOpacity)
           .attr('opacity', 0)
           .call(self._fn_enter)
           .call(enter => enter.transition(transition)
@@ -59,6 +60,7 @@ export default class XyBars extends Component {
         update => update
           .call(update => update.transition(transition)
             .attr('fill', self._fn_fill)
+            .attr('fill-opacity', self._fn_fillOpacity)
             .attr('x', fn_x)
             .attr('width', fn_width)
             .attr('y', fn_y)
