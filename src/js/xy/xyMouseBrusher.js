@@ -7,11 +7,36 @@ export default class XyMouseBrusher extends Component {
 
     const self = this
 
+    self._fn_brush = d3.brushX() // to init
+    self._mouseScale = d3.scaleQuantize()
+
+    self._brushKeys = 'brushKeys' in params ? params.brushKeys : undefined
+    self._proactive = 'proactive' in params ? params.proactive : false
+
     self._brushFill = params.brushFill || d3.schemeBlues[5][3]
     self._brushFillOpacity = params.brushFillOpacity || 0.1
 
     self._fn_onBrushAction = params.fn_onBrushAction || (dataBrush => {})
     self._fn_onEndAction = params.fn_onEndAction || (dataBrush => {})
+  }
+
+  get brushKeys () {
+    const self = this
+    return self._brushKeys
+  }
+
+  set brushKeys (brushKeys) {
+    const self = this
+    const snap = !self._brushKeys || self._brushKeys[0] !== brushKeys[0] || self._brushKeys[1] !== brushKeys[1]
+    self._brushKeys = brushKeys
+    self._group && snap && self.snapBrush(self)
+  }
+
+  snapBrush (self) {
+    const mouseExtent = self._brushKeys
+      ? [self._mouseScale.invertExtent(self._brushKeys[0])[0], self._mouseScale.invertExtent(self._brushKeys[1])[1]]
+      : [0, 0]
+    self._group.call(self._fn_brush.move, mouseExtent)
   }
 
   /**
@@ -22,79 +47,74 @@ export default class XyMouseBrusher extends Component {
 
     const self = this
 
-    const mouseScale = d3.scaleQuantize()
-    const fn_brush = d3.brushX()
-
-    let brushKeys
     let change
 
-    self._fn_draw = (brush, transition) => {
-      const halfStep = chart.fn_xScale.step() / 2
-      mouseScale.domain(chart.fn_xScale.range()).range(chart.fn_xScale.domain())
+    const fn_halfStep = () => chart.fn_xScale.step() / 2
 
-      const fn_onBrush = (d, i, nodes) => {
-        if (d3.event.sourceEvent.type !== 'mousemove') return // Only transition after input.
+    const fn_onBrush = (d, i, nodes) => {
+      if (!d3.event.sourceEvent || d3.event.sourceEvent.type !== 'mousemove') return // Only transition after input.
 
-        let brushPainted = false
+      let brushPainted = false
 
-        // HANDLE THE ADJUSTMENTS
-        const mouseExtent = d3.brushSelection(nodes[i])
-        if ((mouseExtent[1] - mouseExtent[0]) > halfStep) { // to limit overhead
-          const key0 = mouseScale(mouseExtent[0] + halfStep)
-          const key1 = mouseScale(mouseExtent[1] - halfStep)
-          if (key1 >= key0) {
-            brushPainted = true
-            change = !brushKeys || brushKeys[0] !== key0 || brushKeys[1] !== key1
-            brushKeys = [key0, key1]
-            const correctMouseExtent = [mouseScale.invertExtent(key0)[0], mouseScale.invertExtent(key1)[1]]
-            d3.select(nodes[i]).call(fn_brush.move, correctMouseExtent)
-          }
-        }
-
-        if (!brushPainted) {
-          change = brushKeys // if before defined then change now
-          brushKeys = undefined // brushing to NaN, NaN
-          d3.select(nodes[i]).call(fn_brush.move, [0, 0])
-        }
-
-        // HANDLE THE CHANGES
-        if (change) {
-          self._fn_onBrushAction(brushKeys)
+      // HANDLE THE ADJUSTMENTS
+      const mouseExtent = d3.brushSelection(self._group.node())
+      if ((mouseExtent[1] - mouseExtent[0]) > fn_halfStep()) { // to limit overhead
+        const key0 = self._mouseScale(mouseExtent[0] + fn_halfStep())
+        const key1 = self._mouseScale(mouseExtent[1] - fn_halfStep())
+        if (key1 >= key0) {
+          brushPainted = true
+          change = !self.brushKeys || self._brushKeys[0] !== key0 || self._brushKeys[1] !== key1
+          self._brushKeys = [key0, key1]
+          self._proactive && self.snapBrush(self)
         }
       }
 
-      const fn_onEnd = (d, i, nodes) => {
-        if (d3.event.sourceEvent.type !== 'mouseup') return // Only transition after input.
-
-        const mouseExtent = d3.brushSelection(nodes[i])
-
-        if (!mouseExtent) {
-          d3.select(nodes[i]).call(fn_brush.move, [0, 0])
-          brushKeys = d3.extent(chart.fn_xScale.domain())
-          self._fn_onBrushAction(brushKeys)
-        }
-
-        self._fn_onEndAction(brushKeys)
+      if (!brushPainted) {
+        change = self._brushKeys // if before defined then change now, only once
+        self._brushKeys = undefined // brushing to NaN, NaN
+        self._proactive && self.snapBrush(self)
       }
 
-      // i0Last = 0
-      // i1Last = dataBrush.length - 1 // attention if no data...
+      // HANDLE THE CHANGES
+      if (change) {
+        self._fn_onBrushAction(self._brushKeys)
+      }
+    }
 
-      fn_brush.on('brush', fn_onBrush)
-      fn_brush.on('end', fn_onEnd)
+    const fn_onEnd = (d, i, nodes) => {
+      if (!d3.event.sourceEvent || d3.event.sourceEvent.type !== 'mouseup') return // Only transition after input.
 
-      fn_brush.extent([
+      const mouseExtent = d3.brushSelection(self._group.node())
+      const removeBrush = !mouseExtent || (mouseExtent[1] - mouseExtent[0]) < fn_halfStep()
+
+      if (removeBrush) {
+        self._group.call(self._fn_brush.move, [0, 0])
+        self._brushKeys = d3.extent(chart.fn_xScale.domain())
+        self._fn_onBrushAction(self._brushKeys)
+      }
+
+      self._fn_onEndAction(self._brushKeys)
+      !removeBrush && !self._proactive && self.snapBrush(self)
+    }
+
+    self._fn_brush.on('brush', fn_onBrush)
+    self._fn_brush.on('end', fn_onEnd)
+
+    self._fn_draw = (group, transition) => {
+      self._mouseScale.domain(chart.fn_xScale.range()).range(chart.fn_xScale.domain())
+
+      self._fn_brush.extent([
         [chart.fn_xScale.range()[0], chart.fn_yScale.range()[1]],
         [chart.fn_xScale.range()[1], chart.fn_yScale.range()[0]]
       ])
 
-      brush.call(fn_brush)
+      group.call(self._fn_brush)
 
-      brush.selectAll('rect')
-        .attr('height', chart.fn_yScale.range()[1] + chart.fn_yScale.range()[0])
+      group.selectAll('rect')
+        .attr('height', chart.fn_yScale.range()[0] - chart.fn_yScale.range()[1])
         .attr('y', chart.fn_yScale.range()[1])
 
-      brush.select('rect.selection')
+      group.select('rect.selection')
         .attr('fill', self._brushFill)
         .attr('fill-opacity', self._brushFillOpacity)
         .attr('stroke', '')
