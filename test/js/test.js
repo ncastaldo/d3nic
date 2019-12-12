@@ -124,6 +124,7 @@
 	})
 
 	const arcChart = new d3nic.ArcChart(".svg2", {
+		size: { width: 400, height: 500 },
 		padding: { top: 0, right: 0, bottom: 0, left: 0 },
 		transition: { duration: 1000 },
 		radiusRangeProportions: [0.1, 0.8],
@@ -149,6 +150,7 @@
 	})
 
 	const sectorChart = new d3nic.SectorChart(".svg3", {
+		size: { width: 400, height: 500 },
 		padding: { top: 0, right: 0, bottom: 0, left: 0 },
 		transition: { duration: 1000 },
 		radiusRangeProportions: [0.1, 0.8],
