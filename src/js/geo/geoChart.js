@@ -99,6 +99,6 @@ export default class GeoChart extends Chart {
     super.draw(transition)
 
     const self = this
-    self._group.classed('map-chart', true)
+    self._group.classed('geo-chart', true)
   }
 }

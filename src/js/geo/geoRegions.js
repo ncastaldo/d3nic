@@ -72,7 +72,7 @@ export default class GeoRegions extends Component {
 
     self._group
       .selectAll('path')
-      .data(self._chart.data.filter(self._fn_defined), self._chart.fn_key)
+      .data(self._componentData, self._chart.fn_key)
       .call(self._fn_draw, transition)
   }
 }

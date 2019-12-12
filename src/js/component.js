@@ -91,7 +91,7 @@ export default class Component {
       const lineWidth = parseInt(s.attr('stroke-width') || 0)
       const fillOpacity = parseInt(s.attr('fill-opacity') || 0)
 
-      const path = new Path2D(s.attr('d'))
+      const path2D = new Path2D(s.attr('d'))
 
       context.save()
 
@@ -104,12 +104,12 @@ export default class Component {
       if (lineWidth) {
         context.lineWidth = lineWidth
         context.strokeStyle = s.attr('stroke')
-        context.stroke(path)
+        context.stroke(path2D)
       }
 
       if (fillOpacity) {
         context.fillStyle = s.attr('fill')
-        context.fill(path)
+        context.fill(path2D)
       }
 
       context.restore()
@@ -130,17 +130,17 @@ export default class Component {
       context.globalAlpha = self._fn_opacity(d, i)
 
       const svgPath = self._fn_path(d, i)
-      const path = svgPath ? new Path2D(svgPath) : null
+      const path2D = svgPath ? new Path2D(svgPath) : null
 
       if (lineWidth) {
         context.lineWidth = lineWidth
         context.strokeStyle = self._fn_stroke(d, i)
-        context.stroke(path)
+        path2D ? context.stroke(path2D) : context.stroke()
       }
 
       if (fillOpacity) {
         context.fillStyle = self._fn_fill(d, i)
-        context.fill(path)
+        path2D ? context.fill(path2D) : context.fill()
       }
 
       context.restore()

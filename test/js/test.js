@@ -209,7 +209,7 @@
 		fn_fill: d => d3.interpolateViridis(Math.random()),
 	})
 
-	const geoChart = new d3nic.GeoChart(".svg4", {
+	const geoChart = new d3nic.GeoChart(".canvas4", {
 		size: {width: 400, height: 400},
 		transition: { duration: 0 },
 		data: features.concat(tweets.slice(0, 1000)),
