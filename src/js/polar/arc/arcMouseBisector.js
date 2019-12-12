@@ -1,7 +1,7 @@
 import * as d3 from '@/js/d3-modules.js'
 import Component from '@/js/component.js'
 
-export default class SectorMouseBisector extends Component {
+export default class ArcMouseBisector extends Component {
   constructor (params = {}) {
     super(params)
 
@@ -21,9 +21,6 @@ export default class SectorMouseBisector extends Component {
 
     const self = this
 
-    const HALF_PI = Math.PI / 2
-
-    let clockwise
     let lastKey
 
     const mouseScale = d3.scaleQuantize()
@@ -35,20 +32,9 @@ export default class SectorMouseBisector extends Component {
     const fn_onMousemove = (d, i, nodes) => {
       const [x, y] = d3.mouse(nodes[i])
 
-      // 0 if top-right, 1 if bottom-right and so on clockwise
-      const multiplier = y < 0 ? (x > 0 ? 0 : 3) : (x > 0 ? 1 : 2)
+      const radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2))
 
-      // multiple of Math.PI / 2 angle to be added to miniAngle
-      const addAngle = HALF_PI * multiplier
-
-      // miniAngle, calculated clockwise, between 0 and Math.PI/2
-      const miniAngle = multiplier % 2 === 0 // if top-right or bottom-left
-        ? y ? Math.atan(Math.abs(x / y)) : HALF_PI
-        : x ? Math.atan(Math.abs(y / x)) : HALF_PI
-
-      // angle calculated clockwise from vertical line of top-right quadrant
-      const angle = addAngle + miniAngle
-      const key = mouseScale(clockwise ? angle : Math.PI * 2 - angle)
+      const key = mouseScale(radius)
 
       if (key !== lastKey) {
         if (lastKey !== null) self._fn_onMouseoutAction(lastKey)
@@ -68,22 +54,17 @@ export default class SectorMouseBisector extends Component {
     const fn_arc = d3.arc()
 
     self._fn_draw = (group, transition) => {
-      const correction = (chart.fn_angleScale.paddingInner() / 2 - chart.fn_angleScale.paddingOuter()) * chart.fn_angleScale.step()
+      const correction = (chart.fn_radiusScale.paddingInner() / 2 - chart.fn_radiusScale.paddingOuter()) * chart.fn_radiusScale.step()
 
-      const [angle0, angle1] = chart.fn_angleScale.range()
+      const [radius0, radius1] = chart.fn_radiusScale.range()
 
-      clockwise = angle1 > angle0
-
-      const mouseScaleDomain = clockwise ? [
-        angle0 - correction,
-        angle1 + correction
-      ] : [
-        angle1 - correction,
-        angle0 + correction
+      const mouseScaleDomain = [
+        radius0 - correction,
+        radius1 + correction
       ]
 
       mouseScale.domain(mouseScaleDomain)
-        .range(chart.fn_angleScale.domain())
+        .range(chart.fn_radiusScale.domain())
 
       fn_arc
         .innerRadius(d3.min(chart.fn_radiusScale.range()))
@@ -119,7 +100,7 @@ export default class SectorMouseBisector extends Component {
 
     const self = this
 
-    self._group.classed('sector-mouse-bisector', true)
+    self._group.classed('arc-mouse-bisector', true)
 
     self._group
       .selectAll('path')

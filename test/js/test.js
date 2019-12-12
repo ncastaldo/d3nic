@@ -48,14 +48,14 @@
 		container.append("canvas").classed("canvas7", true)
 	})
 
-	const mouseoverXyBisector = (key) => {
+	const mouseoverBisector = (key) => {
 		xyVLines.join.style("opacity", f => key===f.key ? 1 : null)
 		//xySymbols.join.style("r", f => f === d ? 8 : null)
 		arcBars.join.style("opacity", f => key!==f.key ? 0.5 : null)
 		sectorBars.join.style("opacity", f => key!==f.key ? 0.5 : null)
 	}
 
-	const mouseoutXyBisector = (key) => {
+	const mouseoutBisector = (key) => {
 		xyVLines.join.style("opacity", null)
 		//xySymbols.join.style("r", null)
 		arcBars.join.style("opacity", null)
@@ -108,8 +108,8 @@
 			}),
 			xySymbols,
 			new d3nic.XyMouseBisector({
-				fn_onMouseoverAction: mouseoverXyBisector,
-				fn_onMouseoutAction: mouseoutXyBisector,
+				fn_onMouseoverAction: mouseoverBisector,
+				fn_onMouseoutAction: mouseoutBisector,
 			}),
 		]
 	})
@@ -133,7 +133,11 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			arcBars
+			arcBars,
+			new d3nic.ArcMouseBisector({
+				fn_onMouseoverAction: mouseoverBisector,
+				fn_onMouseoutAction: mouseoutBisector,
+			})
 		],
 	})
 
@@ -148,7 +152,7 @@
 		padding: { top: 0, right: 0, bottom: 0, left: 0 },
 		transition: { duration: 1000 },
 		radiusRangeProportions: [0.1, 0.8],
-		angleRange: [ 2*Math.PI, 0],
+		angleRange: [  Math.PI * 2, 0],
 		anglePadding: {inner: 0, outer: 0},
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
@@ -163,7 +167,10 @@
 				fn_stroke: () => "black",
 				fn_strokeWidth: () => 2,
 			}),
-			new d3nic.SectorMouseBisector()
+			new d3nic.SectorMouseBisector({
+				fn_onMouseoverAction: mouseoverBisector,
+				fn_onMouseoutAction: mouseoutBisector
+			})
 		],
 	})
 

@@ -17,6 +17,7 @@ import PolarComponent from '@/js/polar/polarComponent.js'
 
 // polar - arc
 import ArcBars from '@/js/polar/arc/arcBars.js'
+import ArcMouseBisector from '@/js/polar/arc/arcMouseBisector.js'
 import ArcChart from '@/js/polar/arc/arcChart.js'
 
 // polar - sector
@@ -59,6 +60,7 @@ export {
 
   ArcBars,
   ArcChart,
+  ArcMouseBisector,
 
   SectorArea,
   SectorBars,
