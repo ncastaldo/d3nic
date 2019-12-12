@@ -80,7 +80,7 @@ export default class XyMouseBisector extends Component {
         update => update
           .attr('x', x0)
           .attr('width', x1 - x0)
-          .attr('y', y1)
+          .attr('y', y0)
           .attr('height', y1 - y0)
           .call(self._fn_update),
         exit => exit
