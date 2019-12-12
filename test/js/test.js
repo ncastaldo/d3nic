@@ -229,14 +229,14 @@
 		geoChart.data = features.concat(tweets.slice(random, random+100)),
 		geoChart2.data = tweets.slice(random, random+1000)
 
-		const random2 = d3.randomInt(300, 500)
+		const random2 = d3.randomInt(400, 600)
 		const newSize = {width: random2(), height: random2() }
 		//xyChart.size = newSize;
 		//arcChart.size = newSize;
 		//sectorChart.size = newSize;
-		xyStatisticChart.size = newSize;
+		//xyStatisticChart.size = newSize;
 		geoChart.size = newSize,
-		geoChart2.size = newSize;
+		//geoChart2.size = newSize;
 
 		geoChart.draw()
 		drawUpdate(t);
