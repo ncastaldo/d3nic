@@ -55,7 +55,8 @@ export default class Rect extends Component {
           .call(self._fn_exit)
           .call(exit => exit
             .transition(transition)
-            .attr('opacity', 0))
+            .attr('opacity', 0)
+            .remove())
       )
     }
   }

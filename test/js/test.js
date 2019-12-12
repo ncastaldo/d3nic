@@ -48,14 +48,14 @@
 		container.append("canvas").classed("canvas7", true)
 	})
 
-	const mouseoverXyBisector = (d, i) => {
-		xyVLines.join.style("opacity", f => d===f ? 1 : null)
+	const mouseoverXyBisector = (key) => {
+		xyVLines.join.style("opacity", f => key===f.key ? 1 : null)
 		//xySymbols.join.style("r", f => f === d ? 8 : null)
-		arcBars.join.style("opacity", f => d!==f ? 0.5 : null)
-		sectorBars.join.style("opacity", f => d!==f ? 0.5 : null)
+		arcBars.join.style("opacity", f => key!==f.key ? 0.5 : null)
+		sectorBars.join.style("opacity", f => key!==f.key ? 0.5 : null)
 	}
 
-	const mouseoutXyBisector = (d, i) => {
+	const mouseoutXyBisector = (key) => {
 		xyVLines.join.style("opacity", null)
 		//xySymbols.join.style("r", null)
 		arcBars.join.style("opacity", null)
@@ -68,6 +68,7 @@
 		fn_topValue: d => d.v1 + d.v2,
 		fn_defined: d => !isNaN(d.v1) && !isNaN(d.v2),
 		fn_opacity: d => 0,
+		fn_strokeWidth: d => 2
 	})
 
 	const xySymbols = new d3nic.XySymbols({
@@ -80,19 +81,14 @@
 
 	const xyChart = new d3nic.XyChart(".svg1", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
-		//size: {width: 800, height: 400},
+		size: {width: 800, height: 400},
 		transition: { duration: 5000 },
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.Rect({ fn_opacity: d => 0, cover: true, fn_enter: enter => enter.on("mouseenter", () => console.log('entered')) }),
 			new d3nic.XyXAxis({ position: 'bottom', ticks: 10, tickFormat: d => d }),
 			new d3nic.XyYAxis({ position: 'left' }),
-			new d3nic.XyMouseBisector({
-				fn_onMouseoverAction: mouseoverXyBisector,
-				fn_onMouseoutAction: mouseoutXyBisector,
-			}),
 			xyVLines,
 			new d3nic.XyLine({
 				fn_value: d => d.v1 + d.v2,
@@ -111,6 +107,10 @@
 				fn_strokeWidth: 3
 			}),
 			xySymbols,
+			new d3nic.XyMouseBisector({
+				fn_onMouseoverAction: mouseoverXyBisector,
+				fn_onMouseoutAction: mouseoutXyBisector,
+			}),
 		]
 	})
 
