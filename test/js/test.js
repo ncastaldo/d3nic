@@ -82,7 +82,7 @@
 	const xyChart = new d3nic.XyChart(".svg1", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		size: {width: 800, height: 400},
-		transition: { duration: 2000 },
+		transitionObject: { duration: 2000 },
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
 		data: data,
@@ -126,7 +126,7 @@
 	const arcChart = new d3nic.ArcChart(".svg2", {
 		size: { width: 400, height: 500 },
 		padding: { top: 0, right: 0, bottom: 0, left: 0 },
-		transition: { duration: 1000 },
+		transitionObject: { duration: 1000 },
 		radiusRangeProportions: [0.1, 0.8],
 		angleRange: [ 1/2 * Math.PI, - Math.PI],
 		radiusPadding: { inner: 0, outer: 0 },
@@ -152,7 +152,7 @@
 	const sectorChart = new d3nic.SectorChart(".svg3", {
 		size: { width: 400, height: 500 },
 		padding: { top: 0, right: 0, bottom: 0, left: 0 },
-		transition: { duration: 1000 },
+		transitionObject: { duration: 1000 },
 		radiusRangeProportions: [0.1, 0.8],
 		angleRange: [  Math.PI * 2, 0],
 		anglePadding: {inner: 0, outer: 0},
@@ -211,7 +211,7 @@
 
 	const geoChart = new d3nic.GeoChart(".canvas4", {
 		size: {width: 400, height: 400},
-		transition: { duration: 0, delay: 400 },
+		transitionObject: { duration: 1000 },
 		data: features.concat(tweets.slice(0, 1000)),
 		components: [
 			geoRegions,
@@ -228,6 +228,15 @@
 		random = d3.randomInt(0, tweets.length-1000)()
 		geoChart.data = features.concat(tweets.slice(random, random+100)),
 		geoChart2.data = tweets.slice(random, random+1000)
+
+		const random2 = d3.randomInt(300, 500)
+		const newSize = {width: random2(), height: random2() }
+		//xyChart.size = newSize;
+		//arcChart.size = newSize;
+		//sectorChart.size = newSize;
+		xyStatisticChart.size = newSize;
+		geoChart.size = newSize,
+		geoChart2.size = newSize;
 
 		geoChart.draw()
 		drawUpdate(t);
@@ -259,7 +268,7 @@
 
 	const xyBrushChart = new d3nic.XyChart(".svg5", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
-		transition: { duration: 1000 },
+		transitionObject: { duration: 1000 },
 		xPadding: { inner: 0, outer: 0},
 		size: { width: 700 },
 		fn_key: d => d.key,
@@ -272,7 +281,7 @@
 
 	const xyStatisticChart = new d3nic.XyChart(".svg6", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
-		transition: { duration: 1000 },
+		transitionObject: { duration: 1000 },
 		xPadding: { inner: 0.5, outer: 0.5 },
 		size: { width: 400 },
 		fn_key: d => d.key,
@@ -319,7 +328,7 @@
 
 	const geoChart2 = new d3nic.GeoChart(".svg7", {
 		size: {width: 400, height: 400},
-		transition: {duration: 1000},
+		transitionObject: {duration: 1000},
 		//data: features.concat(tweets.slice(0, 2000)),
 		data: tweets,
 		components: [

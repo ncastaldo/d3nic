@@ -32,8 +32,8 @@ export default class PolarChart extends Chart {
   /**
    * @override
    */
-  draw (tObject) {
-    super.draw(tObject)
+  draw (transitionObject) {
+    super.draw(transitionObject)
 
     const self = this
 
@@ -42,11 +42,16 @@ export default class PolarChart extends Chart {
 
     const fn_translateGroup = (group) => {
       const centroid = self.getCentroid(self)
-      const firstTime = self._group.classed('polar-chart')
+      const firstDraw = !self._group.classed('polar-chart')
+      const translate = `translate(${centroid[0]}, ${centroid[1]})`
       group.classed('polar-chart', true)
 
-      group.transition(firstTime ? self._transition : group.transition('empty').duration(0))
-        .attr('transform', `translate(${centroid[0]}, ${centroid[1]})`)
+      if (firstDraw) {
+        group.attr('transform', translate)
+      } else {
+        group.transition(self._transition)
+          .attr('transform', translate)
+      }
     }
 
     // if first time
