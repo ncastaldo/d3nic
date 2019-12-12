@@ -24,6 +24,7 @@ import SectorArea from '@/js/polar/sector/sectorArea.js'
 import SectorBars from '@/js/polar/sector/sectorBars.js'
 import SectorChart from '@/js/polar/sector/sectorChart.js'
 import SectorLine from '@/js/polar/sector/sectorLine.js'
+import SectorMouseBisector from '@/js/polar/sector/sectorMouseBisector.js'
 import SectorVLines from '@/js/polar/sector/sectorVLines.js'
 
 // xy
@@ -63,6 +64,7 @@ export {
   SectorBars,
   SectorChart,
   SectorLine,
+  SectorMouseBisector,
   SectorVLines,
 
   XyArea,

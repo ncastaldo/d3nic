@@ -162,7 +162,8 @@
 				//fn_fillOpacity: 0.5,
 				fn_stroke: () => "black",
 				fn_strokeWidth: () => 2,
-			})
+			}),
+			new d3nic.SectorMouseBisector()
 		],
 	})
 
