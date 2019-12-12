@@ -49,21 +49,21 @@
 	})
 
 	const mouseoverXyBisector = (d, i) => {
-		xyMouseLines.join.style("opacity", f => d===f ? 1 : null)
+		xyVLines.join.style("opacity", f => d===f ? 1 : null)
 		//xySymbols.join.style("r", f => f === d ? 8 : null)
 		arcBars.join.style("opacity", f => d!==f ? 0.5 : null)
 		sectorBars.join.style("opacity", f => d!==f ? 0.5 : null)
 	}
 
 	const mouseoutXyBisector = (d, i) => {
-		xyMouseLines.join.style("opacity", null)
+		xyVLines.join.style("opacity", null)
 		//xySymbols.join.style("r", null)
 		arcBars.join.style("opacity", null)
 		sectorBars.join.style("opacity", null)
 		xyBars.join.style("opacity", null)
 	}
 
-	const xyMouseLines = new d3nic.XyMouseLines({
+	const xyVLines = new d3nic.XyVLines({
 		fn_bottomValue: d => d.v1,
 		fn_topValue: d => d.v1 + d.v2,
 		fn_defined: d => !isNaN(d.v1) && !isNaN(d.v2),
@@ -87,13 +87,13 @@
 		data: data,
 		components: [
 			new d3nic.Rect({ fn_opacity: d => 0, cover: true, fn_enter: enter => enter.on("mouseenter", () => console.log('entered')) }),
-			new d3nic.XyAxisX({ position: 'bottom', ticks: 10, tickFormat: d => d }),
-			new d3nic.XyAxisY({ position: 'left' }),
+			new d3nic.XyXAxis({ position: 'bottom', ticks: 10, tickFormat: d => d }),
+			new d3nic.XyYAxis({ position: 'left' }),
 			new d3nic.XyMouseBisector({
 				fn_onMouseoverAction: mouseoverXyBisector,
 				fn_onMouseoutAction: mouseoutXyBisector,
 			}),
-			xyMouseLines,
+			xyVLines,
 			new d3nic.XyLine({
 				fn_value: d => d.v1 + d.v2,
 				fn_defined: d => !isNaN(d.v1) && !isNaN(d.v2),
@@ -128,9 +128,7 @@
 		transition: { duration: 1000 },
 		radiusRangeProportions: [0.1, 0.8],
 		angleRange: [ 1/2 * Math.PI, - Math.PI],
-		arcPadding: {
-			inner: 0, outer: 0
-		},
+		radiusPadding: { inner: 0, outer: 0 },
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
 		data: data,
@@ -151,7 +149,7 @@
 		transition: { duration: 1000 },
 		radiusRangeProportions: [0.1, 0.8],
 		angleRange: [ 2*Math.PI, 0],
-		sectorPadding: {inner: 0, outer: 0},
+		anglePadding: {inner: 0, outer: 0},
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
 		data: data,
@@ -258,7 +256,7 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.XyAxisX(), xyBars, xyMouseBrusher
+			new d3nic.XyXAxis(), xyBars, xyMouseBrusher
 		]
 	})
 
@@ -271,8 +269,8 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.XyAxisX({ tickSizeInner: 0, tickSizeOuter: 0 }),
-			new d3nic.XyAxisY({ tickSizeInner: 0, tickSizeOuter: 0 }),
+			new d3nic.XyXAxis({ tickSizeInner: 0, tickSizeOuter: 0 }),
+			new d3nic.XyYAxis({ tickSizeInner: 0, tickSizeOuter: 0 }),
 			new d3nic.XyBoxPlots({
 				fn_minValue: d => d.v1 - 2,
 				fn_q1Value: d => d.v1 - 1,
@@ -303,6 +301,7 @@
 	const geoHexbin = new d3nic.GeoHexbin({
 		fn_defined: d => d.type === "Point",
 		fn_value: d => d,
+		fn_opacity: d => Math.random(),
 		fn_strokeWidth: d => 0,
 		fn_stroke: d => "black",
 		fn_fill: d => d3.interpolateViridis(Math.random()),

@@ -12,12 +12,14 @@ export default class SectorChart extends PolarChart {
   initChart (self, params) {
     super.initChart(self, params)
 
-    self._sectorPadding = {
-      inner: 0,
+    self._anglePadding = {
+      inner: 1,
       outer: 0
     }
+    // { inner: 1, outer: [0->1] } -> scalepoint
+    // { inner: 0, outer: [0->1] } -> scaleband
 
-    Object.assign(self._sectorPadding, params.sectorPadding || {})
+    Object.assign(self._anglePadding, params.anglePadding || {})
 
     self._fn_radiusScale = d3
       .scaleLinear()
@@ -26,8 +28,8 @@ export default class SectorChart extends PolarChart {
 
     self._fn_angleScale = d3
       .scaleBand()
-      .paddingInner(self._sectorPadding.inner)
-      .paddingOuter(self._sectorPadding.outer)
+      .paddingInner(self._anglePadding.inner)
+      .paddingOuter(self._anglePadding.outer)
       .domain(self._data.map(self._fn_key))
       .range(self._angleRange)
   }

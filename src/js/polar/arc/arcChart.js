@@ -12,17 +12,19 @@ export default class ArcChart extends PolarChart {
   initChart (self, params) {
     super.initChart(self, params)
 
-    self._arcPadding = {
-      inner: 0,
+    self._radiusPadding = {
+      inner: 1,
       outer: 0
     }
+    // { inner: 1, outer: [0->1] } -> scalepoint
+    // { inner: 0, outer: [0->1] } -> scaleband
 
-    Object.assign(self._arcPadding, params.arcPadding || {})
+    Object.assign(self._radiusPadding, params.radiusPadding || {})
 
     self._fn_radiusScale = d3
       .scaleBand()
-      .paddingInner(self._arcPadding.inner)
-      .paddingOuter(self._arcPadding.outer)
+      .paddingInner(self._radiusPadding.inner)
+      .paddingOuter(self._radiusPadding.outer)
       .domain(self._data.map(self._fn_key))
       .range(self.getRadiusRange(self))
 

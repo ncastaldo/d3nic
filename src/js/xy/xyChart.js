@@ -15,7 +15,9 @@ export default class XyChart extends Chart {
     self._xPadding = {
       inner: 1,
       outer: 0
-    } // scalepoint
+    }
+    // { inner: 1, outer: [0->1] } -> scalepoint
+    // { inner: 0, outer: [0->1] } -> scaleband
 
     Object.assign(self._xPadding, params.xPadding || {})
 
@@ -62,8 +64,6 @@ export default class XyChart extends Chart {
       self._size.height - self._padding.bottom,
       self._padding.top
     ])
-
-    return self
   }
 
   /**

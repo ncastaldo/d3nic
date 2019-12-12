@@ -8,7 +8,6 @@ export default class XyLine extends Component {
     const self = this
 
     self._fn_value = params.fn_value || ((d, i) => d)
-
     self._fn_valueDomain = (data) => d3.extent(data, self._fn_value)
   }
 

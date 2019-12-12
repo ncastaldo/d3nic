@@ -1,14 +1,11 @@
 import * as d3 from '@/js/d3-modules.js'
 import Component from '@/js/component.js'
 
-export default class XyMouseLines extends Component {
+export default class XyVLines extends Component {
   constructor (params = {}) {
     super(params)
 
     const self = this
-
-    /** @Override */
-    self._fn_strokeDasharray = params.fn_strokeDasharray || ((d, i) => [2, 2])
 
     self._fn_bottomValue = params.fn_bottomValue || ((d) => NaN)
     self._fn_topValue = params.fn_topValue || ((d) => NaN)
@@ -39,8 +36,8 @@ export default class XyMouseLines extends Component {
       ? chart.fn_yScale(self._fn_bottomValue(d, i))
       : chart.fn_yScale.range()[0]
 
-    self._fn_draw = (mouseLines, transition) => {
-      self._join = mouseLines.join(
+    self._fn_draw = (vLines, transition) => {
+      self._join = vLines.join(
         enter => enter
           .append('line')
           .attr('x1', fn_x)
@@ -86,7 +83,7 @@ export default class XyMouseLines extends Component {
 
     const self = this
 
-    self._group.classed('xy-mouse-lines', true)
+    self._group.classed('xy-v-lines', true)
 
     self._group
       .selectAll('path')

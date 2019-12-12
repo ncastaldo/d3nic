@@ -1,12 +1,9 @@
 // import * as d3 from '@/js/d3-modules.js'
 import PolarComponent from '@/js/polar/polarComponent.js'
 
-export default class SectorMouseLines extends PolarComponent {
+export default class SectorVLines extends PolarComponent {
   constructor (params = {}) {
     super(params)
-
-    const self = this
-    self._fn_strokeDasharray = params.fn_strokeDasharray || ((d, i) => [2, 2])
   }
 
   /**
@@ -61,7 +58,7 @@ export default class SectorMouseLines extends PolarComponent {
 
     const self = this
 
-    self._group.classed('xy-mouse-lines', true)
+    self._group.classed('sector-v-lines', true)
 
     self._group
       .selectAll('path')

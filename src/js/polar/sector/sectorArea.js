@@ -26,11 +26,7 @@ export default class SectorArea extends PolarComponent {
 
     const self = this
 
-    // fn_scaleBand refers to the position of the bars
-    const fn_scalePoint = d3.scalePoint()
-      .padding(0.5) // CENTERING THINGS LIKE A BOSS
-
-    const fn_angle = (d, i) => fn_scalePoint(chart.fn_key(d, i))
+    const fn_angle = (d, i) => chart.fn_angleScale(chart.fn_key(d, i)) + chart.fn_angleScale.bandwidth() / 2
 
     const fn_innerRadius = (d, i) => !isNaN(self._fn_innerValue(d, i))
       ? chart.fn_radiusScale(self._fn_innerValue(d, i))
@@ -52,10 +48,6 @@ export default class SectorArea extends PolarComponent {
       .curve(d3.curveLinearClosed)
 
     self._fn_draw = (group, transition) => {
-      fn_scalePoint
-        .domain(chart.data.map(chart.fn_key))
-        .range(chart.fn_angleScale.range())
-
       const oldArea = group.selectAll('path.drawn')
 
       const newArea = group

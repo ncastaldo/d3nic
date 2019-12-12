@@ -11,9 +11,9 @@ export default class Chart {
   }
 
   initChart (self, params) {
-    self._container = null
-    self._context = null
-    self._fn_interval = null
+    self._container = undefined
+    self._context = undefined
+    self._fn_interval = undefined
 
     self._size = {
       width: 400,
@@ -63,8 +63,7 @@ export default class Chart {
   }
 
   clearCanvas (self) {
-    self._context.fillStyle = '#fff'
-    self._context.fillRect(0, 0, self._size.width, self._size.height)
+    self._context.clearRect(0, 0, self._size.width, self._size.height)
   }
 
   get size () {
@@ -128,10 +127,10 @@ export default class Chart {
     return self._context
   }
 
-  draw (t) {
+  draw (t = {}) {
     const self = this
 
-    Object.assign(self._transition, t || {})
+    Object.assign(self._transition, t)
 
     // first draw?
     if (!self._group) {
@@ -149,29 +148,23 @@ export default class Chart {
     // adjusting the size
     self.fitContainer(self)
 
-    // creating the transition
-    // const tName = tObject.hasOwnProperty('name') ? tObject.name : null
-    // const tDuration = tObject.hasOwnProperty('duration') ? tObject.duration : 0
-    // const tDelay = tObject.hasOwnProperty('delay') ? tObject.delay : 0
-
     const transition = d3
       .transition(self._transition.name)
       .duration(self._transition.duration)
       .delay(self._transition.delay)
 
-    // draw the nodes if it is not a canvas or the duration is zero
+    // draw the svg nodes if it is NOT a canvas OR the duration is NOT zero
     if (!self._context || self._transition.duration) {
       self._components.forEach(component => component.draw(transition))
     }
 
+    // only in case of canvas
     if (self._context) {
       if (self._fn_interval) self._fn_interval.stop()
 
       // self.clearCanvas(self)
 
       const fn_drawComponentsCanvas = (elapsed) => {
-        // console.log('rendering canvas: ' + (elapsed || 'immediate'))
-
         self.clearCanvas(self)
         self._components.forEach(c => c.drawCanvas())
 
@@ -179,7 +172,7 @@ export default class Chart {
       }
 
       if (self._transition.duration) {
-        self._fn_interval = d3.interval(fn_drawComponentsCanvas, 34)
+        self._fn_interval = d3.interval(fn_drawComponentsCanvas, 34) // draw every 34 MS
       } else {
         transition.on('end.canvas interrupt.canvas', fn_drawComponentsCanvas)
       }

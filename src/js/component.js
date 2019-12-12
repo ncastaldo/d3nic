@@ -24,9 +24,9 @@ export default class Component {
 
     self._fn_valueDomain = (data) => [NaN, NaN] // might be replaced in components
 
-    self._fn_enter = params.fn_enter || (component => {})
-    self._fn_update = params.fn_update || (component => {})
-    self._fn_exit = params.fn_exit || (component => {})
+    self._fn_enter = params.fn_enter || (enter => {})
+    self._fn_update = params.fn_update || (update => {})
+    self._fn_exit = params.fn_exit || (exit => {})
 
     self._componentData = []
   }
@@ -99,6 +99,8 @@ export default class Component {
 
       context.beginPath()
 
+      context.globalAlpha = s.attr('opacity')
+
       if (lineWidth) {
         context.lineWidth = lineWidth
         context.strokeStyle = s.attr('stroke')
@@ -125,6 +127,8 @@ export default class Component {
 
       context.beginPath()
 
+      context.globalAlpha = self._fn_opacity(d, i)
+
       const svgPath = self._fn_path(d, i)
       const path = svgPath ? new Path2D(svgPath) : null
 
@@ -142,9 +146,9 @@ export default class Component {
       context.restore()
     }
 
-    if (self._group) { // if the draw has been called
+    if (self._group) { // if there is some svg to render
       self._join.each(fn_renderNodes)
-    } else {
+    } else { // otherwise render directly from data
       self.setComponentData(self)
       self._componentData.forEach(fn_renderData)
     }
@@ -163,7 +167,5 @@ export default class Component {
         .append('g')
         .classed('component', true)
     }
-
-    return self
   }
 }
