@@ -82,7 +82,7 @@
 	const xyChart = new d3nic.XyChart(".svg1", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		size: {width: 800, height: 400},
-		transition: { duration: 5000 },
+		transition: { duration: 2000 },
 		fn_key: (d, i) => d.key,
 		valueDomain: [0, NaN],
 		data: data,
@@ -211,7 +211,7 @@
 
 	const geoChart = new d3nic.GeoChart(".canvas4", {
 		size: {width: 400, height: 400},
-		transition: { duration: 0 },
+		transition: { duration: 0, delay: 400 },
 		data: features.concat(tweets.slice(0, 1000)),
 		components: [
 			geoRegions,
@@ -317,7 +317,7 @@
 		fn_fill: d => d3.interpolateViridis(Math.random()),
 	})
 
-	const geoChart2 = new d3nic.GeoChart(".canvas7", {
+	const geoChart2 = new d3nic.GeoChart(".svg7", {
 		size: {width: 400, height: 400},
 		transition: {duration: 1000},
 		//data: features.concat(tweets.slice(0, 2000)),

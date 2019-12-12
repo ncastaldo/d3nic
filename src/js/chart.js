@@ -15,6 +15,8 @@ export default class Chart {
     self._context = undefined
     self._fn_interval = undefined
 
+    self._sizeChanged = true
+
     self._size = {
       width: 400,
       height: 300
@@ -49,9 +51,13 @@ export default class Chart {
 
   // fits the size of the svg or canvas
   fitContainer (self) {
-    self._container
-      .attr('width', self._size.width)
-      .attr('height', self._size.height)
+    if (self._sizeChanged) {
+      console.log('adjust container')
+      self._container
+        .attr('width', self._size.width)
+        .attr('height', self._size.height)
+      self._sizeChanged = false
+    }
   }
 
   getValueDomain (self) {
@@ -73,6 +79,8 @@ export default class Chart {
 
   set size (size) {
     const self = this
+    self._sizeChanged = (size.width && size.width !== self._size.width) ||
+      (self.height && self.height !== self._size.height)
     Object.assign(self._size, size)
   }
 
@@ -145,9 +153,6 @@ export default class Chart {
         .classed('chart', true)
     }
 
-    // adjusting the size
-    self.fitContainer(self)
-
     const transition = d3
       .transition(self._transition.name)
       .duration(self._transition.duration)
@@ -155,6 +160,8 @@ export default class Chart {
 
     // draw the svg nodes if it is NOT a canvas OR the duration is NOT zero
     if (!self._context || self._transition.duration) {
+      // adjusting the size ONLY if no canvas
+      !self._context && self.fitContainer(self)
       self._components.forEach(component => component.draw(transition))
     }
 
@@ -162,20 +169,21 @@ export default class Chart {
     if (self._context) {
       if (self._fn_interval) self._fn_interval.stop()
 
-      // self.clearCanvas(self)
-
       const fn_drawComponentsCanvas = (elapsed) => {
+        self.fitContainer(self)
         self.clearCanvas(self)
         self._components.forEach(c => c.drawCanvas())
 
         if (elapsed > self._transition.duration) self._fn_interval.stop()
       }
 
-      if (self._transition.duration) {
-        self._fn_interval = d3.interval(fn_drawComponentsCanvas, 34) // draw every 34 MS
-      } else {
-        transition.on('end.canvas interrupt.canvas', fn_drawComponentsCanvas)
-      }
+      d3.timeout(() => {
+        if (self._transition.duration) {
+          self._fn_interval = d3.interval(fn_drawComponentsCanvas, 34) // draw every 34 MS
+        } else {
+          fn_drawComponentsCanvas()
+        }
+      }, self._transition.delay)
     }
 
     // handling old components
