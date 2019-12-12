@@ -49,18 +49,16 @@ export default class XyMouseBrusher extends Component {
 
     let change
 
-    const fn_halfStep = () => chart.fn_xScale.step() / 2
-
     const fn_onBrush = (d, i, nodes) => {
       if (!d3.event.sourceEvent || d3.event.sourceEvent.type !== 'mousemove') return // Only transition after input.
 
       let brushPainted = false
 
       // HANDLE THE ADJUSTMENTS
-      const mouseExtent = d3.brushSelection(self._group.node())
-      if ((mouseExtent[1] - mouseExtent[0]) > fn_halfStep()) { // to limit overhead
-        const key0 = self._mouseScale(mouseExtent[0] + fn_halfStep())
-        const key1 = self._mouseScale(mouseExtent[1] - fn_halfStep())
+      const [x0, x1] = d3.brushSelection(self._group.node())
+      if (x1 - x0 > chart.fn_xScale.step() / 2) { // to limit overhead
+        const key0 = self._mouseScale(x0 + chart.fn_xScale.step() / 2)
+        const key1 = self._mouseScale(x1 - chart.fn_xScale.step() / 2)
         if (key1 >= key0) {
           brushPainted = true
           change = !self.brushKeys || self._brushKeys[0] !== key0 || self._brushKeys[1] !== key1
@@ -85,7 +83,7 @@ export default class XyMouseBrusher extends Component {
       if (!d3.event.sourceEvent || d3.event.sourceEvent.type !== 'mouseup') return // Only transition after input.
 
       const mouseExtent = d3.brushSelection(self._group.node())
-      const removeBrush = !mouseExtent || (mouseExtent[1] - mouseExtent[0]) < fn_halfStep()
+      const removeBrush = !self._brushKeys || !mouseExtent || (mouseExtent[1] - mouseExtent[0]) < chart.fn_xScale.step() / 2
 
       if (removeBrush) {
         self._group.call(self._fn_brush.move, [0, 0])
