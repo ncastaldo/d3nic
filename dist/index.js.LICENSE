@@ -2722,7 +2722,7 @@
   !*** ./src/app.js ***!
   \********************/
 
-/*! exports provided: Chart, Component, Rect, GeoChart, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, PolarChart, PolarComponent, ArcBars, ArcChart, SectorArea, SectorBars, SectorChart, SectorLine, SectorVLines, XyArea, XyBars, XyBoxPlots, XyChart, XyLine, XyMouseBisector, XyMouseBrusher, XySymbols, XyVLines, XyXAxis, XyYAxis */
+/*! exports provided: Chart, Component, Rect, GeoChart, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, PolarChart, PolarComponent, ArcBars, ArcChart, ArcMouseBisector, SectorArea, SectorBars, SectorChart, SectorLine, SectorMouseBisector, SectorVLines, XyArea, XyBars, XyBoxPlots, XyChart, XyLine, XyMouseBisector, XyMouseBrusher, XySymbols, XyVLines, XyXAxis, XyYAxis */
 
 /*!*************************!*\
   !*** ./src/js/chart.js ***!
@@ -2770,6 +2770,10 @@
   !*** ./src/js/polar/arc/arcChart.js ***!
   \**************************************/
 
+/*!**********************************************!*\
+  !*** ./src/js/polar/arc/arcMouseBisector.js ***!
+  \**********************************************/
+
 /*!************************************!*\
   !*** ./src/js/polar/polarChart.js ***!
   \************************************/
@@ -2793,6 +2797,10 @@
 /*!*******************************************!*\
   !*** ./src/js/polar/sector/sectorLine.js ***!
   \*******************************************/
+
+/*!****************************************************!*\
+  !*** ./src/js/polar/sector/sectorMouseBisector.js ***!
+  \****************************************************/
 
 /*!*********************************************!*\
   !*** ./src/js/polar/sector/sectorVLines.js ***!
