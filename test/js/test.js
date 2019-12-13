@@ -211,8 +211,8 @@
 
 	const geoChart = new d3nic.GeoChart(".canvas4", {
 		size: {width: 400, height: 400},
-		transitionObject: { duration: 1000 },
-		data: features.concat(tweets.slice(0, 1000)),
+		transitionObject: { duration: 0, delay: 1000 },
+		data: features.concat(tweets),//.slice(0, 1000)),
 		components: [
 			geoRegions,
 			geoSymbols

@@ -172,6 +172,7 @@ export default class Chart {
     if (self._context) {
       if (self._fn_interval) self._fn_interval.stop()
 
+      // if elapsed is '-1' then stop
       const fn_drawComponentsCanvas = (elapsed) => {
         self.clearCanvas(self)
 
@@ -182,14 +183,16 @@ export default class Chart {
 
         self._components.forEach(c => c.drawCanvas())
 
-        if (elapsed > self._transitionObject.duration) self._fn_interval.stop()
+        if (elapsed >= self._transitionObject.duration) self._fn_interval.stop()
       }
 
       d3.timeout(() => {
         if (self._transitionObject.duration) {
           self._fn_interval = d3.interval(fn_drawComponentsCanvas, 34) // draw every 34 MS
         } else {
-          fn_drawComponentsCanvas()
+          // to render the canvas in the next tick,
+          // in order to have correct canvas-width and canvas-height
+          self._fn_interval = d3.timeout(fn_drawComponentsCanvas, 0)
         }
       }, self._transitionObject.delay)
     }
