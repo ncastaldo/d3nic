@@ -84,11 +84,6 @@ export default class Chart {
     return self._padding
   }
 
-  set transitionObject (transitionObject) {
-    const self = this
-    Object.assign(self._transitionObject, transitionObject)
-  }
-
   get fn_key () {
     const self = this
     return self._fn_key
@@ -125,6 +120,16 @@ export default class Chart {
     return self._transitionObject
   }
 
+  set transitionObject (transitionObject) {
+    const self = this
+    Object.assign(self._transitionObject, transitionObject)
+  }
+
+  get transition () {
+    const self = this
+    return self._transition
+  }
+
   get context () {
     const self = this
     return self._context
@@ -155,7 +160,7 @@ export default class Chart {
         .classed('chart', true)
     }
 
-    self._transition = d3
+    self._transition = self._container
       .transition(self._transitionObject.name)
       .duration(self._transitionObject.duration)
       .delay(self._transitionObject.delay)
