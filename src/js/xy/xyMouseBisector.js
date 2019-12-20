@@ -8,8 +8,8 @@ export default class XyMouseBisector extends Component {
     const self = this
 
     self._fn_onMouseenterAction = params.fn_onMouseenterAction || (() => {})
-    self._fn_onMouseoverAction = params.fn_onMouseoverAction || ((key) => {})
-    self._fn_onMouseoutAction = params.fn_onMouseoutAction || ((key) => {})
+    self._fn_onMouseoverAction = params.fn_onMouseoverAction || ((d) => {})
+    self._fn_onMouseoutAction = params.fn_onMouseoutAction || ((d) => {})
     self._fn_onMouseleaveAction = params.fn_onMouseleaveAction || (() => {})
   }
 
@@ -21,7 +21,7 @@ export default class XyMouseBisector extends Component {
 
     const self = this
 
-    let lastKey
+    let last
 
     const mouseScale = d3.scaleQuantize()
 
@@ -29,24 +29,24 @@ export default class XyMouseBisector extends Component {
       self._fn_onMouseenterAction()
     }
 
-    const fn_onMousemove = (d, i, nodes) => {
+    const fn_onMousemove = (_, i, nodes) => {
       const x = d3.mouse(nodes[i])[0]
 
-      const key = mouseScale(x)
+      const d = mouseScale(x)
 
-      if (key !== lastKey) {
-        if (lastKey !== null) self._fn_onMouseoutAction(lastKey)
+      if (d !== last) {
+        if (last !== null) self._fn_onMouseoutAction(last)
 
-        self._fn_onMouseoverAction(key)
+        self._fn_onMouseoverAction(d)
 
-        lastKey = key
+        last = d
       }
     }
 
     const fn_onMouseleave = () => {
-      self._fn_onMouseoutAction(lastKey)
+      self._fn_onMouseoutAction(last)
       self._fn_onMouseleaveAction()
-      lastKey = null
+      last = null
     }
 
     self._fn_draw = (group, transition) => {
@@ -58,7 +58,7 @@ export default class XyMouseBisector extends Component {
       ]
 
       mouseScale.domain(mouseScaleDomain)
-        .range(chart.fn_xScale.domain())
+        .range(self._componentData)
 
       const x0 = chart.fn_xScale.range()[0]
       const x1 = chart.fn_xScale.range()[1]

@@ -48,14 +48,14 @@
 		container.append("canvas").classed("canvas7", true)
 	})
 
-	const mouseoverBisector = (key) => {
-		xyVLines.join.style("opacity", f => key===f.key ? 1 : null)
+	const mouseoverBisector = (d) => {
+		xyVLines.join.style("opacity", f => d.key===f.key ? 1 : null)
 		//xySymbols.join.style("r", f => f === d ? 8 : null)
-		arcBars.join.style("opacity", f => key!==f.key ? 0.5 : null)
-		sectorBars.join.style("opacity", f => key!==f.key ? 0.5 : null)
+		arcBars.join.style("opacity", f => d.key!==f.key ? 0.5 : null)
+		sectorBars.join.style("opacity", f => d.key!==f.key ? 0.5 : null)
 	}
 
-	const mouseoutBisector = (key) => {
+	const mouseoutBisector = (d) => {
 		xyVLines.join.style("opacity", null)
 		//xySymbols.join.style("r", null)
 		arcBars.join.style("opacity", null)
