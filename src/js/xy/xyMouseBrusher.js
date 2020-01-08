@@ -33,7 +33,10 @@ export default class XyMouseBrusher extends Component {
   }
 
   snapBrush (self) {
-    const mouseExtent = self._brushKeys
+    const mouseExtent = self._brushKeys && (
+      self._brushKeys[0] !== self._mouseScale.range()[0] ||
+        self._brushKeys[1] !== self._mouseScale.range().slice(-1)[0] // last
+    )
       ? [self._mouseScale.invertExtent(self._brushKeys[0])[0], self._mouseScale.invertExtent(self._brushKeys[1])[1]]
       : [0, 0]
     console.log(mouseExtent)
