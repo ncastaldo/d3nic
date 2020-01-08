@@ -235,10 +235,12 @@
 		//arcChart.size = newSize;
 		//sectorChart.size = newSize;
 		//xyStatisticChart.size = newSize;
+		xyBrushChart.size = newSize;
 		geoChart.size = newSize,
 		//geoChart2.size = newSize;
 
 		geoChart.draw()
+		xyBrushChart.draw()
 		drawUpdate(t);
 	}
 

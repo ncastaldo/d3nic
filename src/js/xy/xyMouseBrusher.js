@@ -36,6 +36,7 @@ export default class XyMouseBrusher extends Component {
     const mouseExtent = self._brushKeys
       ? [self._mouseScale.invertExtent(self._brushKeys[0])[0], self._mouseScale.invertExtent(self._brushKeys[1])[1]]
       : [0, 0]
+    console.log(mouseExtent)
     self._group.call(self._fn_brush.move, mouseExtent)
   }
 
@@ -116,6 +117,8 @@ export default class XyMouseBrusher extends Component {
         .attr('fill', self._brushFill)
         .attr('fill-opacity', self._brushFillOpacity)
         .attr('stroke', '')
+
+      self.snapBrush(self)
     }
   }
 
