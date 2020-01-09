@@ -189,7 +189,7 @@
 				type: 'Point',
 				coordinates: c
 			}
-		})
+		}).slice(0, 100)
 
 	const geoRegions = new d3nic.GeoRegions({
 		fn_defined: d => d.type === "Feature",
@@ -225,9 +225,9 @@
 		arcChart.data = newData;
 		sectorChart.data = newData;
 		xyStatisticChart.data = newData;
-		random = d3.randomInt(0, tweets.length-1000)()
+		random = d3.randomInt(0, tweets.length-50)()
 		geoChart.data = features.concat(tweets.slice(random, random+100)),
-		geoChart2.data = tweets.slice(random, random+1000)
+		geoChart2.data = tweets.slice(random, random+50)
 
 		const random2 = d3.randomInt(400, 600)
 		const newSize = {width: random2(), height: random2() }

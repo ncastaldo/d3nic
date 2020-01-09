@@ -23,6 +23,14 @@ export default class GeoChart extends Chart {
   /**
    * @override
    */
+  updateChart (self) {
+    self._extent = self.getExtent(self)
+    self.fitProjection(self)
+  }
+
+  /**
+   * @override
+   */
   getValueDomain (self) {
     return self._valueDomain || self._components
       .map(c => c.fn_valueDomain(self._data))
@@ -47,44 +55,9 @@ export default class GeoChart extends Chart {
   /**
    * @override
    */
-  get size () {
-    return super.size
-  }
-
-  /**
-   * @override
-   */
-  set size (size) {
-    super.size = size
-
-    const self = this
-    self._extent = self.getExtent(self)
-    self.fitProjection(self)
-  }
-
-  /**
-   * @override
-   */
   get extent () {
     const self = this
     return self._extent
-  }
-
-  /**
-   * @override
-   */
-  get data () {
-    return super.data
-  }
-
-  /**
-   * @override
-   */
-  set data (data) {
-    super.data = data
-
-    const self = this
-    self.fitProjection(self)
   }
 
   get fn_geoProjection () {

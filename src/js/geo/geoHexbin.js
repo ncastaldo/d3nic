@@ -12,8 +12,6 @@ export default class GeoHexbin extends Component {
 
     self._fn_value = params.fn_value || ((d, i) => d)
     self._fn_valueDomain = (data) => data.filter(self._fn_defined).map(d => self._fn_value(d))
-
-    self._hexbinData = []
   }
 
   /**
@@ -87,8 +85,12 @@ export default class GeoHexbin extends Component {
   /**
    * @override
    */
-  setComponentData (self) {
+  update () {
     // console.time('hexbin data')
+    super.update() // ??
+
+    const self = this
+    console.log('updating')
     self._componentData = self._fn_hexbin(self._chart.data.filter(self._fn_defined))
     // console.timeEnd('hexbin data')
   }

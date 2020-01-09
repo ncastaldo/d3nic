@@ -67,7 +67,8 @@ export default class Component {
   }
 
   // may be overridden in cases in which data is modified
-  setComponentData (self) {
+  update () {
+    const self = this
     self._componentData = self._chart.data.filter(self._fn_defined)
   }
 
@@ -149,15 +150,12 @@ export default class Component {
     if (self._group) { // if there is some svg to render
       self._join.each(fn_renderNodes)
     } else { // otherwise render directly from data
-      self.setComponentData(self)
       self._componentData.forEach(fn_renderData)
     }
   }
 
   draw (transition) {
     const self = this
-
-    self.setComponentData(self)
 
     self._fn_path2D.context && self._fn_path2D.context(null)
 

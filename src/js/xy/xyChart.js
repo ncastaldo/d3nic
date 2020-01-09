@@ -43,18 +43,7 @@ export default class XyChart extends Chart {
   /**
    * @override
    */
-  get size () {
-    return super.size
-  }
-
-  /**
-   * @override
-   */
-  set size (size) {
-    super.size = size
-
-    const self = this
-
+  updateChart (self) {
     self._fn_xScale.range([
       self._padding.left,
       self._size.width - self._padding.right
@@ -64,40 +53,6 @@ export default class XyChart extends Chart {
       self._size.height - self._padding.bottom,
       self._padding.top
     ])
-  }
-
-  /**
-   * @override
-   */
-  get components () {
-    return super.components
-  }
-
-  /**
-   * @override
-   */
-  set components (components) {
-    super.components = components
-
-    const self = this
-
-    self._fn_yScale.domain(self.getValueDomain(self))
-  }
-
-  /**
-   * @override
-   */
-  get data () {
-    return super.data
-  }
-
-  /**
-   * @override
-   */
-  set data (data) {
-    super.data = data
-
-    const self = this
 
     self._fn_xScale.domain(self._data.map(self._fn_key))
     self._fn_yScale.domain(self.getValueDomain(self))

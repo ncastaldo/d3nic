@@ -36,45 +36,8 @@ export default class ArcChart extends PolarChart {
 
   /**
    * @override
-   *///
-  set size (size) {
-    super.size = size
-
-    const self = this
-    self._fn_radiusScale.range(self.getRadiusRange(self))
-  }
-
-  /**
-   * @override
-   *///
-  get components () {
-    return super.components
-  }
-
-  /**
-   * @override
-   *///
-  set components (components) {
-    super.components = components
-
-    const self = this
-    self._fn_angleScale.domain(self.getValueDomain(self))
-  }
-
-  /**
-   * @override
-   *///
-  get data () {
-    return super.data
-  }
-
-  /**
-   * @override
-   *///
-  set data (data) {
-    super.data = data
-
-    const self = this
+   */
+  updateChart (self) {
     self._fn_radiusScale.domain(self._data.map(self._fn_key))
     self._fn_angleScale.domain(self.getValueDomain(self))
   }

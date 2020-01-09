@@ -41,11 +41,24 @@ export default class Chart {
     self._fn_key = params.fn_key || ((d, i) => i)
     self._valueDomain = params.valueDomain || [NaN, NaN]
     self._data = params.data || []
+
+    console.log(self._data)
     self._components = params.components || []
   }
 
   initComponents (self) {
-    self._components.filter(c => !c.chart).forEach(c => { c.chart = self })
+    self._components
+      .filter(c => !c.chart)
+      .forEach(c => {
+        c.chart = self
+        c.update()
+      })
+  }
+
+  updateChart (self) {}
+
+  updateComponents (self) {
+    self._components.forEach(c => c.update())
   }
 
   // fits the size of the svg or canvas
@@ -77,6 +90,8 @@ export default class Chart {
   set size (size) {
     const self = this
     Object.assign(self._size, size)
+    self.updateChart(self)
+    self.updateComponents(self)
   }
 
   get padding () {
@@ -97,6 +112,8 @@ export default class Chart {
   set data (data) {
     const self = this
     self._data = data
+    self.updateChart(self)
+    self.updateComponents(self)
   }
 
   get components () {
@@ -107,7 +124,11 @@ export default class Chart {
   set components (components) {
     const self = this
     self._components = components
-    self._components.filter(c => !c.chart).forEach(c => { c.chart = self })
+
+    self.initComponents(self)
+
+    self.updateChart(self)
+    self.updateComponents(self)
   }
 
   get group () {
