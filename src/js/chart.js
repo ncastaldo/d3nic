@@ -42,7 +42,6 @@ export default class Chart {
     self._valueDomain = params.valueDomain || [NaN, NaN]
     self._data = params.data || []
 
-    console.log(self._data)
     self._components = params.components || []
   }
 
