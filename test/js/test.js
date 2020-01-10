@@ -76,7 +76,8 @@
 		fn_defined: d => !isNaN(d.v1),
 		fn_size: d => 70,
 		fn_type: (d, i) => i%2 ? d3.symbolWye : d3.symbolSquare,
-		fn_fill: d => "red"
+		fn_fill: d => "red",
+		phi: 0.2
 	})
 
 	const xyChart = new d3nic.XyChart(".svg1", {
@@ -121,6 +122,7 @@
 		fn_defined: d => !isNaN(d.v1) && !isNaN(d.v2),
 		fn_fill: fn_fill,
 		fn_strokeWidth: () => 0,
+		phi: 0.2
 	})
 
 	const arcChart = new d3nic.ArcChart(".svg2", {
@@ -147,6 +149,7 @@
 		fn_defined: d => !isNaN(d.v1),
 		fn_fill: fn_fill,
 		fn_strokeWidth: () => 0,
+		phi: 0.2
 	})
 
 	const sectorChart = new d3nic.SectorChart(".svg3", {
@@ -261,6 +264,7 @@
 		fn_defined: d => !isNaN(d.v1) && !isNaN(d.v2),
 		fn_strokeWidth: d => 0,
 		fn_fill: fn_fill,
+		phi: 0.2
 	})
 
 	const xyMouseBrusher = new d3nic.XyMouseBrusher({
@@ -283,7 +287,7 @@
 
 	const xyStatisticChart = new d3nic.XyChart(".svg6", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
-		transitionObject: { duration: 1000 },
+		transitionObject: { duration: 4000 },
 		xPadding: { inner: 0.5, outer: 0.5 },
 		size: { width: 400 },
 		fn_key: d => d.key,
@@ -330,7 +334,7 @@
 
 	const geoChart2 = new d3nic.GeoChart(".svg7", {
 		size: {width: 400, height: 400},
-		transitionObject: {duration: 1000},
+		transitionObject: {duration: 2000},
 		//data: features.concat(tweets.slice(0, 2000)),
 		data: tweets,
 		components: [

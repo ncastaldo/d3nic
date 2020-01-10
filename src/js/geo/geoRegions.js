@@ -31,11 +31,11 @@ export default class GeoRegions extends Component {
           .attr('stroke-width', self._fn_strokeWidth)
           .attr('fill', self._fn_fill)
           .attr('fill-opacity', self._fn_fillOpacity)
+          .attr('d', self._fn_path)
           .attr('opacity', 0)
           .call(self._fn_enter)
           .call(enter => {
-            enter.transition(transition)
-              .attr('d', self._fn_path)
+            self.multiTransition(enter, transition)
               .attr('opacity', self._fn_opacity)
           }),
         update => update
@@ -51,8 +51,7 @@ export default class GeoRegions extends Component {
         exit => exit
           .call(self._fn_exit)
           .call(exit => {
-            exit.transition(transition)
-              .attr('d', self._fn_path)
+            self.multiTransition(exit, transition)
               .attr('opacity', 0)
               .remove()
           })

@@ -58,10 +58,10 @@ export default class XyBoxPlots extends Component {
       .attr('width', fn_width)
       .attr('y', 0)
       .attr('height', 0)
-      .call(enter => enter
-        .transition(transition)
-        .attr('y', fn_newYQ3)
-        .attr('height', (d, i) => Math.abs(fn_yQ3(d, i) - fn_yQ1(d, i))))
+      .call(enter =>
+        self.multiTransition(enter, transition)
+          .attr('y', fn_newYQ3)
+          .attr('height', (d, i) => Math.abs(fn_yQ3(d, i) - fn_yQ1(d, i))))
     const updateRect = (update, transition) => update
       .select('rect')
       .call(update => update
@@ -72,11 +72,11 @@ export default class XyBoxPlots extends Component {
         .attr('height', (d, i) => Math.abs(fn_yQ3(d, i) - fn_yQ1(d, i))))
     const exitRect = (exit, transition) => exit
       .select('rect')
-      .call(exit => exit
-        .transition(transition)
-        .attr('y', 0)
-        .attr('height', 0)
-        .remove())
+      .call(exit =>
+        self.multiTransition(exit, transition)
+          .attr('y', 0)
+          .attr('height', 0)
+          .remove())
 
     const enterHLine = (enter, transition, type) =>
       enter
@@ -86,9 +86,11 @@ export default class XyBoxPlots extends Component {
         .attr('x2', (d, i) => fn_width(d, i) / 2)
         .attr('y1', 0)
         .attr('y2', 0)
-        .transition(transition)
-        .attr('y1', type === 'h-bottom' ? fn_newYMin : type === 'h-top' ? fn_newYMax : 0)
-        .attr('y2', type === 'h-bottom' ? fn_newYMin : type === 'h-top' ? fn_newYMax : 0)
+        .call(enter =>
+          self.multiTransition(enter, transition)
+            .attr('y1', type === 'h-bottom' ? fn_newYMin : type === 'h-top' ? fn_newYMax : 0)
+            .attr('y2', type === 'h-bottom' ? fn_newYMin : type === 'h-top' ? fn_newYMax : 0)
+        )
     const updateHLine = (update, transition, type) =>
       update
         .select(`line.${type}`)
@@ -100,10 +102,12 @@ export default class XyBoxPlots extends Component {
     const exitHLine = (exit, transition, type) =>
       exit
         .select(`line.${type}`)
-        .transition(transition)
-        .attr('y1', 0)
-        .attr('y2', 0)
-        .remove()
+        .call(exit =>
+          self.multiTransition(exit, transition)
+            .attr('y1', 0)
+            .attr('y2', 0)
+            .remove()
+        )
 
     const enterVLine = (enter, transition, type) =>
       enter
@@ -113,9 +117,11 @@ export default class XyBoxPlots extends Component {
         .attr('x2', 0)
         .attr('y1', 0)
         .attr('y2', 0)
-        .transition(transition)
-        .attr('y1', type === 'v-bottom' ? fn_newYQ1 : fn_newYQ3)
-        .attr('y2', type === 'v-bottom' ? fn_newYMin : fn_newYMax)
+        .call(enter =>
+          self.multiTransition(enter, transition)
+            .attr('y1', type === 'v-bottom' ? fn_newYQ1 : fn_newYQ3)
+            .attr('y2', type === 'v-bottom' ? fn_newYMin : fn_newYMax)
+        )
     const updateVLine = (update, transition, type) =>
       update
         .select(`line.${type}`)
@@ -125,10 +131,12 @@ export default class XyBoxPlots extends Component {
     const exitVLine = (exit, transition, type) =>
       exit
         .select(`line.${type}`)
-        .transition(transition)
-        .attr('y1', 0)
-        .attr('y2', 0)
-        .remove()
+        .call(exit =>
+          self.multiTransition(exit, transition)
+            .attr('y1', 0)
+            .attr('y2', 0)
+            .remove()
+        )
 
     self._fn_draw = (boxPlots, transition) => {
       self._join = boxPlots.join(
@@ -139,7 +147,7 @@ export default class XyBoxPlots extends Component {
           .attr('fill-opacity', self._fn_fillOpacity)
           .attr('stroke', self._fn_stroke)
           .attr('stroke-width', self._fn_strokeWidth)
-          .attr('opacity', self._fn_opacity)
+          .attr('opacity', 0)
           .attr('transform', (d, i) => `translate(${fn_x(d, i) + fn_bandwidth() / 2}, ${fn_yMedian(d, i)})`)
           .call(enterRect, transition)
           .call(enterHLine, transition, 'h-center')
@@ -147,8 +155,7 @@ export default class XyBoxPlots extends Component {
           .call(enterVLine, transition, 'v-bottom')
           .call(enterHLine, transition, 'h-top')
           .call(enterVLine, transition, 'v-top')
-          .call(enter => enter
-            .transition(transition)
+          .call(enter => self.multiTransition(enter, transition)
             .attr('opacity', self._fn_opacity)
           ),
         update => update
@@ -170,10 +177,10 @@ export default class XyBoxPlots extends Component {
           .call(exitVLine, transition, 'v-bottom')
           .call(exitHLine, transition, 'h-top')
           .call(exitVLine, transition, 'v-top')
-          .call(exit => exit
-            .transition(transition)
-            .attr('opacity', 0)
-            .remove())
+          .call(exit =>
+            self.multiTransition(exit, transition)
+              .attr('opacity', 0)
+              .remove())
       )
     }
   }

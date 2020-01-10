@@ -28,6 +28,8 @@ export default class Component {
     self._fn_update = params.fn_update || (update => {})
     self._fn_exit = params.fn_exit || (exit => {})
 
+    self._phi = params.phi || 0.2
+
     self._componentData = []
   }
 
@@ -70,6 +72,15 @@ export default class Component {
   update () {
     const self = this
     self._componentData = self._chart.data.filter(self._fn_defined)
+  }
+
+  multiTransition (selection, transition) {
+    const self = this
+    return selection
+      .transition(transition)
+      .duration(transition.duration() * (1 - self._phi))
+      .delay((_, i, nodes) => nodes.length > 1
+        ? i / (nodes.length - 1) * transition.duration() * self._phi : 0)
   }
 
   drawCanvas () {

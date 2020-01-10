@@ -54,14 +54,16 @@ export default class Chart {
       })
   }
 
-  updateChart (self) {}
+  updateChart () {}
 
-  updateComponents (self) {
+  updateComponents () {
+    const self = this
     self._components.forEach(c => c.update())
   }
 
   // fits the size of the svg or canvas
-  fitContainer (self) {
+  fitContainer () {
+    const self = this
     const isCanvas = self._container.node() instanceof HTMLCanvasElement
     self._container
       .transition(self._transition)

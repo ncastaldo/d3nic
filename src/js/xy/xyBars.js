@@ -51,9 +51,7 @@ export default class XyBars extends Component {
           .attr('fill-opacity', self._fn_fillOpacity)
           .attr('opacity', 0)
           .call(self._fn_enter)
-          .call(enter => enter.transition(transition)
-          // (d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
-          // .delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
+          .call(enter => self.multiTransition(enter, transition)
             .attr('y', fn_y)
             .attr('height', fn_height)
             .attr('opacity', self._fn_opacity)),
@@ -67,10 +65,7 @@ export default class XyBars extends Component {
             .attr('height', fn_height)
             .attr('opacity', self._fn_opacity)),
         exit => exit
-          .call(exit => exit.transition(transition)
-          // (d, i, nodes) => nodes.length ? (options.duration / 2) : options.duration)
-          // .delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
-          // .attr("width", (d, i) => barWidth)
+          .call(exit => self.multiTransition(exit, transition)
             .attr('y', fn_yBottom)
             .attr('height', fn_heightBottom)
             .attr('opacity', 0)

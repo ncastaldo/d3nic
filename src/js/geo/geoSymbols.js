@@ -47,7 +47,7 @@ export default class GeoSymbols extends Component {
           .attr('opacity', 0)
           .call(self._fn_enter)
           .call(enter => {
-            enter.transition(transition)
+            self.multiTransition(enter, transition)
               .attr('d', self._fn_path)
               .attr('opacity', self._fn_opacity)
           }),
@@ -65,7 +65,7 @@ export default class GeoSymbols extends Component {
         exit => exit
           .call(self._fn_exit)
           .call(exit => {
-            exit.transition(transition)
+            self.multiTransition(exit, transition)
               .attr('transform', (d, i) => `translate(${self._fn_x(d, i)}, ${self._fn_y(d, i)})`)
               .attr('d', fn_pathInitial)
               .attr('opacity', 0)

@@ -55,8 +55,7 @@ export default class SectorBars extends PolarComponent {
               .attr('outerRadius', fn_outerRadius(d, i))
           })
           .call(enter =>
-            enter.transition(transition)
-            // .delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
+            self.multiTransition(enter, transition)
               .attrTween('d', self._fn_arcTween)
               .attr('opacity', self._fn_opacity)),
         update => update
@@ -74,7 +73,6 @@ export default class SectorBars extends PolarComponent {
           })
           .call(update =>
             update.transition(transition)
-            // .delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
               .attrTween('d', self._fn_arcTween)
               .attr('fill', self._fn_fill)
               .attr('opacity', self._fn_opacity)),
@@ -92,8 +90,7 @@ export default class SectorBars extends PolarComponent {
               .attr('outerRadius', fn_innerRadius(d, i)) // INNER HERE (NOT OUTER)
           })
           .call(exit =>
-            exit.transition(transition)
-            // .delay((d, i, nodes) => nodes.length ? (options.duration / 2) * i / nodes.length : 0)
+            self.multiTransition(exit, transition)
               .attrTween('d', self._fn_arcTween)
               .attr('opacity', 0)
               .remove())

@@ -45,7 +45,7 @@ export default class XySymbols extends Component {
             .attr('opacity', 0)
             .call(self._fn_enter)
             .call(enter => {
-              enter.transition(transition)
+              self.multiTransition(enter, transition)
                 .attr('opacity', self._fn_opacity)
                 .attr('d', self._fn_path)
             }),
@@ -59,8 +59,7 @@ export default class XySymbols extends Component {
           ),
         exit =>
           exit.call(exit =>
-            exit
-              .transition(transition)
+            self.multiTransition(exit, transition)
               .attr('opacity', 0)
               .attr('d', fn_pathInitial)
               .remove()
