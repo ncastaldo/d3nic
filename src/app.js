@@ -11,6 +11,10 @@ import GeoSvgs from '@/js/geo/geoSvgs.js'
 import GeoSymbols from '@/js/geo/geoSymbols.js'
 import GeoTooltips from '@/js/geo/geoTooltips.js'
 
+// planar
+import PlanarChart from '@/js/planar/planarChart.js'
+import PlanarContours from '@/js/planar/planarContours.js'
+
 // polar
 import PolarChart from '@/js/polar/polarChart.js'
 import PolarComponent from '@/js/polar/polarComponent.js'
@@ -54,6 +58,9 @@ export {
   GeoSvgs,
   GeoSymbols,
   GeoTooltips,
+
+  PlanarChart,
+  PlanarContours,
 
   PolarChart,
   PolarComponent,

@@ -38,6 +38,8 @@ export default class Chart {
     Object.assign(self._padding, params.padding || {})
     Object.assign(self._transitionObject, params.transitionObject || {})
 
+    self._extent = self.getExtent()
+
     self._fn_key = params.fn_key || ((d, i) => i)
     self._valueDomain = params.valueDomain || [NaN, NaN]
     self._data = params.data || []
@@ -79,6 +81,15 @@ export default class Chart {
       }, self._valueDomain)
   }
 
+  // helper function
+  getExtent () {
+    const self = this
+    return [
+      [self._padding.left, self._padding.top],
+      [self._size.width - self._padding.right, self._size.height - self._padding.bottom]
+    ]
+  }
+
   clearCanvas (self) {
     self._context.clearRect(0, 0, self._size.width, self._size.height)
   }
@@ -93,6 +104,11 @@ export default class Chart {
     Object.assign(self._size, size)
     self.updateChart(self)
     self.updateComponents(self)
+  }
+
+  get extent () {
+    const self = this
+    return self._extent
   }
 
   get padding () {

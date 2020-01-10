@@ -46,6 +46,7 @@
 		container.append("svg").classed("svg6", true)
 		container.append("svg").classed("svg7", true)
 		container.append("canvas").classed("canvas7", true)
+		container.append("svg").classed("svg8", true)
 	})
 
 	const mouseoverBisector = (d) => {
@@ -242,6 +243,10 @@
 		geoChart.size = newSize,
 		//geoChart2.size = newSize;
 
+		randomNumb = d3.randomInt(0, 100)()
+		planarChart.data = circumplex.slice(randomNumb)
+		fillScale.domain(d3.extent(planarContours.componentData, d => d.value))
+
 		geoChart.draw()
 		xyBrushChart.draw()
 		drawUpdate(t);
@@ -342,6 +347,31 @@
 		],
 	})
 
+
+	let circumplex = await d3.json("/resources/circumplexVA.json")
+
+
+	const fillScale = d3.scaleSequential(d3.interpolatePurples)
+
+	const planarContours = new d3nic.PlanarContours({
+		fn_value: d => [parseInt(d.v, 16), parseInt(d.a, 16)],
+		fn_weight: d => d.count,
+		fn_fill: d => fillScale(d.value),
+		fn_strokeWidth: d => 0
+	})
+	const planarChart = new d3nic.PlanarChart(".svg8", {
+		size: {width: 400, height: 400},
+		transitionObject: {duration: 2000},
+		valueDomain: [[0, 15],[0, 15]],
+		data: circumplex,
+		fn_key: d => JSON.stringify(d.coordinates),
+		components: [
+			planarContours
+		]
+	})
+
+	fillScale.domain(d3.extent(planarContours.componentData, d => d.value))
+
 	const drawUpdate = () => {
 
 		xyChart.draw()
@@ -349,6 +379,8 @@
 		sectorChart.draw();
 		xyStatisticChart.draw()
 		
+		planarChart.draw()
+
 		geoChart2.draw()
 
 	}
