@@ -50,18 +50,18 @@ export default class XyMouseBisector extends Component {
     }
 
     self._fn_draw = (group, transition) => {
-      const correction = (chart.fn_xScale.paddingInner() / 2 - chart.fn_xScale.paddingOuter()) * chart.fn_xScale.step()
+      const correction = (chart.fn_bandScale.paddingInner() / 2 - chart.fn_bandScale.paddingOuter()) * chart.fn_bandScale.step()
 
       const mouseScaleDomain = [
-        chart.fn_xScale.range()[0] - correction,
-        chart.fn_xScale.range()[1] + correction
+        chart.fn_bandScale.range()[0] - correction,
+        chart.fn_bandScale.range()[1] + correction
       ]
 
       mouseScale.domain(mouseScaleDomain)
         .range(self._componentData)
 
-      const x0 = chart.fn_xScale.range()[0]
-      const x1 = chart.fn_xScale.range()[1]
+      const x0 = chart.fn_bandScale.range()[0]
+      const x1 = chart.fn_bandScale.range()[1]
       const y0 = chart.fn_yScale.range()[1] // reversed
       const y1 = chart.fn_yScale.range()[0]
 

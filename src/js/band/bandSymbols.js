@@ -24,7 +24,7 @@ export default class XySymbols extends Component {
 
     self._fn_path2D = d3.symbol()
 
-    self._fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i))
+    self._fn_x = (d, i) => chart.fn_bandScale(chart.fn_key(d, i))
     self._fn_y = (d, i) => chart.fn_yScale(self._fn_value(d, i))
     self._fn_path = (d, i) => self._fn_path2D
       .type(self._fn_type(d, i))

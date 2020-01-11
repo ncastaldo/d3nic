@@ -32,9 +32,9 @@ export default class XyBoxPlots extends Component {
 
     const self = this
 
-    const fn_bandwidth = chart.fn_xScale.bandwidth
+    const fn_bandwidth = chart.fn_bandScale.bandwidth
 
-    const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i))
+    const fn_x = (d, i) => chart.fn_bandScale(chart.fn_key(d, i))
     const fn_width = (d, i) => fn_bandwidth() > self._fn_maxWidth(d, i)
       ? self._fn_maxWidth(d, i)
       : fn_bandwidth() < self._fn_minWidth(d, i)

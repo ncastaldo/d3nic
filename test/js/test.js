@@ -50,21 +50,21 @@
 	})
 
 	const mouseoverBisector = (d) => {
-		xyVLines.join.style("opacity", f => d.key===f.key ? 1 : null)
-		//xySymbols.join.style("r", f => f === d ? 8 : null)
+		bandVLines.join.style("opacity", f => d.key===f.key ? 1 : null)
+		//bandSymbols.join.style("r", f => f === d ? 8 : null)
 		arcBars.join.style("opacity", f => d.key!==f.key ? 0.5 : null)
 		sectorBars.join.style("opacity", f => d.key!==f.key ? 0.5 : null)
 	}
 
 	const mouseoutBisector = (d) => {
-		xyVLines.join.style("opacity", null)
-		//xySymbols.join.style("r", null)
+		bandVLines.join.style("opacity", null)
+		//bandSymbols.join.style("r", null)
 		arcBars.join.style("opacity", null)
 		sectorBars.join.style("opacity", null)
-		xyBars.join.style("opacity", null)
+		bandBars.join.style("opacity", null)
 	}
 
-	const xyVLines = new d3nic.XyVLines({
+	const bandVLines = new d3nic.BandVLines({
 		fn_bottomValue: d => d.v1,
 		fn_topValue: d => d.v1 + d.v2,
 		fn_defined: d => !isNaN(d.v1) && !isNaN(d.v2),
@@ -72,7 +72,7 @@
 		fn_strokeWidth: d => 2
 	})
 
-	const xySymbols = new d3nic.XySymbols({
+	const bandSymbols = new d3nic.BandSymbols({
 		fn_value: d => d.v1,
 		fn_defined: d => !isNaN(d.v1),
 		fn_size: d => 70,
@@ -81,7 +81,7 @@
 		phi: 0.2
 	})
 
-	const xyChart = new d3nic.XyChart(".svg1", {
+	const bandChart = new d3nic.BandChart(".svg1", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		size: {width: 800, height: 400},
 		transitionObject: { duration: 2000 },
@@ -89,27 +89,27 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.XyXAxis({ position: 'bottom', ticks: 10, tickFormat: d => d }),
-			new d3nic.XyYAxis({ position: 'left' }),
-			xyVLines,
-			new d3nic.XyLine({
+			new d3nic.BandAxis({ position: 'bottom', ticks: 10, tickFormat: d => d }),
+			new d3nic.YAxis({ position: 'left' }),
+			bandVLines,
+			new d3nic.BandLine({
 				fn_value: d => d.v1 + d.v2,
 				fn_defined: d => !isNaN(d.v1) && !isNaN(d.v2),
 				fn_strokeWidth: 3
 			}),
-			new d3nic.XyArea({
+			new d3nic.BandArea({
 				fn_topValue: d => d.v1,
 				fn_defined: d => !isNaN(d.v1),
 				fn_fill: d3.schemeReds[9][4],
 			}),
-			new d3nic.XyLine({
+			new d3nic.BandLine({
 				fn_value: d => d.v1,
 				fn_defined: d => !isNaN(d.v1),
 				fn_stroke: d3.schemeReds[9][6],
 				fn_strokeWidth: 3
 			}),
-			xySymbols,
-			new d3nic.XyMouseBisector({
+			bandSymbols,
+			new d3nic.BandBisector({
 				fn_onMouseoverAction: mouseoverBisector,
 				fn_onMouseoutAction: mouseoutBisector,
 			}),
@@ -225,10 +225,10 @@
 
 	const fn_update = (brushKeys, t) => {
 		const newData = data.filter(d => d.key >= brushKeys[0] && d.key <= brushKeys[1])
-		xyChart.data = newData;
+		bandChart.data = newData;
 		arcChart.data = newData;
 		sectorChart.data = newData;
-		xyStatisticChart.data = newData;
+		bandStatisticChart.data = newData;
 		random = d3.randomInt(0, tweets.length-50)()
 		geoChart.data = features.concat(tweets.slice(random, random+100)),
 		geoChart2.data = tweets.slice(random, random+50).concat(features)
@@ -237,11 +237,11 @@
 
 		const random2 = d3.randomInt(400, 600)
 		const newSize = {width: random2(), height: random2() }
-		//xyChart.size = newSize;
+		//bandChart.size = newSize;
 		//arcChart.size = newSize;
 		//sectorChart.size = newSize;
-		//xyStatisticChart.size = newSize;
-		xyBrushChart.size = newSize;
+		//bandStatisticChart.size = newSize;
+		bandBrushChart.size = newSize;
 		geoChart.size = newSize,
 		//geoChart2.size = newSize;
 
@@ -250,13 +250,13 @@
 		fillScale.domain(d3.extent(planarContours.componentData, d => d.value))
 
 		geoChart.draw()
-		xyBrushChart.draw()
+		bandBrushChart.draw()
 		drawUpdate(t);
 	}
 
 	const fn_onBrushAction = brushKeys => {
 		// console.log(JSON.stringify(brushKeys))
-		xyBars.join.style("fill-opacity", d => brushKeys && d.key >= brushKeys[0] && d.key <= brushKeys[1] ? null : 0.2)
+		bandBars.join.style("fill-opacity", d => brushKeys && d.key >= brushKeys[0] && d.key <= brushKeys[1] ? null : 0.2)
 		//fn_update(brushData)
 	}	
 	
@@ -265,7 +265,7 @@
 	}
 
 
-	const xyBars = new d3nic.XyBars({
+	const bandBars = new d3nic.BandBars({
 		// fn_bottomValue: d => d.v1,
 		fn_topValue: d => d.v1+d.v2,
 		fn_defined: d => !isNaN(d.v1) && !isNaN(d.v2),
@@ -274,12 +274,12 @@
 		phi: 0.2
 	})
 
-	const xyMouseBrusher = new d3nic.XyMouseBrusher({
+	const bandBrusher = new d3nic.BandBrusher({
 		fn_onBrushAction: fn_onBrushAction,
 		fn_onEndAction: fn_onEndAction
 	})
 
-	const xyBrushChart = new d3nic.XyChart(".svg5", {
+	const bandBrushChart = new d3nic.BandChart(".svg5", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		transitionObject: { duration: 1000 },
 		xPadding: { inner: 0, outer: 0},
@@ -288,11 +288,11 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.XyXAxis(), xyBars, xyMouseBrusher
+			new d3nic.BandAxis(), bandBars, bandBrusher
 		]
 	})
 
-	const xyStatisticChart = new d3nic.XyChart(".svg6", {
+	const bandStatisticChart = new d3nic.BandChart(".svg6", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		transitionObject: { duration: 4000 },
 		xPadding: { inner: 0.5, outer: 0.5 },
@@ -301,9 +301,9 @@
 		valueDomain: [0, NaN],
 		data: data,
 		components: [
-			new d3nic.XyXAxis({ tickSizeInner: 0, tickSizeOuter: 0 }),
-			new d3nic.XyYAxis({ tickSizeInner: 0, tickSizeOuter: 0 }),
-			new d3nic.XyBoxPlots({
+			new d3nic.BandAxis({ tickSizeInner: 0, tickSizeOuter: 0 }),
+			new d3nic.YAxis({ tickSizeInner: 0, tickSizeOuter: 0 }),
+			new d3nic.BandBoxPlots({
 				fn_minValue: d => d.v1 - 2,
 				fn_q1Value: d => d.v1 - 1,
 				fn_medianValue: d => d.v1,
@@ -317,7 +317,7 @@
 				fn_stroke: fn_fill,
 				fn_strokeWidth: d => 2,
 			}),
-			new d3nic.XyLine({
+			new d3nic.BandLine({
 				fn_value: d => d.v1,
 				fn_defined: d => !isNaN(d.v1),
 				fn_strokeWidth: d => 2,
@@ -384,10 +384,10 @@
 
 	const drawUpdate = () => {
 
-		xyChart.draw()
+		bandChart.draw()
 		arcChart.draw();
 		sectorChart.draw();
-		xyStatisticChart.draw()
+		bandStatisticChart.draw()
 		
 		planarChart.draw()
 
@@ -395,7 +395,7 @@
 
 	}
 
-	xyBrushChart.draw()
+	bandBrushChart.draw()
 	geoChart.draw()//{duration: 0, delay: 1000});
 
 	drawUpdate()

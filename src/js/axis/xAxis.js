@@ -20,7 +20,7 @@ export default class XAxis extends AxisComponent {
 
     const self = this
 
-    self._fn_axisTransform = () => `translate(0, ${chart.fn_yScale.range()[self._position === 'top' ? 1 : 0]})`
+    self._fn_axisTransform = () => `translate(0, ${[self._position === 'top' ? chart.padding.top : chart.size.height - chart.padding.bottom]})`
     self._fn_axis.scale(chart.fn_xScale)
   }
 

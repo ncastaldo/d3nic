@@ -26,7 +26,7 @@ export default class XyArea extends Component {
 
     const self = this
 
-    const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i)) + chart.fn_xScale.bandwidth() / 2
+    const fn_x = (d, i) => chart.fn_bandScale(chart.fn_key(d, i)) + chart.fn_bandScale.bandwidth() / 2
 
     const fn_y0 = (d, i) => !isNaN(self._fn_bottomValue(d, i))
       ? chart.fn_yScale(self._fn_bottomValue(d, i))

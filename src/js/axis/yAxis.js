@@ -20,7 +20,7 @@ export default class YAxis extends AxisComponent {
 
     const self = this
 
-    self._fn_axisTransform = () => `translate(${chart.fn_xScale.range()[self._position === 'right' ? 1 : 0]}, 0)`
+    self._fn_axisTransform = () => `translate(${[self._position === 'right' ? chart.size - chart.padding.right : chart.padding.left]}, 0)`
     self._fn_axis.scale(chart.fn_yScale)
   }
 

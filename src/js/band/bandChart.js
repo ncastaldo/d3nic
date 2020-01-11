@@ -21,7 +21,7 @@ export default class XyChart extends Chart {
 
     Object.assign(self._xPadding, params.xPadding || {})
 
-    self._fn_xScale = d3
+    self._fn_bandScale = d3
       .scaleBand()
       .paddingInner(self._xPadding.inner)
       .paddingOuter(self._xPadding.outer)
@@ -44,7 +44,7 @@ export default class XyChart extends Chart {
    * @override
    */
   updateChart (self) {
-    self._fn_xScale.range([
+    self._fn_bandScale.range([
       self._padding.left,
       self._size.width - self._padding.right
     ])
@@ -54,13 +54,13 @@ export default class XyChart extends Chart {
       self._padding.top
     ])
 
-    self._fn_xScale.domain(self._data.map(self._fn_key))
+    self._fn_bandScale.domain(self._data.map(self._fn_key))
     self._fn_yScale.domain(self.getValueDomain(self))
   }
 
-  get fn_xScale () {
+  get fn_bandScale () {
     const self = this
-    return self._fn_xScale
+    return self._fn_bandScale
   }
 
   get fn_yScale () {

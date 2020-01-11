@@ -26,8 +26,8 @@ export default class XyBars extends Component {
 
     const self = this
 
-    const fn_x = (d, i) => chart.fn_xScale(chart.fn_key(d, i))
-    const fn_width = (d, i) => chart.fn_xScale.bandwidth()
+    const fn_x = (d, i) => chart.fn_bandScale(chart.fn_key(d, i))
+    const fn_width = (d, i) => chart.fn_bandScale.bandwidth()
 
     const fn_y = (d, i) => chart.fn_yScale(self._fn_topValue(d, i))
     const fn_yBottom = (d, i) => !isNaN(self._fn_bottomValue(d, i))

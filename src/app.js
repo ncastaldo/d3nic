@@ -38,18 +38,17 @@ import SectorLine from '@/js/polar/sector/sectorLine.js'
 import SectorMouseBisector from '@/js/polar/sector/sectorMouseBisector.js'
 import SectorVLines from '@/js/polar/sector/sectorVLines.js'
 
-// xy
-import XyArea from '@/js/xy/xyArea.js'
-import XyBars from '@/js/xy/xyBars.js'
-import XyBoxPlots from '@/js/xy/xyBoxPlots.js'
-import XyChart from '@/js/xy/xyChart.js'
-import XyLine from '@/js/xy/xyLine.js'
-import XyMouseBisector from '@/js/xy/xyMouseBisector.js'
-import XyMouseBrusher from '@/js/xy/xyMouseBrusher.js'
-import XyVLines from '@/js/xy/xyVLines.js'
-import XySymbols from '@/js/xy/xySymbols.js'
-import XyXAxis from '@/js/xy/axis/xyXAxis.js'
-import XyYAxis from '@/js/xy/axis/xyYAxis.js'
+// band
+import BandArea from '@/js/band/bandArea.js'
+import BandBars from '@/js/band/bandBars.js'
+import BandBoxPlots from '@/js/band/bandBoxPlots.js'
+import BandChart from '@/js/band/bandChart.js'
+import BandLine from '@/js/band/bandLine.js'
+import BandBisector from '@/js/band/bandBisector.js'
+import BandBrusher from '@/js/band/bandBrusher.js'
+import BandVLines from '@/js/band/bandVLines.js'
+import BandSymbols from '@/js/band/bandSymbols.js'
+import BandAxis from '@/js/band/bandAxis.js'
 
 export {
 
@@ -87,16 +86,15 @@ export {
   SectorMouseBisector,
   SectorVLines,
 
-  XyArea,
-  XyBars,
-  XyBoxPlots,
-  XyChart,
-  XyLine,
-  XyMouseBisector,
-  XyMouseBrusher,
-  XySymbols,
-  XyVLines,
-  XyXAxis,
-  XyYAxis
+  BandArea,
+  BandAxis,
+  BandBars,
+  BandBoxPlots,
+  BandChart,
+  BandLine,
+  BandBisector,
+  BandBrusher,
+  BandSymbols,
+  BandVLines
 
 }
