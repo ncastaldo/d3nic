@@ -1,7 +1,7 @@
 import * as d3 from '@/js/d3-modules.js'
 import Chart from '@/js/chart.js'
 
-export default class PlanarChart extends Chart {
+export default class XyChart extends Chart {
   constructor (container, params = {}) {
     super(container, params)
   }
@@ -86,6 +86,6 @@ export default class PlanarChart extends Chart {
 
     const self = this
 
-    self._group.classed('planar-chart', true)
+    self._group.classed('xy-chart', true)
   }
 }

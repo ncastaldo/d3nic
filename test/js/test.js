@@ -246,8 +246,8 @@
 		//geoChart2.size = newSize;
 
 		randomNumb = d3.randomInt(0, 100)()
-		planarChart.data = circumplex.slice(randomNumb)
-		fillScale.domain(d3.extent(planarContours.componentData, d => d.value))
+		xyChart.data = circumplex.slice(randomNumb)
+		fillScale.domain(d3.extent(xyContours.componentData, d => d.value))
 
 		geoChart.draw()
 		bandBrushChart.draw()
@@ -363,24 +363,24 @@
 
 	const fillScale = d3.scaleSequential(d3.interpolatePurples)
 
-	const planarContours = new d3nic.PlanarContours({
+	const xyContours = new d3nic.XyContours({
 		fn_value: d => [parseInt(d.v, 16), parseInt(d.a, 16)],
 		fn_weight: d => Math.log10(d.count),
 		fn_fill: d => fillScale(d.value),
 		fn_strokeWidth: d => 0
 	})
-	const planarChart = new d3nic.PlanarChart(".svg8", {
+	const xyChart = new d3nic.XyChart(".svg8", {
 		size: {width: 400, height: 400},
 		padding: {bottom: 40, left: 40},
 		transitionObject: {duration: 2000},
 		valueDomain: [[0, 15],[0, 15]],
 		data: circumplex,
 		components: [
-			planarContours, new d3nic.XAxis(), new d3nic.YAxis()
+			xyContours, new d3nic.XAxis(), new d3nic.YAxis()
 		]
 	})
 
-	fillScale.domain(d3.extent(planarContours.componentData, d => d.value))
+	fillScale.domain(d3.extent(xyContours.componentData, d => d.value))
 
 	const drawUpdate = () => {
 
@@ -389,7 +389,7 @@
 		sectorChart.draw();
 		bandStatisticChart.draw()
 		
-		planarChart.draw()
+		xyChart.draw()
 
 		geoChart2.draw()
 

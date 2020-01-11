@@ -1,7 +1,7 @@
 import * as d3 from '@/js/d3-modules.js'
 import Component from '@/js/component.js'
 
-export default class PlanarContours extends Component {
+export default class XyContours extends Component {
   constructor (params = {}) {
     super(params)
 
@@ -39,8 +39,8 @@ export default class PlanarContours extends Component {
     self._fn_x = (d, i) => chart.extent[0][0]
     self._fn_y = (d, i) => chart.extent[0][1]
 
-    self._fn_draw = (planarContours, transition) => {
-      self._join = planarContours.join(
+    self._fn_draw = (xyContours, transition) => {
+      self._join = xyContours.join(
         enter => enter
           .append('path')
           .attr('stroke', self._fn_stroke)
@@ -97,7 +97,7 @@ export default class PlanarContours extends Component {
 
     const self = this
 
-    self._group.classed('planar-contours', true)
+    self._group.classed('xy-contours', true)
 
     self._group
       .selectAll('path')
