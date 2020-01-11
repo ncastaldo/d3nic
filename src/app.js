@@ -3,6 +3,11 @@ import Component from '@/js/component.js'
 
 import Rect from '@/js/rect.js'
 
+// axis
+import AxisComponent from '@/js/axis/axisComponent.js'
+import XAxis from '@/js/axis/xAxis.js'
+import YAxis from '@/js/axis/yAxis.js'
+
 // geo
 import GeoChart from '@/js/geo/geoChart.js'
 import GeoContours from '@/js/geo/geoContours.js'
@@ -52,6 +57,10 @@ export {
   Component,
 
   Rect,
+
+  AxisComponent,
+  XAxis,
+  YAxis,
 
   GeoChart,
   GeoContours,

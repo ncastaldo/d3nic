@@ -92,8 +92,6 @@ export default class GeoContours extends Component {
 
     self._componentData = self._fn_contourDensity(self._chart.data.filter(self._fn_defined))
     self._componentData.forEach(d => { d._fakeKey = self._fakeKey })
-
-    console.log(self._componentData)
   }
 
   /**

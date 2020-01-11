@@ -365,18 +365,18 @@
 
 	const planarContours = new d3nic.PlanarContours({
 		fn_value: d => [parseInt(d.v, 16), parseInt(d.a, 16)],
-		fn_weight: d => Math.log(d.count),
+		fn_weight: d => Math.log10(d.count),
 		fn_fill: d => fillScale(d.value),
 		fn_strokeWidth: d => 0
 	})
 	const planarChart = new d3nic.PlanarChart(".svg8", {
 		size: {width: 400, height: 400},
+		padding: {bottom: 40, left: 40},
 		transitionObject: {duration: 2000},
 		valueDomain: [[0, 15],[0, 15]],
 		data: circumplex,
-		fn_key: d => JSON.stringify(d.coordinates),
 		components: [
-			planarContours
+			planarContours, new d3nic.XAxis(), new d3nic.YAxis()
 		]
 	})
 

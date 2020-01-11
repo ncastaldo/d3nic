@@ -86,8 +86,7 @@ export default class PlanarContours extends Component {
 
     const self = this
     self._componentData = self._fn_contourDensity(self._chart.data.filter(self._fn_defined))
-
-    console.log(self._componentData)
+    self._componentData.forEach(d => { d._fakeKey = self._fakeKey })
   }
 
   /**
@@ -102,7 +101,7 @@ export default class PlanarContours extends Component {
 
     self._group
       .selectAll('path')
-      .data(self._componentData, self._chart.fn_key)
+      .data(self._componentData, d => d._fakeKey)// self._chart.fn_key)
       .call(self._fn_draw, transition)
   }
 }
