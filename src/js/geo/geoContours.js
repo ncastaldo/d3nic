@@ -1,7 +1,7 @@
 import * as d3 from '@/js/d3-modules.js'
 import Component from '@/js/component.js'
 
-export default class PlanarContours extends Component {
+export default class GeoContours extends Component {
   constructor (params = {}) {
     super(params)
 
@@ -21,8 +21,10 @@ export default class PlanarContours extends Component {
 
     const self = this
 
-    const fn_xContour = (d, i) => chart.fn_xScale(self._fn_value(d, i)[0])
-    const fn_yContour = (d, i) => chart.fn_yScale(self._fn_value(d, i)[1])
+    const fn_geoPath = d3.geoPath().projection(chart.fn_geoProjection)
+
+    const fn_xContour = (d, i) => fn_geoPath.centroid(self._fn_value(d, i))[0]
+    const fn_yContour = (d, i) => fn_geoPath.centroid(self._fn_value(d, i))[1]
 
     self._fn_contourDensity = d3.contourDensity()
       .size([
@@ -32,15 +34,16 @@ export default class PlanarContours extends Component {
       .x(fn_xContour)
       .y(fn_yContour)
       .weight(self._fn_weight)
+      // .bandwidth(20)
+      .thresholds(30)
       // thresholds
 
     self._fn_path = d3.geoPath()
-
     self._fn_x = (d, i) => chart.extent[0][0]
     self._fn_y = (d, i) => chart.extent[0][1]
 
-    self._fn_draw = (planarContours, transition) => {
-      self._join = planarContours.join(
+    self._fn_draw = (geoContours, transition) => {
+      self._join = geoContours.join(
         enter => enter
           .append('path')
           .attr('stroke', self._fn_stroke)
@@ -85,7 +88,10 @@ export default class PlanarContours extends Component {
     super.update() // ??
 
     const self = this
+    if ('fakeKey' in self) { ++self._fakeKey } else { self._fakeKey = 0 }
+
     self._componentData = self._fn_contourDensity(self._chart.data.filter(self._fn_defined))
+    self._componentData.forEach(d => { d._fakeKey = self._fakeKey })
 
     console.log(self._componentData)
   }
@@ -98,11 +104,11 @@ export default class PlanarContours extends Component {
 
     const self = this
 
-    self._group.classed('planar-contours', true)
+    self._group.classed('geo-contours', true)
 
     self._group
       .selectAll('path')
-      .data(self._componentData, self._chart.fn_key)
+      .data(self._componentData, d => d._fakeKey)// self._chart.fn_key)
       .call(self._fn_draw, transition)
   }
 }

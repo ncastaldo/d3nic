@@ -35,10 +35,10 @@ export default class Chart {
     }
 
     Object.assign(self._size, params.size || {})
+    self.updateExtent()
+
     Object.assign(self._padding, params.padding || {})
     Object.assign(self._transitionObject, params.transitionObject || {})
-
-    self._extent = self.getExtent()
 
     self._fn_key = params.fn_key || ((d, i) => i)
     self._valueDomain = params.valueDomain || [NaN, NaN]
@@ -56,7 +56,10 @@ export default class Chart {
       })
   }
 
-  updateChart () {}
+  updateChart () {
+    const self = this
+    self.updateExtent()
+  }
 
   updateComponents () {
     const self = this
@@ -82,9 +85,9 @@ export default class Chart {
   }
 
   // helper function
-  getExtent () {
+  updateExtent () {
     const self = this
-    return [
+    self._extent = [
       [self._padding.left, self._padding.top],
       [self._size.width - self._padding.right, self._size.height - self._padding.bottom]
     ]

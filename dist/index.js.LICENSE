@@ -456,6 +456,178 @@
 
 /*! exports provided: deg2rad, rad2deg */
 
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/array.js ***!
+  \********************************************************************/
+
+/*!************************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/ascending.js ***!
+  \************************************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/bisect.js ***!
+  \*********************************************************************/
+
+/*!***********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/bisector.js ***!
+  \***********************************************************************/
+
+/*!***********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/constant.js ***!
+  \***********************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/cross.js ***!
+  \********************************************************************/
+
+/*!*************************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/descending.js ***!
+  \*************************************************************************/
+
+/*!************************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/deviation.js ***!
+  \************************************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/extent.js ***!
+  \*********************************************************************/
+
+/*!************************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/histogram.js ***!
+  \************************************************************************/
+
+/*!***********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/identity.js ***!
+  \***********************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/index.js ***!
+  \********************************************************************/
+
+/*!******************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/max.js ***!
+  \******************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/mean.js ***!
+  \*******************************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/median.js ***!
+  \*********************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/merge.js ***!
+  \********************************************************************/
+
+/*!******************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/min.js ***!
+  \******************************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/number.js ***!
+  \*********************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/pairs.js ***!
+  \********************************************************************/
+
+/*!**********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/permute.js ***!
+  \**********************************************************************/
+
+/*!***********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/quantile.js ***!
+  \***********************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/range.js ***!
+  \********************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/scan.js ***!
+  \*******************************************************************/
+
+/*!**********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/shuffle.js ***!
+  \**********************************************************************/
+
+/*!******************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/sum.js ***!
+  \******************************************************************/
+
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/threshold/freedmanDiaconis.js ***!
+  \*****************************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/threshold/scott.js ***!
+  \******************************************************************************/
+
+/*!********************************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/threshold/sturges.js ***!
+  \********************************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/ticks.js ***!
+  \********************************************************************/
+
+/*!************************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/transpose.js ***!
+  \************************************************************************/
+
+/*!***********************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/variance.js ***!
+  \***********************************************************************/
+
+/*!******************************************************************!*\
+  !*** ./node_modules/d3-contour/node_modules/d3-array/src/zip.js ***!
+  \******************************************************************/
+
+/*!*********************************************!*\
+  !*** ./node_modules/d3-contour/src/area.js ***!
+  \*********************************************/
+
+/*!**********************************************!*\
+  !*** ./node_modules/d3-contour/src/array.js ***!
+  \**********************************************/
+
+/*!**************************************************!*\
+  !*** ./node_modules/d3-contour/src/ascending.js ***!
+  \**************************************************/
+
+/*!*********************************************!*\
+  !*** ./node_modules/d3-contour/src/blur.js ***!
+  \*********************************************/
+
+/*! exports provided: blurX, blurY */
+
+/*!*************************************************!*\
+  !*** ./node_modules/d3-contour/src/constant.js ***!
+  \*************************************************/
+
+/*!*************************************************!*\
+  !*** ./node_modules/d3-contour/src/contains.js ***!
+  \*************************************************/
+
+/*!*************************************************!*\
+  !*** ./node_modules/d3-contour/src/contours.js ***!
+  \*************************************************/
+
+/*!************************************************!*\
+  !*** ./node_modules/d3-contour/src/density.js ***!
+  \************************************************/
+
+/*!**********************************************!*\
+  !*** ./node_modules/d3-contour/src/index.js ***!
+  \**********************************************/
+
+/*! exports provided: contours, contourDensity */
+
+/*!*********************************************!*\
+  !*** ./node_modules/d3-contour/src/noop.js ***!
+  \*********************************************/
+
 /*!**************************************************!*\
   !*** ./node_modules/d3-dispatch/src/dispatch.js ***!
   \**************************************************/
@@ -2722,7 +2894,7 @@
   !*** ./src/app.js ***!
   \********************/
 
-/*! exports provided: Chart, Component, Rect, GeoChart, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, PolarChart, PolarComponent, ArcBars, ArcChart, ArcMouseBisector, SectorArea, SectorBars, SectorChart, SectorLine, SectorMouseBisector, SectorVLines, XyArea, XyBars, XyBoxPlots, XyChart, XyLine, XyMouseBisector, XyMouseBrusher, XySymbols, XyVLines, XyXAxis, XyYAxis */
+/*! exports provided: Chart, Component, Rect, GeoChart, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, PlanarChart, PlanarContours, PolarChart, PolarComponent, ArcBars, ArcChart, ArcMouseBisector, SectorArea, SectorBars, SectorChart, SectorLine, SectorMouseBisector, SectorVLines, XyArea, XyBars, XyBoxPlots, XyChart, XyLine, XyMouseBisector, XyMouseBrusher, XySymbols, XyVLines, XyXAxis, XyYAxis */
 
 /*!*************************!*\
   !*** ./src/js/chart.js ***!
@@ -2736,7 +2908,7 @@
   !*** ./src/js/d3-modules.js ***!
   \******************************/
 
-/*! exports provided: bisect, bisectRight, bisectLeft, ascending, bisector, count, cross, cumsum, descending, deviation, extent, group, groups, rollup, rollups, bin, histogram, thresholdFreedmanDiaconis, thresholdScott, thresholdSturges, max, maxIndex, mean, median, merge, min, minIndex, pairs, permute, quantile, quantileSorted, quickselect, range, least, leastIndex, greatest, greatestIndex, scan, shuffle, sum, ticks, tickIncrement, tickStep, transpose, variance, zip, axisTop, axisRight, axisBottom, axisLeft, brush, brushX, brushY, brushSelection, chord, ribbon, nest, set, map, keys, values, entries, color, rgb, hsl, lab, hcl, lch, gray, cubehelix, dispatch, drag, dragDisable, dragEnable, dsvFormat, csvParse, csvParseRows, csvFormat, csvFormatBody, csvFormatRows, tsvParse, tsvParseRows, tsvFormat, tsvFormatBody, tsvFormatRows, autoType, easeLinear, easeQuad, easeQuadIn, easeQuadOut, easeQuadInOut, easeCubic, easeCubicIn, easeCubicOut, easeCubicInOut, easePoly, easePolyIn, easePolyOut, easePolyInOut, easeSin, easeSinIn, easeSinOut, easeSinInOut, easeExp, easeExpIn, easeExpOut, easeExpInOut, easeCircle, easeCircleIn, easeCircleOut, easeCircleInOut, easeBounce, easeBounceIn, easeBounceOut, easeBounceInOut, easeBack, easeBackIn, easeBackOut, easeBackInOut, easeElastic, easeElasticIn, easeElasticOut, easeElasticInOut, forceCenter, forceCollide, forceLink, forceManyBody, forceRadial, forceSimulation, forceX, forceY, formatDefaultLocale, format, formatPrefix, formatLocale, formatSpecifier, FormatSpecifier, precisionFixed, precisionPrefix, precisionRound, geoArea, geoBounds, geoCentroid, geoCircle, geoClipAntimeridian, geoClipCircle, geoClipExtent, geoClipRectangle, geoContains, geoDistance, geoGraticule, geoGraticule10, geoInterpolate, geoLength, geoPath, geoAlbers, geoAlbersUsa, geoAzimuthalEqualArea, geoAzimuthalEqualAreaRaw, geoAzimuthalEquidistant, geoAzimuthalEquidistantRaw, geoConicConformal, geoConicConformalRaw, geoConicEqualArea, geoConicEqualAreaRaw, geoConicEquidistant, geoConicEquidistantRaw, geoEqualEarth, geoEqualEarthRaw, geoEquirectangular, geoEquirectangularRaw, geoGnomonic, geoGnomonicRaw, geoIdentity, geoProjection, geoProjectionMutator, geoMercator, geoMercatorRaw, geoNaturalEarth1, geoNaturalEarth1Raw, geoOrthographic, geoOrthographicRaw, geoStereographic, geoStereographicRaw, geoTransverseMercator, geoTransverseMercatorRaw, geoRotation, geoStream, geoTransform, cluster, hierarchy, pack, packSiblings, packEnclose, partition, stratify, tree, treemap, treemapBinary, treemapDice, treemapSlice, treemapSliceDice, treemapSquarify, treemapResquarify, hexbin, interpolate, interpolateArray, interpolateBasis, interpolateBasisClosed, interpolateDate, interpolateDiscrete, interpolateHue, interpolateNumber, interpolateObject, interpolateRound, interpolateString, interpolateTransformCss, interpolateTransformSvg, interpolateZoom, interpolateRgb, interpolateRgbBasis, interpolateRgbBasisClosed, interpolateHsl, interpolateHslLong, interpolateLab, interpolateHcl, interpolateHclLong, interpolateCubehelix, interpolateCubehelixLong, piecewise, quantize, path, polygonArea, polygonCentroid, polygonHull, polygonContains, polygonLength, quadtree, queue, randomUniform, randomInt, randomNormal, randomLogNormal, randomBates, randomIrwinHall, randomExponential, randomPareto, randomBernoulli, randomGeometric, randomBinomial, request, html, json, text, xml, csv, tsv, scaleBand, scalePoint, scaleIdentity, scaleLinear, scaleLog, scaleSymlog, scaleOrdinal, scaleImplicit, scalePow, scaleSqrt, scaleRadial, scaleQuantile, scaleQuantize, scaleThreshold, scaleTime, scaleUtc, scaleSequential, scaleSequentialLog, scaleSequentialPow, scaleSequentialSqrt, scaleSequentialSymlog, scaleSequentialQuantile, scaleDiverging, scaleDivergingLog, scaleDivergingPow, scaleDivergingSqrt, scaleDivergingSymlog, tickFormat, schemeCategory10, schemeAccent, schemeDark2, schemePaired, schemePastel1, schemePastel2, schemeSet1, schemeSet2, schemeSet3, schemeTableau10, interpolateBrBG, schemeBrBG, interpolatePRGn, schemePRGn, interpolatePiYG, schemePiYG, interpolatePuOr, schemePuOr, interpolateRdBu, schemeRdBu, interpolateRdGy, schemeRdGy, interpolateRdYlBu, schemeRdYlBu, interpolateRdYlGn, schemeRdYlGn, interpolateSpectral, schemeSpectral, interpolateBuGn, schemeBuGn, interpolateBuPu, schemeBuPu, interpolateGnBu, schemeGnBu, interpolateOrRd, schemeOrRd, interpolatePuBuGn, schemePuBuGn, interpolatePuBu, schemePuBu, interpolatePuRd, schemePuRd, interpolateRdPu, schemeRdPu, interpolateYlGnBu, schemeYlGnBu, interpolateYlGn, schemeYlGn, interpolateYlOrBr, schemeYlOrBr, interpolateYlOrRd, schemeYlOrRd, interpolateBlues, schemeBlues, interpolateGreens, schemeGreens, interpolateGreys, schemeGreys, interpolatePurples, schemePurples, interpolateReds, schemeReds, interpolateOranges, schemeOranges, interpolateCividis, interpolateCubehelixDefault, interpolateRainbow, interpolateWarm, interpolateCool, interpolateSinebow, interpolateTurbo, interpolateViridis, interpolateMagma, interpolateInferno, interpolatePlasma, create, creator, local, matcher, mouse, namespace, namespaces, clientPoint, select, selectAll, selection, selector, selectorAll, style, touch, touches, window, event, customEvent, arc, area, line, pie, areaRadial, radialArea, lineRadial, radialLine, pointRadial, linkHorizontal, linkVertical, linkRadial, symbol, symbols, symbolCircle, symbolCross, symbolDiamond, symbolSquare, symbolStar, symbolTriangle, symbolWye, curveBasisClosed, curveBasisOpen, curveBasis, curveBundle, curveCardinalClosed, curveCardinalOpen, curveCardinal, curveCatmullRomClosed, curveCatmullRomOpen, curveCatmullRom, curveLinearClosed, curveLinear, curveMonotoneX, curveMonotoneY, curveNatural, curveStep, curveStepAfter, curveStepBefore, stack, stackOffsetExpand, stackOffsetDiverging, stackOffsetNone, stackOffsetSilhouette, stackOffsetWiggle, stackOrderAppearance, stackOrderAscending, stackOrderDescending, stackOrderInsideOut, stackOrderNone, stackOrderReverse, timeInterval, timeMillisecond, timeMilliseconds, utcMillisecond, utcMilliseconds, timeSecond, timeSeconds, utcSecond, utcSeconds, timeMinute, timeMinutes, timeHour, timeHours, timeDay, timeDays, timeWeek, timeWeeks, timeSunday, timeSundays, timeMonday, timeMondays, timeTuesday, timeTuesdays, timeWednesday, timeWednesdays, timeThursday, timeThursdays, timeFriday, timeFridays, timeSaturday, timeSaturdays, timeMonth, timeMonths, timeYear, timeYears, utcMinute, utcMinutes, utcHour, utcHours, utcDay, utcDays, utcWeek, utcWeeks, utcSunday, utcSundays, utcMonday, utcMondays, utcTuesday, utcTuesdays, utcWednesday, utcWednesdays, utcThursday, utcThursdays, utcFriday, utcFridays, utcSaturday, utcSaturdays, utcMonth, utcMonths, utcYear, utcYears, timeFormatDefaultLocale, timeFormat, timeParse, utcFormat, utcParse, timeFormatLocale, isoFormat, isoParse, now, timer, timerFlush, timeout, interval, transition, active, interrupt, voronoi, zoom, zoomTransform, zoomIdentity */
+/*! exports provided: bisect, bisectRight, bisectLeft, ascending, bisector, count, cross, cumsum, descending, deviation, extent, group, groups, rollup, rollups, bin, histogram, thresholdFreedmanDiaconis, thresholdScott, thresholdSturges, max, maxIndex, mean, median, merge, min, minIndex, pairs, permute, quantile, quantileSorted, quickselect, range, least, leastIndex, greatest, greatestIndex, scan, shuffle, sum, ticks, tickIncrement, tickStep, transpose, variance, zip, axisTop, axisRight, axisBottom, axisLeft, brush, brushX, brushY, brushSelection, chord, ribbon, nest, set, map, keys, values, entries, color, rgb, hsl, lab, hcl, lch, gray, cubehelix, contours, contourDensity, dispatch, drag, dragDisable, dragEnable, dsvFormat, csvParse, csvParseRows, csvFormat, csvFormatBody, csvFormatRows, tsvParse, tsvParseRows, tsvFormat, tsvFormatBody, tsvFormatRows, autoType, easeLinear, easeQuad, easeQuadIn, easeQuadOut, easeQuadInOut, easeCubic, easeCubicIn, easeCubicOut, easeCubicInOut, easePoly, easePolyIn, easePolyOut, easePolyInOut, easeSin, easeSinIn, easeSinOut, easeSinInOut, easeExp, easeExpIn, easeExpOut, easeExpInOut, easeCircle, easeCircleIn, easeCircleOut, easeCircleInOut, easeBounce, easeBounceIn, easeBounceOut, easeBounceInOut, easeBack, easeBackIn, easeBackOut, easeBackInOut, easeElastic, easeElasticIn, easeElasticOut, easeElasticInOut, forceCenter, forceCollide, forceLink, forceManyBody, forceRadial, forceSimulation, forceX, forceY, formatDefaultLocale, format, formatPrefix, formatLocale, formatSpecifier, FormatSpecifier, precisionFixed, precisionPrefix, precisionRound, geoArea, geoBounds, geoCentroid, geoCircle, geoClipAntimeridian, geoClipCircle, geoClipExtent, geoClipRectangle, geoContains, geoDistance, geoGraticule, geoGraticule10, geoInterpolate, geoLength, geoPath, geoAlbers, geoAlbersUsa, geoAzimuthalEqualArea, geoAzimuthalEqualAreaRaw, geoAzimuthalEquidistant, geoAzimuthalEquidistantRaw, geoConicConformal, geoConicConformalRaw, geoConicEqualArea, geoConicEqualAreaRaw, geoConicEquidistant, geoConicEquidistantRaw, geoEqualEarth, geoEqualEarthRaw, geoEquirectangular, geoEquirectangularRaw, geoGnomonic, geoGnomonicRaw, geoIdentity, geoProjection, geoProjectionMutator, geoMercator, geoMercatorRaw, geoNaturalEarth1, geoNaturalEarth1Raw, geoOrthographic, geoOrthographicRaw, geoStereographic, geoStereographicRaw, geoTransverseMercator, geoTransverseMercatorRaw, geoRotation, geoStream, geoTransform, cluster, hierarchy, pack, packSiblings, packEnclose, partition, stratify, tree, treemap, treemapBinary, treemapDice, treemapSlice, treemapSliceDice, treemapSquarify, treemapResquarify, hexbin, interpolate, interpolateArray, interpolateBasis, interpolateBasisClosed, interpolateDate, interpolateDiscrete, interpolateHue, interpolateNumber, interpolateObject, interpolateRound, interpolateString, interpolateTransformCss, interpolateTransformSvg, interpolateZoom, interpolateRgb, interpolateRgbBasis, interpolateRgbBasisClosed, interpolateHsl, interpolateHslLong, interpolateLab, interpolateHcl, interpolateHclLong, interpolateCubehelix, interpolateCubehelixLong, piecewise, quantize, path, polygonArea, polygonCentroid, polygonHull, polygonContains, polygonLength, quadtree, queue, randomUniform, randomInt, randomNormal, randomLogNormal, randomBates, randomIrwinHall, randomExponential, randomPareto, randomBernoulli, randomGeometric, randomBinomial, request, html, json, text, xml, csv, tsv, scaleBand, scalePoint, scaleIdentity, scaleLinear, scaleLog, scaleSymlog, scaleOrdinal, scaleImplicit, scalePow, scaleSqrt, scaleRadial, scaleQuantile, scaleQuantize, scaleThreshold, scaleTime, scaleUtc, scaleSequential, scaleSequentialLog, scaleSequentialPow, scaleSequentialSqrt, scaleSequentialSymlog, scaleSequentialQuantile, scaleDiverging, scaleDivergingLog, scaleDivergingPow, scaleDivergingSqrt, scaleDivergingSymlog, tickFormat, schemeCategory10, schemeAccent, schemeDark2, schemePaired, schemePastel1, schemePastel2, schemeSet1, schemeSet2, schemeSet3, schemeTableau10, interpolateBrBG, schemeBrBG, interpolatePRGn, schemePRGn, interpolatePiYG, schemePiYG, interpolatePuOr, schemePuOr, interpolateRdBu, schemeRdBu, interpolateRdGy, schemeRdGy, interpolateRdYlBu, schemeRdYlBu, interpolateRdYlGn, schemeRdYlGn, interpolateSpectral, schemeSpectral, interpolateBuGn, schemeBuGn, interpolateBuPu, schemeBuPu, interpolateGnBu, schemeGnBu, interpolateOrRd, schemeOrRd, interpolatePuBuGn, schemePuBuGn, interpolatePuBu, schemePuBu, interpolatePuRd, schemePuRd, interpolateRdPu, schemeRdPu, interpolateYlGnBu, schemeYlGnBu, interpolateYlGn, schemeYlGn, interpolateYlOrBr, schemeYlOrBr, interpolateYlOrRd, schemeYlOrRd, interpolateBlues, schemeBlues, interpolateGreens, schemeGreens, interpolateGreys, schemeGreys, interpolatePurples, schemePurples, interpolateReds, schemeReds, interpolateOranges, schemeOranges, interpolateCividis, interpolateCubehelixDefault, interpolateRainbow, interpolateWarm, interpolateCool, interpolateSinebow, interpolateTurbo, interpolateViridis, interpolateMagma, interpolateInferno, interpolatePlasma, create, creator, local, matcher, mouse, namespace, namespaces, clientPoint, select, selectAll, selection, selector, selectorAll, style, touch, touches, window, event, customEvent, arc, area, line, pie, areaRadial, radialArea, lineRadial, radialLine, pointRadial, linkHorizontal, linkVertical, linkRadial, symbol, symbols, symbolCircle, symbolCross, symbolDiamond, symbolSquare, symbolStar, symbolTriangle, symbolWye, curveBasisClosed, curveBasisOpen, curveBasis, curveBundle, curveCardinalClosed, curveCardinalOpen, curveCardinal, curveCatmullRomClosed, curveCatmullRomOpen, curveCatmullRom, curveLinearClosed, curveLinear, curveMonotoneX, curveMonotoneY, curveNatural, curveStep, curveStepAfter, curveStepBefore, stack, stackOffsetExpand, stackOffsetDiverging, stackOffsetNone, stackOffsetSilhouette, stackOffsetWiggle, stackOrderAppearance, stackOrderAscending, stackOrderDescending, stackOrderInsideOut, stackOrderNone, stackOrderReverse, timeInterval, timeMillisecond, timeMilliseconds, utcMillisecond, utcMilliseconds, timeSecond, timeSeconds, utcSecond, utcSeconds, timeMinute, timeMinutes, timeHour, timeHours, timeDay, timeDays, timeWeek, timeWeeks, timeSunday, timeSundays, timeMonday, timeMondays, timeTuesday, timeTuesdays, timeWednesday, timeWednesdays, timeThursday, timeThursdays, timeFriday, timeFridays, timeSaturday, timeSaturdays, timeMonth, timeMonths, timeYear, timeYears, utcMinute, utcMinutes, utcHour, utcHours, utcDay, utcDays, utcWeek, utcWeeks, utcSunday, utcSundays, utcMonday, utcMondays, utcTuesday, utcTuesdays, utcWednesday, utcWednesdays, utcThursday, utcThursdays, utcFriday, utcFridays, utcSaturday, utcSaturdays, utcMonth, utcMonths, utcYear, utcYears, timeFormatDefaultLocale, timeFormat, timeParse, utcFormat, utcParse, timeFormatLocale, isoFormat, isoParse, now, timer, timerFlush, timeout, interval, transition, active, interrupt, voronoi, zoom, zoomTransform, zoomIdentity */
 
 /*!********************************!*\
   !*** ./src/js/geo/geoChart.js ***!
@@ -2761,6 +2933,14 @@
 /*!***********************************!*\
   !*** ./src/js/geo/geoTooltips.js ***!
   \***********************************/
+
+/*!**************************************!*\
+  !*** ./src/js/planar/planarChart.js ***!
+  \**************************************/
+
+/*!*****************************************!*\
+  !*** ./src/js/planar/planarContours.js ***!
+  \*****************************************/
 
 /*!*************************************!*\
   !*** ./src/js/polar/arc/arcBars.js ***!

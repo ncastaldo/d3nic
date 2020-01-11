@@ -193,7 +193,7 @@
 				type: 'Point',
 				coordinates: c
 			}
-		}).slice(0, 100)
+		})// .slice(0, 5000)
 
 	const geoRegions = new d3nic.GeoRegions({
 		fn_defined: d => d.type === "Feature",
@@ -231,7 +231,9 @@
 		xyStatisticChart.data = newData;
 		random = d3.randomInt(0, tweets.length-50)()
 		geoChart.data = features.concat(tweets.slice(random, random+100)),
-		geoChart2.data = tweets.slice(random, random+50)
+		geoChart2.data = tweets.slice(random, random+50).concat(features)
+
+		geoFillScale.domain(d3.extent(geoContours.componentData, d => d.value))
 
 		const random2 = d3.randomInt(400, 600)
 		const newSize = {width: random2(), height: random2() }
@@ -327,25 +329,33 @@
 
 
 
+	const geoFillScale = d3.scaleSequential(d3.interpolateBlues)
 
-	const geoHexbin = new d3nic.GeoHexbin({
+	const geoContours = new d3nic.GeoContours({
 		fn_defined: d => d.type === "Point",
 		fn_value: d => d,
-		fn_opacity: d => Math.random(),
 		fn_strokeWidth: d => 0,
 		fn_stroke: d => "black",
-		fn_fill: d => d3.interpolateViridis(Math.random()),
+		fn_fill: d => geoFillScale(d.value)
 	})
 
 	const geoChart2 = new d3nic.GeoChart(".svg7", {
 		size: {width: 400, height: 400},
 		transitionObject: {duration: 2000},
 		//data: features.concat(tweets.slice(0, 2000)),
-		data: tweets,
+		data: tweets.concat(features),
 		components: [
-			geoHexbin
+			geoContours,
+			new d3nic.GeoRegions({
+				fn_defined: d => d.type === "Feature",
+				fn_value: d => d.geometry,
+				fn_fill: '#ddd',
+				fn_fillOpacity: d => 0
+			})
 		],
 	})
+
+	geoFillScale.domain(d3.extent(geoContours.componentData, d => d.value))
 
 
 	let circumplex = await d3.json("/resources/circumplexVA.json")
@@ -355,7 +365,7 @@
 
 	const planarContours = new d3nic.PlanarContours({
 		fn_value: d => [parseInt(d.v, 16), parseInt(d.a, 16)],
-		fn_weight: d => d.count,
+		fn_weight: d => Math.log(d.count),
 		fn_fill: d => fillScale(d.value),
 		fn_strokeWidth: d => 0
 	})
