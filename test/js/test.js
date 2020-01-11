@@ -282,7 +282,7 @@
 	const bandBrushChart = new d3nic.BandChart(".svg5", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		transitionObject: { duration: 1000 },
-		xPadding: { inner: 0, outer: 0},
+		bandPadding: { inner: 0, outer: 0},
 		size: { width: 700 },
 		fn_key: d => d.key,
 		valueDomain: [0, NaN],
@@ -295,7 +295,7 @@
 	const bandStatisticChart = new d3nic.BandChart(".svg6", {
 		padding: { top: 50, right: 50, bottom: 50, left: 50 },
 		transitionObject: { duration: 4000 },
-		xPadding: { inner: 0.5, outer: 0.5 },
+		bandPadding: { inner: 0.5, outer: 0.5 },
 		size: { width: 400 },
 		fn_key: d => d.key,
 		valueDomain: [0, NaN],

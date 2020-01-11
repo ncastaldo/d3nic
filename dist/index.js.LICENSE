@@ -2894,7 +2894,7 @@
   !*** ./src/app.js ***!
   \********************/
 
-/*! exports provided: Chart, Component, Rect, AxisComponent, XAxis, YAxis, GeoChart, GeoContours, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, PlanarChart, PlanarContours, PolarChart, PolarComponent, ArcBars, ArcChart, ArcMouseBisector, SectorArea, SectorBars, SectorChart, SectorLine, SectorMouseBisector, SectorVLines, XyArea, XyBars, XyBoxPlots, XyChart, XyLine, XyMouseBisector, XyMouseBrusher, XySymbols, XyVLines, XyXAxis, XyYAxis */
+/*! exports provided: Chart, Component, Rect, AxisComponent, XAxis, YAxis, GeoChart, GeoContours, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, XyChart, XyContours, PolarChart, PolarComponent, ArcBars, ArcChart, ArcMouseBisector, SectorArea, SectorBars, SectorChart, SectorLine, SectorMouseBisector, SectorVLines, BandArea, BandAxis, BandBars, BandBoxPlots, BandChart, BandLine, BandBisector, BandBrusher, BandSymbols, BandVLines */
 
 /*!**************************************!*\
   !*** ./src/js/axis/axisComponent.js ***!
@@ -2907,6 +2907,46 @@
 /*!******************************!*\
   !*** ./src/js/axis/yAxis.js ***!
   \******************************/
+
+/*!*********************************!*\
+  !*** ./src/js/band/bandArea.js ***!
+  \*********************************/
+
+/*!*********************************!*\
+  !*** ./src/js/band/bandAxis.js ***!
+  \*********************************/
+
+/*!*********************************!*\
+  !*** ./src/js/band/bandBars.js ***!
+  \*********************************/
+
+/*!*************************************!*\
+  !*** ./src/js/band/bandBisector.js ***!
+  \*************************************/
+
+/*!*************************************!*\
+  !*** ./src/js/band/bandBoxPlots.js ***!
+  \*************************************/
+
+/*!************************************!*\
+  !*** ./src/js/band/bandBrusher.js ***!
+  \************************************/
+
+/*!**********************************!*\
+  !*** ./src/js/band/bandChart.js ***!
+  \**********************************/
+
+/*!*********************************!*\
+  !*** ./src/js/band/bandLine.js ***!
+  \*********************************/
+
+/*!************************************!*\
+  !*** ./src/js/band/bandSymbols.js ***!
+  \************************************/
+
+/*!***********************************!*\
+  !*** ./src/js/band/bandVLines.js ***!
+  \***********************************/
 
 /*!*************************!*\
   !*** ./src/js/chart.js ***!
@@ -2949,14 +2989,6 @@
 /*!***********************************!*\
   !*** ./src/js/geo/geoTooltips.js ***!
   \***********************************/
-
-/*!**************************************!*\
-  !*** ./src/js/planar/planarChart.js ***!
-  \**************************************/
-
-/*!*****************************************!*\
-  !*** ./src/js/planar/planarContours.js ***!
-  \*****************************************/
 
 /*!*************************************!*\
   !*** ./src/js/polar/arc/arcBars.js ***!
@@ -3006,50 +3038,10 @@
   !*** ./src/js/rect.js ***!
   \************************/
 
-/*!*******************************************!*\
-  !*** ./src/js/xy/axis/xyAxisComponent.js ***!
-  \*******************************************/
-
-/*!***********************************!*\
-  !*** ./src/js/xy/axis/xyXAxis.js ***!
-  \***********************************/
-
-/*!***********************************!*\
-  !*** ./src/js/xy/axis/xyYAxis.js ***!
-  \***********************************/
-
-/*!*****************************!*\
-  !*** ./src/js/xy/xyArea.js ***!
-  \*****************************/
-
-/*!*****************************!*\
-  !*** ./src/js/xy/xyBars.js ***!
-  \*****************************/
-
-/*!*********************************!*\
-  !*** ./src/js/xy/xyBoxPlots.js ***!
-  \*********************************/
-
 /*!******************************!*\
   !*** ./src/js/xy/xyChart.js ***!
   \******************************/
 
-/*!*****************************!*\
-  !*** ./src/js/xy/xyLine.js ***!
-  \*****************************/
-
-/*!**************************************!*\
-  !*** ./src/js/xy/xyMouseBisector.js ***!
-  \**************************************/
-
-/*!*************************************!*\
-  !*** ./src/js/xy/xyMouseBrusher.js ***!
-  \*************************************/
-
-/*!********************************!*\
-  !*** ./src/js/xy/xySymbols.js ***!
-  \********************************/
-
-/*!*******************************!*\
-  !*** ./src/js/xy/xyVLines.js ***!
-  \*******************************/
+/*!*********************************!*\
+  !*** ./src/js/xy/xyContours.js ***!
+  \*********************************/

@@ -12,19 +12,19 @@ export default class XyChart extends Chart {
   initChart (self, params) {
     super.initChart(self, params)
 
-    self._xPadding = {
+    self._bandPadding = {
       inner: 1,
       outer: 0
     }
     // { inner: 1, outer: [0->1] } -> scalepoint
     // { inner: 0, outer: [0->1] } -> scaleband
 
-    Object.assign(self._xPadding, params.xPadding || {})
+    Object.assign(self._bandPadding, params.bandPadding || {})
 
     self._fn_bandScale = d3
       .scaleBand()
-      .paddingInner(self._xPadding.inner)
-      .paddingOuter(self._xPadding.outer)
+      .paddingInner(self._bandPadding.inner)
+      .paddingOuter(self._bandPadding.outer)
       .domain(self._data.map(self._fn_key))
       .range([
         self._padding.left,
