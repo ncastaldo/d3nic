@@ -1,7 +1,7 @@
 import * as d3 from '@/js/d3-modules.js'
 import Chart from '@/js/chart.js'
 
-export default class XyChart extends Chart {
+export default class BandChart extends Chart {
   constructor (container, params = {}) {
     super(container, params)
   }

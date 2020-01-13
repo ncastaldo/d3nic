@@ -1,7 +1,7 @@
 import * as d3 from '@/js/d3-modules.js'
 import Component from '@/js/component.js'
 
-export default class XyLine extends Component {
+export default class BandLine extends Component {
   constructor (params = {}) {
     super(params)
 

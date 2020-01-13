@@ -1,7 +1,7 @@
 import * as d3 from '@/js/d3-modules.js'
 import Component from '@/js/component.js'
 
-export default class XyMouseBisector extends Component {
+export default class BandMouseBisector extends Component {
   constructor (params = {}) {
     super(params)
 
