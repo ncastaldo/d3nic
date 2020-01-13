@@ -364,7 +364,7 @@
 	const fillScale = d3.scaleSequential(d3.interpolatePurples)
 
 	const xyContours = new d3nic.XyContours({
-		fn_value: d => [parseInt(d.v, 16), parseInt(d.a, 16)],
+		fn_value: d => [d.v, d.a],
 		fn_weight: d => Math.log10(d.count),
 		fn_fill: d => fillScale(d.value),
 		fn_strokeWidth: d => 0
@@ -373,7 +373,7 @@
 		size: {width: 400, height: 400},
 		padding: {bottom: 40, left: 40},
 		transitionObject: {duration: 2000},
-		valueDomain: [[0, 15],[0, 15]],
+		valueDomain: [[0, 19],[0, 19]],
 		data: circumplex,
 		components: [
 			xyContours, new d3nic.XAxis(), new d3nic.YAxis()
