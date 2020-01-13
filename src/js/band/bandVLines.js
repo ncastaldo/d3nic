@@ -83,7 +83,7 @@ export default class BandVLines extends Component {
 
     const self = this
 
-    self._group.classed('xy-v-lines', true)
+    self._group.classed('band-v-lines', true)
 
     self._group
       .selectAll('path')

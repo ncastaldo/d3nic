@@ -76,6 +76,6 @@ export default class BandChart extends Chart {
 
     const self = this
 
-    self._group.classed('xy-chart', true)
+    self._group.classed('band-chart', true)
   }
 }

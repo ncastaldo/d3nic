@@ -99,7 +99,7 @@ export default class BandMouseBisector extends Component {
 
     const self = this
 
-    self._group.classed('xy-mouse-bisector', true)
+    self._group.classed('band-mouse-bisector', true)
 
     self._group
       .selectAll('rect')

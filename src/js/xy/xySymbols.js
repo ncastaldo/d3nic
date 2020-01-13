@@ -1,7 +1,7 @@
 import * as d3 from '@/js/d3-modules.js'
 import Component from '@/js/component.js'
 
-export default class BandSymbols extends Component {
+export default class XySymbols extends Component {
   constructor (params = {}) {
     super(params)
 
@@ -11,7 +11,7 @@ export default class BandSymbols extends Component {
     self._fn_size = params.fn_size || ((d, i) => 3)
 
     self._fn_value = params.fn_value || ((d, i) => d)
-    self._fn_valueDomain = (data) => d3.extent(data, self._fn_value)
+    self._fn_valueDomain = (data) => data.filter(self._fn_defined).map(d => self._fn_value(d))
   }
 
   /**
@@ -24,8 +24,8 @@ export default class BandSymbols extends Component {
 
     self._fn_path2D = d3.symbol()
 
-    self._fn_x = (d, i) => chart.fn_bandScale(chart.fn_key(d, i))
-    self._fn_y = (d, i) => chart.fn_yScale(self._fn_value(d, i))
+    self._fn_x = (d, i) => chart.fn_xScale(self._fn_value(d, i)[0])
+    self._fn_y = (d, i) => chart.fn_yScale(self._fn_value(d, i)[1])
     self._fn_path = (d, i) => self._fn_path2D
       .type(self._fn_type(d, i))
       .size(self._fn_size(d, i))(self._fn_value(d, i))
@@ -76,11 +76,11 @@ export default class BandSymbols extends Component {
 
     const self = this
 
-    self._group.classed('band-symbols', true)
+    self._group.classed('xy-symbols', true)
 
     self._group
       .selectAll('path')
-      .data(self._chart.data.filter(self._fn_defined), self._chart.fn_key)
+      .data(self._componentData, self._chart.fn_key)
       .call(self._fn_draw, transition)
   }
 }

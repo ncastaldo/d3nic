@@ -83,7 +83,7 @@ export default class BandArea extends Component {
 
     const self = this
 
-    self._group.classed('xy-area', true)
+    self._group.classed('band-area', true)
 
     self._group.call(self._fn_draw, transition)
   }

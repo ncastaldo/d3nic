@@ -74,7 +74,7 @@ export default class BandLine extends Component {
 
     const self = this
 
-    self._group.classed('xy-line', true)
+    self._group.classed('band-line', true)
 
     self._group.call(self._fn_draw, transition)
   }

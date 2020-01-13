@@ -142,7 +142,7 @@ export default class BandBoxPlots extends Component {
       self._join = boxPlots.join(
         enter => enter
           .append('g')
-          .classed('xy-box-plot', true)
+          .classed('band-box-plot', true)
           .attr('fill', self._fn_fill)
           .attr('fill-opacity', self._fn_fillOpacity)
           .attr('stroke', self._fn_stroke)
@@ -193,10 +193,10 @@ export default class BandBoxPlots extends Component {
 
     const self = this
 
-    self._group.classed('xy-box-plots', true)
+    self._group.classed('band-box-plots', true)
 
     self._group
-      .selectAll('g.xy-box-plot')
+      .selectAll('g.band-box-plot')
       .data(self._chart.data.filter(self._fn_defined), self._chart.fn_key)
       .call(self._fn_draw, transition)
   }

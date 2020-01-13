@@ -82,7 +82,7 @@ export default class BandBars extends Component {
 
     const self = this
 
-    self._group.classed('xy-bars', true)
+    self._group.classed('band-bars', true)
 
     self._group.selectAll('rect')
       .data(self._chart.data.filter(self._fn_defined), self._chart.fn_key)

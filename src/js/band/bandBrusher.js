@@ -133,7 +133,7 @@ export default class BandMouseBrusher extends Component {
 
     const self = this
 
-    self._group.classed('xy-mouse-brusher', true)
+    self._group.classed('band-mouse-brusher', true)
 
     self._group.call(self._fn_draw, transition)
   }
