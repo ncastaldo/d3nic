@@ -29,8 +29,6 @@ export default class XyChart extends Chart {
         self._size.height - self._padding.bottom,
         self._padding.top
       ])
-
-    console.log(self.getValueDomain())
   }
 
   /**

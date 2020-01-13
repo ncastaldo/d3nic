@@ -1,16 +1,13 @@
 import * as d3 from '@/js/d3-modules.js'
 import Component from '@/js/component.js'
 
-export default class XyContours extends Component {
+export default class BbContours extends Component {
   constructor (params = {}) {
     super(params)
 
     const self = this
 
     self._fn_weight = params.fn_weight || (d3.randomInt(1, 10)) // radius function for each bin
-
-    self._fn_value = params.fn_value || ((d, i) => d)
-    self._fn_valueDomain = (data) => data.filter(self._fn_defined).map(d => self._fn_value(d))
   }
 
   /**
@@ -21,8 +18,8 @@ export default class XyContours extends Component {
 
     const self = this
 
-    const fn_xContour = (d, i) => chart.fn_xScale(self._fn_value(d, i)[0])
-    const fn_yContour = (d, i) => chart.fn_yScale(self._fn_value(d, i)[1])
+    const fn_xContour = (d, i) => chart.fn_bxScale(chart.fn_key(d, i)[0]) + chart.fn_bxScale.bandwidth() / 2
+    const fn_yContour = (d, i) => chart.fn_byScale(chart.fn_key(d, i)[1]) + chart.fn_byScale.bandwidth() / 2
 
     self._fn_contourDensity = d3.contourDensity()
       .size([
@@ -39,8 +36,8 @@ export default class XyContours extends Component {
     self._fn_x = (d, i) => chart.extent[0][0]
     self._fn_y = (d, i) => chart.extent[0][1]
 
-    self._fn_draw = (xyContours, transition) => {
-      self._join = xyContours.join(
+    self._fn_draw = (bbContours, transition) => {
+      self._join = bbContours.join(
         enter => enter
           .append('path')
           .attr('stroke', self._fn_stroke)
@@ -86,10 +83,11 @@ export default class XyContours extends Component {
 
     const self = this
 
-    if ('fakeKey' in self) { ++self._fakeKey } else { self._fakeKey = 0 }
+    if ('_fakeKey' in self) { ++self._fakeKey } else { self._fakeKey = 0 }
 
     self._componentData = self._fn_contourDensity(self._chart.data.filter(self._fn_defined))
-    self._componentData.forEach(d => { d._fakeKey = self._fakeKey })
+    self._componentData.forEach((d, i) => { d.__fakeKey = `${i}-${self._fakeKey}` })
+    console.log(self._componentData)
   }
 
   /**
@@ -100,11 +98,11 @@ export default class XyContours extends Component {
 
     const self = this
 
-    self._group.classed('xy-contours', true)
+    self._group.classed('bb-contours', true)
 
     self._group
       .selectAll('path')
-      .data(self._componentData, d => d._fakeKey)// self._chart.fn_key)
+      .data(self._componentData, d => d.__fakeKey)// self._chart.fn_key)
       .call(self._fn_draw, transition)
   }
 }

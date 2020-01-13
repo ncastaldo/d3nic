@@ -20,6 +20,7 @@ import GeoTooltips from '@/js/geo/geoTooltips.js'
 // xy
 import XyChart from '@/js/xy/xyChart.js'
 import XyContours from '@/js/xy/xyContours.js'
+import XySymbols from '@/js/xy/xySymbols.js'
 
 // polar
 import PolarChart from '@/js/polar/polarChart.js'
@@ -50,6 +51,11 @@ import BandVLines from '@/js/band/bandVLines.js'
 import BandSymbols from '@/js/band/bandSymbols.js'
 import BandAxis from '@/js/band/bandAxis.js'
 
+// bb
+import BbChart from '@/js/bb/bbChart.js'
+import BbContours from '@/js/bb/bbContours.js'
+import BbRects from '@/js/bb/bbRects.js'
+
 export {
 
   Chart,
@@ -71,6 +77,7 @@ export {
 
   XyChart,
   XyContours,
+  XySymbols,
 
   PolarChart,
   PolarComponent,
@@ -95,6 +102,10 @@ export {
   BandBisector,
   BandBrusher,
   BandSymbols,
-  BandVLines
+  BandVLines,
+
+  BbChart,
+  BbContours,
+  BbRects
 
 }

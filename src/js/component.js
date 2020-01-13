@@ -16,7 +16,7 @@ export default class Component {
     self._fn_stroke = params.fn_stroke || ((d, i) => 'black')
     self._fn_strokeDasharray = params.fn_strokeDasharray || ((d, i) => [0, 0])
     self._fn_strokeWidth = params.fn_strokeWidth || ((d, i) => 1)
-    self._fn_fill = params.fn_fill || ((d, i) => 'red')
+    self._fn_fill = params.fn_fill || ((d, i) => d3.interpolateViridis(Math.random()))
     self._fn_fillOpacity = params.fn_fillOpacity || ((d, i) => 1)
     self._fn_opacity = params.fn_opacity || ((d, i) => 1)
 
