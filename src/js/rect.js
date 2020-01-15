@@ -7,6 +7,8 @@ export default class Rect extends Component {
     const self = this
 
     self._cover = 'cover' in params ? params.cover : false
+    self._fn_opacity = 'fillOpacity' in params ? params.fillOpacity : 0
+    self._fn_strokeWidth = 'strokeWidth' in params ? params.strokeWidth : 0
   }
 
   /**

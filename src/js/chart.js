@@ -22,10 +22,10 @@ export default class Chart {
     }
 
     self._padding = {
-      top: 10,
-      right: 10,
-      bottom: 10,
-      left: 10
+      top: 25,
+      right: 25,
+      bottom: 25,
+      left: 25
     }
 
     self._transitionObject = {

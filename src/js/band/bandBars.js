@@ -30,9 +30,11 @@ export default class BandBars extends Component {
     const fn_width = (d, i) => chart.fn_bandScale.bandwidth()
 
     const fn_y = (d, i) => chart.fn_yScale(self._fn_topValue(d, i))
-    const fn_yBottom = (d, i) => !isNaN(self._fn_bottomValue(d, i))
-      ? chart.fn_yScale(self._fn_bottomValue(d, i))
-      : chart.fn_yScale.range()[0]
+    const fn_yBottom = (d, i) => {
+      return !isNaN(self._fn_bottomValue(d, i)) && !isNaN(chart.fn_yScale.domain()[0])
+        ? chart.fn_yScale(self._fn_bottomValue(d, i))
+        : chart.fn_yScale.range()[0]
+    }
 
     const fn_height = (d, i) => fn_yBottom(d, i) - fn_y(d, i)
     const fn_heightBottom = (d, i) => 0

@@ -2894,11 +2894,19 @@
   !*** ./src/app.js ***!
   \********************/
 
-/*! exports provided: Chart, Component, Rect, AxisComponent, XAxis, YAxis, GeoChart, GeoContours, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, XyChart, XyContours, PolarChart, PolarComponent, ArcBars, ArcChart, ArcMouseBisector, SectorArea, SectorBars, SectorChart, SectorLine, SectorMouseBisector, SectorVLines, BandArea, BandAxis, BandBars, BandBoxPlots, BandChart, BandLine, BandBisector, BandBrusher, BandSymbols, BandVLines */
+/*! exports provided: Chart, Component, Rect, AxisComponent, BxAxis, ByAxis, XAxis, YAxis, GeoChart, GeoContours, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, XyChart, XyContours, XySymbols, PolarChart, PolarComponent, ArcBars, ArcChart, ArcMouseBisector, SectorArea, SectorBars, SectorChart, SectorLine, SectorMouseBisector, SectorVLines, BandArea, BandAxis, BandBars, BandBoxPlots, BandChart, BandLine, BandBisector, BandBrusher, BandSymbols, BandVLines, BbChart, BbContours, BbRects */
 
 /*!**************************************!*\
   !*** ./src/js/axis/axisComponent.js ***!
   \**************************************/
+
+/*!*******************************!*\
+  !*** ./src/js/axis/bxAxis.js ***!
+  \*******************************/
+
+/*!*******************************!*\
+  !*** ./src/js/axis/byAxis.js ***!
+  \*******************************/
 
 /*!******************************!*\
   !*** ./src/js/axis/xAxis.js ***!
@@ -2947,6 +2955,18 @@
 /*!***********************************!*\
   !*** ./src/js/band/bandVLines.js ***!
   \***********************************/
+
+/*!******************************!*\
+  !*** ./src/js/bb/bbChart.js ***!
+  \******************************/
+
+/*!*********************************!*\
+  !*** ./src/js/bb/bbContours.js ***!
+  \*********************************/
+
+/*!******************************!*\
+  !*** ./src/js/bb/bbRects.js ***!
+  \******************************/
 
 /*!*************************!*\
   !*** ./src/js/chart.js ***!
@@ -3045,3 +3065,7 @@
 /*!*********************************!*\
   !*** ./src/js/xy/xyContours.js ***!
   \*********************************/
+
+/*!********************************!*\
+  !*** ./src/js/xy/xySymbols.js ***!
+  \********************************/

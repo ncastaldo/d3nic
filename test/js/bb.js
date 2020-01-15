@@ -21,6 +21,7 @@
   const fillScaleAD = d3.scaleSequentialLog(d3.interpolateBlues).domain(d3.extent(dataVD, d => d.count ? d.count : NaN))
   
   const fillScaleDensity = d3.scaleSequentialLog(d3.interpolatePurples)
+  const fillScaleDensityVD = d3.scaleSequentialLog(d3.interpolateReds)
 
 	d3.select(".container").call(container => {
     container.append("svg").classed("svg1", true)
@@ -67,7 +68,7 @@
     fn_strokeWidth: () => 0,
     fn_weight: d => d.count ? Math.log10(d.count) : 0,
     fn_enter: enter => enter.on('mouseenter', () => bbContours.join.style('opacity', 0.01))
-    .on('mouseleave', () => bbContours.join.style('opacity', null))
+      .on('mouseleave', () => bbContours.join.style('opacity', null))
   })
   
   const bbChartVA = new d3nic.BbChart(".svg1", {
@@ -76,7 +77,7 @@
     byPadding: { inner: 0, outer: 0 },
     size: { width: 300, height: 300 },
     data: dataVA,
-    components: [ bbRectsVA, /*bbContours*/ ]
+    components: [ bbRectsVA, /*bbContours*/, new d3nic.BxAxis(), new d3nic.ByAxis(),  ]
   })
 
   const bbRectsVD = new d3nic.BbRects({
@@ -85,13 +86,21 @@
     fn_fill: d => d.count ? fillScaleVD(d.count) : '#fff'
   })
 
+  const bbContoursVD = new d3nic.BbContours({
+    fn_fill: d => fillScaleDensityVD(d.value),
+    fn_strokeWidth: () => 0,
+    fn_weight: d => d.count ? Math.log10(d.count) : 0,
+    fn_enter: enter => enter.on('mouseenter', () => bbContoursVD.join.style('opacity', 0.01))
+      .on('mouseleave', () => bbContoursVD.join.style('opacity', null))
+  })
+
   const bbChartVD = new d3nic.BbChart(".svg2", {
     fn_key: d => [d.v, d.d],
     bxPadding: { inner: 0, outer: 0 },
     byPadding: { inner: 0, outer: 0 },
     size: { width: 300, height: 300 },
     data: dataVD,
-    components: [ bbRectsVD ]
+    components: [ bbRectsVD, /*bbContoursVD*/ ]
   })
 
   const bbRectsAD = new d3nic.BbRects({
@@ -110,6 +119,7 @@
   })
 
   fillScaleDensity.domain(d3.extent(bbContours.componentData, d => d.value))
+  fillScaleDensityVD.domain(d3.extent(bbContoursVD.componentData, d => d.value))
 
 	const drawUpdate = (t) => {
     bbChartVA.draw(t)
@@ -132,6 +142,7 @@
     fillScaleAD.domain(d3.extent(dataAD2, d => d.count ? d.count : NaN))
 
     fillScaleDensity.domain(d3.extent(bbContours.componentData, d => d.value))
+    fillScaleDensityVD.domain(d3.extent(bbContoursVD.componentData, d => d.value))
     drawUpdate({ duration: 1000 });
   }
   

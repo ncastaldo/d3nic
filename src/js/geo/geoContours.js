@@ -88,8 +88,12 @@ export default class GeoContours extends Component {
     super.update() // ??
 
     const self = this
-    if ('fakeKey' in self) { ++self._fakeKey } else { self._fakeKey = 0 }
+    if ('_fakeKey' in self) { ++self._fakeKey } else { self._fakeKey = 0 }
 
+    self._fn_contourDensity.size([
+      self._chart.extent[1][0] - self._chart.extent[0][0],
+      self._chart.extent[1][1] - self._chart.extent[0][1]
+    ])
     self._componentData = self._fn_contourDensity(self._chart.data.filter(self._fn_defined))
     self._componentData.forEach(d => { d._fakeKey = self._fakeKey })
   }

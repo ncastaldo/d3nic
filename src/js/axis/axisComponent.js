@@ -54,4 +54,22 @@ export default class AxisComponent extends Component {
         .call(self._fn_axis)
     }
   }
+
+  // to be used only in case of band values
+  getTickValues () {
+    const self = this
+
+    const fn_recursive = (tot, max, j) => {
+      if (tot / j <= max) return j
+      return fn_recursive(tot, max, j + 1)
+    }
+
+    const domain = self._fn_axis.scale().domain()
+
+    if (self._ticks <= 0) return domain
+    const j = fn_recursive(domain.length, self._ticks, 1)
+    const correction = Math.floor((domain.length - 1) % j / 2) // how many on the right -> shift in case
+    const fn_filter = (d, i) => i % j === correction
+    return domain.filter(fn_filter)
+  }
 }

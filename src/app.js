@@ -5,6 +5,8 @@ import Rect from '@/js/rect.js'
 
 // axis
 import AxisComponent from '@/js/axis/axisComponent.js'
+import BxAxis from '@/js/axis/bxAxis.js'
+import ByAxis from '@/js/axis/byAxis.js'
 import XAxis from '@/js/axis/xAxis.js'
 import YAxis from '@/js/axis/yAxis.js'
 
@@ -64,6 +66,8 @@ export {
   Rect,
 
   AxisComponent,
+  BxAxis,
+  ByAxis,
   XAxis,
   YAxis,
 
