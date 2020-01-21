@@ -58,7 +58,14 @@ import BbChart from '@/js/bb/bbChart.js'
 import BbContours from '@/js/bb/bbContours.js'
 import BbRects from '@/js/bb/bbRects.js'
 
+// TEST
+import { chart, xyChart } from '@/js_2/chart.js'
+
 export {
+
+  // TEST
+  chart,
+  xyChart,
 
   Chart,
   Component,

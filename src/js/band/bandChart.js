@@ -12,6 +12,10 @@ export default class BandChart extends Chart {
   initChart (self, params) {
     super.initChart(self, params)
 
+    self._yScaleType = 'yScaleType' in params &&
+      ['scaleLinear', 'scaleLog', 'scaleSymlog'].includes(params.yScaleType)
+      ? params.yScaleType : 'scaleLinear'
+
     self._bandPadding = {
       inner: 1,
       outer: 0
@@ -31,8 +35,7 @@ export default class BandChart extends Chart {
         self._size.width - self._padding.right
       ])
 
-    self._fn_yScale = d3
-      .scaleLinear()
+    self._fn_yScale = d3[self._yScaleType]()
       .domain(self.getValueDomain(self))
       .range([
         self._size.height - self._padding.bottom,
