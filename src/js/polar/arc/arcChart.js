@@ -38,7 +38,10 @@ export default class ArcChart extends PolarChart {
    * @override
    */
   updateChart (self) {
-    self._fn_radiusScale.domain(self._data.map(self._fn_key))
+    self._fn_radiusScale
+      .domain(self._data.map(self._fn_key))
+      .range(self.getRadiusRange(self))
+
     self._fn_angleScale.domain(self.getValueDomain(self))
   }
 

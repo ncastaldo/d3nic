@@ -1,54 +1,83 @@
 import * as d3 from '@/js/d3-modules.js'
 
-const chart = ({
-  selector = 'svg',
-  id = '',
-  width = 200,
-  height = 300,
-  components = [],
-  data = []
-}) => {
-  const state = {
-    selector,
-    id,
-    width,
-    height,
-    components,
-    data
-  }
+const chart = (state) => {
+  let selector = 'svg'
+  let size = { width: 200, height: 300 }
+  let components = []
+  let data = []
 
-  state.draw = () => {
-    state.container = state.container ||
-      d3.select(state.selector)
-        .attr('id', state.id)
-        .attr('width', state.width)
-        .attr('height', state.height)
-    state.components.forEach(c => c.draw())
-  }
+  let container
 
-  const handler = {
-    set (target, prop, val, receiver) {
-      const reflectSet = Reflect.set(target, prop, val, receiver) // (2)
-      console.log(`SET ${prop}=${val}`)
-      return reflectSet
+  const self = {
+    ...state,
+    selector: (value) => {
+      if (typeof value === 'undefined') return selector
+      selector = value
+      return self
+    },
+    size: (value) => {
+      if (typeof value === 'undefined') return size
+      size = value
+      return self
+    },
+    components: (value) => {
+      if (typeof value === 'undefined') return components
+      components = value
+      return self
+    },
+    data: (value) => {
+      if (typeof value === 'undefined') return data
+      data = value
+      return self
+    },
+    draw: () => {
+      container = container ||
+        d3.select(selector)
+          .attr('width', size.width)
+          .attr('height', size.height)
+      components.forEach(c => c.draw())
+      return { ...self }
     }
   }
 
-  return new Proxy(state, handler)
+  return self
 }
 
-const xyChart = ({
-  xScale = 'scaleLinear',
-  yScale = 'scaleLinear',
-  ...args
-}) => {
-  const state = {
-    xScale,
-    yScale,
-    ...args
+const x = (state) => {
+  let xScale = 'scaleLinear'
+  const self = {
+    ...state,
+    xScale: (value) => {
+      if (typeof value === 'undefined') return xScale
+      xScale = value
+      return self
+    }
   }
+  return self
+}
 
-  return chart(state)
+const y = (state) => {
+  let yScale = 'scaleLinear'
+  const self = {
+    ...state,
+    yScale: (value) => {
+      if (typeof value === 'undefined') return yScale
+      yScale = value
+      return self
+    }
+  }
+  return self
+}
+
+const xyChart = (state) => {
+  const self = {
+    ...state,
+    ...x(state),
+    ...y(state),
+
+    ...chart(state)
+  }
+  return self
 }
 
 export {

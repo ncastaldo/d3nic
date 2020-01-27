@@ -2894,7 +2894,7 @@
   !*** ./src/app.js ***!
   \********************/
 
-/*! exports provided: Chart, Component, Rect, AxisComponent, BxAxis, ByAxis, XAxis, YAxis, GeoChart, GeoContours, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, XyChart, XyContours, XySymbols, PolarChart, PolarComponent, ArcBars, ArcChart, ArcMouseBisector, SectorArea, SectorBars, SectorChart, SectorLine, SectorMouseBisector, SectorVLines, BandArea, BandAxis, BandBars, BandBoxPlots, BandChart, BandLine, BandBisector, BandBrusher, BandSymbols, BandVLines, BbChart, BbContours, BbRects */
+/*! exports provided: chart, xyChart, Chart, Component, Rect, AxisComponent, BxAxis, ByAxis, XAxis, YAxis, GeoChart, GeoContours, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, XyChart, XyContours, XySymbols, PolarChart, PolarComponent, ArcBars, ArcChart, ArcMouseBisector, SectorArea, SectorBars, SectorChart, SectorLine, SectorMouseBisector, SectorVLines, BandArea, BandAxis, BandBars, BandBoxPlots, BandChart, BandLine, BandBisector, BandBrusher, BandSymbols, BandVLines, BbChart, BbContours, BbRects */
 
 /*!**************************************!*\
   !*** ./src/js/axis/axisComponent.js ***!
@@ -3069,3 +3069,9 @@
 /*!********************************!*\
   !*** ./src/js/xy/xySymbols.js ***!
   \********************************/
+
+/*!***************************!*\
+  !*** ./src/js_2/chart.js ***!
+  \***************************/
+
+/*! exports provided: chart, xyChart */

@@ -41,6 +41,7 @@ export default class SectorBars extends PolarComponent {
           .attr('stroke', self._fn_stroke)
           .attr('stroke-width', self._fn_strokeWidth)
           .attr('fill', self._fn_fill)
+          .attr('fill-opacity', self._fn_fillOpacity)
           .attr('opacity', 0)
           .each((d, i, nodes) => {
             const selection = d3.select(nodes[i])
@@ -75,6 +76,7 @@ export default class SectorBars extends PolarComponent {
             update.transition(transition)
               .attrTween('d', self._fn_arcTween)
               .attr('fill', self._fn_fill)
+              .attr('fill-opacity', self._fn_fillOpacity)
               .attr('opacity', self._fn_opacity)),
         exit => exit
           .each((d, i, nodes) => {

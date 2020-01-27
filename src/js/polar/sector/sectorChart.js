@@ -39,7 +39,10 @@ export default class SectorChart extends PolarChart {
    */
   updateChart (self) {
     self._fn_angleScale.domain(self._data.map(self._fn_key))
-    self._fn_radiusScale.domain(self.getValueDomain(self))
+
+    self._fn_radiusScale
+      .domain(self.getValueDomain(self))
+      .range(self.getRadiusRange(self))
   }
 
   get fn_radiusScale () {
