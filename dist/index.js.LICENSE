@@ -3074,4 +3074,4 @@
   !*** ./src/js_2/chart.js ***!
   \***************************/
 
-/*! exports provided: chart, xyChart */
+/*! exports provided: chart, xyChart, component */

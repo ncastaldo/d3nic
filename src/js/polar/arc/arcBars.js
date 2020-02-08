@@ -62,7 +62,7 @@ export default class ArcBars extends PolarComponent {
           .each((d, i, nodes) => {
             const selection = d3.select(nodes[i])
             selection
-              .attr('startAngleInitial', fn_startAngle(d, i))
+              .attr('startAngleInitial', selection.attr('startAngle'))
               .attr('startAngle', fn_startAngle(d, i))
               .attr('endAngleInitial', selection.attr('endAngle'))
               .attr('endAngle', fn_endAngle(d, i))
