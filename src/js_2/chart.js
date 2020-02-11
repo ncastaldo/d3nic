@@ -1,16 +1,15 @@
 import * as d3 from '@/js/d3-modules.js'
 
 const handler = {
-  get: (object, property, receiver) => {
+  get: (object, property) => {
     return (value) => {
       if (property in object && typeof object[property] === 'function') {
-        console.log(`calling ${property} with value ${value}`)
         if (value) {
-          object[property](value, object)
+          console.log(`Setting ${property} with value ${value}`)
+          object[property](value)
           return new Proxy(object, handler)
         } else {
-          console.log(receiver)
-          return object[property](value, object)
+          return object[property]()
         }
       }
       console.log(`no property ${property} here`)
@@ -28,7 +27,7 @@ const hasSelector = (state = {}) => {
       selector = value
     }
   }
-  return new Proxy(self, handler)
+  return self
 }
 
 const hasSize = (state = {}) => {
@@ -45,7 +44,22 @@ const hasSize = (state = {}) => {
       height = value
     }
   }
-  return new Proxy(self, handler)
+  return self
+}
+
+const isDrawable = (state = {}) => {
+  const self = {
+    ...state,
+    ...hasSelector(state),
+    ...hasSize(state),
+    draw: () => {
+      return d3.select(self.selector())
+        .attr('width', self.width())
+        .attr('height', self.height())
+        .classed('chart', true)
+    }
+  }
+  return self
 }
 
 const hasData = (state = {}) => {
@@ -57,7 +71,7 @@ const hasData = (state = {}) => {
       data = value
     }
   }
-  return new Proxy(self, handler)
+  return self
 }
 
 const hasComponents = (state = {}) => {
@@ -69,23 +83,15 @@ const hasComponents = (state = {}) => {
       components = value
     }
   }
-  return new Proxy(self, handler)
+  return self
 }
 
 const chart = (state = {}) => {
   const self = {
     ...state,
-    ...hasSelector(state),
-    ...hasSize(state),
+    ...isDrawable(state),
     ...hasData(state),
-    ...hasComponents(state),
-    draw: () => {
-      // returning the selection will allow function decoration
-      return d3.select(self.selector())
-        .attr('width', self.width())
-        .attr('height', self.height())
-        .classed('chart', true)
-    }
+    ...hasComponents(state)
   }
   return new Proxy(self, handler)
 }
@@ -99,7 +105,7 @@ const hasX = (state = {}) => {
       xScale = value
     }
   }
-  return new Proxy(self, handler)
+  return self
 }
 
 const hasY = (state = {}) => {
@@ -111,34 +117,34 @@ const hasY = (state = {}) => {
       yScale = value
     }
   }
-  return new Proxy(self, handler)
+  return self
 }
 
 const xyChart = (state = {}) => {
   const self = {
     ...state,
+    ...isDrawable(state),
+    ...hasData(state),
+    ...hasComponents(state),
     ...hasX(state),
-    ...hasY(state),
-    ...chart(state)
-  }
-
-  const _draw = self.draw()
-
-  self.draw = () => {
-    return _draw.classed('xy-chart', true)
+    ...hasY(state)
   }
   return new Proxy(self, handler)
 }
 
 const component = (state) => {
+  let fn_key = (d, i) => i
   let fn_value = d => d
 
   const self = {
     ...state,
+    fn_key: (value) => {
+      if (typeof value === 'undefined') return fn_key
+      fn_key = value
+    },
     fn_value: (value) => {
       if (typeof value === 'undefined') return fn_value
       fn_value = value
-      return new Proxy(self, handler)
     }
   }
   return new Proxy(self, handler)
