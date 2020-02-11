@@ -1,91 +1,133 @@
 import * as d3 from '@/js/d3-modules.js'
 
-const chart = (state) => {
-  const selector = 'selector' in state ? state.selector : 'svg'
+const handler = {
+  get: (object, property, receiver) => {
+    return (value) => {
+      if (property in object && typeof object[property] === 'function') {
+        console.log(`calling ${property} with value ${value}`)
+        if (value) {
+          object[property](value, object)
+          return new Proxy(object, handler)
+        } else {
+          console.log(receiver)
+          return object[property](value, object)
+        }
+      }
+      console.log(`no property ${property} here`)
+      return undefined
+    }
+  }
+}
 
-  let size = { width: 200, height: 300 }
-  let components = []
-  let data = []
-
-  let container
-
-  const fn_update = () => components.update()
-
+const hasSelector = (state = {}) => {
+  let selector = 'svg'
   const self = {
     ...state,
-    size: (value) => {
-      if (typeof value === 'undefined') return size
-      size = value
-      fn_update()
-      return self
+    selector: (value) => {
+      if (typeof value === 'undefined') return selector
+      selector = value
+    }
+  }
+  return new Proxy(self, handler)
+}
+
+const hasSize = (state = {}) => {
+  let width = 400
+  let height = 300
+  const self = {
+    ...state,
+    width: (value) => {
+      if (typeof value === 'undefined') return width
+      width = value
     },
-    components: (value) => {
-      if (typeof value === 'undefined') return components
-      components = value
-      fn_update()
-      return self
-    },
-    addComponent: (value) => {
-      components.push(value)
-      fn_update()
-      return self
-    },
-    addComponents: (value) => {
-      components.concat(value)
-      fn_update()
-      return self
-    },
+    height: (value) => {
+      if (typeof value === 'undefined') return height
+      height = value
+    }
+  }
+  return new Proxy(self, handler)
+}
+
+const hasData = (state = {}) => {
+  let data = []
+  const self = {
+    ...state,
     data: (value) => {
       if (typeof value === 'undefined') return data
       data = value
-      fn_update()
-      return self
-    },
-    draw: () => {
-      container = container ||
-        d3.select(selector)
-          .attr('width', size.width)
-          .attr('height', size.height)
-      return self
     }
   }
-  return self
+  return new Proxy(self, handler)
 }
 
-const x = (state) => {
+const hasComponents = (state = {}) => {
+  let components = []
+  const self = {
+    ...state,
+    components: (value) => {
+      if (typeof value === 'undefined') return components
+      components = value
+    }
+  }
+  return new Proxy(self, handler)
+}
+
+const chart = (state = {}) => {
+  const self = {
+    ...state,
+    ...hasSelector(state),
+    ...hasSize(state),
+    ...hasData(state),
+    ...hasComponents(state),
+    draw: () => {
+      // returning the selection will allow function decoration
+      return d3.select(self.selector())
+        .attr('width', self.width())
+        .attr('height', self.height())
+        .classed('chart', true)
+    }
+  }
+  return new Proxy(self, handler)
+}
+
+const hasX = (state = {}) => {
   let xScale = 'scaleLinear'
   const self = {
     ...state,
     xScale: (value) => {
       if (typeof value === 'undefined') return xScale
       xScale = value
-      return self
     }
   }
-  return self
+  return new Proxy(self, handler)
 }
 
-const y = (state) => {
+const hasY = (state = {}) => {
   let yScale = 'scaleLinear'
   const self = {
     ...state,
     yScale: (value) => {
       if (typeof value === 'undefined') return yScale
       yScale = value
-      return self
     }
   }
-  return self
+  return new Proxy(self, handler)
 }
 
-const xyChart = (state) => {
+const xyChart = (state = {}) => {
   const self = {
     ...state,
-    ...x(state),
-    ...y(state),
+    ...hasX(state),
+    ...hasY(state),
     ...chart(state)
   }
-  return self
+
+  const _draw = self.draw()
+
+  self.draw = () => {
+    return _draw.classed('xy-chart', true)
+  }
+  return new Proxy(self, handler)
 }
 
 const component = (state) => {
@@ -96,10 +138,10 @@ const component = (state) => {
     fn_value: (value) => {
       if (typeof value === 'undefined') return fn_value
       fn_value = value
-      return self
+      return new Proxy(self, handler)
     }
   }
-  return self
+  return new Proxy(self, handler)
 }
 
 export {

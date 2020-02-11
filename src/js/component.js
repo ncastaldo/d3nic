@@ -79,8 +79,8 @@ export default class Component {
     return selection
       .transition(transition)
       .duration(transition.duration() * (1 - self._phi))
-      .delay((_, i, nodes) => nodes.length > 1
-        ? i / (nodes.length - 1) * transition.duration() * self._phi : 0)
+      .delay((_, i, nodes) =>
+        (transition.delay() || 0) + nodes.length > 1 ? i / (nodes.length - 1) * transition.duration() * self._phi : 0)
   }
 
   drawCanvas () {
