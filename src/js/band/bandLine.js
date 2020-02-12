@@ -50,9 +50,8 @@ export default class BandLine extends Component {
       }
 
       self._join = newLine.call(line => {
-        oldLine.empty()
-          ? line.attr('d', fn_lineBottom)
-          : line.attr('opacity', 0)
+        oldLine.empty() && line.attr('d', fn_lineBottom)
+        line.attr('opacity', 0)
       })
         .classed('drawn', true)
         .attr('fill', 'none')

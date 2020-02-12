@@ -76,11 +76,15 @@ export default class Component {
 
   multiTransition (selection, transition) {
     const self = this
-    return selection
-      .transition(transition)
-      .duration(transition.duration() * (1 - self._phi))
-      .delay((_, i, nodes) =>
-        (transition.delay() || 0) + nodes.length > 1 ? i / (nodes.length - 1) * transition.duration() * self._phi : 0)
+    if (!selection.empty()) {
+      return selection
+        .transition(transition)
+        .duration(transition.duration() * (1 - self._phi))
+        .delay((_, i, nodes) => {
+          return transition.delay() + (nodes.length > 1 ? i / (nodes.length - 1) * transition.duration() * self._phi : 0)
+        })
+    }
+    return selection.transition(transition)
   }
 
   drawCanvas () {
