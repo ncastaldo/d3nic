@@ -1,6 +1,6 @@
 import * as d3 from '@/js/d3-modules.js'
 
-import { hasRegistry } from '@/js_2/common'
+import { hasRegistry } from '../common'
 
 const chart = () => {
   let selector = 'svg'
@@ -177,4 +177,4 @@ const chart = () => {
   }
 }
 
-export { chart }
+export default chart

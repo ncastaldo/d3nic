@@ -1,44 +1,6 @@
 import * as d3 from '@/js/d3-modules.js'
 
-import { hasRegistry } from '@/js_2/common'
-
-const bxBars = () => {
-  const fnDraw = (fnDraw, transition) => {
-    const join = fnDraw.join(
-      enter => enter
-        .append('rect')
-        .attr('x', d => d)
-        .attr('width', d => d + 20)
-        .attr('y', d => d)
-        .attr('height', d => d + 30),
-      update => update
-        .call(update =>
-          update.transition(transition)
-            .attr('x', d => d)
-            .attr('width', d => d + 20)
-            .attr('y', d => d)
-            .attr('height', d => d + 30)
-        )
-    )
-    self.join(join)
-  }
-
-  const draw = (chart) => {
-    self.group()
-      .classed('bxBars', true)
-      .selectAll('rect')
-      .data(chart.data(), chart.fnKey())
-      .call(fnDraw, chart.transition())
-  }
-
-  const self = {
-    ...component()
-  }
-
-  self.subscribe('draw', draw)
-
-  return self
-}
+import { hasRegistry } from '../common'
 
 const component = () => {
   // -> GETTERS
@@ -47,7 +9,7 @@ const component = () => {
 
   const fn_path2D = (d, i) => {}
 
-  const fn_path = (d, i) => ''
+  /* const fn_path = (d, i) => ''
   const fn_x = (d, i) => 0
   const fn_y = (d, i) => 0
 
@@ -67,7 +29,7 @@ const component = () => {
   const fn_update = update => {}
   const fn_exit = exit => {}
 
-  const phi = 0.2
+  const phi = 0.2 */
 
   const draw = (chart) => {
     // NOT CANVAS
@@ -196,4 +158,4 @@ const component = () => {
   }
   */
 
-export { component, bxBars }
+export default component

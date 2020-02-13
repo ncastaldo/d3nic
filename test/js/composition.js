@@ -13,5 +13,7 @@ beta.size({height: 500})
   .draw()
   .data([0,14])
   .draw({duration: 1000})
+  .data([60,24])
+  .draw({duration: 1000, delay: 1000})
 
 console.log(beta.data())
