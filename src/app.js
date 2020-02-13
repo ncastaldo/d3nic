@@ -60,8 +60,9 @@ import BbRects from '@/js/bb/bbRects.js'
 
 // TEST
 // import { chart, xyChart } from '@/js_2/chart.js'
-import { chart } from '@/js_2/chart_2.js'
-import { component, bxBars } from '@/js_2/component_2.js'
+import { chart } from '@/js_2/chart.js'
+import { bxChart } from '@/js_2/charts.js'
+import { component, bxBars } from '@/js_2/component.js'
 
 export {
 
@@ -69,6 +70,7 @@ export {
   // chart,
   // xyChart,
   chart,
+  bxChart,
   component, bxBars,
 
   Chart,

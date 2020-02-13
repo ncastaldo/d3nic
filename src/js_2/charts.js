@@ -1,23 +1,22 @@
 import * as d3 from '@/js/d3-modules.js'
-import { chart } from 'chart_2'
+import { chart } from '@/js_2/chart'
 
 const handler = {
-  get: (object, property) => {
-    return (value) => {
-      if (property in object && typeof object[property] === 'function') {
-        if (value) {
-          object[property](value)
+  get: (chart, fn) => {
+    return (...args) => {
+      if (fn in chart && typeof chart[fn] === 'function') {
+        if (fn === 'draw' || args.length) {
+          chart[fn](...args)
 
-          // using chart publish and publishing the final object
-          // MUST HAVE THE SAME NAME
-          object.publish(property, object)
+          chart.publish(fn, chart)
+          chart.components().forEach(c => c.publish(fn, chart))
 
-          return new Proxy(object, handler)
+          return new Proxy(chart, handler)
         } else {
-          return object[property]()
+          return chart[fn]()
         }
       }
-      console.log(`no property ${property} here`)
+      console.log(`no function ${fn} here`)
       return undefined
     }
   }
@@ -34,15 +33,14 @@ const computeDomain = (components, baseDomain, target) => {
     , baseDomain)
 }
 
-const bxChart = (state) => {
+const bxChart = () => {
   const fnBxScale = d3.scaleBand()
   const fnYScale = d3.scaleLinear()
 
   let yBaseDomain = [NaN, NaN]
 
   const self = {
-    ...state,
-    ...chart(state),
+    ...chart(),
     yBaseDomain: (value) => {
       if (typeof value === 'undefined') return yBaseDomain
       yBaseDomain = value
@@ -57,3 +55,5 @@ const bxChart = (state) => {
 
   return new Proxy(self, handler)
 }
+
+export { bxChart }

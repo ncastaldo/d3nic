@@ -1,39 +1,48 @@
 import * as d3 from '@/js/d3-modules.js'
 
-const bxBars = (state) => {
-  let group
-  let join
+import { hasRegistry } from '@/js_2/common'
 
+const bxBars = () => {
   const fnDraw = (fnDraw, transition) => {
-    join = fnDraw.join(
+    const join = fnDraw.join(
       enter => enter
         .append('rect')
         .attr('x', d => d)
         .attr('width', d => d + 20)
         .attr('y', d => d)
-        .attr('height', d => d + 30)
+        .attr('height', d => d + 30),
+      update => update
+        .call(update =>
+          update.transition(transition)
+            .attr('x', d => d)
+            .attr('width', d => d + 20)
+            .attr('y', d => d)
+            .attr('height', d => d + 30)
+        )
     )
+    self.join(join)
   }
 
   const draw = (chart) => {
-    group = group || chart
-      .group()
-      .append('g')
+    self.group()
       .classed('bxBars', true)
-
-    group
       .selectAll('rect')
       .data(chart.data(), chart.fnKey())
       .call(fnDraw, chart.transition())
   }
 
+  const self = {
+    ...component()
+  }
+
+  self.subscribe('draw', draw)
+
   return self
 }
 
-const component = (state) => {
+const component = () => {
   // -> GETTERS
   let group
-
   let join // ...
 
   const fn_path2D = (d, i) => {}
@@ -74,15 +83,16 @@ const component = (state) => {
   }
 
   const self = {
-    ...state,
-    chart (value) {
-      value.subscribe(draw, 'draw')
-      return self
+    ...hasRegistry(),
+    group () {
+      return group || d3.select(null)
     },
     join () {
       return join || d3.select(null)
     }
   }
+
+  self.subscribe('draw', draw)
 
   return self
 }
