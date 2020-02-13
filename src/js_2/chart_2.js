@@ -6,12 +6,13 @@ const chart = (state) => {
   let container
   let group
   let context
+
   let fn_interval
   let transition
 
   let firstDraw = true
 
-  let isCanvas
+  let isCanvas = false
 
   let size = {
     width: 400,
@@ -31,18 +32,11 @@ const chart = (state) => {
     delay: 0
   }
 
-  let fn_key = (d, i) => i
-  let valueDomain = [NaN, NaN]
+  let fnKey = (d, i) => i
   let data = []
-
   let components = []
 
-  const updateComponents = () => {
-    components.forEach(c => {
-      !c.chart() && c.chart(self)// not defined yet (?)
-      c.update()
-    })
-  }
+  const registry = {}
 
   const fitContainer = () => {
     // *** expects container to exist
@@ -52,79 +46,53 @@ const chart = (state) => {
       .attr(!isCanvas ? 'height' : 'canvas-height', size.height)
   }
 
-  // *** RECONSIDER the valueDomain
-  const getValueDomain = () => {
-    components
-      .map(c => c.fn_valueDomain(data))
-      .reduce((acc, cur) => {
-        return d3.extent(acc.concat(cur))
-      }, valueDomain)
-  }
-
   const clearCanvas = () => {
     context.clearRect(0, 0, size.width, size.height)
   }
 
-  const self = {
-    ...state,
+  return {
     selector: (value) => {
       selector = value
-      return self
     },
     size: (value) => {
       if (typeof value === 'undefined') return size
       // CONTROL ON SIZE, freeze it maybe
       size = value
-      // *** updateChart()
-      updateComponents()
-      return self
+      // updateComponents()
     },
     padding: (value) => {
       if (typeof value === 'undefined') return padding
       // CONTROL ON padding, freeze it maybe
       padding = value
-      // *** updateChart()
-      updateComponents()
-      return self
+      // updateComponents()
     },
-    fn_key: (value) => {
-      if (typeof value === 'undefined') return fn_key
-      fn_key = value
-      return self
+    fnKey: (value) => {
+      if (typeof value === 'undefined') return fnKey
+      fnKey = value
     },
     data: (value) => {
       if (typeof value === 'undefined') return data
       // CONTROL ON data, MUST BE ARRAY(?)
       data = value
-      // *** updateChart()
-      updateComponents()
-      return self
+      // updateComponents()
     },
     components: (value) => {
       if (typeof value === 'undefined') return components
       // CONTROL ON components, MUST BE ARRAY(?)
       components = value
-      // *** updateChart()
-      updateComponents()
-      return self
+      components.forEach(c => c.chart(state))
     },
     transitionObject: (value) => {
       if (typeof value === 'undefined') return transitionObject
       transitionObject = value
-      return self
-    },
-    valueDomain: (value) => {
-      if (typeof value === 'undefined') return valueDomain
-      valueDomain = value
-      return valueDomain
     },
     // getters
-    extent: () => {
+    /* extent: () => {
       return [
         [padding.left, padding.top],
         [size.width - padding.right, size.height - padding.bottom]
       ]
-    },
+    }, */
     group: () => {
       return group
     },
@@ -133,6 +101,16 @@ const chart = (state) => {
     },
     context: () => {
       return context
+    },
+    // registry
+    subscribe: (fn, ...topics) => {
+      topics.forEach(topic => {
+        if (!(topic in registry)) { registry[topic] = [] }
+        registry[topic].push(fn)
+      })
+    },
+    publish: (topic, data) => {
+      (registry[topic] || []).forEach(fn => fn(data))
     },
     // draw
     draw: ({ name = '', duration = 0, delay = 0 } = {}) => {
@@ -169,7 +147,8 @@ const chart = (state) => {
       // draw the svg nodes if it is NOT a canvas OR the duration is NOT zero
       if (!context || transitionObject.duration) {
         // adjusting the size ONLY if no canvas
-        components.forEach(component => component.draw(transition))
+
+        // components.forEach(component => component.draw(transition))
       }
 
       // only in case of canvas
@@ -185,7 +164,7 @@ const chart = (state) => {
             container.attr('height', container.attr('canvas-height'))
           }
 
-          components.forEach(c => c.drawCanvas())
+          // components.forEach(c => c.drawCanvas())
 
           if (elapsed >= transitionObject.duration) fn_interval.stop()
         }
@@ -203,16 +182,12 @@ const chart = (state) => {
 
       firstDraw = false
 
-      return self
-
       // handling old components
-      // self.components.forEach(component => component.group.classed("js__keep-chart-component", true));
-      // self.group.selectAll(".component:not(.js__keep-chart-component)").remove(); // may be a problem with nested charts
-      // self.components.forEach(component => component.group.classed("js__keep-chart-component", false));
+      // state.components.forEach(component => component.group.classed("js__keep-chart-component", true));
+      // state.group.selectAll(".component:not(.js__keep-chart-component)").remove(); // may be a problem with nested charts
+      // state.components.forEach(component => component.group.classed("js__keep-chart-component", false));
     }
   }
-
-  return self
 }
 
 export { chart }

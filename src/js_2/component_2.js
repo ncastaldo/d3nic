@@ -1,8 +1,37 @@
 import * as d3 from '@/js/d3-modules.js'
 
+const bxBars = (state) => {
+  let group
+  let join
+
+  const fnDraw = (fnDraw, transition) => {
+    join = fnDraw.join(
+      enter => enter
+        .append('rect')
+        .attr('x', d => d)
+        .attr('width', d => d + 20)
+        .attr('y', d => d)
+        .attr('height', d => d + 30)
+    )
+  }
+
+  const draw = (chart) => {
+    group = group || chart
+      .group()
+      .append('g')
+      .classed('bxBars', true)
+
+    group
+      .selectAll('rect')
+      .data(chart.data(), chart.fnKey())
+      .call(fnDraw, chart.transition())
+  }
+
+  return self
+}
+
 const component = (state) => {
   // -> GETTERS
-  let chart
   let group
 
   let join // ...
@@ -12,8 +41,6 @@ const component = (state) => {
   const fn_path = (d, i) => ''
   const fn_x = (d, i) => 0
   const fn_y = (d, i) => 0
-
-  let componentData = []
 
   // -> VARS - MODIFIABLE
   const fn_stroke = (d, i) => 'black'
@@ -33,34 +60,27 @@ const component = (state) => {
 
   const phi = 0.2
 
+  const draw = (chart) => {
+    // NOT CANVAS
+    fn_path2D.context && fn_path2D.context(null)
+
+    // appending the group
+    if (!group) {
+      group = chart
+        .group()
+        .append('g')
+        .classed('component', true)
+    }
+  }
+
   const self = {
     ...state,
     chart (value) {
-      if (typeof value === 'undefined') return chart
-      chart = value
+      value.subscribe(draw, 'draw')
       return self
     },
     join () {
       return join || d3.select(null)
-    },
-    componentData () {
-      return componentData
-    },
-    update () {
-      // may be overridden in cases in which data is modified, handle the case
-      componentData = chart.data().filter(fn_defined)
-    },
-    draw (transition) {
-      // NOT CANVAS
-      fn_path2D.context && fn_path2D.context(null)
-
-      // appending the group
-      if (!group) {
-        group = chart
-          .group()
-          .append('g')
-          .classed('component', true)
-      }
     }
   }
 
@@ -166,4 +186,4 @@ const component = (state) => {
   }
   */
 
-export { component }
+export { component, bxBars }

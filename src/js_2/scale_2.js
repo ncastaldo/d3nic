@@ -1,113 +1,59 @@
 import * as d3 from '@/js/d3-modules.js'
+import { chart } from 'chart_2'
 
-const hasChart = (state) => {
-  let chart
-  const self = {
-    ...state,
-    chart: (value) => {
-      if (typeof value === 'undefined') return chart
-      chart = value
-      return self
+const handler = {
+  get: (object, property) => {
+    return (value) => {
+      if (property in object && typeof object[property] === 'function') {
+        if (value) {
+          object[property](value)
+
+          // using chart publish and publishing the final object
+          // MUST HAVE THE SAME NAME
+          object.publish(property, object)
+
+          return new Proxy(object, handler)
+        } else {
+          return object[property]()
+        }
+      }
+      console.log(`no property ${property} here`)
+      return undefined
     }
   }
-  return self
 }
 
-const hasAxis = (state) => {
-  let axisDomain = [NaN, NaN]
+const computeDomain = (components, baseDomain, target) => {
+  return components
+    .map(component => component.domain(target)) // implement function
+    .reduce((accDomain, curDomain) =>
+      [
+        Math.min(accDomain[0], curDomain[0]),
+        Math.max(accDomain[1], curDomain[1])
+      ]
+    , baseDomain)
+}
+
+const bxChart = (state) => {
+  const fnBxScale = d3.scaleBand()
+  const fnYScale = d3.scaleLinear()
+
+  let yBaseDomain = [NaN, NaN]
 
   const self = {
     ...state,
-    ...hasChart(state),
-    axisDomain: (value) => {
-      if (typeof value === 'undefined') return axisDomain
-      axisDomain = value
-      return self
+    ...chart(state),
+    yBaseDomain: (value) => {
+      if (typeof value === 'undefined') return yBaseDomain
+      yBaseDomain = value
     },
-    getAxisDomain () {
-      return self.chart().components()
-        .map(component =>
-          self.chart().data()
-            .map(d => component.bxValue(d))
-            .reduce((axisDomain, axisValue) => [
-              Math.min(axisDomain[0], axisValue),
-              Math.max(axisDomain[1], axisValue)
-            ], axisDomain))
-        .reduce((axisDomain, axisValuePair) => [
-          Math.min(axisDomain[0], axisValuePair[0]),
-          Math.max(axisDomain[1], axisValuePair[1])
-        ], axisDomain)
-    }
-  }
-  return self
-}
-
-const hasXAxis = (state) => {
-  const self = {
-    ...state,
-    ...hasAxis(state),
-    getAxisRange: () => {
-      return self.chart().extent().map(point => point[0])
-    }
-  }
-  return self
-}
-
-const hasYAxis = (state) => {
-  const self = {
-    ...state,
-    ...hasAxis(state),
-    getAxisRange: () => {
-      return self.chart().extent().map(point => point[1])
-    }
-  }
-  return self
-}
-
-const fn_bxScale = (state) => {
-  const fn_scale = d3.scaleBand()
-
-  const self = {
-    ...state,
-    ...hasXAxis,
-    fn_scale: () => {
-      return fn_scale
+    fnBxScale: () => {
+      return fnBxScale
     },
-    update: () => {
-      fn_scale
-        .domain(self.getDomain())
-        .range(self.getRange())
+    fnYScale: () => {
+      return fnYScale
     }
   }
 
-  return self
+  return new Proxy(self, handler)
 }
-
-const fn_yScale = (state) => {
-  let scale = 'scaleLinear'
-
-  // consider how to change it
-  const fn_scale = d3[scale]
-
-  const self = {
-    ...state,
-    ...hasYAxis,
-    scale: (value) => {
-      if (typeof value === 'undefined') return scale
-      scale = value
-      return self
-    },
-    fn_scale: () => {
-      return fn_scale
-    },
-    update: () => {
-      fn_scale
-        .domain(self.getAxisDomain())
-        .range(self.getAxisRange())
-    }
-  }
-
-  return self
-}
-
-export { fn_bxScale, fn_yScale }
