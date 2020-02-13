@@ -5,7 +5,6 @@ const handler = {
     return (value) => {
       if (property in object && typeof object[property] === 'function') {
         if (value) {
-          console.log(`Setting ${property} with value ${value}`)
           object[property](value)
           return new Proxy(object, handler)
         } else {
@@ -56,7 +55,6 @@ const isDrawable = (state = {}) => {
       return d3.select(self.selector())
         .attr('width', self.width())
         .attr('height', self.height())
-        .classed('chart', true)
     }
   }
   return self
@@ -81,6 +79,7 @@ const hasComponents = (state = {}) => {
     components: (value) => {
       if (typeof value === 'undefined') return components
       components = value
+      components.forEach(c => { c.chart(self) })
     }
   }
   return self
@@ -133,11 +132,18 @@ const xyChart = (state = {}) => {
 }
 
 const component = (state) => {
+  let chart = null
+
   let fn_key = (d, i) => i
   let fn_value = d => d
 
   const self = {
     ...state,
+    ...hasData(state),
+    chart: (value) => {
+      if (typeof value === 'undefined') return chart
+      chart = value
+    },
     fn_key: (value) => {
       if (typeof value === 'undefined') return fn_key
       fn_key = value
