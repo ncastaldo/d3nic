@@ -72,7 +72,7 @@ const bxChart = () => {
   }
 
   const updateYRange = (chart) => {
-    yRange = chart.extent().map(point => point[1])
+    yRange = chart.extent().map(point => point[1]).sort((a, b) => b - a)
     fnYScale.range(yRange)
   }
 

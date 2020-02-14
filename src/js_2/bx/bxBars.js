@@ -2,9 +2,11 @@
 import component from '../base/component'
 import { componentProxy } from '../common'
 
+import * as d3 from '@/js/d3-modules.js'
+
 const bxBars = () => {
-  let fnY0Value = d => d
-  let fnY1Value = d => 0
+  let fnBottomValue = d => 0
+  let fnTopValue = d => d
 
   let yDomain = [0, 1]
 
@@ -12,34 +14,41 @@ const bxBars = () => {
     const x = (d, i) => chart.fnBxScale()(chart.fnBxValue()(d, i))
     const width = chart.fnBxScale().bandwidth()
 
-    // helpers
-    const y0 = (d, i) => chart.fnYScale()(fnY0Value(d, i))
-    const y1 = (d, i) => chart.fnYScale()(fnY1Value(d, i))
+    const yBefore = (d, i) => chart.fnYScale()(fnBottomValue(d, i))
+    const y = (d, i) => chart.fnYScale()(fnTopValue(d, i))
+    const yAfter = yBefore
 
-    const y = y1
-    const height = (d, i) => y0(d, i) - y1(d, i)
+    const heightBefore = 0
+    const height = (d, i) => yBefore(d, i) - y(d, i)
+    const heightAfter = heightBefore
 
     const join = fnDraw.join(
       enter => enter
         .append('rect')
         .attr('x', x)
         .attr('width', width)
-        .attr('y', y)
-        .attr('height', 0)
+        .attr('y', yBefore)
+        .attr('height', heightBefore)
         .attr('opacity', 0)
         .call(enter => enter
           .transition(chart.transition())
-          .attr('y', height)
-          .attr('height', y)
+          .attr('y', y)
+          .attr('height', height)
           .attr('opacity', 1)),
       update => update
         .call(update =>
           update.transition(chart.transition())
-            .attr('x', (d, i) => chart.fnBxScale()(chart.fnBxValue()(d, i)))
-            .attr('width', chart.fnBxScale().bandwidth())
-            .attr('y', (d, i) => chart.fnYScale()(fnY0Value(d, i)))
-            .attr('height', (d, i) => chart.fnYScale()(fnY1Value(d, i)))
-        )
+            .attr('x', x)
+            .attr('width', width)
+            .attr('y', y)
+            .attr('height', height)
+        ),
+      exit => exit
+        .call(exit => exit
+          .transition(chart.transition())
+          .attr('y', yAfter)
+          .attr('height', heightAfter)
+          .attr('opacity', 0))
     )
     self.join(join)
   }
@@ -56,21 +65,21 @@ const bxBars = () => {
     yDomain = chart.data()
       .reduce((domain, d, i) =>
         [
-          Math.min(domain[0], Math.min(fnY0Value(d, i), fnY1Value(d, i))),
-          Math.max(domain[1], Math.max(fnY0Value(d, i), fnY1Value(d, i)))
+          Math.min(domain[0], Math.min(fnBottomValue(d, i), fnTopValue(d, i))),
+          Math.max(domain[1], Math.max(fnBottomValue(d, i), fnTopValue(d, i)))
         ]
       , [Infinity, -Infinity])
   }
 
   const self = {
     ...component(),
-    fnY0Value: (value) => {
-      if (typeof value === 'undefined') return fnY0Value
-      fnY0Value = value
+    fnBottomValue: (value) => {
+      if (typeof value === 'undefined') return fnBottomValue
+      fnBottomValue = value
     },
-    fnY1Value: (value) => {
-      if (typeof value === 'undefined') return fnY1Value
-      fnY1Value = value
+    fnTopValue: (value) => {
+      if (typeof value === 'undefined') return fnTopValue
+      fnTopValue = value
     },
     yDomain: () => {
       return yDomain
