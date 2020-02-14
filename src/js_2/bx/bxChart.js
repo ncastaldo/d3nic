@@ -10,23 +10,31 @@ const computeDomain = (components, baseDomain, target) => {
     , baseDomain)
 }
 */
+import * as d3 from '@/js/d3-modules.js'
 
 import { chartProxy } from '../common'
 import chart from '../base/chart'
 
 const bxChart = () => {
-  let fnBxScale// = d3.scaleBand()
-  let fnYScale // = d3.scaleLinear()
+  const fnBxScale = d3.scaleBand()
+  const fnYScale = d3.scaleLinear()
 
-  let bxDomain
+  let fnBxValue = (_, i) => i
 
-  let yBaseDomain = [NaN, NaN]
+  let bxDomain = [0, 1]
+  let bxRange = [0, 1]
 
-  const yDomain = [0, 1]
-  const yRange = [0, 1]
+  let yBaseDomain = [Infinity, -Infinity]
+
+  let yDomain = [0, 1]
+  let yRange = [0, 1]
 
   const self = {
     ...chart(),
+    fnBxValue: (value) => {
+      if (typeof value === 'undefined') return fnBxValue
+      fnBxValue = value
+    },
     yBaseDomain: (value) => {
       if (typeof value === 'undefined') return yBaseDomain
       yBaseDomain = value
@@ -40,29 +48,44 @@ const bxChart = () => {
   }
 
   const updateBxDomain = (chart) => {
-    bxDomain = chart.component()
-      .map(component => component.fnBxDomain(chart.data())) // implement function
+    bxDomain = chart.data().map(fnBxValue)
+    fnBxScale.domain(bxDomain)
+  }
+
+  const updateBxRange = (chart) => {
+    bxRange = chart.extent().map(point => point[0])
+    fnBxScale.range(bxRange)
+  }
+
+  const updateYDomain = (chart) => {
+    yDomain = chart.components()
+      .filter(c => 'yDomain' in c)
+      .map(c => c.publish('computeYDomain', chart))
+      .map(c => c.yDomain())
       .reduce((accDomain, curDomain) =>
         [
           Math.min(accDomain[0], curDomain[0]),
           Math.max(accDomain[1], curDomain[1])
         ]
-      , [])
+      , yBaseDomain)
+    fnYScale.domain(yDomain)
   }
 
-  const updateYDomain = (chart, bxDomain) => {
-    return chart.component()
-      .map(component => component.bxDomain(chart.data())) // implement function
-      .reduce((accDomain, curDomain) =>
-        [
-          Math.min(accDomain[0], curDomain[0]),
-          Math.max(accDomain[1], curDomain[1])
-        ]
-      , [])
+  const updateYRange = (chart) => {
+    yRange = chart.extent().map(point => point[1])
+    fnYScale.range(yRange)
   }
 
-  self.subscribe('data', updateBxDomain)
-  self.subscribe('data', updateBxDomain)
+  updateBxDomain(self)
+  updateYDomain(self)
+  updateBxRange(self)
+  updateYRange(self)
+
+  self.subscribe('data', updateBxDomain, updateYDomain)
+  self.subscribe('components', updateBxDomain, updateYDomain)
+
+  self.subscribe('size', updateBxRange, updateYRange)
+  self.subscribe('padding', updateBxRange, updateYRange)
 
   return chartProxy(self)
 }

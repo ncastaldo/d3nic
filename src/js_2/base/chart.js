@@ -58,12 +58,12 @@ const chart = () => {
     size: (value) => {
       if (typeof value === 'undefined') return size
       // CONTROL ON SIZE, freeze it maybe
-      size = value
+      size = { ...size, ...value }
     },
     padding: (value) => {
       if (typeof value === 'undefined') return padding
       // CONTROL ON padding, freeze it maybe
-      padding = value
+      padding = { ...padding, ...value }
     },
     fnKey: (value) => {
       if (typeof value === 'undefined') return fnKey
@@ -84,12 +84,12 @@ const chart = () => {
       transitionObject = value
     },
     // getters
-    /* extent: () => {
+    extent: () => {
       return [
         [padding.left, padding.top],
         [size.width - padding.right, size.height - padding.bottom]
       ]
-    }, */
+    },
     group: () => {
       return group
     },
