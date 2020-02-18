@@ -1,8 +1,9 @@
 import * as d3 from '@/js/d3-modules.js'
+import pipe from 'lodash/fp/flow'
 
 import { hasRegistry } from '../common'
 
-const chart = ({ hasRegistry = (hasRegistry()) } = {}) => {
+const hasChart = (state = {}) => {
   let selector = 'svg'
 
   let container
@@ -51,7 +52,10 @@ const chart = ({ hasRegistry = (hasRegistry()) } = {}) => {
   }
 
   const self = {
-    ...hasRegistry(),
+    ...state,
+    ...pipe(
+      hasRegistry
+    )(state),
     selector: (value) => {
       selector = value
     },
@@ -179,4 +183,4 @@ const chart = ({ hasRegistry = (hasRegistry()) } = {}) => {
   return self
 }
 
-export default chart
+export default hasChart

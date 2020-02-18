@@ -59,12 +59,11 @@ import BbContours from '@/js/bb/bbContours.js'
 import BbRects from '@/js/bb/bbRects.js'
 
 // TEST
-// import { chart, xyChart } from '@/js_2/chart.js'
-import bxChart from '@/js_2/bx/bxChart.js'
-import bxBars from '@/js_2/bx/bxBars.js'
+import bxChart from '@/js_2/composite/bx/bxChart'
+import bxBars from '@/js_2/composite/bx/bxBars'
 
-import bandChart from '@/js_2/band/bandChart.js'
-import bandBars from '@/js_2/band/bandBars.js'
+import byChart from '@/js_2/composite/by/byChart'
+import byBars from '@/js_2/composite/by/byBars'
 
 export {
 
@@ -74,8 +73,8 @@ export {
   bxChart,
   bxBars,
 
-  bandChart,
-  bandBars,
+  byChart,
+  byBars,
 
   Chart,
   Component,

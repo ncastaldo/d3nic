@@ -1,63 +1,21 @@
 
-import component from '../base/component'
-import { componentProxy, hasRegistry } from '../common'
+import pipe from 'lodash/fp/flow'
+import hasComponent from '../../base/component'
+import hasBars from '../../virtual/components/bars'
+import { componentProxy } from '../../common'
 
-const hasBars = ({ registry = hasRegistry } = {}) => {
-  let fnLowValue = d => 0
-  let fnHighValue = d => d
-
-  let contDomain = [0, 1]
-
-  const self = {
-    ...registry(),
-    fnLowValue: (value) => {
-      if (typeof value === 'undefined') return fnLowValue
-      fnLowValue = value
-    },
-    fnHighValue: (value) => {
-      if (typeof value === 'undefined') return fnHighValue
-      fnHighValue = value
-    },
-    contDomain: () => {
-      return contDomain
-    }
-  }
-
-  const computeContDomain = (chart) => {
-    contDomain = chart.data()
-      .reduce((domain, d, i) =>
-        [
-          Math.min(domain[0], Math.min(fnLowValue(d, i), fnHighValue(d, i))),
-          Math.max(domain[1], Math.max(fnLowValue(d, i), fnHighValue(d, i)))
-        ]
-      , [Infinity, -Infinity])
-  }
-
-  console.log('before subscribing hasBars')
-  self.log()
-  self.subscribe('computeContDomain', computeContDomain)
-  console.log('after subscribing hasBars')
-  self.log()
-  console.log('OK')
-
-  return self
-}
-
-const bxBars = ({ registry = hasRegistry } = {}) => {
-  const self = {
-    ...registry(),
-    ...component(),
-    ...hasBars()
-  }
-
-  self.log()
+const bxBars = (state = {}) => {
+  const self = pipe(
+    hasComponent,
+    hasBars
+  )(state)
 
   const fnDraw = (fnDraw, chart) => {
     const x = (d, i) => chart.fnBandXScale()(chart.fnBandValue()(d, i))
     const width = chart.fnBandXScale().bandwidth()
 
-    const yBefore = (d, i) => chart.fnContYScale()(self.fnLowValue(d, i))
-    const y = (d, i) => chart.fnContYScale()(self.fnHighValue(d, i))
+    const yBefore = (d, i) => chart.fnContYScale()(self.fnLowValue()(d, i))
+    const y = (d, i) => chart.fnContYScale()(self.fnHighValue()(d, i))
     const yAfter = yBefore
 
     const heightBefore = 0
@@ -71,6 +29,7 @@ const bxBars = ({ registry = hasRegistry } = {}) => {
         .attr('x', x)
         .attr('width', width)
         .attr('y', yBefore)
+        .attr('height', heightBefore)
         .attr('opacity', 0)
         .call(enter => enter
           .transition(chart.transition())
@@ -97,7 +56,6 @@ const bxBars = ({ registry = hasRegistry } = {}) => {
   }
 
   const draw = (chart) => {
-    console.log('component bxBars')
     self.group()
       .classed('bxBars', true)
       .selectAll('rect')

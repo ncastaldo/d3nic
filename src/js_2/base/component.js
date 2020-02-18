@@ -1,8 +1,9 @@
 import * as d3 from '@/js/d3-modules.js'
+import pipe from 'lodash/fp/flow'
 
 import { hasRegistry } from '../common'
 
-const hasStyle = () => {
+const hasStyle = (state = {}) => {
   const fnStroke = (d, i) => '#fff'
   const fnStrokeDasharray = (d, i) => 0
   const fnStrokeWidth = (d, i) => 0
@@ -10,6 +11,7 @@ const hasStyle = () => {
   const fnFillOpacity = (d, i) => 1
   const fnOpacity = (d, i) => 1
   const self = {
+    ...state,
     fnStyle: (selection) =>
       selection.attr('stroke', fnStroke)
         .attr('stroke', fnStrokeDasharray)
@@ -23,7 +25,7 @@ const hasStyle = () => {
   return self
 }
 
-const component = ({ registry = hasRegistry } = {}) => {
+const hasComponent = (state = {}) => {
   // -> GETTERS
   let group
   let join // ...
@@ -41,7 +43,7 @@ const component = ({ registry = hasRegistry } = {}) => {
   const phi = 0.2 */
 
   const draw = (chart) => {
-    console.log('component component')
+    console.log('draw component')
     // NOT CANVAS
     fn_path2D.context && fn_path2D.context(null)
 
@@ -55,8 +57,11 @@ const component = ({ registry = hasRegistry } = {}) => {
   }
 
   const self = {
-    ...registry(),
-    ...hasStyle(),
+    ...state,
+    ...pipe(
+      hasRegistry,
+      hasStyle
+    )(state),
     group () {
       return group || d3.select(null)
     },
@@ -65,10 +70,7 @@ const component = ({ registry = hasRegistry } = {}) => {
     }
   }
 
-  console.log('Subscribing drawx to component')
-  self.subscribe('drawx', draw)
-  self.log()
-  console.log('Subscribed!')
+  self.subscribe('draw', draw)
 
   return self
 }
@@ -172,4 +174,4 @@ const component = ({ registry = hasRegistry } = {}) => {
   }
   */
 
-export default component
+export default hasComponent

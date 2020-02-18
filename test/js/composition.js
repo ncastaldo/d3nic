@@ -18,24 +18,24 @@ console.log(beta)
 beta
   .data([0, 60, 123])
   .components([comp])
-  .draw()
-/*
-const comp2 = d3nic
-  .bandBars()
-  .fnBottomValue(d => 0)
-  .fnTopValue(d => d)
+  .draw({duration: 1000})
 
-const gamma = d3nic.bandChart()
+const comp2 = d3nic
+  .byBars()
+  .fnLowValue(d => 0)
+  .fnHighValue(d => d)
+
+const gamma = d3nic.byChart()
   .selector('.svg2')
   .fnBandValue((d, i) => i)
   .size({height: 500})
   .data([0, 60, 123, 124, 323])
   .components([comp2])
-  .draw()
-*/
+  .draw({duration: 1000})
+
 const update = () => {
   const d = [...Array(Math.round(Math.random()*10) + 1)].map(() => Math.random())
-  //gamma.data(d).draw({duration: 1000})
+  gamma.data(d).draw({duration: 1000})
   beta.data(d).draw({duration: 1000})
 }
 
