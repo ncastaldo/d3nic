@@ -9,7 +9,7 @@ const hasStyle = () => {
   const fnFill = (d, i) => d3.interpolateViridis(Math.random())
   const fnFillOpacity = (d, i) => 1
   const fnOpacity = (d, i) => 1
-  return {
+  const self = {
     fnStyle: (selection) =>
       selection.attr('stroke', fnStroke)
         .attr('stroke', fnStrokeDasharray)
@@ -19,9 +19,11 @@ const hasStyle = () => {
         .attr('fill-opacity', fnFillOpacity)
         .attr('opacity', fnOpacity)
   }
+
+  return self
 }
 
-const component = () => {
+const component = ({ registry = hasRegistry } = {}) => {
   // -> GETTERS
   let group
   let join // ...
@@ -39,6 +41,7 @@ const component = () => {
   const phi = 0.2 */
 
   const draw = (chart) => {
+    console.log('component component')
     // NOT CANVAS
     fn_path2D.context && fn_path2D.context(null)
 
@@ -52,7 +55,7 @@ const component = () => {
   }
 
   const self = {
-    ...hasRegistry(),
+    ...registry(),
     ...hasStyle(),
     group () {
       return group || d3.select(null)
@@ -62,7 +65,10 @@ const component = () => {
     }
   }
 
-  self.subscribe('draw', draw)
+  console.log('Subscribing drawx to component')
+  self.subscribe('drawx', draw)
+  self.log()
+  console.log('Subscribed!')
 
   return self
 }

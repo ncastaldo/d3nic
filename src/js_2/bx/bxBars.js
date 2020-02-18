@@ -1,34 +1,63 @@
 
 import component from '../base/component'
-import { componentProxy } from '../common'
+import { componentProxy, hasRegistry } from '../common'
 
-const bxBars = () => {
-  let fnBottomValue = d => 0
-  let fnTopValue = d => d
+const hasBars = ({ registry = hasRegistry } = {}) => {
+  let fnLowValue = d => 0
+  let fnHighValue = d => d
 
-  let yDomain = [0, 1]
+  let contDomain = [0, 1]
 
   const self = {
-    ...component(),
-    fnBottomValue: (value) => {
-      if (typeof value === 'undefined') return fnBottomValue
-      fnBottomValue = value
+    ...registry(),
+    fnLowValue: (value) => {
+      if (typeof value === 'undefined') return fnLowValue
+      fnLowValue = value
     },
-    fnTopValue: (value) => {
-      if (typeof value === 'undefined') return fnTopValue
-      fnTopValue = value
+    fnHighValue: (value) => {
+      if (typeof value === 'undefined') return fnHighValue
+      fnHighValue = value
     },
-    yDomain: () => {
-      return yDomain
+    contDomain: () => {
+      return contDomain
     }
   }
 
-  const fnDraw = (fnDraw, chart) => {
-    const x = (d, i) => chart.fnBxScale()(chart.fnBxValue()(d, i))
-    const width = chart.fnBxScale().bandwidth()
+  const computeContDomain = (chart) => {
+    contDomain = chart.data()
+      .reduce((domain, d, i) =>
+        [
+          Math.min(domain[0], Math.min(fnLowValue(d, i), fnHighValue(d, i))),
+          Math.max(domain[1], Math.max(fnLowValue(d, i), fnHighValue(d, i)))
+        ]
+      , [Infinity, -Infinity])
+  }
 
-    const yBefore = (d, i) => chart.fnYScale()(fnBottomValue(d, i))
-    const y = (d, i) => chart.fnYScale()(fnTopValue(d, i))
+  console.log('before subscribing hasBars')
+  self.log()
+  self.subscribe('computeContDomain', computeContDomain)
+  console.log('after subscribing hasBars')
+  self.log()
+  console.log('OK')
+
+  return self
+}
+
+const bxBars = ({ registry = hasRegistry } = {}) => {
+  const self = {
+    ...registry(),
+    ...component(),
+    ...hasBars()
+  }
+
+  self.log()
+
+  const fnDraw = (fnDraw, chart) => {
+    const x = (d, i) => chart.fnBandXScale()(chart.fnBandValue()(d, i))
+    const width = chart.fnBandXScale().bandwidth()
+
+    const yBefore = (d, i) => chart.fnContYScale()(self.fnLowValue(d, i))
+    const y = (d, i) => chart.fnContYScale()(self.fnHighValue(d, i))
     const yAfter = yBefore
 
     const heightBefore = 0
@@ -66,25 +95,17 @@ const bxBars = () => {
     )
     self.join(join)
   }
+
   const draw = (chart) => {
+    console.log('component bxBars')
     self.group()
       .classed('bxBars', true)
       .selectAll('rect')
       .data(chart.data(), chart.fnKey())
       .call(fnDraw, chart)
   }
-  self.subscribe('draw', draw)
 
-  const computeYDomain = (chart) => {
-    yDomain = chart.data()
-      .reduce((domain, d, i) =>
-        [
-          Math.min(domain[0], Math.min(fnBottomValue(d, i), fnTopValue(d, i))),
-          Math.max(domain[1], Math.max(fnBottomValue(d, i), fnTopValue(d, i)))
-        ]
-      , [Infinity, -Infinity])
-  }
-  self.subscribe('computeYDomain', computeYDomain)
+  self.subscribe('draw', draw)
 
   return componentProxy(self)
 }

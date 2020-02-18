@@ -2,7 +2,7 @@ import * as d3 from '@/js/d3-modules.js'
 
 import { hasRegistry } from '../common'
 
-const chart = () => {
+const chart = ({ hasRegistry = (hasRegistry()) } = {}) => {
   let selector = 'svg'
 
   let container
@@ -50,7 +50,7 @@ const chart = () => {
     context.clearRect(0, 0, size.width, size.height)
   }
 
-  return {
+  const self = {
     ...hasRegistry(),
     selector: (value) => {
       selector = value
@@ -175,6 +175,8 @@ const chart = () => {
       // state.components.forEach(component => component.group.classed("js__keep-chart-component", false));
     }
   }
+
+  return self
 }
 
 export default chart

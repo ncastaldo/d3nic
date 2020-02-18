@@ -10,6 +10,9 @@ const hasRegistry = () => {
     publish: (topic, data) => {
       // console.log('pub', topic, registry[topic])
       if (topic in registry && Array.isArray(registry[topic])) { registry[topic].forEach(fn => fn(data)) }
+    },
+    log: () => {
+      console.log(registry)
     }
   }
 }
