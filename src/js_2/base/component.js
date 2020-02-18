@@ -43,7 +43,6 @@ const hasComponent = (state = {}) => {
   const phi = 0.2 */
 
   const draw = (chart) => {
-    console.log('draw component')
     // NOT CANVAS
     fn_path2D.context && fn_path2D.context(null)
 

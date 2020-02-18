@@ -17,6 +17,7 @@ console.log(beta)
 
 beta
   .data([0, 60, 123])
+  .size({height: 500, height: 500})
   .components([comp])
   .draw({duration: 1000})
 
@@ -28,13 +29,13 @@ const comp2 = d3nic
 const gamma = d3nic.byChart()
   .selector('.svg2')
   .fnBandValue((d, i) => i)
-  .size({height: 500})
+  .size({height: 500, height: 500})
   .data([0, 60, 123, 124, 323])
   .components([comp2])
   .draw({duration: 1000})
 
 const update = () => {
-  const d = [...Array(Math.round(Math.random()*10) + 1)].map(() => Math.random())
+  const d = [...Array(Math.round(Math.random()*50) + 1)].map(() => Math.random())
   gamma.data(d).draw({duration: 1000})
   beta.data(d).draw({duration: 1000})
 }
