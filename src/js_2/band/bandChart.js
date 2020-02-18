@@ -9,7 +9,7 @@ const bandChart = () => {
 
   let fnBandValue = (_, i) => i
 
-  let horizontal = false
+  let horizontal = true
 
   let bandDomain = [0, 1]
   let bandRange = [0, 1]
@@ -66,7 +66,7 @@ const bandChart = () => {
   }
 
   const updateYRange = (chart) => {
-    contRange = chart.extent().map(point => point[horizontal ? 0 : 1])// .sort((a, b) => b - a)
+    contRange = chart.extent().map(point => point[horizontal ? 0 : 1]).sort((a, b) => horizontal ? a - b : b - a)
     console.log(chart.extent(), contRange)
     fnContScale.range(contRange)
   }

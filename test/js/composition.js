@@ -30,7 +30,7 @@ const gamma = d3nic.bandChart()
   .draw()
 
 const update = () => {
-  const d = [Math.random() + Math.random(), Math.random(),  Math.random()]
+  const d = [...Array(Math.round(Math.random()*10) + 1)].map(() => Math.random())
   gamma.data(d).draw({duration: 1000})
   beta.data(d).draw({duration: 1000})
 }

@@ -28,32 +28,32 @@ const bandBars = () => {
     const v = !chart.horizontal()
 
     const fnBandResult = (d, i) => chart.fnBandScale()(chart.fnBandValue()(d, i))
-    const fnBandwidth = (d, i) => chart.fnBandScale().bandwidth()
+    const fnBarWidth = (d, i) => chart.fnBandScale().bandwidth()
 
     const fnContBottomResult = (d, i) => chart.fnContScale()(fnBottomValue(d, i))
     const fnContTopResult = (d, i) => chart.fnContScale()(fnTopValue(d, i))
 
     const fnBarLength = (d, i) => Math.abs(fnContBottomResult(d, i) - fnContTopResult(d, i))
 
-    const fnBefore = selection =>
-      selection
-        .attr(v ? 'x' : 'y', fnBandResult)
-        .attr(v ? 'width' : 'height', fnBandwidth)
-        .attr(v ? 'y' : 'x', fnContBottomResult)
-        .attr(v ? 'height' : 'width', 0)
+    const fnBefore = s =>
+      s.attr('x', v ? fnBandResult : fnContBottomResult)
+        .attr('width', v ? fnBarWidth : 0)
+        .attr('y', v ? fnContBottomResult : fnBandResult)
+        .attr('height', v ? 0 : fnBarWidth)
         .attr('opacity', 0)
 
-    const fnNow = selection =>
-      selection
-        .attr(v ? 'x' : 'y', fnBandResult)
-        .attr(v ? 'width' : 'height', fnBandwidth)
-        .attr(v ? 'y' : 'x', fnContBottomResult)
-        .attr(v ? 'height' : 'width', fnBarLength)
+    const fnNow = s =>
+      s.attr('x', v ? fnBandResult : fnContBottomResult)
+        .attr('width', v ? fnBarWidth : fnBarLength)
+        .attr('y', v ? fnContTopResult : fnBandResult)
+        .attr('height', v ? fnBarLength : fnBarWidth)
         .attr('opacity', 1)
 
-    const fnAfter = selection =>
-      selection
-        .attr(v ? 'height' : 'width', 0)
+    const fnAfter = s =>
+      s.call(s => v
+        ? s.attr('y', (d, i, nodes) => +d3.select(nodes[i]).attr('y') + +d3.select(nodes[i]).attr('height'))
+          .attr('height', 0)
+        : s.attr('width', 0))
         .attr('opacity', 0)
 
     const join = fnDraw.join(
