@@ -1,15 +1,3 @@
-/*
-const computeDomain = (components, baseDomain, target) => {
-  return components
-    .map(component => component.domain(target)) // implement function
-    .reduce((accDomain, curDomain) =>
-      [
-        Math.min(accDomain[0], curDomain[0]),
-        Math.max(accDomain[1], curDomain[1])
-      ]
-    , baseDomain)
-}
-*/
 import * as d3 from '@/js/d3-modules.js'
 
 import { chartProxy } from '../common'

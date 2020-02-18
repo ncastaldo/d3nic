@@ -63,6 +63,9 @@ import BbRects from '@/js/bb/bbRects.js'
 import bxChart from '@/js_2/bx/bxChart.js'
 import bxBars from '@/js_2/bx/bxBars.js'
 
+import bandChart from '@/js_2/band/bandChart.js'
+import bandBars from '@/js_2/band/bandBars.js'
+
 export {
 
   // TEST
@@ -70,6 +73,9 @@ export {
   // xyChart,
   bxChart,
   bxBars,
+
+  bandChart,
+  bandBars,
 
   Chart,
   Component,

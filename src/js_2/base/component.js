@@ -2,6 +2,25 @@ import * as d3 from '@/js/d3-modules.js'
 
 import { hasRegistry } from '../common'
 
+const hasStyle = () => {
+  const fnStroke = (d, i) => '#fff'
+  const fnStrokeDasharray = (d, i) => 0
+  const fnStrokeWidth = (d, i) => 0
+  const fnFill = (d, i) => d3.interpolateViridis(Math.random())
+  const fnFillOpacity = (d, i) => 1
+  const fnOpacity = (d, i) => 1
+  return {
+    fnStyle: (selection) =>
+      selection.attr('stroke', fnStroke)
+        .attr('stroke', fnStrokeDasharray)
+        .attr('stroke-width', fnStrokeWidth)
+        .attr('stroke-dasharray', fnStrokeDasharray)
+        .attr('fill', fnFill)
+        .attr('fill-opacity', fnFillOpacity)
+        .attr('opacity', fnOpacity)
+  }
+}
+
 const component = () => {
   // -> GETTERS
   let group
@@ -12,18 +31,6 @@ const component = () => {
   /* const fn_path = (d, i) => ''
   const fn_x = (d, i) => 0
   const fn_y = (d, i) => 0
-
-  // -> VARS - MODIFIABLE
-  const fn_stroke = (d, i) => 'black'
-  const fn_strokeDasharray = (d, i) => [0, 0]
-  const fn_strokeWidth = (d, i) => 1
-  const fn_fill = (d, i) => d3.interpolateViridis(Math.random())
-  const fn_fillOpacity = (d, i) => 1
-  const fn_opacity = (d, i) => 1
-
-  const fn_defined = (d, i) => true
-
-  const fn_valueDomain = (data) => [NaN, NaN] // might be replaced in components
 
   const fn_enter = enter => {}
   const fn_update = update => {}
@@ -46,6 +53,7 @@ const component = () => {
 
   const self = {
     ...hasRegistry(),
+    ...hasStyle(),
     group () {
       return group || d3.select(null)
     },
