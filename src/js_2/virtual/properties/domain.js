@@ -14,14 +14,17 @@ const hasCont = (state = {}) => {
   }
 
   const updateContDomain = (chart) => {
-    contDomain = chart.components()
-      .filter(c => 'contDomain' in c)
-      .map(c => c.publish('computeContDomain', chart))
-      .map(c => c.contDomain())
-      .reduce((accDomain, curDomain) =>
+    const fnsValue = chart.components()
+      .map(c => 'fnsValue' in c ? c.fnsValue() : [])
+      .flat()
+
+    console.log(fnsValue)
+
+    contDomain = chart.data()
+      .reduce((domain, d, i) =>
         [
-          Math.min(accDomain[0], curDomain[0]),
-          Math.max(accDomain[1], curDomain[1])
+          Math.min(domain[0], ...fnsValue.map(fn => fn(d, i))),
+          Math.max(domain[1], ...fnsValue.map(fn => fn(d, i)))
         ]
       , baseContDomain)
   }

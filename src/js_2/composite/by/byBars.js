@@ -1,12 +1,12 @@
 import pipe from 'lodash/fp/flow'
 import hasComponent from '../../base/component'
-import hasBars from '../../virtual/components/bars'
+import { hasFnLowHighValue } from '../../virtual/components/values'
 import { componentProxy } from '../../common'
 
 const byBars = (state = {}) => {
   const self = pipe(
     hasComponent,
-    hasBars
+    hasFnLowHighValue
   )(state)
 
   const fnDraw = (fnDraw, chart) => {
