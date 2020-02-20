@@ -1,9 +1,9 @@
 import * as d3 from '@/js/d3-modules.js'
 import pipe from 'lodash/fp/flow'
 
-import { hasRegistry } from '../common'
+import { hasRegistry } from '../../../common'
 
-const hasChart = (state = {}) => {
+const chart = (state = {}) => {
   let selector = 'svg'
 
   let container
@@ -183,4 +183,4 @@ const hasChart = (state = {}) => {
   return self
 }
 
-export default hasChart
+export default chart

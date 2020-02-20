@@ -1,69 +1,39 @@
 
 import pipe from 'lodash/fp/flow'
-import hasComponent from '../../base/component'
-import { hasFnLowHighValue } from '../../virtual/components/values'
+import component from '../../virtual/component/base/index'
+
 import { componentProxy } from '../../common'
+import { hasBars } from '../../virtual/component/composite/bars'
+import { hasMultiDraw } from '../../virtual/component/properties/draw'
 
 const bxBars = (state = {}) => {
   const self = pipe(
-    hasComponent,
-    hasFnLowHighValue
+    component,
+    hasBars,
+    hasMultiDraw
   )(state)
 
-  const fnDraw = (fnDraw, chart) => {
-    const x = (d, i) => chart.fnBandXScale()(chart.fnBandValue()(d, i))
-    const width = chart.fnBandXScale().bandwidth()
+  self.fnBefore(s =>
+    s.attr('x', self.fnBand())
+      .attr('width', self.bandwidth())
+      .attr('y', self.fnLow())
+      .attr('height', 0)
+      .attr('opacity', 0)
+  )
 
-    const yBefore = (d, i) => chart.fnContYScale()(self.fnLowValue()(d, i))
-    const y = (d, i) => chart.fnContYScale()(self.fnHighValue()(d, i))
-    const yAfter = yBefore
+  self.fnNow(s =>
+    s.attr('x', self.fnBand())
+      .attr('width', self.bandwidth())
+      .attr('y', self.fnHigh())
+      .attr('height', (d, i) => self.fnLow()(d, i) - self.fnHigh()(d, i))
+      .attr('opacity', 1) // not needed
+  )
 
-    const heightBefore = 0
-    const height = (d, i) => yBefore(d, i) - y(d, i)
-    const heightAfter = heightBefore
-
-    const join = fnDraw.join(
-      enter => enter
-        .append('rect')
-        .call(self.fnStyle)
-        .attr('x', x)
-        .attr('width', width)
-        .attr('y', yBefore)
-        .attr('height', heightBefore)
-        .attr('opacity', 0)
-        .call(enter => enter
-          .transition(chart.transition())
-          .attr('y', y)
-          .attr('height', height)
-          .attr('opacity', 1)),
-      update => update
-        .call(update =>
-          update.transition(chart.transition())
-            .call(self.fnStyle)
-            .attr('x', x)
-            .attr('width', width)
-            .attr('y', y)
-            .attr('height', height)
-        ),
-      exit => exit
-        .call(exit => exit
-          .transition(chart.transition())
-          .attr('y', yAfter)
-          .attr('height', heightAfter)
-          .attr('opacity', 0))
-    )
-    self.join(join)
-  }
-
-  const draw = (chart) => {
-    self.group()
-      .classed('bxBars', true)
-      .selectAll('rect')
-      .data(chart.data(), chart.fnKey())
-      .call(fnDraw, chart)
-  }
-
-  self.subscribe('draw', draw)
+  self.fnAfter(s =>
+    s.attr('y', self.fnLow())
+      .attr('height', 0)
+      .attr('opacity', 0)
+  )
 
   return componentProxy(self)
 }

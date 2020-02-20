@@ -1,29 +1,24 @@
-import * as d3 from '@/js/d3-modules.js'
 import pipe from 'lodash/fp/flow'
 
-import { hasRegistry } from '../common'
+import { hasRegistry } from '../../../common'
+import { hasGroup } from './group'
+import { hasStyle } from './style'
 
-const hasStyle = (state = {}) => {
-  const fnStroke = (d, i) => '#fff'
-  const fnStrokeDasharray = (d, i) => 0
-  const fnStrokeWidth = (d, i) => 0
-  const fnFill = (d, i) => d3.interpolateViridis(Math.random())
-  const fnFillOpacity = (d, i) => 1
-  const fnOpacity = (d, i) => 1
+const component = (state = {}) => {
   const self = {
     ...state,
-    fnStyle: (selection) =>
-      selection.attr('stroke', fnStroke)
-        .attr('stroke', fnStrokeDasharray)
-        .attr('stroke-width', fnStrokeWidth)
-        .attr('stroke-dasharray', fnStrokeDasharray)
-        .attr('fill', fnFill)
-        .attr('fill-opacity', fnFillOpacity)
-        .attr('opacity', fnOpacity)
+    ...pipe(
+      hasRegistry,
+      hasGroup,
+      hasStyle
+    )(state)
   }
 
   return self
 }
+
+export default component
+/*
 
 const hasComponent = (state = {}) => {
   // -> GETTERS
@@ -32,7 +27,7 @@ const hasComponent = (state = {}) => {
 
   const fn_path2D = (d, i) => {}
 
-  /* const fn_path = (d, i) => ''
+  const fn_path = (d, i) => ''
   const fn_x = (d, i) => 0
   const fn_y = (d, i) => 0
 
@@ -40,7 +35,7 @@ const hasComponent = (state = {}) => {
   const fn_update = update => {}
   const fn_exit = exit => {}
 
-  const phi = 0.2 */
+  const phi = 0.2
 
   const draw = (chart) => {
     // NOT CANVAS
@@ -73,6 +68,9 @@ const hasComponent = (state = {}) => {
 
   return self
 }
+
+*/
+
 /*
   // *** THIS COULD BE AS A COMMON FUNCTION... dunno..
   multiTransition (selection, transition) {
@@ -172,5 +170,3 @@ const hasComponent = (state = {}) => {
     }
   }
   */
-
-export default hasComponent

@@ -1,20 +1,17 @@
 import pipe from 'lodash/fp/flow'
 
 import { chartProxy } from '../../common'
-import hasChart from '../../base/chart'
-import { hasBandY, hasContX } from './byScales'
+import chart from '../../virtual/chart/base/index'
+import { hasBandScaleFactory, hasContScaleFactory } from '../../virtual/chart/properties/scales'
 
-const byChart = (state = {}) => {
+const bxChart = (state = {}) => {
   const self = pipe(
-    hasChart,
-    hasBandY,
-    hasContX
+    chart,
+    hasBandScaleFactory('y'),
+    hasContScaleFactory('x')
   )(state)
-
-  self.publish('data', self)
-  self.publish('size', self)
 
   return chartProxy(self)
 }
 
-export default byChart
+export default bxChart
