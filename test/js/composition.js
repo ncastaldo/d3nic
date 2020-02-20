@@ -1,45 +1,70 @@
 d3.select(".container").call(container => {
   container.append("svg").classed("svg1", true)
   container.append("svg").classed("svg2", true)
+  container.append("svg").classed("svg3", true)
+  container.append("svg").classed("svg4", true)
 })
 
-const comp = d3nic
-  .bxBars()
-  .fnLowValue(d => 0)
-  .fnHighValue(d => d)
 
-const beta = d3nic.bxChart()
+const aChart = d3nic.bxChart()
+  .selector('.svg1')
+  .data([0, 0.5, 1])
+  .components([
+    d3nic.bxArea().fnLowValue(d => d - 0.3),
+    d3nic.bxLines().fnLowValue(d => d - 0.3).fnStrokeWidth(2),
+    d3nic.bxCircles().fnStrokeWidth(2),
+  ])
 
-beta.fnBandValue((d, i) => i)
-  .size({height: 500})
-
-console.log(beta)
-
-beta
-  .data([0, 60, 123])
-  .size({height: 500, height: 500})
-  .components([comp])
-  .draw({duration: 1000})
-
-const comp2 = d3nic
-  .byBars()
-  .fnLowValue(d => 0)
-  .fnHighValue(d => d)
-
-const gamma = d3nic.byChart()
+const bChart = d3nic.bxChart()
   .selector('.svg2')
-  .fnBandValue((d, i) => i)
+
   .size({height: 500, height: 500})
-  .data([0, 60, 123, 124, 323])
-  .components([comp2])
-  .draw({duration: 1000})
+  .data([0, 0.5, 1])
+  .components([
+    d3nic.bxArea().fnLowValue(d => d - 0.3),
+    d3nic.bxLines().fnLowValue(d => d - 0.3).fnStrokeWidth(2),
+  ])
+
+const cChart = d3nic.byChart()
+  .selector('.svg3')
+  .size({height: 500, height: 500})
+  .data([0, 0.5, 1])
+  .components([
+    d3nic.byBars()
+  ])
+
+
+const dChart = d3nic.geoChart()
+  .selector('.svg4')
+  .fnKey(d => d.properties.id)
+  .size({width: 600, height: 500})
+  .components([
+    d3nic.geoRegions().fnValue(d => d.geometry)
+  ])
+
+
+let feature
+{(async () => {
+  const map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/2.json")
+  features = topojson.feature(map, map.objects.nutsrg).features //&& f.properties.id.length > 3 )
+  dChart.data(features).draw()
+})()}
+
+
+
+bandCharts = [aChart, bChart, cChart]
+bandCharts.map(chart => chart.draw({duration: 1000}))
+
 
 const update = () => {
-  const d = [...Array(Math.round(Math.random()*50) + 1)].map(() => Math.random())
-  gamma.data(d).draw({duration: 1000})
-  beta.data(d).draw({duration: 1000})
+  const data = [...Array(Math.round(Math.random()*50) + 1)].map(() => Math.random())
+  bandCharts.map(chart => chart.data(data))
+  bandCharts.map(chart => chart.draw({duration: 1000}))
+
+  const geoData = dChart.data()
+  geoData.length > 1 ? dChart.data([geoData[Math.floor(Math.random() * geoData.length)]]) : dChart.data(features)
+  dChart.draw({duration: 1000})
 }
 
 d3.select('#update').on("click", update)
 
-console.log(beta)

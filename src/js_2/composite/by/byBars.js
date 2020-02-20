@@ -3,14 +3,14 @@ import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasBars } from '../../virtual/component/composite/bars'
-import { hasMultiDraw } from '../../virtual/component/properties/draw'
+import { hasBandBars } from '../../virtual/component/composite/bandBars'
+import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
-const bxBars = (state = {}) => {
+const byBars = (state = {}) => {
   const self = pipe(
     component,
-    hasBars,
-    hasMultiDraw
+    hasBandBars,
+    hasMultiDrawFactory('rect')
   )(state)
 
   self.fnBefore(s =>
@@ -26,7 +26,7 @@ const bxBars = (state = {}) => {
       .attr('width', self.fnHigh())
       .attr('y', self.fnBand())
       .attr('height', self.bandwidth())
-      .attr('opacity', 1) // not needed
+      // .attr('opacity', 1) // not needed
   )
 
   self.fnAfter(s =>
@@ -37,4 +37,4 @@ const bxBars = (state = {}) => {
   return componentProxy(self)
 }
 
-export default bxBars
+export default byBars

@@ -24,18 +24,49 @@ const hasDraw = (state) => {
   return self
 }
 
-const hasMultiDraw = (state) => {
-  let element = 'rect'
-
+const hasSingleDrawFactory = (element) => (state) => {
   const self = {
     ...state,
     ...pipe(
       hasDraw
-    )(state),
-    element: (value) => {
-      if (typeof value === 'undefined') return element
-      element = value
+    )(state)
+  }
+
+  const fnDraw = (s, chart) => {
+    const oldElement = s.selectAll(`${element}.drawn`)
+
+    // remove old element if exists
+    if (!oldElement.empty()) {
+      oldElement.transition(chart.transition())
+        .call(self.fnAfter())
+        .remove()
     }
+
+    s.datum(chart.data())
+      .append(element)
+      .call(self.fnStyle())
+      .call(self.fnBefore())
+      .classed('drawn', true)
+      .transition(chart.transition())
+      .call(self.fnStyle())
+      .call(self.fnNow())
+  }
+
+  const draw = (chart) => {
+    self.group().call(fnDraw, chart)
+  }
+
+  self.subscribe('draw', draw)
+
+  return self
+}
+
+const hasMultiDrawFactory = (element) => (state) => {
+  const self = {
+    ...state,
+    ...pipe(
+      hasDraw
+    )(state)
   }
 
   const fnDraw = (s, chart) => s.join(
@@ -45,6 +76,7 @@ const hasMultiDraw = (state) => {
       .call(self.fnBefore())
       .call(enter => enter
         .transition(chart.transition())
+        .call(self.fnStyle())
         .call(self.fnNow())
       ),
     update => update
@@ -72,4 +104,4 @@ const hasMultiDraw = (state) => {
   return self
 }
 
-export { hasMultiDraw }
+export { hasSingleDrawFactory, hasMultiDrawFactory }

@@ -2,13 +2,12 @@ import pipe from 'lodash/fp/flow'
 
 import { chartProxy } from '../../common'
 import chart from '../../virtual/chart/base/index'
-import { hasBandScaleFactory, hasContScaleFactory } from '../../virtual/chart/properties/scales'
+import { hasGeoProjection } from '../../virtual/chart/properties/geoProjection'
 
-const bxChart = (state = {}) => {
+const geoChart = (state = {}) => {
   const self = pipe(
     chart,
-    hasBandScaleFactory('x'),
-    hasContScaleFactory('y')
+    hasGeoProjection
   )(state)
 
   self.publish('data', self)
@@ -17,4 +16,4 @@ const bxChart = (state = {}) => {
   return chartProxy(self)
 }
 
-export default bxChart
+export default geoChart

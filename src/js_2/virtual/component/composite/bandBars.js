@@ -3,7 +3,7 @@ import pipe from 'lodash/fp/flow'
 
 import { hasFnLowHighValue } from '../properties/values'
 
-const hasBars = (state = {}) => {
+const hasBandBars = (state = {}) => {
   let fnBand
   let bandwidth
 
@@ -46,4 +46,4 @@ const hasBars = (state = {}) => {
   return self
 }
 
-export { hasBars }
+export { hasBandBars }
