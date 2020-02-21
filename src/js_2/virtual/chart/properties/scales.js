@@ -4,11 +4,10 @@ const computeRange = (chart, on, type) => {
   const r = chart.extent()
     .map(point => point[on === 'x' ? 0 : 1])
     .sort((a, b) => on === 'y' && type !== 'band' ? b - a : a - b)
-  console.log(on, type, r)
   return r
 }
 
-const hasBandScaleFactory = (on) => (state = {}) => {
+const hasBandScaleFactory = (on = 'x') => (state = {}) => {
   const fnBandScale = d3.scaleBand()
   let fnBandValue = (d, i) => i
 

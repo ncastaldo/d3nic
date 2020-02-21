@@ -1,4 +1,4 @@
-const hasFnValue = (state = {}) => {
+const hasValue = (state = {}) => {
   let fnValue = d => d
 
   const self = {
@@ -15,7 +15,7 @@ const hasFnValue = (state = {}) => {
   return self
 }
 
-const hasFnLowHighValue = (state = {}) => {
+const hasLowHighValue = (state = {}) => {
   let fnLowValue = d => 0
   let fnHighValue = d => d
 
@@ -37,4 +37,4 @@ const hasFnLowHighValue = (state = {}) => {
   return self
 }
 
-export { hasFnValue, hasFnLowHighValue }
+export { hasValue, hasLowHighValue }

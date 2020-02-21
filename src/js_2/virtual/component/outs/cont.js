@@ -1,0 +1,58 @@
+
+import pipe from 'lodash/fp/flow'
+
+import { hasValue, hasLowHighValue } from '../properties/values'
+
+const hasContOut = (state = {}) => {
+  let fnContOut
+
+  const self = {
+    ...state,
+    ...pipe(
+      hasValue
+    )(state),
+    fnContOut: (value) => {
+      if (typeof value === 'undefined') return fnContOut
+      fnContOut = value
+    }
+  }
+
+  const updateOuts = (chart) => {
+    fnContOut = (d, i) => chart.fnContScale()(self.fnValue()(d, i))
+  }
+
+  self.subscribe('draw', updateOuts)
+
+  return self
+}
+
+const hasLowHighContOut = (state = {}) => {
+  let fnLowContOut
+  let fnHighContOut
+
+  const self = {
+    ...state,
+    ...pipe(
+      hasLowHighValue
+    )(state),
+    fnLowContOut: (value) => {
+      if (typeof value === 'undefined') return fnLowContOut
+      fnLowContOut = value
+    },
+    fnHighContOut: (value) => {
+      if (typeof value === 'undefined') return fnHighContOut
+      fnHighContOut = value
+    }
+  }
+
+  const updateOuts = (chart) => {
+    fnLowContOut = (d, i) => chart.fnContScale()(self.fnLowValue()(d, i))
+    fnHighContOut = (d, i) => chart.fnContScale()(self.fnHighValue()(d, i))
+  }
+
+  self.subscribe('draw', updateOuts)
+
+  return self
+}
+
+export { hasContOut, hasLowHighContOut }

@@ -5,21 +5,23 @@ import * as d3 from '@/js/d3-modules.js'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasBandPoints } from '../../virtual/component/composite/bandPoints'
+import { hasBandOut } from '../../virtual/component/outs/band'
+import { hasContOut } from '../../virtual/component/outs/cont'
 import { hasSingleDrawFactory } from '../../virtual/component/properties/draw'
 
 const bxLine = (state = {}) => {
   const self = pipe(
     component,
-    hasBandPoints,
+    hasBandOut,
+    hasContOut,
     hasSingleDrawFactory('path')
   )(state)
 
   self.fnBefore(s =>
     s.attr('d',
       d3.line()
-        .x(self.fnBandCenter())
-        .y(self.fn()))
+        .x(self.fnBandCenterOut())
+        .y(self.fnContOut()))
       .attr('opacity', 0)
 
   )
@@ -27,8 +29,8 @@ const bxLine = (state = {}) => {
   self.fnNow(s =>
     s.attr('d',
       d3.line()
-        .x(self.fnBandCenter())
-        .y(self.fn())
+        .x(self.fnBandCenterOut())
+        .y(self.fnContOut())
     )
   )
 

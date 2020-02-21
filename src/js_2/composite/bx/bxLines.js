@@ -4,29 +4,31 @@ import * as d3 from '@/js/d3-modules.js'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasBandLines } from '../../virtual/component/composite/bandLines'
+import { hasBandOut } from '../../virtual/component/outs/band'
+import { hasLowHighContOut } from '../../virtual/component/outs/cont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
 const bxBars = (state = {}) => {
   const self = pipe(
     component,
-    hasBandLines,
+    hasBandOut,
+    hasLowHighContOut,
     hasMultiDrawFactory('line')
   )(state)
 
   self.fnBefore(s =>
-    s.attr('x1', self.fnBandCenter())
-      .attr('y1', self.fnLow())
-      .attr('x2', self.fnBandCenter())
-      .attr('y2', self.fnLow())
+    s.attr('x1', self.fnBandCenterOut())
+      .attr('y1', self.fnLowContOut())
+      .attr('x2', self.fnBandCenterOut())
+      .attr('y2', self.fnLowContOut())
       .attr('opacity', 0)
   )
 
   self.fnNow(s =>
-    s.attr('x1', self.fnBandCenter())
-      .attr('y1', self.fnLow())
-      .attr('x2', self.fnBandCenter())
-      .attr('y2', self.fnHigh())
+    s.attr('x1', self.fnBandCenterOut())
+      .attr('y1', self.fnLowContOut())
+      .attr('x2', self.fnBandCenterOut())
+      .attr('y2', self.fnHighContOut())
       // .attr('opacity', 1) // not needed
   )
 

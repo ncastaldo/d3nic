@@ -24,6 +24,37 @@ const hasDraw = (state) => {
   return self
 }
 
+const hasSingleFunctionDraw = (state) => {
+  const self = {
+    ...state,
+    ...pipe(
+      hasDraw
+    )(state)
+  }
+
+  const fnDraw = (s, chart) => {
+    const firstDraw = !s.classed('drawn')
+
+    // remove old element if exists
+    firstDraw
+      ? s.call(self.fnStyle())
+        .call(self.fnBefore())
+        .classed('drawn', true)
+        .transition(chart.transition())
+        .call(self.fnNow())
+      : s.transition(chart.transition())
+        .call(self.fnNow())
+  }
+
+  const draw = (chart) => {
+    self.group().call(fnDraw, chart)
+  }
+
+  self.subscribe('draw', draw)
+
+  return self
+}
+
 const hasSingleDrawFactory = (element) => (state) => {
   const self = {
     ...state,
@@ -104,4 +135,8 @@ const hasMultiDrawFactory = (element) => (state) => {
   return self
 }
 
-export { hasSingleDrawFactory, hasMultiDrawFactory }
+export {
+  hasSingleFunctionDraw,
+  hasSingleDrawFactory,
+  hasMultiDrawFactory
+}

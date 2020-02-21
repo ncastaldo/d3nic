@@ -5,22 +5,24 @@ import * as d3 from '@/js/d3-modules.js'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
+import { hasBandOut } from '../../virtual/component/outs/band'
+import { hasLowHighContOut } from '../../virtual/component/outs/cont'
 import { hasSingleDrawFactory } from '../../virtual/component/properties/draw'
-import { hasBandLines } from '../../virtual/component/composite/bandLines'
 
 const bxArea = (state = {}) => {
   const self = pipe(
     component,
-    hasBandLines,
+    hasBandOut,
+    hasLowHighContOut,
     hasSingleDrawFactory('path')
   )(state)
 
   self.fnBefore(s =>
     s.attr('d',
       d3.area()
-        .x(self.fnBandCenter())
-        .y0(self.fnLow())
-        .y1(self.fnLow()))
+        .x(self.fnBandCenterOut())
+        .y0(self.fnLowContOut())
+        .y1(self.fnLowContOut()))
       .attr('opacity', 0)
 
   )
@@ -28,9 +30,9 @@ const bxArea = (state = {}) => {
   self.fnNow(s =>
     s.attr('d',
       d3.area()
-        .x(self.fnBandCenter())
-        .y0(self.fnLow())
-        .y1(self.fnHigh()))
+        .x(self.fnBandCenterOut())
+        .y0(self.fnLowContOut())
+        .y1(self.fnHighContOut()))
   )
 
   self.fnAfter(s =>

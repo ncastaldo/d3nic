@@ -23,10 +23,10 @@ const chart = (state = {}) => {
   }
 
   let padding = {
-    top: 25,
-    right: 25,
-    bottom: 25,
-    left: 25
+    top: 40,
+    right: 40,
+    bottom: 40,
+    left: 40
   }
 
   let transitionObject = {

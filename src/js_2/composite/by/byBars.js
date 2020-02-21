@@ -3,29 +3,31 @@ import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasBandBars } from '../../virtual/component/composite/bandBars'
+import { hasBandOut } from '../../virtual/component/outs/band'
+import { hasLowHighContOut } from '../../virtual/component/outs/cont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
 const byBars = (state = {}) => {
   const self = pipe(
     component,
-    hasBandBars,
+    hasBandOut,
+    hasLowHighContOut,
     hasMultiDrawFactory('rect')
   )(state)
 
   self.fnBefore(s =>
-    s.attr('x', self.fnLow())
+    s.attr('x', self.fnLowContOut())
       .attr('width', 0)
-      .attr('y', self.fnBand())
-      .attr('height', self.bandwidth())
+      .attr('y', self.fnBandOut())
+      .attr('height', self.bandwidthOut())
       .attr('opacity', 0)
   )
 
   self.fnNow(s =>
-    s.attr('x', self.fnLow())
-      .attr('width', self.fnHigh())
-      .attr('y', self.fnBand())
-      .attr('height', self.bandwidth())
+    s.attr('x', self.fnLowContOut())
+      .attr('width', self.fnHighContOut())
+      .attr('y', self.fnBandOut())
+      .attr('height', self.bandwidthOut())
       // .attr('opacity', 1) // not needed
   )
 

@@ -47,6 +47,10 @@ const componentProxyHandler = {
       if (fnName in component && typeof component[fnName] === 'function') {
         if (args.length) {
           component[fnName](...args)
+
+          // to achieve clean code and avoid calling functions directly after changes
+          component.publish(fnName)
+
           return new Proxy(component, componentProxyHandler)
         } else {
           return component[fnName]()

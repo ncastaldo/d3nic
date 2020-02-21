@@ -3,27 +3,31 @@ import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasBandPoints } from '../../virtual/component/composite/bandPoints'
+import { hasCircle } from '../../virtual/component/properties/circle'
+import { hasBandOut } from '../../virtual/component/outs/band'
+import { hasContOut } from '../../virtual/component/outs/cont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
 const bxBars = (state = {}) => {
   const self = pipe(
     component,
-    hasBandPoints,
+    hasCircle,
+    hasBandOut,
+    hasContOut,
     hasMultiDrawFactory('circle')
   )(state)
 
   self.fnBefore(s =>
-    s.attr('cx', self.fnBandCenter())
-      .attr('cy', self.fn())
+    s.attr('cx', self.fnBandCenterOut())
+      .attr('cy', self.fnContOut())
       .attr('r', 0)
       .attr('opacity', 0)
   )
 
   self.fnNow(s =>
-    s.attr('cx', self.fnBandCenter())
-      .attr('cy', self.fn())
-      .attr('r', 5) // parametrize
+    s.attr('cx', self.fnBandCenterOut())
+      .attr('cy', self.fnContOut())
+      .attr('r', self.fnRadius()) // parametrize
   )
 
   self.fnAfter(s =>

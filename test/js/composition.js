@@ -10,6 +10,8 @@ const aChart = d3nic.bxChart()
   .selector('.svg1')
   .data([0, 0.5, 1])
   .components([
+    d3nic.bxAxisX(),
+    d3nic.bxAxisY(),
     d3nic.bxArea().fnLowValue(d => d - 0.3),
     d3nic.bxLines().fnLowValue(d => d - 0.3).fnStrokeWidth(2),
     d3nic.bxCircles().fnStrokeWidth(2),
@@ -18,9 +20,11 @@ const aChart = d3nic.bxChart()
 const bChart = d3nic.bxChart()
   .selector('.svg2')
 
-  .size({height: 500, height: 500})
+  .size({height: 500, height: 400})
   .data([0, 0.5, 1])
   .components([
+    d3nic.bxAxisX(),
+    d3nic.bxAxisY(),
     d3nic.bxArea().fnLowValue(d => d - 0.3),
     d3nic.bxLines().fnLowValue(d => d - 0.3).fnStrokeWidth(2),
   ])
@@ -45,7 +49,7 @@ const dChart = d3nic.geoChart()
 
 let feature
 {(async () => {
-  const map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/2.json")
+  const map = await d3.json("https://raw.githubusercontent.com/eurostat/Nuts2json/master/2016/4258/20M/0.json")
   features = topojson.feature(map, map.objects.nutsrg).features //&& f.properties.id.length > 3 )
   dChart.data(features).draw()
 })()}
@@ -57,8 +61,9 @@ bandCharts.map(chart => chart.draw({duration: 1000}))
 
 
 const update = () => {
-  const data = [...Array(Math.round(Math.random()*50) + 1)].map(() => Math.random())
+  const data = [...Array(Math.round(Math.random()*10) + 1)].map(() => Math.random())
   bandCharts.map(chart => chart.data(data))
+  bandCharts.map(c => c.size({width: c.size().height, height: c.size().width}))
   bandCharts.map(chart => chart.draw({duration: 1000}))
 
   const geoData = dChart.data()
