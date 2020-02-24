@@ -55,4 +55,23 @@ const hasLowHighContOut = (state = {}) => {
   return self
 }
 
-export { hasContOut, hasLowHighContOut }
+const hasRangeContOut = (state = {}) => {
+  let rangeContOut
+
+  const self = {
+    ...state,
+    rangeContOut: () => {
+      return rangeContOut
+    }
+  }
+
+  const updateOuts = (chart) => {
+    rangeContOut = chart.fnContScale().range()
+  }
+
+  self.subscribe('draw', updateOuts)
+
+  return self
+}
+
+export { hasContOut, hasLowHighContOut, hasRangeContOut }

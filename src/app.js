@@ -59,7 +59,7 @@ import BbContours from '@/js/bb/bbContours.js'
 import BbRects from '@/js/bb/bbRects.js'
 
 // TEST
-/* import bxChart from '@/js_2/composite/bx/bxChart'
+import bxChart from '@/js_2/composite/bx/bxChart'
 import bxAxisX from '@/js_2/composite/bx/bxAxisX'
 import bxAxisY from '@/js_2/composite/bx/bxAxisY'
 import bxBars from '@/js_2/composite/bx/bxBars'
@@ -67,19 +67,20 @@ import bxArea from '@/js_2/composite/bx/bxArea'
 import bxLine from '@/js_2/composite/bx/bxLine'
 import bxLines from '@/js_2/composite/bx/bxLines'
 import bxCircles from '@/js_2/composite/bx/bxCircles'
+import bxMouseBars from '@/js_2/composite/bx/bxMouseBars'
 
 import byChart from '@/js_2/composite/by/byChart'
 import byBars from '@/js_2/composite/by/byBars'
 
 import geoChart from '@/js_2/composite/geo/geoChart'
-import geoRegions from '@/js_2/composite/geo/geoRegions' */
+import geoRegions from '@/js_2/composite/geo/geoRegions'
 
 export {
 
   // TEST
   // chart,
   // xyChart,
-  /* bxChart,
+  bxChart,
   bxAxisX,
   bxAxisY,
   bxBars,
@@ -87,12 +88,13 @@ export {
   bxArea,
   bxLine,
   bxLines,
+  bxMouseBars,
 
   byChart,
   byBars,
 
   geoChart,
-  geoRegions, */
+  geoRegions,
 
   Chart,
   Component,

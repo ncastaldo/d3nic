@@ -1,23 +1,30 @@
 import pipe from 'lodash/fp/flow'
+import * as d3 from '@/js/d3-modules.js'
 
 const hasDraw = (state) => {
+  let join = d3.select(null)
+
   let fnBefore = s => s
   let fnNow = s => s
   let fnAfter = s => s
 
   const self = {
     ...state,
+    join: (value) => {
+      if (typeof value === 'undefined') return join
+      join = value
+    },
     fnBefore: (value) => {
       if (typeof value === 'undefined') return fnBefore
-      fnBefore = value
+      fnBefore = pipe(fnBefore, value)
     },
     fnNow: (value) => {
       if (typeof value === 'undefined') return fnNow
-      fnNow = value
+      fnNow = pipe(fnNow, value)
     },
     fnAfter: (value) => {
       if (typeof value === 'undefined') return fnAfter
-      fnAfter = value
+      fnAfter = pipe(fnAfter, value)
     }
   }
 
@@ -37,7 +44,8 @@ const hasSingleFunctionDraw = (state) => {
 
     // remove old element if exists
     firstDraw
-      ? s.call(self.fnStyle())
+      ? s.call(self.fnEvents())
+        .call(self.fnStyle())
         .call(self.fnBefore())
         .classed('drawn', true)
         .transition(chart.transition())
@@ -48,6 +56,9 @@ const hasSingleFunctionDraw = (state) => {
 
   const draw = (chart) => {
     self.group().call(fnDraw, chart)
+
+    // joining the group inself
+    self.join().empty() && self.join(self.group())
   }
 
   self.subscribe('draw', draw)
@@ -73,14 +84,18 @@ const hasSingleDrawFactory = (element) => (state) => {
         .remove()
     }
 
-    s.datum(chart.data())
+    const join = s.datum(chart.data())
       .append(element)
+      .call(self.fnEvents())
       .call(self.fnStyle())
       .call(self.fnBefore())
       .classed('drawn', true)
       .transition(chart.transition())
       .call(self.fnStyle())
       .call(self.fnNow())
+
+    // joining the selection
+    self.join(join)
   }
 
   const draw = (chart) => {
@@ -100,28 +115,31 @@ const hasMultiDrawFactory = (element) => (state) => {
     )(state)
   }
 
-  const fnDraw = (s, chart) => s.join(
-    enter => enter
-      .append(element)
-      .call(self.fnStyle())
-      .call(self.fnBefore())
-      .call(enter => enter
-        .transition(chart.transition())
+  const fnDraw = (s, chart) => {
+    const join = s.join(
+      enter => enter
+        .append(element)
+        .call(self.fnEvents())
         .call(self.fnStyle())
-        .call(self.fnNow())
-      ),
-    update => update
-      .call(update =>
-        update.transition(chart.transition())
+        .call(self.fnBefore())
+        .call(enter => enter
+          .transition(chart.transition())
           .call(self.fnStyle())
           .call(self.fnNow())
-      ),
-    exit => exit
-      .call(exit => exit
-        .transition(chart.transition())
-        .call(self.fnAfter())
-        .remove())
-  )
+        ),
+      update => update
+        .call(update =>
+          update.transition(chart.transition())
+            .call(self.fnStyle())
+            .call(self.fnNow())
+        ),
+      exit => exit
+        .call(exit => exit
+          .transition(chart.transition())
+          .call(self.fnAfter())
+          .remove()))
+    self.join(join)
+  }
 
   const draw = (chart) => {
     self.group()

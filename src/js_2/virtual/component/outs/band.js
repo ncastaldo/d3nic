@@ -1,22 +1,26 @@
-
 const hasBandOut = (state = {}) => {
   let fnBandOut
   let fnBandCenterOut
   let bandwidthOut
+  let fnBandLeftOut
+  let fnBandRightOut
 
   const self = {
     ...state,
-    fnBandOut: (value) => {
-      if (typeof value === 'undefined') return fnBandOut
-      fnBandOut = value
+    fnBandOut: () => {
+      return fnBandOut
     },
-    fnBandCenterOut: (value) => {
-      if (typeof value === 'undefined') return fnBandCenterOut
-      fnBandCenterOut = value
+    fnBandCenterOut: () => {
+      return fnBandCenterOut
     },
-    bandwidthOut: (value) => {
-      if (typeof value === 'undefined') return bandwidthOut
-      bandwidthOut = value
+    bandwidthOut: () => {
+      return bandwidthOut
+    },
+    fnBandLeftOut: () => {
+      return fnBandLeftOut
+    },
+    fnBandRightOut: () => {
+      return fnBandRightOut
     }
   }
 
@@ -25,6 +29,15 @@ const hasBandOut = (state = {}) => {
     fnBandCenterOut = (d, i) =>
       chart.fnBandScale()(chart.fnBandValue()(d, i)) + chart.fnBandScale().bandwidth() / 2
     bandwidthOut = chart.fnBandScale().bandwidth()
+
+    fnBandLeftOut = (d, i) => Math.max(
+      chart.fnBandScale().range()[0],
+      fnBandOut(d, i) - chart.fnBandScale().step() * chart.fnBandScale().paddingInner() / 2
+    )
+    fnBandRightOut = (d, i) => Math.min(
+      fnBandOut(d, i) + bandwidthOut + chart.fnBandScale().step() * chart.fnBandScale().paddingInner() / 2,
+      chart.fnBandScale().range()[1]
+    )
   }
 
   self.subscribe('draw', updateOuts)

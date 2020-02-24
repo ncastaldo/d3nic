@@ -6,6 +6,15 @@ d3.select(".container").call(container => {
 })
 
 
+const circles = d3nic.bxCircles().fnStrokeWidth(2)
+
+const onMouseover = (d, i) => {
+  circles.join().filter(f => f === d).style('r', 10)
+}
+const onMouseout = (d, i) => {
+  circles.join().style('r', null)
+}
+
 const aChart = d3nic.bxChart()
   .selector('.svg1')
   .data([0, 0.5, 1])
@@ -14,7 +23,10 @@ const aChart = d3nic.bxChart()
     d3nic.bxAxisY(),
     d3nic.bxArea().fnLowValue(d => d - 0.3),
     d3nic.bxLines().fnLowValue(d => d - 0.3).fnStrokeWidth(2),
-    d3nic.bxCircles().fnStrokeWidth(2),
+    circles,
+    d3nic.bxMouseBars()
+      .fnOn('mouseover', onMouseover)
+      .fnOn('mouseout', onMouseout)
   ])
 
 const bChart = d3nic.bxChart()

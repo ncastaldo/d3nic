@@ -2,6 +2,7 @@ import pipe from 'lodash/fp/flow'
 
 import { hasRegistry } from '../../../common'
 import { hasGroup } from './group'
+import { hasEvents } from './events'
 import { hasStyle } from './style'
 
 const component = (state = {}) => {
@@ -10,6 +11,7 @@ const component = (state = {}) => {
     ...pipe(
       hasRegistry,
       hasGroup,
+      hasEvents,
       hasStyle
     )(state)
   }
