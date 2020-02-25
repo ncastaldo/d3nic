@@ -38,26 +38,32 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
     ticks: (value) => {
       if (typeof value === 'undefined') return ticks
       ticks = value
+      fnAxis.ticks(ticks)
     },
     tickFormat: (value) => {
       if (typeof value === 'undefined') return tickFormat
       tickFormat = value
+      fnAxis.tickFormat(tickFormat)
     },
     tickSizeInner: (value) => {
       if (typeof value === 'undefined') return tickSizeInner
       tickSizeInner = value
+      fnAxis.tickSizeInner(tickSizeInner)
     },
     tickSizeOuter: (value) => {
       if (typeof value === 'undefined') return tickSizeOuter
       tickSizeOuter = value
+      fnAxis.tickSizeOuter(tickSizeOuter)
     },
     tickPadding: (value) => {
       if (typeof value === 'undefined') return tickPadding
       tickPadding = value
+      fnAxis.tickPadding(tickPadding)
     },
     position: (value) => {
       if (typeof value === 'undefined') return position
       position = value
+      changeAxis()
     },
     translateAxis: () => {
       return translateAxis
@@ -73,17 +79,16 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
 
   const changeAxis = () => {
     fnAxis = computeAxis(on, position)
-      .ticks(self.ticks())
-      .tickFormat(self.tickFormat())
-      .tickSizeInner(self.tickSizeInner())
-      .tickSizeOuter(self.tickSizeOuter())
-      .tickPadding(self.tickPadding())
+      .ticks(ticks)
+      .tickFormat(tickFormat)
+      .tickSizeInner(tickSizeInner)
+      .tickSizeOuter(tickSizeOuter)
+      .tickPadding(tickPadding)
   }
 
   // subscription to self call on modified proxy for component
-  self.subscribe('position', changeAxis)
+  // self.subscribe('position', changeAxis)
 
-  // just to init
   changeAxis()
 
   const updateTranslate = (chart) => {

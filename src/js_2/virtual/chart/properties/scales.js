@@ -9,7 +9,7 @@ const computeRange = (chart, on, type) => {
 }
 
 const hasBandScaleFactory = (on = 'x') => (state = {}) => {
-  const fnBandScale = d3.scaleBand().paddingInner(0.5)
+  const fnBandScale = d3.scaleBand().paddingInner(0)
   let fnBandValue = (d, i) => i
 
   const self = {
