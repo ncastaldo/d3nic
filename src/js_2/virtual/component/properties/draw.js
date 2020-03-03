@@ -1,8 +1,8 @@
 import pipe from 'lodash/fp/flow'
-import * as d3 from '@/js/d3-modules.js'
+import { select } from 'd3-selection'
 
 const hasDraw = (state) => {
-  let join = d3.select(null)
+  let join = select(null)
 
   let fnBefore = s => s
   let fnNow = s => s

@@ -1,10 +1,10 @@
-import * as d3 from '@/js/d3-modules.js'
+import { interpolateYlGnBu } from 'd3-scale-chromatic'
 
 const hasStyle = (state = {}) => {
   let fnStroke = (d, i) => '#000'
   let fnStrokeDasharray = (d, i) => 0
   let fnStrokeWidth = (d, i) => 0
-  let fnFill = (d, i) => d3.interpolateYlGnBu(Math.random())
+  let fnFill = (d, i) => interpolateYlGnBu(Math.random())
   let fnFillOpacity = (d, i) => 1
   let fnOpacity = (d, i) => 1
 

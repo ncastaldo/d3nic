@@ -1,5 +1,5 @@
 import pipe from 'lodash/fp/flow'
-import * as d3 from '@/js/d3-modules.js'
+import { select } from 'd3-selection'
 
 import component from '../../virtual/component/base/index'
 
@@ -33,7 +33,7 @@ const bxBars = (state = {}) => {
   )
 
   self.fnAfter(s =>
-    s.attr('y2', (d, i, nodes) => d3.select(nodes[i]).attr('y1'))
+    s.attr('y2', (d, i, nodes) => select(nodes[i]).attr('y1'))
       .attr('opacity', 0)
   )
 

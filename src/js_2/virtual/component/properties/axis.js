@@ -1,10 +1,11 @@
 import pipe from 'lodash/fp/flow'
-import * as d3 from '@/js/d3-modules.js'
+import { axisBottom, axisTop, axisLeft, axisRight } from 'd3-axis'
+import { format } from 'd3-format'
 
 const computeAxis = (on, position) => {
   return on === 'x'
-    ? position === 'top' ? d3.axisTop() : d3.axisBottom()
-    : position === 'right' ? d3.axisRight() : d3.axisLeft()
+    ? position === 'top' ? axisTop() : axisBottom()
+    : position === 'right' ? axisRight() : axisLeft()
 }
 
 const computeTranslate = (chart, on, position) => {
@@ -23,7 +24,7 @@ const computeTranslate = (chart, on, position) => {
 
 const hasAxisFactory = (on = 'x') => (state = {}) => {
   let ticks = 5
-  let tickFormat = d3.format('.1f')
+  let tickFormat = format('.1f')
   let tickSizeInner = 6
   let tickSizeOuter = 6
   let tickPadding = 8

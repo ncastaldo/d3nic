@@ -878,6 +878,734 @@
   !*** ./node_modules/d3-format/src/precisionRound.js ***!
   \******************************************************/
 
+/*!***************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/array.js ***!
+  \***************************************************************************/
+
+/*!*******************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/ascending.js ***!
+  \*******************************************************************************/
+
+/*!****************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/bisect.js ***!
+  \****************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/bisector.js ***!
+  \******************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/constant.js ***!
+  \******************************************************************************/
+
+/*!***************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/cross.js ***!
+  \***************************************************************************/
+
+/*!********************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/descending.js ***!
+  \********************************************************************************/
+
+/*!*******************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/deviation.js ***!
+  \*******************************************************************************/
+
+/*!****************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/extent.js ***!
+  \****************************************************************************/
+
+/*!*******************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/histogram.js ***!
+  \*******************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/identity.js ***!
+  \******************************************************************************/
+
+/*!***************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/index.js ***!
+  \***************************************************************************/
+
+/*!*************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/max.js ***!
+  \*************************************************************************/
+
+/*!**************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/mean.js ***!
+  \**************************************************************************/
+
+/*!****************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/median.js ***!
+  \****************************************************************************/
+
+/*!***************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/merge.js ***!
+  \***************************************************************************/
+
+/*!*************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/min.js ***!
+  \*************************************************************************/
+
+/*!****************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/number.js ***!
+  \****************************************************************************/
+
+/*!***************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/pairs.js ***!
+  \***************************************************************************/
+
+/*!*****************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/permute.js ***!
+  \*****************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/quantile.js ***!
+  \******************************************************************************/
+
+/*!***************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/range.js ***!
+  \***************************************************************************/
+
+/*!**************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/scan.js ***!
+  \**************************************************************************/
+
+/*!*****************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/shuffle.js ***!
+  \*****************************************************************************/
+
+/*!*************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/sum.js ***!
+  \*************************************************************************/
+
+/*!************************************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/threshold/freedmanDiaconis.js ***!
+  \************************************************************************************************/
+
+/*!*************************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/threshold/scott.js ***!
+  \*************************************************************************************/
+
+/*!***************************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/threshold/sturges.js ***!
+  \***************************************************************************************/
+
+/*!***************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/ticks.js ***!
+  \***************************************************************************/
+
+/*!*******************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/transpose.js ***!
+  \*******************************************************************************/
+
+/*!******************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/variance.js ***!
+  \******************************************************************************/
+
+/*!*************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/node_modules/d3-array/src/zip.js ***!
+  \*************************************************************************/
+
+/*!****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/airy.js ***!
+  \****************************************************/
+
+/*! exports provided: airyRaw, default */
+
+/*!******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/aitoff.js ***!
+  \******************************************************/
+
+/*! exports provided: aitoffRaw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/armadillo.js ***!
+  \*********************************************************/
+
+/*! exports provided: armadilloRaw, default */
+
+/*!******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/august.js ***!
+  \******************************************************/
+
+/*! exports provided: augustRaw, default */
+
+/*!*****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/baker.js ***!
+  \*****************************************************/
+
+/*! exports provided: bakerRaw, default */
+
+/*!********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/berghaus.js ***!
+  \********************************************************/
+
+/*! exports provided: berghausRaw, default */
+
+/*!******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/bertin.js ***!
+  \******************************************************/
+
+/*! exports provided: bertin1953Raw, default */
+
+/*!*****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/boggs.js ***!
+  \*****************************************************/
+
+/*! exports provided: boggsRaw, default */
+
+/*!*****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/bonne.js ***!
+  \*****************************************************/
+
+/*! exports provided: bonneRaw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/bottomley.js ***!
+  \*********************************************************/
+
+/*! exports provided: bottomleyRaw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/bromley.js ***!
+  \*******************************************************/
+
+/*! exports provided: bromleyRaw, default */
+
+/*!**********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/chamberlin.js ***!
+  \**********************************************************/
+
+/*! exports provided: chamberlinRaw, chamberlinAfrica, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/collignon.js ***!
+  \*********************************************************/
+
+/*! exports provided: collignonRaw, default */
+
+/*!*****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/craig.js ***!
+  \*****************************************************/
+
+/*! exports provided: craigRaw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/craster.js ***!
+  \*******************************************************/
+
+/*! exports provided: crasterRaw, default */
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/cylindricalEqualArea.js ***!
+  \********************************************************************/
+
+/*! exports provided: cylindricalEqualAreaRaw, default */
+
+/*!************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/cylindricalStereographic.js ***!
+  \************************************************************************/
+
+/*! exports provided: cylindricalStereographicRaw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/eckert1.js ***!
+  \*******************************************************/
+
+/*! exports provided: eckert1Raw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/eckert2.js ***!
+  \*******************************************************/
+
+/*! exports provided: eckert2Raw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/eckert3.js ***!
+  \*******************************************************/
+
+/*! exports provided: eckert3Raw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/eckert4.js ***!
+  \*******************************************************/
+
+/*! exports provided: eckert4Raw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/eckert5.js ***!
+  \*******************************************************/
+
+/*! exports provided: eckert5Raw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/eckert6.js ***!
+  \*******************************************************/
+
+/*! exports provided: eckert6Raw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/eisenlohr.js ***!
+  \*********************************************************/
+
+/*! exports provided: eisenlohrRaw, default */
+
+/*!********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/elliptic.js ***!
+  \********************************************************/
+
+/*! exports provided: ellipticJi, ellipticJ, ellipticFi, ellipticF */
+
+/*!*****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/fahey.js ***!
+  \*****************************************************/
+
+/*! exports provided: faheyRaw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/foucaut.js ***!
+  \*******************************************************/
+
+/*! exports provided: foucautRaw, default */
+
+/*!*****************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/foucautSinusoidal.js ***!
+  \*****************************************************************/
+
+/*! exports provided: foucautSinusoidalRaw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/gilbert.js ***!
+  \*******************************************************/
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/gingery.js ***!
+  \*******************************************************/
+
+/*! exports provided: gingeryRaw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/ginzburg4.js ***!
+  \*********************************************************/
+
+/*! exports provided: ginzburg4Raw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/ginzburg5.js ***!
+  \*********************************************************/
+
+/*! exports provided: ginzburg5Raw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/ginzburg6.js ***!
+  \*********************************************************/
+
+/*! exports provided: ginzburg6Raw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/ginzburg8.js ***!
+  \*********************************************************/
+
+/*! exports provided: ginzburg8Raw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/ginzburg9.js ***!
+  \*********************************************************/
+
+/*! exports provided: ginzburg9Raw, default */
+
+/*!*****************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/ginzburgPolyconic.js ***!
+  \*****************************************************************/
+
+/*!**********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/gringorten.js ***!
+  \**********************************************************/
+
+/*! exports provided: gringortenRaw, default */
+
+/*!*****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/guyou.js ***!
+  \*****************************************************/
+
+/*! exports provided: guyouRaw, default */
+
+/*!******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/hammer.js ***!
+  \******************************************************/
+
+/*! exports provided: hammerRaw, default */
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/hammerRetroazimuthal.js ***!
+  \********************************************************************/
+
+/*! exports provided: hammerRetroazimuthalRaw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/healpix.js ***!
+  \*******************************************************/
+
+/*! exports provided: healpixRaw, default */
+
+/*!****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/hill.js ***!
+  \****************************************************/
+
+/*! exports provided: hillRaw, default */
+
+/*!**********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/homolosine.js ***!
+  \**********************************************************/
+
+/*! exports provided: homolosineRaw, default */
+
+/*!********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/hufnagel.js ***!
+  \********************************************************/
+
+/*! exports provided: hufnagelRaw, default */
+
+/*!***************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/hyperelliptical.js ***!
+  \***************************************************************/
+
+/*! exports provided: hyperellipticalRaw, default */
+
+/*!*****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/index.js ***!
+  \*****************************************************/
+
+/*! exports provided: geoAiry, geoAiryRaw, geoAitoff, geoAitoffRaw, geoArmadillo, geoArmadilloRaw, geoAugust, geoAugustRaw, geoBaker, geoBakerRaw, geoBerghaus, geoBerghausRaw, geoBertin1953, geoBertin1953Raw, geoBoggs, geoBoggsRaw, geoBonne, geoBonneRaw, geoBottomley, geoBottomleyRaw, geoBromley, geoBromleyRaw, geoChamberlin, geoChamberlinRaw, geoChamberlinAfrica, geoCollignon, geoCollignonRaw, geoCraig, geoCraigRaw, geoCraster, geoCrasterRaw, geoCylindricalEqualArea, geoCylindricalEqualAreaRaw, geoCylindricalStereographic, geoCylindricalStereographicRaw, geoEckert1, geoEckert1Raw, geoEckert2, geoEckert2Raw, geoEckert3, geoEckert3Raw, geoEckert4, geoEckert4Raw, geoEckert5, geoEckert5Raw, geoEckert6, geoEckert6Raw, geoEisenlohr, geoEisenlohrRaw, geoFahey, geoFaheyRaw, geoFoucaut, geoFoucautRaw, geoFoucautSinusoidal, geoFoucautSinusoidalRaw, geoGilbert, geoGingery, geoGingeryRaw, geoGinzburg4, geoGinzburg4Raw, geoGinzburg5, geoGinzburg5Raw, geoGinzburg6, geoGinzburg6Raw, geoGinzburg8, geoGinzburg8Raw, geoGinzburg9, geoGinzburg9Raw, geoGringorten, geoGringortenRaw, geoGuyou, geoGuyouRaw, geoHammer, geoHammerRaw, geoHammerRetroazimuthal, geoHammerRetroazimuthalRaw, geoHealpix, geoHealpixRaw, geoHill, geoHillRaw, geoHomolosine, geoHomolosineRaw, geoHufnagel, geoHufnagelRaw, geoHyperelliptical, geoHyperellipticalRaw, geoInterrupt, geoInterruptedBoggs, geoInterruptedHomolosine, geoInterruptedMollweide, geoInterruptedMollweideHemispheres, geoInterruptedSinuMollweide, geoInterruptedSinusoidal, geoKavrayskiy7, geoKavrayskiy7Raw, geoLagrange, geoLagrangeRaw, geoLarrivee, geoLarriveeRaw, geoLaskowski, geoLaskowskiRaw, geoLittrow, geoLittrowRaw, geoLoximuthal, geoLoximuthalRaw, geoMiller, geoMillerRaw, geoModifiedStereographic, geoModifiedStereographicRaw, geoModifiedStereographicAlaska, geoModifiedStereographicGs48, geoModifiedStereographicGs50, geoModifiedStereographicMiller, geoModifiedStereographicLee, geoMollweide, geoMollweideRaw, geoMtFlatPolarParabolic, geoMtFlatPolarParabolicRaw, geoMtFlatPolarQuartic, geoMtFlatPolarQuarticRaw, geoMtFlatPolarSinusoidal, geoMtFlatPolarSinusoidalRaw, geoNaturalEarth, geoNaturalEarthRaw, geoNaturalEarth2, geoNaturalEarth2Raw, geoNellHammer, geoNellHammerRaw, geoInterruptedQuarticAuthalic, geoNicolosi, geoNicolosiRaw, geoPatterson, geoPattersonRaw, geoPolyconic, geoPolyconicRaw, geoPolyhedral, geoPolyhedralButterfly, geoPolyhedralCollignon, geoPolyhedralWaterman, geoProject, geoGringortenQuincuncial, geoPeirceQuincuncial, geoPierceQuincuncial, geoQuantize, geoQuincuncial, geoRectangularPolyconic, geoRectangularPolyconicRaw, geoRobinson, geoRobinsonRaw, geoSatellite, geoSatelliteRaw, geoSinuMollweide, geoSinuMollweideRaw, geoSinusoidal, geoSinusoidalRaw, geoStitch, geoTimes, geoTimesRaw, geoTwoPointAzimuthal, geoTwoPointAzimuthalRaw, geoTwoPointAzimuthalUsa, geoTwoPointEquidistant, geoTwoPointEquidistantRaw, geoTwoPointEquidistantUsa, geoVanDerGrinten, geoVanDerGrintenRaw, geoVanDerGrinten2, geoVanDerGrinten2Raw, geoVanDerGrinten3, geoVanDerGrinten3Raw, geoVanDerGrinten4, geoVanDerGrinten4Raw, geoWagner, geoWagner7, geoWagnerRaw, geoWagner4, geoWagner4Raw, geoWagner6, geoWagner6Raw, geoWiechel, geoWiechelRaw, geoWinkel3, geoWinkel3Raw */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/integrate.js ***!
+  \*********************************************************/
+
+/*! exports provided: integrate */
+
+/*!*****************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/interrupted/boggs.js ***!
+  \*****************************************************************/
+
+/*!**********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/interrupted/homolosine.js ***!
+  \**********************************************************************/
+
+/*!*****************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/interrupted/index.js ***!
+  \*****************************************************************/
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/interrupted/mollweide.js ***!
+  \*********************************************************************/
+
+/*!********************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/interrupted/mollweideHemispheres.js ***!
+  \********************************************************************************/
+
+/*!***************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/interrupted/quarticAuthalic.js ***!
+  \***************************************************************************/
+
+/*!*************************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/interrupted/sinuMollweide.js ***!
+  \*************************************************************************/
+
+/*!**********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/interrupted/sinusoidal.js ***!
+  \**********************************************************************/
+
+/*!***********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/kavrayskiy7.js ***!
+  \***********************************************************/
+
+/*! exports provided: kavrayskiy7Raw, default */
+
+/*!********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/lagrange.js ***!
+  \********************************************************/
+
+/*! exports provided: lagrangeRaw, default */
+
+/*!********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/larrivee.js ***!
+  \********************************************************/
+
+/*! exports provided: larriveeRaw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/laskowski.js ***!
+  \*********************************************************/
+
+/*! exports provided: laskowskiRaw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/littrow.js ***!
+  \*******************************************************/
+
+/*! exports provided: littrowRaw, default */
+
+/*!**********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/loximuthal.js ***!
+  \**********************************************************/
+
+/*! exports provided: loximuthalRaw, default */
+
+/*!****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/math.js ***!
+  \****************************************************/
+
+/*! exports provided: abs, atan, atan2, ceil, cos, exp, floor, log, max, min, pow, round, sign, sin, tan, epsilon, epsilon2, pi, halfPi, quarterPi, sqrt1_2, sqrt2, sqrtPi, tau, degrees, radians, sinci, asin, acos, sqrt, tanh, sinh, cosh, arsinh, arcosh */
+
+/*!******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/miller.js ***!
+  \******************************************************/
+
+/*! exports provided: millerRaw, default */
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/modifiedStereographic.js ***!
+  \*********************************************************************/
+
+/*! exports provided: modifiedStereographicRaw, modifiedStereographicAlaska, modifiedStereographicGs48, modifiedStereographicGs50, modifiedStereographicMiller, modifiedStereographicLee, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/mollweide.js ***!
+  \*********************************************************/
+
+/*! exports provided: mollweideBromleyTheta, mollweideBromleyRaw, mollweideRaw, default */
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/mtFlatPolarParabolic.js ***!
+  \********************************************************************/
+
+/*! exports provided: mtFlatPolarParabolicRaw, default */
+
+/*!******************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/mtFlatPolarQuartic.js ***!
+  \******************************************************************/
+
+/*! exports provided: mtFlatPolarQuarticRaw, default */
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/mtFlatPolarSinusoidal.js ***!
+  \*********************************************************************/
+
+/*! exports provided: mtFlatPolarSinusoidalRaw, default */
+
+/*!*************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/naturalEarth2.js ***!
+  \*************************************************************/
+
+/*! exports provided: naturalEarth2Raw, default */
+
+/*!**********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/nellHammer.js ***!
+  \**********************************************************/
+
+/*! exports provided: nellHammerRaw, default */
+
+/*!******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/newton.js ***!
+  \******************************************************/
+
+/*! exports provided: solve, solve2d */
+
+/*!********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/nicolosi.js ***!
+  \********************************************************/
+
+/*! exports provided: nicolosiRaw, default */
+
+/*!****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/noop.js ***!
+  \****************************************************/
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/parallel1.js ***!
+  \*********************************************************/
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/patterson.js ***!
+  \*********************************************************/
+
+/*! exports provided: pattersonRaw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/polyconic.js ***!
+  \*********************************************************/
+
+/*! exports provided: polyconicRaw, default */
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/polyhedral/butterfly.js ***!
+  \********************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/polyhedral/collignon.js ***!
+  \********************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/polyhedral/index.js ***!
+  \****************************************************************/
+
+/*!*****************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/polyhedral/matrix.js ***!
+  \*****************************************************************/
+
+/*! exports provided: default, inverse, multiply */
+
+/*!*********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/polyhedral/octahedron.js ***!
+  \*********************************************************************/
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/polyhedral/waterman.js ***!
+  \*******************************************************************/
+
+/*!*****************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/project/clockwise.js ***!
+  \*****************************************************************/
+
+/*!****************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/project/contains.js ***!
+  \****************************************************************/
+
+/*!*************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/project/index.js ***!
+  \*************************************************************/
+
+/*!********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/quantize.js ***!
+  \********************************************************/
+
+/*!**********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/quincuncial/gringorten.js ***!
+  \**********************************************************************/
+
+/*!*****************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/quincuncial/index.js ***!
+  \*****************************************************************/
+
+/*!******************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/quincuncial/peirce.js ***!
+  \******************************************************************/
+
+/*!********************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/rectangularPolyconic.js ***!
+  \********************************************************************/
+
+/*! exports provided: rectangularPolyconicRaw, default */
+
+/*!********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/robinson.js ***!
+  \********************************************************/
+
+/*! exports provided: robinsonRaw, default */
+
+/*!*********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/satellite.js ***!
+  \*********************************************************/
+
+/*! exports provided: satelliteRaw, default */
+
+/*!*************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/sinuMollweide.js ***!
+  \*************************************************************/
+
+/*! exports provided: sinuMollweidePhi, sinuMollweideY, sinuMollweideRaw, default */
+
+/*!**********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/sinusoidal.js ***!
+  \**********************************************************/
+
+/*! exports provided: sinusoidalRaw, default */
+
+/*!******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/square.js ***!
+  \******************************************************/
+
+/*!******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/stitch.js ***!
+  \******************************************************/
+
+/*!*****************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/times.js ***!
+  \*****************************************************/
+
+/*! exports provided: timesRaw, default */
+
+/*!********************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/twoPoint.js ***!
+  \********************************************************/
+
+/*!*****************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/twoPointAzimuthal.js ***!
+  \*****************************************************************/
+
+/*! exports provided: twoPointAzimuthalRaw, twoPointAzimuthalUsa, default */
+
+/*!*******************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/twoPointEquidistant.js ***!
+  \*******************************************************************/
+
+/*! exports provided: twoPointEquidistantRaw, twoPointEquidistantUsa, default */
+
+/*!*************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/vanDerGrinten.js ***!
+  \*************************************************************/
+
+/*! exports provided: vanDerGrintenRaw, default */
+
+/*!**************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/vanDerGrinten2.js ***!
+  \**************************************************************/
+
+/*! exports provided: vanDerGrinten2Raw, default */
+
+/*!**************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/vanDerGrinten3.js ***!
+  \**************************************************************/
+
+/*! exports provided: vanDerGrinten3Raw, default */
+
+/*!**************************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/vanDerGrinten4.js ***!
+  \**************************************************************/
+
+/*! exports provided: vanDerGrinten4Raw, default */
+
+/*!******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/wagner.js ***!
+  \******************************************************/
+
+/*! exports provided: wagnerRaw, default, wagner7 */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/wagner4.js ***!
+  \*******************************************************/
+
+/*! exports provided: wagner4Raw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/wagner6.js ***!
+  \*******************************************************/
+
+/*! exports provided: wagner6Raw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/wiechel.js ***!
+  \*******************************************************/
+
+/*! exports provided: wiechelRaw, default */
+
+/*!*******************************************************!*\
+  !*** ./node_modules/d3-geo-projection/src/winkel3.js ***!
+  \*******************************************************/
+
+/*! exports provided: winkel3Raw, default */
+
 /*!****************************************************************!*\
   !*** ./node_modules/d3-geo/node_modules/d3-array/src/array.js ***!
   \****************************************************************/
@@ -3748,181 +4476,13 @@
   !*** ./src/app.js ***!
   \********************/
 
-/*! exports provided: bxChart, bxAxisX, bxAxisY, bxBars, bxCircles, bxArea, bxLine, bxLines, bxMouseBars, byChart, byAxisX, byAxisY, byBars, geoChart, geoRegions, Chart, Component, Rect, AxisComponent, BxAxis, ByAxis, XAxis, YAxis, GeoChart, GeoContours, GeoHexbin, GeoRegions, GeoSvgs, GeoSymbols, GeoTooltips, XyChart, XyContours, XySymbols, PolarChart, PolarComponent, ArcBars, ArcChart, ArcMouseBisector, SectorArea, SectorBars, SectorChart, SectorLine, SectorMouseBisector, SectorVLines, BandArea, BandAxis, BandBars, BandBoxPlots, BandChart, BandLine, BandBisector, BandBrusher, BandSymbols, BandVLines, BbChart, BbContours, BbRects */
-
-/*!**************************************!*\
-  !*** ./src/js/axis/axisComponent.js ***!
-  \**************************************/
-
-/*!*******************************!*\
-  !*** ./src/js/axis/bxAxis.js ***!
-  \*******************************/
-
-/*!*******************************!*\
-  !*** ./src/js/axis/byAxis.js ***!
-  \*******************************/
-
-/*!******************************!*\
-  !*** ./src/js/axis/xAxis.js ***!
-  \******************************/
-
-/*!******************************!*\
-  !*** ./src/js/axis/yAxis.js ***!
-  \******************************/
-
-/*!*********************************!*\
-  !*** ./src/js/band/bandArea.js ***!
-  \*********************************/
-
-/*!*********************************!*\
-  !*** ./src/js/band/bandAxis.js ***!
-  \*********************************/
-
-/*!*********************************!*\
-  !*** ./src/js/band/bandBars.js ***!
-  \*********************************/
-
-/*!*************************************!*\
-  !*** ./src/js/band/bandBisector.js ***!
-  \*************************************/
-
-/*!*************************************!*\
-  !*** ./src/js/band/bandBoxPlots.js ***!
-  \*************************************/
-
-/*!************************************!*\
-  !*** ./src/js/band/bandBrusher.js ***!
-  \************************************/
-
-/*!**********************************!*\
-  !*** ./src/js/band/bandChart.js ***!
-  \**********************************/
-
-/*!*********************************!*\
-  !*** ./src/js/band/bandLine.js ***!
-  \*********************************/
-
-/*!************************************!*\
-  !*** ./src/js/band/bandSymbols.js ***!
-  \************************************/
-
-/*!***********************************!*\
-  !*** ./src/js/band/bandVLines.js ***!
-  \***********************************/
-
-/*!******************************!*\
-  !*** ./src/js/bb/bbChart.js ***!
-  \******************************/
-
-/*!*********************************!*\
-  !*** ./src/js/bb/bbContours.js ***!
-  \*********************************/
-
-/*!******************************!*\
-  !*** ./src/js/bb/bbRects.js ***!
-  \******************************/
-
-/*!*************************!*\
-  !*** ./src/js/chart.js ***!
-  \*************************/
-
-/*!*****************************!*\
-  !*** ./src/js/component.js ***!
-  \*****************************/
+/*! exports provided: bxChart, bxAxisX, bxAxisY, bxBars, bxCircles, bxArea, bxLine, bxLines, bxMouseBars, byChart, byAxisX, byAxisY, byBars, geoChart, geoRegions */
 
 /*!******************************!*\
   !*** ./src/js/d3-modules.js ***!
   \******************************/
 
-/*! exports provided: bisect, bisectRight, bisectLeft, ascending, bisector, count, cross, cumsum, descending, deviation, extent, group, groups, rollup, rollups, bin, histogram, thresholdFreedmanDiaconis, thresholdScott, thresholdSturges, max, maxIndex, mean, median, merge, min, minIndex, pairs, permute, quantile, quantileSorted, quickselect, range, least, leastIndex, greatest, greatestIndex, scan, shuffle, sum, ticks, tickIncrement, tickStep, transpose, variance, zip, axisTop, axisRight, axisBottom, axisLeft, brush, brushX, brushY, brushSelection, chord, ribbon, nest, set, map, keys, values, entries, color, rgb, hsl, lab, hcl, lch, gray, cubehelix, contours, contourDensity, dispatch, drag, dragDisable, dragEnable, dsvFormat, csvParse, csvParseRows, csvFormat, csvFormatBody, csvFormatRows, tsvParse, tsvParseRows, tsvFormat, tsvFormatBody, tsvFormatRows, autoType, easeLinear, easeQuad, easeQuadIn, easeQuadOut, easeQuadInOut, easeCubic, easeCubicIn, easeCubicOut, easeCubicInOut, easePoly, easePolyIn, easePolyOut, easePolyInOut, easeSin, easeSinIn, easeSinOut, easeSinInOut, easeExp, easeExpIn, easeExpOut, easeExpInOut, easeCircle, easeCircleIn, easeCircleOut, easeCircleInOut, easeBounce, easeBounceIn, easeBounceOut, easeBounceInOut, easeBack, easeBackIn, easeBackOut, easeBackInOut, easeElastic, easeElasticIn, easeElasticOut, easeElasticInOut, forceCenter, forceCollide, forceLink, forceManyBody, forceRadial, forceSimulation, forceX, forceY, formatDefaultLocale, format, formatPrefix, formatLocale, formatSpecifier, FormatSpecifier, precisionFixed, precisionPrefix, precisionRound, geoArea, geoBounds, geoCentroid, geoCircle, geoClipAntimeridian, geoClipCircle, geoClipExtent, geoClipRectangle, geoContains, geoDistance, geoGraticule, geoGraticule10, geoInterpolate, geoLength, geoPath, geoAlbers, geoAlbersUsa, geoAzimuthalEqualArea, geoAzimuthalEqualAreaRaw, geoAzimuthalEquidistant, geoAzimuthalEquidistantRaw, geoConicConformal, geoConicConformalRaw, geoConicEqualArea, geoConicEqualAreaRaw, geoConicEquidistant, geoConicEquidistantRaw, geoEqualEarth, geoEqualEarthRaw, geoEquirectangular, geoEquirectangularRaw, geoGnomonic, geoGnomonicRaw, geoIdentity, geoProjection, geoProjectionMutator, geoMercator, geoMercatorRaw, geoNaturalEarth1, geoNaturalEarth1Raw, geoOrthographic, geoOrthographicRaw, geoStereographic, geoStereographicRaw, geoTransverseMercator, geoTransverseMercatorRaw, geoRotation, geoStream, geoTransform, cluster, hierarchy, pack, packSiblings, packEnclose, partition, stratify, tree, treemap, treemapBinary, treemapDice, treemapSlice, treemapSliceDice, treemapSquarify, treemapResquarify, hexbin, interpolate, interpolateArray, interpolateBasis, interpolateBasisClosed, interpolateDate, interpolateDiscrete, interpolateHue, interpolateNumber, interpolateObject, interpolateRound, interpolateString, interpolateTransformCss, interpolateTransformSvg, interpolateZoom, interpolateRgb, interpolateRgbBasis, interpolateRgbBasisClosed, interpolateHsl, interpolateHslLong, interpolateLab, interpolateHcl, interpolateHclLong, interpolateCubehelix, interpolateCubehelixLong, piecewise, quantize, path, polygonArea, polygonCentroid, polygonHull, polygonContains, polygonLength, quadtree, queue, randomUniform, randomInt, randomNormal, randomLogNormal, randomBates, randomIrwinHall, randomExponential, randomPareto, randomBernoulli, randomGeometric, randomBinomial, request, html, json, text, xml, csv, tsv, scaleBand, scalePoint, scaleIdentity, scaleLinear, scaleLog, scaleSymlog, scaleOrdinal, scaleImplicit, scalePow, scaleSqrt, scaleRadial, scaleQuantile, scaleQuantize, scaleThreshold, scaleTime, scaleUtc, scaleSequential, scaleSequentialLog, scaleSequentialPow, scaleSequentialSqrt, scaleSequentialSymlog, scaleSequentialQuantile, scaleDiverging, scaleDivergingLog, scaleDivergingPow, scaleDivergingSqrt, scaleDivergingSymlog, tickFormat, schemeCategory10, schemeAccent, schemeDark2, schemePaired, schemePastel1, schemePastel2, schemeSet1, schemeSet2, schemeSet3, schemeTableau10, interpolateBrBG, schemeBrBG, interpolatePRGn, schemePRGn, interpolatePiYG, schemePiYG, interpolatePuOr, schemePuOr, interpolateRdBu, schemeRdBu, interpolateRdGy, schemeRdGy, interpolateRdYlBu, schemeRdYlBu, interpolateRdYlGn, schemeRdYlGn, interpolateSpectral, schemeSpectral, interpolateBuGn, schemeBuGn, interpolateBuPu, schemeBuPu, interpolateGnBu, schemeGnBu, interpolateOrRd, schemeOrRd, interpolatePuBuGn, schemePuBuGn, interpolatePuBu, schemePuBu, interpolatePuRd, schemePuRd, interpolateRdPu, schemeRdPu, interpolateYlGnBu, schemeYlGnBu, interpolateYlGn, schemeYlGn, interpolateYlOrBr, schemeYlOrBr, interpolateYlOrRd, schemeYlOrRd, interpolateBlues, schemeBlues, interpolateGreens, schemeGreens, interpolateGreys, schemeGreys, interpolatePurples, schemePurples, interpolateReds, schemeReds, interpolateOranges, schemeOranges, interpolateCividis, interpolateCubehelixDefault, interpolateRainbow, interpolateWarm, interpolateCool, interpolateSinebow, interpolateTurbo, interpolateViridis, interpolateMagma, interpolateInferno, interpolatePlasma, create, creator, local, matcher, mouse, namespace, namespaces, clientPoint, select, selectAll, selection, selector, selectorAll, style, touch, touches, window, event, customEvent, arc, area, line, pie, areaRadial, radialArea, lineRadial, radialLine, pointRadial, linkHorizontal, linkVertical, linkRadial, symbol, symbols, symbolCircle, symbolCross, symbolDiamond, symbolSquare, symbolStar, symbolTriangle, symbolWye, curveBasisClosed, curveBasisOpen, curveBasis, curveBundle, curveCardinalClosed, curveCardinalOpen, curveCardinal, curveCatmullRomClosed, curveCatmullRomOpen, curveCatmullRom, curveLinearClosed, curveLinear, curveMonotoneX, curveMonotoneY, curveNatural, curveStep, curveStepAfter, curveStepBefore, stack, stackOffsetExpand, stackOffsetDiverging, stackOffsetNone, stackOffsetSilhouette, stackOffsetWiggle, stackOrderAppearance, stackOrderAscending, stackOrderDescending, stackOrderInsideOut, stackOrderNone, stackOrderReverse, timeInterval, timeMillisecond, timeMilliseconds, utcMillisecond, utcMilliseconds, timeSecond, timeSeconds, utcSecond, utcSeconds, timeMinute, timeMinutes, timeHour, timeHours, timeDay, timeDays, timeWeek, timeWeeks, timeSunday, timeSundays, timeMonday, timeMondays, timeTuesday, timeTuesdays, timeWednesday, timeWednesdays, timeThursday, timeThursdays, timeFriday, timeFridays, timeSaturday, timeSaturdays, timeMonth, timeMonths, timeYear, timeYears, utcMinute, utcMinutes, utcHour, utcHours, utcDay, utcDays, utcWeek, utcWeeks, utcSunday, utcSundays, utcMonday, utcMondays, utcTuesday, utcTuesdays, utcWednesday, utcWednesdays, utcThursday, utcThursdays, utcFriday, utcFridays, utcSaturday, utcSaturdays, utcMonth, utcMonths, utcYear, utcYears, timeFormatDefaultLocale, timeFormat, timeParse, utcFormat, utcParse, timeFormatLocale, isoFormat, isoParse, now, timer, timerFlush, timeout, interval, transition, active, interrupt, voronoi, zoom, zoomTransform, zoomIdentity */
-
-/*!********************************!*\
-  !*** ./src/js/geo/geoChart.js ***!
-  \********************************/
-
-/*!***********************************!*\
-  !*** ./src/js/geo/geoContours.js ***!
-  \***********************************/
-
-/*!*********************************!*\
-  !*** ./src/js/geo/geoHexbin.js ***!
-  \*********************************/
-
-/*!**********************************!*\
-  !*** ./src/js/geo/geoRegions.js ***!
-  \**********************************/
-
-/*!*******************************!*\
-  !*** ./src/js/geo/geoSvgs.js ***!
-  \*******************************/
-
-/*!**********************************!*\
-  !*** ./src/js/geo/geoSymbols.js ***!
-  \**********************************/
-
-/*!***********************************!*\
-  !*** ./src/js/geo/geoTooltips.js ***!
-  \***********************************/
-
-/*!*************************************!*\
-  !*** ./src/js/polar/arc/arcBars.js ***!
-  \*************************************/
-
-/*!**************************************!*\
-  !*** ./src/js/polar/arc/arcChart.js ***!
-  \**************************************/
-
-/*!**********************************************!*\
-  !*** ./src/js/polar/arc/arcMouseBisector.js ***!
-  \**********************************************/
-
-/*!************************************!*\
-  !*** ./src/js/polar/polarChart.js ***!
-  \************************************/
-
-/*!****************************************!*\
-  !*** ./src/js/polar/polarComponent.js ***!
-  \****************************************/
-
-/*!*******************************************!*\
-  !*** ./src/js/polar/sector/sectorArea.js ***!
-  \*******************************************/
-
-/*!*******************************************!*\
-  !*** ./src/js/polar/sector/sectorBars.js ***!
-  \*******************************************/
-
-/*!********************************************!*\
-  !*** ./src/js/polar/sector/sectorChart.js ***!
-  \********************************************/
-
-/*!*******************************************!*\
-  !*** ./src/js/polar/sector/sectorLine.js ***!
-  \*******************************************/
-
-/*!****************************************************!*\
-  !*** ./src/js/polar/sector/sectorMouseBisector.js ***!
-  \****************************************************/
-
-/*!*********************************************!*\
-  !*** ./src/js/polar/sector/sectorVLines.js ***!
-  \*********************************************/
-
-/*!************************!*\
-  !*** ./src/js/rect.js ***!
-  \************************/
-
-/*!******************************!*\
-  !*** ./src/js/xy/xyChart.js ***!
-  \******************************/
-
-/*!*********************************!*\
-  !*** ./src/js/xy/xyContours.js ***!
-  \*********************************/
-
-/*!********************************!*\
-  !*** ./src/js/xy/xySymbols.js ***!
-  \********************************/
+/*! exports provided: bisect, bisectRight, bisectLeft, ascending, bisector, count, cross, cumsum, descending, deviation, extent, group, groups, rollup, rollups, bin, histogram, thresholdFreedmanDiaconis, thresholdScott, thresholdSturges, max, maxIndex, mean, median, merge, min, minIndex, pairs, permute, quantile, quantileSorted, quickselect, range, least, leastIndex, greatest, greatestIndex, scan, shuffle, sum, ticks, tickIncrement, tickStep, transpose, variance, zip, axisTop, axisRight, axisBottom, axisLeft, brush, brushX, brushY, brushSelection, chord, ribbon, nest, set, map, keys, values, entries, color, rgb, hsl, lab, hcl, lch, gray, cubehelix, contours, contourDensity, dispatch, drag, dragDisable, dragEnable, dsvFormat, csvParse, csvParseRows, csvFormat, csvFormatBody, csvFormatRows, tsvParse, tsvParseRows, tsvFormat, tsvFormatBody, tsvFormatRows, autoType, easeLinear, easeQuad, easeQuadIn, easeQuadOut, easeQuadInOut, easeCubic, easeCubicIn, easeCubicOut, easeCubicInOut, easePoly, easePolyIn, easePolyOut, easePolyInOut, easeSin, easeSinIn, easeSinOut, easeSinInOut, easeExp, easeExpIn, easeExpOut, easeExpInOut, easeCircle, easeCircleIn, easeCircleOut, easeCircleInOut, easeBounce, easeBounceIn, easeBounceOut, easeBounceInOut, easeBack, easeBackIn, easeBackOut, easeBackInOut, easeElastic, easeElasticIn, easeElasticOut, easeElasticInOut, forceCenter, forceCollide, forceLink, forceManyBody, forceRadial, forceSimulation, forceX, forceY, formatDefaultLocale, format, formatPrefix, formatLocale, formatSpecifier, FormatSpecifier, precisionFixed, precisionPrefix, precisionRound, geoArea, geoBounds, geoCentroid, geoCircle, geoClipAntimeridian, geoClipCircle, geoClipExtent, geoClipRectangle, geoContains, geoDistance, geoGraticule, geoGraticule10, geoInterpolate, geoLength, geoPath, geoAlbers, geoAlbersUsa, geoAzimuthalEqualArea, geoAzimuthalEqualAreaRaw, geoAzimuthalEquidistant, geoAzimuthalEquidistantRaw, geoConicConformal, geoConicConformalRaw, geoConicEqualArea, geoConicEqualAreaRaw, geoConicEquidistant, geoConicEquidistantRaw, geoEqualEarth, geoEqualEarthRaw, geoEquirectangular, geoEquirectangularRaw, geoGnomonic, geoGnomonicRaw, geoIdentity, geoProjection, geoProjectionMutator, geoMercator, geoMercatorRaw, geoNaturalEarth1, geoNaturalEarth1Raw, geoOrthographic, geoOrthographicRaw, geoStereographic, geoStereographicRaw, geoTransverseMercator, geoTransverseMercatorRaw, geoRotation, geoStream, geoTransform, geoAiry, geoAiryRaw, geoAitoff, geoAitoffRaw, geoArmadillo, geoArmadilloRaw, geoAugust, geoAugustRaw, geoBaker, geoBakerRaw, geoBerghaus, geoBerghausRaw, geoBertin1953, geoBertin1953Raw, geoBoggs, geoBoggsRaw, geoBonne, geoBonneRaw, geoBottomley, geoBottomleyRaw, geoBromley, geoBromleyRaw, geoChamberlin, geoChamberlinRaw, geoChamberlinAfrica, geoCollignon, geoCollignonRaw, geoCraig, geoCraigRaw, geoCraster, geoCrasterRaw, geoCylindricalEqualArea, geoCylindricalEqualAreaRaw, geoCylindricalStereographic, geoCylindricalStereographicRaw, geoEckert1, geoEckert1Raw, geoEckert2, geoEckert2Raw, geoEckert3, geoEckert3Raw, geoEckert4, geoEckert4Raw, geoEckert5, geoEckert5Raw, geoEckert6, geoEckert6Raw, geoEisenlohr, geoEisenlohrRaw, geoFahey, geoFaheyRaw, geoFoucaut, geoFoucautRaw, geoFoucautSinusoidal, geoFoucautSinusoidalRaw, geoGilbert, geoGingery, geoGingeryRaw, geoGinzburg4, geoGinzburg4Raw, geoGinzburg5, geoGinzburg5Raw, geoGinzburg6, geoGinzburg6Raw, geoGinzburg8, geoGinzburg8Raw, geoGinzburg9, geoGinzburg9Raw, geoGringorten, geoGringortenRaw, geoGuyou, geoGuyouRaw, geoHammer, geoHammerRaw, geoHammerRetroazimuthal, geoHammerRetroazimuthalRaw, geoHealpix, geoHealpixRaw, geoHill, geoHillRaw, geoHomolosine, geoHomolosineRaw, geoHufnagel, geoHufnagelRaw, geoHyperelliptical, geoHyperellipticalRaw, geoInterrupt, geoInterruptedBoggs, geoInterruptedHomolosine, geoInterruptedMollweide, geoInterruptedMollweideHemispheres, geoInterruptedSinuMollweide, geoInterruptedSinusoidal, geoKavrayskiy7, geoKavrayskiy7Raw, geoLagrange, geoLagrangeRaw, geoLarrivee, geoLarriveeRaw, geoLaskowski, geoLaskowskiRaw, geoLittrow, geoLittrowRaw, geoLoximuthal, geoLoximuthalRaw, geoMiller, geoMillerRaw, geoModifiedStereographic, geoModifiedStereographicRaw, geoModifiedStereographicAlaska, geoModifiedStereographicGs48, geoModifiedStereographicGs50, geoModifiedStereographicMiller, geoModifiedStereographicLee, geoMollweide, geoMollweideRaw, geoMtFlatPolarParabolic, geoMtFlatPolarParabolicRaw, geoMtFlatPolarQuartic, geoMtFlatPolarQuarticRaw, geoMtFlatPolarSinusoidal, geoMtFlatPolarSinusoidalRaw, geoNaturalEarth, geoNaturalEarthRaw, geoNaturalEarth2, geoNaturalEarth2Raw, geoNellHammer, geoNellHammerRaw, geoInterruptedQuarticAuthalic, geoNicolosi, geoNicolosiRaw, geoPatterson, geoPattersonRaw, geoPolyconic, geoPolyconicRaw, geoPolyhedral, geoPolyhedralButterfly, geoPolyhedralCollignon, geoPolyhedralWaterman, geoProject, geoGringortenQuincuncial, geoPeirceQuincuncial, geoPierceQuincuncial, geoQuantize, geoQuincuncial, geoRectangularPolyconic, geoRectangularPolyconicRaw, geoRobinson, geoRobinsonRaw, geoSatellite, geoSatelliteRaw, geoSinuMollweide, geoSinuMollweideRaw, geoSinusoidal, geoSinusoidalRaw, geoStitch, geoTimes, geoTimesRaw, geoTwoPointAzimuthal, geoTwoPointAzimuthalRaw, geoTwoPointAzimuthalUsa, geoTwoPointEquidistant, geoTwoPointEquidistantRaw, geoTwoPointEquidistantUsa, geoVanDerGrinten, geoVanDerGrintenRaw, geoVanDerGrinten2, geoVanDerGrinten2Raw, geoVanDerGrinten3, geoVanDerGrinten3Raw, geoVanDerGrinten4, geoVanDerGrinten4Raw, geoWagner, geoWagner7, geoWagnerRaw, geoWagner4, geoWagner4Raw, geoWagner6, geoWagner6Raw, geoWiechel, geoWiechelRaw, geoWinkel3, geoWinkel3Raw, cluster, hierarchy, pack, packSiblings, packEnclose, partition, stratify, tree, treemap, treemapBinary, treemapDice, treemapSlice, treemapSliceDice, treemapSquarify, treemapResquarify, hexbin, interpolate, interpolateArray, interpolateBasis, interpolateBasisClosed, interpolateDate, interpolateDiscrete, interpolateHue, interpolateNumber, interpolateObject, interpolateRound, interpolateString, interpolateTransformCss, interpolateTransformSvg, interpolateZoom, interpolateRgb, interpolateRgbBasis, interpolateRgbBasisClosed, interpolateHsl, interpolateHslLong, interpolateLab, interpolateHcl, interpolateHclLong, interpolateCubehelix, interpolateCubehelixLong, piecewise, quantize, path, polygonArea, polygonCentroid, polygonHull, polygonContains, polygonLength, quadtree, queue, randomUniform, randomInt, randomNormal, randomLogNormal, randomBates, randomIrwinHall, randomExponential, randomPareto, randomBernoulli, randomGeometric, randomBinomial, request, html, json, text, xml, csv, tsv, scaleBand, scalePoint, scaleIdentity, scaleLinear, scaleLog, scaleSymlog, scaleOrdinal, scaleImplicit, scalePow, scaleSqrt, scaleRadial, scaleQuantile, scaleQuantize, scaleThreshold, scaleTime, scaleUtc, scaleSequential, scaleSequentialLog, scaleSequentialPow, scaleSequentialSqrt, scaleSequentialSymlog, scaleSequentialQuantile, scaleDiverging, scaleDivergingLog, scaleDivergingPow, scaleDivergingSqrt, scaleDivergingSymlog, tickFormat, schemeCategory10, schemeAccent, schemeDark2, schemePaired, schemePastel1, schemePastel2, schemeSet1, schemeSet2, schemeSet3, schemeTableau10, interpolateBrBG, schemeBrBG, interpolatePRGn, schemePRGn, interpolatePiYG, schemePiYG, interpolatePuOr, schemePuOr, interpolateRdBu, schemeRdBu, interpolateRdGy, schemeRdGy, interpolateRdYlBu, schemeRdYlBu, interpolateRdYlGn, schemeRdYlGn, interpolateSpectral, schemeSpectral, interpolateBuGn, schemeBuGn, interpolateBuPu, schemeBuPu, interpolateGnBu, schemeGnBu, interpolateOrRd, schemeOrRd, interpolatePuBuGn, schemePuBuGn, interpolatePuBu, schemePuBu, interpolatePuRd, schemePuRd, interpolateRdPu, schemeRdPu, interpolateYlGnBu, schemeYlGnBu, interpolateYlGn, schemeYlGn, interpolateYlOrBr, schemeYlOrBr, interpolateYlOrRd, schemeYlOrRd, interpolateBlues, schemeBlues, interpolateGreens, schemeGreens, interpolateGreys, schemeGreys, interpolatePurples, schemePurples, interpolateReds, schemeReds, interpolateOranges, schemeOranges, interpolateCividis, interpolateCubehelixDefault, interpolateRainbow, interpolateWarm, interpolateCool, interpolateSinebow, interpolateTurbo, interpolateViridis, interpolateMagma, interpolateInferno, interpolatePlasma, create, creator, local, matcher, mouse, namespace, namespaces, clientPoint, select, selectAll, selection, selector, selectorAll, style, touch, touches, window, event, customEvent, arc, area, line, pie, areaRadial, radialArea, lineRadial, radialLine, pointRadial, linkHorizontal, linkVertical, linkRadial, symbol, symbols, symbolCircle, symbolCross, symbolDiamond, symbolSquare, symbolStar, symbolTriangle, symbolWye, curveBasisClosed, curveBasisOpen, curveBasis, curveBundle, curveCardinalClosed, curveCardinalOpen, curveCardinal, curveCatmullRomClosed, curveCatmullRomOpen, curveCatmullRom, curveLinearClosed, curveLinear, curveMonotoneX, curveMonotoneY, curveNatural, curveStep, curveStepAfter, curveStepBefore, stack, stackOffsetExpand, stackOffsetDiverging, stackOffsetNone, stackOffsetSilhouette, stackOffsetWiggle, stackOrderAppearance, stackOrderAscending, stackOrderDescending, stackOrderInsideOut, stackOrderNone, stackOrderReverse, timeInterval, timeMillisecond, timeMilliseconds, utcMillisecond, utcMilliseconds, timeSecond, timeSeconds, utcSecond, utcSeconds, timeMinute, timeMinutes, timeHour, timeHours, timeDay, timeDays, timeWeek, timeWeeks, timeSunday, timeSundays, timeMonday, timeMondays, timeTuesday, timeTuesdays, timeWednesday, timeWednesdays, timeThursday, timeThursdays, timeFriday, timeFridays, timeSaturday, timeSaturdays, timeMonth, timeMonths, timeYear, timeYears, utcMinute, utcMinutes, utcHour, utcHours, utcDay, utcDays, utcWeek, utcWeeks, utcSunday, utcSundays, utcMonday, utcMondays, utcTuesday, utcTuesdays, utcWednesday, utcWednesdays, utcThursday, utcThursdays, utcFriday, utcFridays, utcSaturday, utcSaturdays, utcMonth, utcMonths, utcYear, utcYears, timeFormatDefaultLocale, timeFormat, timeParse, utcFormat, utcParse, timeFormatLocale, isoFormat, isoParse, now, timer, timerFlush, timeout, interval, transition, active, interrupt, voronoi, zoom, zoomTransform, zoomIdentity */
 
 /*!****************************!*\
   !*** ./src/js_2/common.js ***!

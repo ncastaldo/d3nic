@@ -1,7 +1,7 @@
-import * as d3 from '@/js/d3-modules.js'
+import { select } from 'd3-selection'
 
 const hasGroup = (state) => {
-  let group = d3.select(null)
+  let group = select(null)
 
   const self = {
     ...state,

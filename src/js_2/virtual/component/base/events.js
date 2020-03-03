@@ -1,4 +1,5 @@
 import pipe from 'lodash/fp/flow'
+import { event } from 'd3-selection'
 
 const hasEvents = (state = {}) => {
   let fnEvents = s => s
@@ -10,6 +11,9 @@ const hasEvents = (state = {}) => {
     },
     fnEvents: () => {
       return fnEvents
+    },
+    event: () => {
+      return event
     }
   }
 

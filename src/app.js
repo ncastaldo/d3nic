@@ -1,4 +1,4 @@
-import Chart from '@/js/chart.js'
+/* import Chart from '@/js/chart.js'
 import Component from '@/js/component.js'
 
 import Rect from '@/js/rect.js'
@@ -56,7 +56,7 @@ import BandAxis from '@/js/band/bandAxis.js'
 // bb
 import BbChart from '@/js/bb/bbChart.js'
 import BbContours from '@/js/bb/bbContours.js'
-import BbRects from '@/js/bb/bbRects.js'
+import BbRects from '@/js/bb/bbRects.js' */
 
 // TEST
 import bxChart from '@/js_2/composite/bx/bxChart'
@@ -77,11 +77,15 @@ import byAxisY from '@/js_2/composite/by/byAxisY'
 import geoChart from '@/js_2/composite/geo/geoChart'
 import geoRegions from '@/js_2/composite/geo/geoRegions'
 
+// import { event } from 'd3-selection'
+
 export {
 
   // TEST
   // chart,
   // xyChart,
+  // event,
+
   bxChart,
   bxAxisX,
   bxAxisY,
@@ -98,9 +102,9 @@ export {
   byBars,
 
   geoChart,
-  geoRegions,
+  geoRegions
 
-  Chart,
+  /* Chart,
   Component,
 
   Rect,
@@ -150,6 +154,6 @@ export {
 
   BbChart,
   BbContours,
-  BbRects
+  BbRects */
 
 }

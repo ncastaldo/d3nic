@@ -1,7 +1,7 @@
-import * as d3 from '@/js/d3-modules.js'
+import { geoMercator } from 'd3-geo'
 
 const hasGeoProjection = (state = {}) => {
-  const fnGeoProjection = d3.geoMercator()
+  const fnGeoProjection = geoMercator()
 
   let geoDomainObject
 

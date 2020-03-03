@@ -1,4 +1,4 @@
-import * as d3 from '@/js/d3-modules.js'
+import { scaleBand, scaleLinear } from 'd3-scale'
 
 const computeRange = (chart, on, type) => {
   const r = chart.extent()
@@ -9,7 +9,7 @@ const computeRange = (chart, on, type) => {
 }
 
 const hasBandScaleFactory = (on = 'x') => (state = {}) => {
-  const fnBandScale = d3.scaleBand().paddingInner(0)
+  const fnBandScale = scaleBand().paddingInner(0)
   let fnBandValue = (d, i) => i
 
   const self = {
@@ -40,7 +40,7 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
 }
 
 const hasContScaleFactory = (on) => (state = {}) => {
-  const fnContScale = d3.scaleLinear() // parametrize
+  const fnContScale = scaleLinear() // parametrize
 
   let baseContDomain = [Infinity, -Infinity]
 

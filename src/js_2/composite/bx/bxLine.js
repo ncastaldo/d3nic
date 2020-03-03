@@ -1,6 +1,6 @@
 
 import pipe from 'lodash/fp/flow'
-import * as d3 from '@/js/d3-modules.js'
+import { line } from 'd3-shape'
 
 import component from '../../virtual/component/base/index'
 
@@ -19,7 +19,7 @@ const bxLine = (state = {}) => {
 
   self.fnBefore(s =>
     s.attr('d',
-      d3.line()
+      line()
         .x(self.fnBandCenterOut())
         .y(self.fnContOut()))
       .attr('opacity', 0)
@@ -28,7 +28,7 @@ const bxLine = (state = {}) => {
 
   self.fnNow(s =>
     s.attr('d',
-      d3.line()
+      line()
         .x(self.fnBandCenterOut())
         .y(self.fnContOut())
     )

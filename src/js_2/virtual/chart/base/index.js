@@ -1,4 +1,5 @@
-import * as d3 from '@/js/d3-modules.js'
+import { select } from 'd3-selection'
+import { timeout, interval } from 'd3-timer'
 import pipe from 'lodash/fp/flow'
 
 import { hasRegistry } from '../../../common'
@@ -110,7 +111,7 @@ const chart = (state = {}) => {
 
       // first draw?
       if (firstDraw) {
-        container = d3.select(selector)
+        container = select(selector)
 
         isCanvas = container.node() instanceof HTMLCanvasElement
 
@@ -160,13 +161,13 @@ const chart = (state = {}) => {
           if (elapsed >= transitionObject.duration) fn_interval.stop()
         }
 
-        d3.timeout(() => {
+        timeout(() => {
           if (transitionObject.duration) {
-            fn_interval = d3.interval(fn_drawComponentsCanvas, 34) // draw every 34 MS
+            fn_interval = interval(fn_drawComponentsCanvas, 34) // draw every 34 MS
           } else {
             // to render the canvas in the next tick,
             // in order to have correct canvas-width and canvas-height
-            fn_interval = d3.timeout(fn_drawComponentsCanvas, 0)
+            fn_interval = timeout(fn_drawComponentsCanvas, 0)
           }
         }, transitionObject.delay)
       }
