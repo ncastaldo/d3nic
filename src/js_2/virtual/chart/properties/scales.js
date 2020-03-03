@@ -4,7 +4,6 @@ const computeRange = (chart, on, type) => {
   const r = chart.extent()
     .map(point => point[on === 'x' ? 0 : 1])
     .sort((a, b) => on === 'y' && type !== 'band' ? b - a : a - b)
-  console.log(r)
   return r
 }
 
@@ -63,9 +62,7 @@ const hasContScaleFactory = (on) => (state = {}) => {
         fnDefined: c.fnDefined()
       }))
 
-    console.log(componentProperties)
-
-    const dom = chart.data()
+    return chart.data()
       .reduce((domain, d, i) => {
         const fnsValue = componentProperties
           .filter(prop => prop.fnDefined(d, i) || prop.fnDefined(d, i) === 0)
@@ -76,8 +73,6 @@ const hasContScaleFactory = (on) => (state = {}) => {
           Math.max(domain[1], ...fnsValue.map(fn => fn(d, i)))
         ]
       }, baseContDomain)
-    console.log(dom)
-    return dom
   }
 
   const updateScaleDomain = (chart) => {
