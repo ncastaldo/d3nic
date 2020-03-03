@@ -65,7 +65,7 @@ const hasContScaleFactory = (on) => (state = {}) => {
     return chart.data()
       .reduce((domain, d, i) => {
         const fnsValue = componentProperties
-          .filter(prop => prop.fnDefined(d, i) || prop.fnDefined(d, i) === 0)
+          .filter(prop => prop.fnDefined(d, i))
           .map(prop => prop.fnsValue)
           .flat()
         return [

@@ -1,7 +1,7 @@
 import pipe from 'lodash/fp/flow'
 
 const hasDefined = (state = {}) => {
-  let fnDefined = d => d
+  let fnDefined = d => true
 
   const self = {
     ...state,

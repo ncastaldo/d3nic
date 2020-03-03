@@ -24,7 +24,7 @@ const hasGeoProjection = (state = {}) => {
 
     const geometries = chart.data()
       .map((d, i) => componentProperties
-        .filter(prop => prop.fnDefined(d, i) || prop.fnDefined(d, i) === 0)
+        .filter(prop => prop.fnDefined(d, i))
         .map(prop => prop.fnsValue)
         .flat()
         .map(fn => fn(d, i)))
