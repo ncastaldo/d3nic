@@ -17,7 +17,7 @@ const onMouseout = (d, i) => {
 
 const aChart = d3nic.bxChart()
   .selector('.svg1')
-  .data([0, 0.5, 1])
+  .data([0, 10, 20])
   .components([
     d3nic.bxAxisX(),
     d3nic.bxAxisY(),
@@ -32,7 +32,7 @@ const aChart = d3nic.bxChart()
 const bChart = d3nic.bxChart()
   .selector('.svg2')
 
-  .size({height: 500, height: 400})
+  .size({width: 500, height: 400})
   .data([0, 0.5, 1])
   .components([
     d3nic.bxAxisX(),
@@ -43,7 +43,7 @@ const bChart = d3nic.bxChart()
 
 const cChart = d3nic.byChart()
   .selector('.svg3')
-  .size({height: 500, height: 500})
+  .size({width: 500, height: 500})
   .data([0, 0.5, 1])
   .components([
     d3nic.byBars()

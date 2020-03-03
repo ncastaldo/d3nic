@@ -56,17 +56,28 @@ const hasContScaleFactory = (on) => (state = {}) => {
   }
 
   const computeContDomain = (chart) => {
-    const fnsValue = chart.components()
-      .map(c => 'fnsValue' in c ? c.fnsValue() : [])
-      .flat()
+    const componentProperties = chart.components()
+      .filter(c => 'fnsValue' in c)
+      .map(c => ({
+        fnsValue: c.fnsValue(),
+        fnDefined: c.fnDefined()
+      }))
 
-    return chart.data()
-      .reduce((domain, d, i) =>
-        [
+    console.log(componentProperties)
+
+    const dom = chart.data()
+      .reduce((domain, d, i) => {
+        const fnsValue = componentProperties
+          .filter(prop => prop.fnDefined(d, i) || prop.fnDefined(d, i) === 0)
+          .map(prop => prop.fnsValue)
+          .flat()
+        return [
           Math.min(domain[0], ...fnsValue.map(fn => fn(d, i))),
           Math.max(domain[1], ...fnsValue.map(fn => fn(d, i)))
         ]
-      , baseContDomain)
+      }, baseContDomain)
+    console.log(dom)
+    return dom
   }
 
   const updateScaleDomain = (chart) => {

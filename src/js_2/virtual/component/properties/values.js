@@ -1,8 +1,27 @@
+import pipe from 'lodash/fp/flow'
+
+const hasDefined = (state = {}) => {
+  let fnDefined = d => d
+
+  const self = {
+    ...state,
+    fnDefined: (value) => {
+      if (typeof value === 'undefined') return fnDefined
+      fnDefined = value
+    }
+  }
+
+  return self
+}
+
 const hasValue = (state = {}) => {
   let fnValue = d => d
 
   const self = {
     ...state,
+    ...pipe(
+      hasDefined
+    )(state),
     fnsValue: () => {
       return [fnValue]
     },
@@ -21,6 +40,9 @@ const hasLowHighValue = (state = {}) => {
 
   const self = {
     ...state,
+    ...pipe(
+      hasDefined
+    )(state),
     fnsValue: () => {
       return [fnLowValue, fnHighValue]
     },

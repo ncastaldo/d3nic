@@ -15,12 +15,19 @@ const hasGeoProjection = (state = {}) => {
   }
 
   const computeGeoDomainObject = (chart) => {
-    const fnsValue = chart.components()
-      .map(c => 'fnsValue' in c ? c.fnsValue() : [])
-      .flat()
+    const componentProperties = chart.components()
+      .filter(c => 'fnsValue' in c)
+      .map(c => ({
+        fnsValue: c.fnsValue(),
+        fnDefined: c.fnDefined()
+      }))
 
     const geometries = chart.data()
-      .map((d, i) => fnsValue.map(fn => fn(d, i)))
+      .map((d, i) => componentProperties
+        .filter(prop => prop.fnDefined(d, i) || prop.fnDefined(d, i) === 0)
+        .map(prop => prop.fnsValue)
+        .flat()
+        .map(fn => fn(d, i)))
       .flat()
 
     geoDomainObject = {
