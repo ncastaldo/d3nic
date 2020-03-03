@@ -20,6 +20,7 @@ const bxArea = (state = {}) => {
   self.fnBefore(s =>
     s.attr('d',
       d3.area()
+        .defined(self.fnDefined())
         .x(self.fnBandCenterOut())
         .y0(self.fnLowContOut())
         .y1(self.fnLowContOut()))
@@ -30,6 +31,7 @@ const bxArea = (state = {}) => {
   self.fnNow(s =>
     s.attr('d',
       d3.area()
+        .defined(self.fnDefined())
         .x(self.fnBandCenterOut())
         .y0(self.fnLowContOut())
         .y1(self.fnHighContOut()))

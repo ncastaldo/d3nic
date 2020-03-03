@@ -21,7 +21,7 @@ const aChart = d3nic.bxChart()
   .components([
     d3nic.bxAxisX(),
     d3nic.bxAxisY(),
-    d3nic.bxArea().fnLowValue(d => d - 0.3),
+    d3nic.bxLine().fnDefined((d, i) => i % 5 !== 3).fnFillOpacity(0).fnStrokeWidth(2),
     d3nic.bxLines().fnLowValue(d => d - 0.3).fnStrokeWidth(2),
     circles,
     d3nic.bxMouseBars()
@@ -31,14 +31,13 @@ const aChart = d3nic.bxChart()
 
 const bChart = d3nic.bxChart()
   .selector('.svg2')
-
   .size({width: 500, height: 400})
   .data([0, 0.5, 1])
   .components([
     d3nic.bxAxisX(),
     d3nic.bxAxisY(),
-    d3nic.bxArea().fnLowValue(d => d - 0.3),
-    d3nic.bxLines().fnLowValue(d => d - 0.3).fnStrokeWidth(2),
+    d3nic.bxArea().fnDefined((d, i) => i % 5 !== 3).fnLowValue(d => d - 0.3),
+    d3nic.bxLines().fnDefined((d, i) => i % 5 !== 2).fnLowValue(d => d - 0.3).fnStrokeWidth(2),
   ])
 
 const cChart = d3nic.byChart()
