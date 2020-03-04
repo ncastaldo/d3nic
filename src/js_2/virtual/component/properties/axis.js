@@ -113,8 +113,28 @@ const hasBandAxisFactory = (on = 'x') => (state = {}) => {
     )(state)
   }
 
+  const updateTicks = () => {
+    const domain = self.fnAxis().scale().domain()
+
+    if (self.ticks() <= 0) return domain
+
+    const fnRecursive = (tot, max, j) => {
+      if (tot / j <= max) return j
+      return fnRecursive(tot, max, j + 1)
+    }
+
+    const j = fnRecursive(domain.length, self.ticks(), 1)
+    const correction = Math.floor((domain.length - 1) % j / 2) // how many on the right -> shift in case
+    const fnFilterDomain = (_, i) => i % j === correction
+
+    console.log(domain.filter(fnFilterDomain))
+
+    self.fnAxis().tickValues(domain.filter(fnFilterDomain)) // won't call the proxy since the function itself is modified
+  }
+
   const updateAxisScale = (chart) => {
     self.fnAxis().scale(chart.fnBandScale())
+    updateTicks() // a scale is needed
   }
 
   // init may be enough

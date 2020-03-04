@@ -5,12 +5,16 @@ import { hasValue } from '../properties/values'
 
 const hasGeoOut = (state = {}) => {
   let fnGeoOut
+  const fnGeoPath = geoPath()
 
   const self = {
     ...state,
     ...pipe(
       hasValue
     )(state),
+    fnGeoPath: () => {
+      return fnGeoPath
+    },
     fnGeoOut: (value) => {
       if (typeof value === 'undefined') return fnGeoOut
       fnGeoOut = value
@@ -18,7 +22,7 @@ const hasGeoOut = (state = {}) => {
   }
 
   const updateOuts = (chart) => {
-    const fnGeoPath = geoPath(chart.fnGeoProjection())
+    fnGeoPath.projection(chart.fnGeoProjection())
     fnGeoOut = (d, i) => fnGeoPath(self.fnValue()(d, i))
   }
 
