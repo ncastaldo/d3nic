@@ -2,6 +2,8 @@
 import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
+import { select } from 'd3-selection'
+
 import { componentProxy } from '../../common'
 import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasLowHighContOut } from '../../virtual/component/outs/cont'
@@ -32,7 +34,7 @@ const bxBars = (state = {}) => {
   )
 
   self.fnAfter(s =>
-    s.attr('y', self.fnLowContOut())
+    s.attr('y', (d, i, nodes) => +select(nodes[i]).attr('y') + +select(nodes[i]).attr('height'))
       .attr('height', 0)
       .attr('opacity', 0)
   )
