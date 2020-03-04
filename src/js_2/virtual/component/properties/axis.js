@@ -127,8 +127,6 @@ const hasBandAxisFactory = (on = 'x') => (state = {}) => {
     const correction = Math.floor((domain.length - 1) % j / 2) // how many on the right -> shift in case
     const fnFilterDomain = (_, i) => i % j === correction
 
-    console.log(domain.filter(fnFilterDomain))
-
     self.fnAxis().tickValues(domain.filter(fnFilterDomain)) // won't call the proxy since the function itself is modified
   }
 
