@@ -28,8 +28,8 @@ const bxBars = (state = {}) => {
   self.fnNow(s =>
     s.attr('x', self.fnBandOut())
       .attr('width', self.bandwidthOut())
-      .attr('y', self.fnHighContOut())
-      .attr('height', (d, i) => self.fnLowContOut()(d, i) - self.fnHighContOut()(d, i))
+      .attr('y', (d, i) => Math.min(self.fnHighContOut()(d, i), self.fnLowContOut()(d, i)))
+      .attr('height', (d, i) => Math.abs(self.fnLowContOut()(d, i) - self.fnHighContOut()(d, i)))
       // .attr('opacity', 1) // not needed
   )
 

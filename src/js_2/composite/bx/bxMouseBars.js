@@ -17,13 +17,6 @@ const bxBars = (state = {}) => {
 
   self.fnOpacity(0)
 
-  self.fnBefore(s =>
-    s.attr('x', self.fnBandLeftOut())
-      .attr('width', (d, i) => self.fnBandRightOut()(d, i) - self.fnBandLeftOut()(d, i))
-      .attr('y', self.rangeContOut()[1])
-      .attr('height', self.rangeContOut()[0])
-  )
-
   self.fnNow(s =>
     s.attr('x', self.fnBandLeftOut())
       .attr('width', (d, i) => self.fnBandRightOut()(d, i) - self.fnBandLeftOut()(d, i))
