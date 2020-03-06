@@ -39,7 +39,7 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
 }
 
 const hasContScaleFactory = (on) => (state = {}) => {
-  const fnContScale = scaleLinear() // parametrize
+  let fnContScale = scaleLinear()
 
   let baseContDomain = [Infinity, -Infinity]
 
@@ -49,8 +49,12 @@ const hasContScaleFactory = (on) => (state = {}) => {
       if (typeof value === 'undefined') return baseContDomain
       baseContDomain = value
     },
-    fnContScale: () => {
-      return fnContScale
+    fnContScale: (value) => {
+      if (typeof value === 'undefined') return fnContScale
+      // the previous range and domain are extracted
+      fnContScale = value
+        .domain(fnContScale.domain())
+        .range(fnContScale.range())
     }
   }
 
