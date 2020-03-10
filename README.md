@@ -39,8 +39,8 @@ const chart = d3nic.bxChart()
   .size({width: 500, height: 400})
   .data([2, 5, 8, 3, 6])
   .components([
-  	d3nic.bxAxisX(), // new entry
-  	d3nic.bxAxisY(), // new entry
+    d3nic.bxAxisX(), // new entry
+    d3nic.bxAxisY(), // new entry
     d3nic.bxBars()
   ])
   .draw({duration: 500})
@@ -52,7 +52,7 @@ In order to update the data, we can simply type:
 
 ```
 chart.data([12, -5, 34, 22])
-	.draw({duration: 1000, delay: 1000})
+  .draw({duration: 1000, delay: 1000})
 ```
 
 
