@@ -1,7 +1,7 @@
-import { geoMercator } from 'd3-geo'
+import { geoEquirectangular } from 'd3-geo'
 
 const hasGeoProjection = (state = {}) => {
-  const fnGeoProjection = geoMercator()
+  const fnGeoProjection = geoEquirectangular()
 
   let geoDomainObject
 
