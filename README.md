@@ -50,10 +50,10 @@ A ready to use chart will be plotted, with a nice transition too.
 
 In order to update the data, we can simply type:
 
-´´´
+```
 chart.data([12, -5, 34, 22])
 	.draw({duration: 1000, delay: 1000})
-´´´
+```
 
 
 
