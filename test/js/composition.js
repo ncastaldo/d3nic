@@ -1,10 +1,21 @@
 d3.select(".container").call(container => {
+  container.append("svg").classed("svg0", true)
   container.append("svg").classed("svg1", true)
   container.append("svg").classed("svg2", true)
   container.append("svg").classed("svg3", true)
   container.append("svg").classed("svg4", true)
 })
 
+const chart = d3nic.bxChart()
+  .selector('svg')
+  .size({width: 500, height: 400})
+  .data([2, 5, 8, 3, 6])
+  .components([
+    d3nic.bxAxisX(), // new entry
+    d3nic.bxAxisY(), // new entry
+    d3nic.bxBars()
+  ])
+  .draw({duration: 500})
 
 const circles = d3nic.bxCircles().fnStrokeWidth(2)
 

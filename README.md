@@ -10,6 +10,9 @@ A *chart* is an object that may contain multiple components and is responsible o
 
 A *component* is the actual object that we want to visualize.
 
+## How to use it
+
+d3nic can be used in a browser by using `<script src="https://cdn.jsdelivr.net/npm/d3nic/dist/index.js"></script>` or with npm, by simply typing `npm i d3nic`
 
 ## An example
 
@@ -55,6 +58,7 @@ chart.data([12, -5, 34, 22])
   .draw({duration: 1000, delay: 1000})
 ```
 
+## Test it
 
-
+Open this [jsfiddle](https://jsfiddle.net/1jLtyxbs/2) to see how it works!
 
