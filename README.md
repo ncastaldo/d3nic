@@ -16,10 +16,10 @@ A *component* is the actual object that we want to visualize.
 Let us define a simple bar chart:
 
 ```
-document.createElement("svg"); // or d3.append('svg').attr('id', 'svg') 
+document.createElement("svg"); // or d3.append('svg')
 
 const chart = d3nic.bxChart()
-  .selector('#svg')
+  .selector('svg')
   .size({width: 500, height: 400})
   .data([2, 5, 8, 3, 6])
   .components([
@@ -35,7 +35,7 @@ What if we want to use axes and have a nice transition when creating the chart? 
 
 ```
 const chart = d3nic.bxChart()
-  .selector('#svg')
+  .selector('svg')
   .size({width: 500, height: 400})
   .data([2, 5, 8, 3, 6])
   .components([
