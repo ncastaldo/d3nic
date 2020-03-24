@@ -60,5 +60,5 @@ chart.data([12, -5, 34, 22])
 
 ## Test it
 
-Open this [jsfiddle](https://jsfiddle.net/1jLtyxbs/3/) to see how it works!
+Open this [jsfiddle](https://jsfiddle.net/qmwdcu58/) to see how it works!
 
