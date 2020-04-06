@@ -4476,7 +4476,7 @@
   !*** ./src/app.js ***!
   \********************/
 
-/*! exports provided: bxChart, bxAxisX, bxAxisY, bxBars, bxCircles, bxArea, bxLine, bxLines, bxMouseBars, byChart, byAxisX, byAxisY, byBars, geoChart, geoRegions */
+/*! exports provided: baseChart, basePaths, bxChart, bxAxisX, bxAxisY, bxBars, bxCircles, bxArea, bxLine, bxLines, bxMouseBars, byChart, byAxisX, byAxisY, byBars, geoChart, geoRegions */
 
 /*!******************************!*\
   !*** ./src/js/d3-modules.js ***!
@@ -4489,6 +4489,14 @@
   \****************************/
 
 /*! exports provided: hasRegistry, chartProxy, componentProxy */
+
+/*!**********************************************!*\
+  !*** ./src/js_2/composite/base/baseChart.js ***!
+  \**********************************************/
+
+/*!**********************************************!*\
+  !*** ./src/js_2/composite/base/basePaths.js ***!
+  \**********************************************/
 
 /*!*****************************************!*\
   !*** ./src/js_2/composite/bx/bxArea.js ***!
@@ -4623,6 +4631,12 @@
   \*******************************************************/
 
 /*! exports provided: hasSingleFunctionDraw, hasSingleDrawFactory, hasMultiDrawFactory */
+
+/*!*******************************************************!*\
+  !*** ./src/js_2/virtual/component/properties/path.js ***!
+  \*******************************************************/
+
+/*! exports provided: hasPath */
 
 /*!*********************************************************!*\
   !*** ./src/js_2/virtual/component/properties/values.js ***!

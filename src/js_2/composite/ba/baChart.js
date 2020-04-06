@@ -2,16 +2,16 @@ import pipe from 'lodash/fp/flow'
 
 import { chartProxy } from '../../common'
 import chart from '../../virtual/chart/base/index'
+import hasPolar from '../../virtual/chart/properties/polar'
 import { hasBandScaleFactory, hasContScaleFactory } from '../../virtual/chart/properties/scales'
 
-const bxChart = (state = {}) => {
+const baChart = (state = {}) => {
   const self = pipe(
     chart,
-    hasBandScaleFactory('x'),
-    hasContScaleFactory('y')
+    hasBandScaleFactory('r'),
+    hasContScaleFactory('a'),
+    hasPolar
   )(state)
-
-  self.subscribe('arg', (data) => console.log(data))
 
   self.publish('data', self)
   self.publish('size', self)
@@ -19,4 +19,4 @@ const bxChart = (state = {}) => {
   return chartProxy(self)
 }
 
-export default bxChart
+export default baChart

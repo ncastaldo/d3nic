@@ -24,6 +24,7 @@ const computeTranslate = (chart, on, position) => {
 
 const hasAxisFactory = (on = 'x') => (state = {}) => {
   let ticks = 5
+  let tickValues = null
   let tickFormat = format('.1f')
   let tickSizeInner = 6
   let tickSizeOuter = 6
@@ -40,6 +41,11 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
       if (typeof value === 'undefined') return ticks
       ticks = value
       fnAxis.ticks(ticks)
+    },
+    tickValues: (value) => {
+      if (typeof value === 'undefined') return tickValues
+      tickValues = value
+      fnAxis.tickValues(tickValues)
     },
     tickFormat: (value) => {
       if (typeof value === 'undefined') return tickFormat
@@ -81,6 +87,7 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
   const changeAxis = () => {
     fnAxis = computeAxis(on, position)
       .ticks(ticks)
+      .tickValues(tickValues)
       .tickFormat(tickFormat)
       .tickSizeInner(tickSizeInner)
       .tickSizeOuter(tickSizeOuter)
