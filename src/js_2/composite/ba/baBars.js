@@ -2,8 +2,6 @@
 import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
-import { select } from 'd3-selection'
-
 import { componentProxy } from '../../common'
 import { hasPolar } from '../../virtual/component/types/polar'
 import { hasBandOut } from '../../virtual/component/outs/band'
