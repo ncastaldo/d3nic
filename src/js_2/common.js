@@ -32,7 +32,7 @@ const chartProxyHandler = {
           return chart[fnName]()
         }
       }
-      console.log(`no function ${fnName} here`)
+      console.log(`No function ${fnName} here!`)
       return undefined
     }
   }
@@ -59,7 +59,7 @@ const componentProxyHandler = {
           return component[fnName]()
         }
       }
-      console.log(`no function ${fnName} here`)
+      console.log(`No function ${fnName} here!`)
       return undefined
     }
   }

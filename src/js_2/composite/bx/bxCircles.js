@@ -3,7 +3,7 @@ import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasCircle } from '../../virtual/component/properties/circle'
+import { hasCircle } from '../../virtual/component/types/circle'
 import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasContOut } from '../../virtual/component/outs/cont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'

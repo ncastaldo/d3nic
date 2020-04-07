@@ -59,6 +59,10 @@ import BbContours from '@/js/bb/bbContours.js'
 import BbRects from '@/js/bb/bbRects.js' */
 
 // TEST
+
+import baChart from './js_2/composite/ba/baChart'
+import baBars from './js_2/composite/ba/baBars'
+
 import baseChart from '@/js_2/composite/base/baseChart'
 import basePaths from '@/js_2/composite/base/basePaths'
 
@@ -88,6 +92,9 @@ export {
   // chart,
   // xyChart,
   // event,
+
+  baChart,
+  baBars,
 
   baseChart,
   basePaths,

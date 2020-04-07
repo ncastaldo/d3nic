@@ -3,7 +3,7 @@ import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasPath } from '../../virtual/component/properties/path'
+import { hasPath } from '../../virtual/component/types/path'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
 const basePaths = (state = {}) => {

@@ -1,5 +1,6 @@
 d3.select(".container").call(container => {
   container.append("svg").classed("svg0", true)
+  container.append("svg").classed("svgPolar", true)
   container.append("svg").classed("svg1", true)
   container.append("svg").classed("svg2", true)
   container.append("svg").classed("svg3", true)
@@ -8,7 +9,7 @@ d3.select(".container").call(container => {
 
 const chart = d3nic.bxChart()
   .selector('svg')
-  .size({width: 500, height: 400})
+  .size({width: 300, height: 400})
   .data([2, 5, 8, 3, 6])
   .components([
     d3nic.bxAxisX(), // new entry
@@ -25,6 +26,17 @@ const onMouseover = (d, i) => {
 const onMouseout = (d, i) => {
   circles.join().style('r', null)
 }
+
+
+const polarChart = d3nic.baChart()
+  .selector('.svgPolar')
+  .size({width: 500, height: 400})
+  .data([2, 5, 8, 3, 6])
+  .components([
+    d3nic.baBars()
+  ])
+  // .draw({duration: 500})
+
 
 const aChart = d3nic.bxChart()
   .selector('.svg1')
@@ -77,8 +89,7 @@ let feature
 })()}
 
 
-
-bandCharts = [chart, aChart, bChart, cChart]
+bandCharts = [chart, aChart, bChart, cChart, polarChart]
 bandCharts.map(chart => chart.draw({duration: 1000}))
 
 

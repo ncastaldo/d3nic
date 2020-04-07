@@ -3,7 +3,7 @@ import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasBandAxisFactory } from '../../virtual/component/properties/axis'
+import { hasBandAxisFactory } from '../../virtual/component/types/axis'
 import { hasSingleFunctionDraw } from '../../virtual/component/properties/draw'
 
 const byAxisY = (state = {}) => {
