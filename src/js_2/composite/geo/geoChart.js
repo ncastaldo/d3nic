@@ -10,9 +10,6 @@ const geoChart = (state = {}) => {
     hasGeoProjection
   )(state)
 
-  self.publish('data', self)
-  self.publish('size', self)
-
   return chartProxy(self)
 }
 

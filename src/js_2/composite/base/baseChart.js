@@ -8,9 +8,6 @@ const baseChart = (state = {}) => {
     chart
   )(state)
 
-  self.publish('data', self)
-  self.publish('size', self)
-
   return chartProxy(self)
 }
 

@@ -13,11 +13,6 @@ const bxChart = (state = {}) => {
     hasContScaleFactory('y')
   )(state)
 
-  self.subscribe('arg', (data) => console.log(data))
-
-  self.publish('data', self)
-  self.publish('size', self)
-
   return chartProxy(self)
 }
 

@@ -38,7 +38,10 @@ const chartProxyHandler = {
   }
 }
 const chartProxy = (chart) => {
-  return new Proxy(chart, chartProxyHandler)
+  const proxy = new Proxy(chart, chartProxyHandler)
+  proxy.publish('data', chart)
+  proxy.publish('size', chart)
+  return proxy
 }
 
 const componentProxyHandler = {

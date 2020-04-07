@@ -13,9 +13,6 @@ const baChart = (state = {}) => {
     hasContScaleFactory('angle')
   )(state)
 
-  self.publish('data', self)
-  self.publish('size', self)
-
   return chartProxy(self)
 }
 
