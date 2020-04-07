@@ -78,7 +78,7 @@ let feature
 
 
 
-bandCharts = [aChart, bChart, cChart]
+bandCharts = [chart, aChart, bChart, cChart]
 bandCharts.map(chart => chart.draw({duration: 1000}))
 
 

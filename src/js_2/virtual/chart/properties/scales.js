@@ -1,10 +1,21 @@
 import { scaleBand, scaleLinear } from 'd3-scale'
 
 const computeRange = (chart, on, type) => {
-  const r = chart.extent()
-    .map(point => point[on === 'x' ? 0 : 1])
-    .sort((a, b) => on === 'y' && type !== 'band' ? b - a : a - b)
-  return r
+  const range = on === 'x'
+    ? chart.xRange()
+    : on === 'y'
+      ? chart.yRange()
+      : on === 'angle' // angle
+        ? chart.angleRange()
+        : on === 'radius'
+          ? chart.radiusRange()
+          : [0, 1]
+
+  return range.sort((a, b) =>
+    on === 'y' && type !== 'band'
+      ? b - a
+      : a - b
+  )
 }
 
 const hasBandScaleFactory = (on = 'x') => (state = {}) => {
