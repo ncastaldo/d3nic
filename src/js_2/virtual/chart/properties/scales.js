@@ -1,4 +1,23 @@
-import * as scale from 'd3-scale'
+import {
+  scaleBand,
+  scaleLinear,
+  scalePow,
+  scaleSqrt,
+  scaleLog,
+  scaleSymlog,
+  scaleRadial,
+  scaleTime
+} from 'd3-scale'
+
+const contScales = {
+  scaleLinear,
+  scalePow,
+  scaleSqrt,
+  scaleLog,
+  scaleSymlog,
+  scaleRadial,
+  scaleTime
+}
 
 const computeRange = (chart, on, type) => {
   const range = on === 'x'
@@ -41,7 +60,7 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
       paddingOuter = value
     },
     fnBandScale: () => {
-      return scale.scaleBand()
+      return scaleBand()
         .paddingInner(paddingInner)
         .paddingOuter(paddingOuter)
         .domain(bandScaleDomain)
@@ -65,27 +84,18 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
   return self
 }
 
-const contScaleTypes = [
-  'scaleLinear',
-  'scalePow',
-  'scaleSqrt',
-  'scaleLog',
-  'scaleSymlog',
-  'scaleRadial',
-  'scaleTime'
-]
-
 const hasContScaleFactory = (on) => (state = {}) => {
   let contScaleDomain = null
   let contScaleRange = null
 
-  let contScaleType = contScaleTypes[0] // scaleLinear
+  let contScaleType = Object.keys(contScales)[0] // scaleLinear
 
   let baseContDomain = [Infinity, -Infinity]
 
   const getContScaleType = (maybe) => {
-    return contScaleTypes.includes(maybe)
-      ? maybe : contScaleTypes[0]
+    return maybe in contScales
+      ? maybe
+      : contScaleType // previous one
   }
 
   const self = {
@@ -99,7 +109,7 @@ const hasContScaleFactory = (on) => (state = {}) => {
       baseContDomain = value
     },
     fnContScale: () => {
-      return scale[contScaleType]()
+      return contScales[contScaleType]()
         .domain(contScaleDomain)
         .range(contScaleRange)
     }

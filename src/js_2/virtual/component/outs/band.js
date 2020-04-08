@@ -25,18 +25,19 @@ const hasBandOut = (state = {}) => {
   }
 
   const updateOuts = (chart) => {
-    fnBandOut = (d, i) => chart.fnBandScale()(chart.fnBandValue()(d, i))
+    const fnBandScale = chart.fnBandScale()
+    fnBandOut = (d, i) => fnBandScale(chart.fnBandValue()(d, i))
     fnBandCenterOut = (d, i) =>
-      chart.fnBandScale()(chart.fnBandValue()(d, i)) + chart.fnBandScale().bandwidth() / 2
-    bandwidthOut = chart.fnBandScale().bandwidth()
+      fnBandScale(chart.fnBandValue()(d, i)) + fnBandScale.bandwidth() / 2
+    bandwidthOut = fnBandScale.bandwidth()
 
     fnBandLeftOut = (d, i) => Math.max(
-      chart.fnBandScale().range()[0],
-      fnBandOut(d, i) - chart.fnBandScale().step() * chart.fnBandScale().paddingInner() / 2
+      fnBandScale.range()[0],
+      fnBandOut(d, i) - fnBandScale.step() * fnBandScale.paddingInner() / 2
     )
     fnBandRightOut = (d, i) => Math.min(
-      fnBandOut(d, i) + bandwidthOut + chart.fnBandScale().step() * chart.fnBandScale().paddingInner() / 2,
-      chart.fnBandScale().range()[1]
+      fnBandOut(d, i) + bandwidthOut + fnBandScale.step() * fnBandScale.paddingInner() / 2,
+      fnBandScale.range()[1]
     )
   }
 

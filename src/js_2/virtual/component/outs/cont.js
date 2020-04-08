@@ -18,7 +18,8 @@ const hasContOut = (state = {}) => {
   }
 
   const updateOuts = (chart) => {
-    fnContOut = (d, i) => chart.fnContScale()(self.fnValue()(d, i))
+    const fnContScale = chart.fnContScale() // to reduce overhead
+    fnContOut = (d, i) => fnContScale(self.fnValue()(d, i))
   }
 
   self.subscribe('draw', updateOuts)

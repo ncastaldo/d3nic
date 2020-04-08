@@ -1,19 +1,22 @@
-import * as geo from 'd3-geo'
+import {
+  geoEquirectangular,
+  geoMercator
+} from 'd3-geo'
 
-const geoProjectionTypes = [
-  'geoEquirectangular',
-  'geoMercator'
-]
+const geoProjections = {
+  geoEquirectangular,
+  geoMercator
+}
 
 const hasGeoProjection = (state = {}) => {
-  let geoProjectionType = geoProjectionTypes[0]
+  let geoProjectionType = Object.keys(geoProjections)[0]
   let geoDomainObject
   let geoExtent
 
   // default something
 
   const getGeoProjectionType = (maybe) => {
-    return geoProjectionTypes.includes(maybe)
+    return maybe in geoProjections
       ? maybe : geoProjectionType
   }
 
@@ -24,7 +27,7 @@ const hasGeoProjection = (state = {}) => {
       geoProjectionType = getGeoProjectionType(value)
     },
     fnGeoProjection: () => {
-      return geo[geoProjectionType]()
+      return geoProjections[geoProjectionType]()
         .fitExtent(geoExtent, geoDomainObject)
     }
   }
