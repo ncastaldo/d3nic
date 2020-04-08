@@ -9,6 +9,8 @@ const hasPolar = (state = {}) => {
   let radiusRange = [0, 1]
   const angleRange = angleExtent // fixed
 
+  let firstDraw = true
+
   const self = {
     ...state,
     radiusExtent: (value) => {
@@ -48,6 +50,23 @@ const hasPolar = (state = {}) => {
 
   self.subscribe('size', update)
   self.subscribe('padding', update)
+
+  const draw = (chart) => {
+    const translate = `translate(${center[0]}, ${center[1]})`
+
+    if (firstDraw) {
+      chart.group()
+        .attr('transform', translate)
+    } else {
+      chart.group()
+        .transition(chart.transition())
+        .attr('transform', translate)
+    }
+
+    firstDraw = false
+  }
+
+  self.subscribe('draw', draw)
 
   return self
 }

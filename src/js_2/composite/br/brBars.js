@@ -8,7 +8,7 @@ import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasLowHighContOut } from '../../virtual/component/outs/cont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
-const baBars = (state = {}) => {
+const brBars = (state = {}) => {
   const self = pipe(
     component,
     hasPolar,
@@ -20,10 +20,10 @@ const baBars = (state = {}) => {
   self.fnBefore(s =>
     s.each((d, i, nodes) => {
       nodes[i].beforeArc = {
-        startAngle: self.fnBandOut()(d, i),
-        endAngle: self.fnBandRightOut()(d, i),
-        innerRadius: self.fnLowContOut()(d, i),
-        outerRadius: self.fnLowContOut()(d, i)
+        startAngle: self.fnLowContOut()(d, i),
+        endAngle: self.fnLowContOut()(d, i),
+        innerRadius: self.fnBandOut()(d, i),
+        outerRadius: self.fnBandRightOut()(d, i)
       }
     })
       .attr('opacity', 0)
@@ -35,10 +35,10 @@ const baBars = (state = {}) => {
         ? { ...nodes[i].toArc }
         : { ...nodes[i].beforeArc }
       nodes[i].toArc = {
-        startAngle: self.fnBandOut()(d, i),
-        endAngle: self.fnBandRightOut()(d, i),
-        innerRadius: self.fnLowContOut()(d, i),
-        outerRadius: self.fnHighContOut()(d, i)
+        startAngle: self.fnLowContOut()(d, i),
+        endAngle: self.fnHighContOut()(d, i),
+        innerRadius: self.fnBandOut()(d, i),
+        outerRadius: self.fnBandRightOut()(d, i)
       }
     })
       .attrTween('d', (d, i, nodes) =>
@@ -66,4 +66,4 @@ const baBars = (state = {}) => {
   return componentProxy(self)
 }
 
-export default baBars
+export default brBars

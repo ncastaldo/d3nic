@@ -66,6 +66,9 @@ import baBars from './js_2/composite/ba/baBars'
 import baseChart from '@/js_2/composite/base/baseChart'
 import basePaths from '@/js_2/composite/base/basePaths'
 
+import brChart from './js_2/composite/br/brChart'
+import brBars from './js_2/composite/br/brBars'
+
 import bxChart from '@/js_2/composite/bx/bxChart'
 import bxAxisX from '@/js_2/composite/bx/bxAxisX'
 import bxAxisY from '@/js_2/composite/bx/bxAxisY'
@@ -98,6 +101,9 @@ export {
 
   baseChart,
   basePaths,
+
+  brChart,
+  brBars,
 
   bxChart,
   bxAxisX,
