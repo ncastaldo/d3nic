@@ -47,8 +47,9 @@ const hasLowHighContOut = (state = {}) => {
   }
 
   const updateOuts = (chart) => {
-    fnLowContOut = (d, i) => chart.fnContScale()(self.fnLowValue()(d, i))
-    fnHighContOut = (d, i) => chart.fnContScale()(self.fnHighValue()(d, i))
+    const fnContScale = chart.fnContScale()
+    fnLowContOut = (d, i) => fnContScale(self.fnLowValue()(d, i))
+    fnHighContOut = (d, i) => fnContScale(self.fnHighValue()(d, i))
   }
 
   self.subscribe('draw', updateOuts)

@@ -25,7 +25,7 @@ const hasBandOut = (state = {}) => {
   }
 
   const updateOuts = (chart) => {
-    const fnBandScale = chart.fnBandScale()
+    const fnBandScale = chart.fnBandScale() // to reduce overhead
     fnBandOut = (d, i) => fnBandScale(chart.fnBandValue()(d, i))
     fnBandCenterOut = (d, i) =>
       fnBandScale(chart.fnBandValue()(d, i)) + fnBandScale.bandwidth() / 2
