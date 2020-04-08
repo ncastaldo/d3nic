@@ -30,9 +30,11 @@ const onMouseout = (d, i) => {
 
 const polarChart = d3nic.brChart()
   .selector('.svgPolar')
-  .angleExtent([0, Math.PI])
+  .angleExtent([Math.PI, 0])
+  .radiusExtent([0.4, 0.6])
   .size({width: 500, height: 400})
-  .data([2, 5, 8, 3, 6])
+  .data([1, 10, 30, 2, 42])
+  .contScaleType('scaleLinear')
   .components([
     d3nic.brBars()
   ])
@@ -75,6 +77,7 @@ const cChart = d3nic.byChart()
 
 const dChart = d3nic.geoChart()
   .selector('.svg4')
+  .geoProjectionType('geoMercator')
   .fnKey(d => d.properties.id)
   .size({width: 600, height: 500})
   .components([

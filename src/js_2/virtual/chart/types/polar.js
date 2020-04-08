@@ -7,7 +7,7 @@ const hasPolar = (state = {}) => {
   let center = [0, 0]
   let radius = 1
   let radiusRange = [0, 1]
-  const angleRange = angleExtent // fixed
+  let angleRange = [...angleExtent]
 
   let firstDraw = true
 
@@ -46,6 +46,7 @@ const hasPolar = (state = {}) => {
       center[1] - extent[0][1]
     )
     radiusRange = radiusExtent.map(re => re * radius)
+    angleRange = [...angleExtent]
   }
 
   self.subscribe('size', update)

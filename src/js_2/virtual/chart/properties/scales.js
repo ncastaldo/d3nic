@@ -1,4 +1,4 @@
-import { scaleBand, scaleLinear } from 'd3-scale'
+import * as scale from 'd3-scale'
 
 const computeRange = (chart, on, type) => {
   const range = on === 'x'
@@ -19,8 +19,12 @@ const computeRange = (chart, on, type) => {
 }
 
 const hasBandScaleFactory = (on = 'x') => (state = {}) => {
-  const fnBandScale = scaleBand().paddingInner(0)
   let fnBandValue = (d, i) => i
+
+  let paddingInner = 0
+  let paddingOuter = 0
+  let bandScaleDomain = [0, 1]
+  let bandScaleRange = [0, 1]
 
   const self = {
     ...state,
@@ -28,17 +32,29 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
       if (typeof value === 'undefined') return fnBandValue
       fnBandValue = value
     },
+    paddingInner: (value) => {
+      if (typeof value === 'undefined') return paddingInner
+      paddingInner = value
+    },
+    paddingOuter: (value) => {
+      if (typeof value === 'undefined') return paddingOuter
+      paddingOuter = value
+    },
     fnBandScale: () => {
-      return fnBandScale
+      return scale.scaleBand()
+        .paddingInner(paddingInner)
+        .paddingOuter(paddingOuter)
+        .domain(bandScaleDomain)
+        .range(bandScaleRange)
     }
   }
 
   const updateScaleDomain = (chart) => {
-    fnBandScale.domain(chart.data().map(fnBandValue))
+    bandScaleDomain = chart.data().map(fnBandValue)
   }
 
   const updateScaleRange = (chart) => {
-    fnBandScale.range(computeRange(chart, on, 'band'))
+    bandScaleRange = computeRange(chart, on, 'band')
   }
 
   self.subscribe('data', updateScaleDomain)
@@ -49,23 +65,43 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
   return self
 }
 
+const contScaleTypes = [
+  'scaleLinear',
+  'scalePow',
+  'scaleSqrt',
+  'scaleLog',
+  'scaleSymlog',
+  'scaleRadial',
+  'scaleTime'
+]
+
 const hasContScaleFactory = (on) => (state = {}) => {
-  let fnContScale = scaleLinear()
+  let contScaleDomain = null
+  let contScaleRange = null
+
+  let contScaleType = contScaleTypes[0] // scaleLinear
 
   let baseContDomain = [Infinity, -Infinity]
 
+  const getContScaleType = (maybe) => {
+    return contScaleTypes.includes(maybe)
+      ? maybe : contScaleTypes[0]
+  }
+
   const self = {
     ...state,
+    contScaleType: (value) => {
+      if (typeof value === 'undefined') return contScaleType
+      contScaleType = getContScaleType(value)
+    },
     baseContDomain: (value) => {
       if (typeof value === 'undefined') return baseContDomain
       baseContDomain = value
     },
-    fnContScale: (value) => {
-      if (typeof value === 'undefined') return fnContScale
-      // the previous range and domain are extracted
-      fnContScale = value
-        .domain(fnContScale.domain())
-        .range(fnContScale.range())
+    fnContScale: () => {
+      return scale[contScaleType]()
+        .domain(contScaleDomain)
+        .range(contScaleRange)
     }
   }
 
@@ -91,11 +127,11 @@ const hasContScaleFactory = (on) => (state = {}) => {
   }
 
   const updateScaleDomain = (chart) => {
-    fnContScale.domain(computeContDomain(chart))
+    contScaleDomain = computeContDomain(chart)
   }
 
   const updateScaleRange = (chart) => {
-    fnContScale.range(computeRange(chart, on, 'cont'))
+    contScaleRange = computeRange(chart, on, 'cont')
   }
 
   self.subscribe('data', updateScaleDomain)

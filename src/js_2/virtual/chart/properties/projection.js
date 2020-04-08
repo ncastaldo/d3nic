@@ -1,20 +1,35 @@
-import { geoEquirectangular } from 'd3-geo'
+import * as geo from 'd3-geo'
+
+const geoProjectionTypes = [
+  'geoEquirectangular',
+  'geoMercator'
+]
 
 const hasGeoProjection = (state = {}) => {
-  const fnGeoProjection = geoEquirectangular()
-
+  let geoProjectionType = geoProjectionTypes[0]
   let geoDomainObject
+  let geoExtent
 
   // default something
 
+  const getGeoProjectionType = (maybe) => {
+    return geoProjectionTypes.includes(maybe)
+      ? maybe : geoProjectionType
+  }
+
   const self = {
     ...state,
+    geoProjectionType: (value) => {
+      if (typeof value === 'undefined') return geoProjectionType
+      geoProjectionType = getGeoProjectionType(value)
+    },
     fnGeoProjection: () => {
-      return fnGeoProjection
+      return geo[geoProjectionType]()
+        .fitExtent(geoExtent, geoDomainObject)
     }
   }
 
-  const computeGeoDomainObject = (chart) => {
+  const updateGeoDomainObject = (chart) => {
     const componentProperties = chart.components()
       .filter(c => 'fnsValue' in c)
       .map(c => ({
@@ -36,19 +51,14 @@ const hasGeoProjection = (state = {}) => {
     }
   }
 
-  const updateGeoDomainObject = (chart) => {
-    computeGeoDomainObject(chart)
-    fnGeoProjection.fitExtent(chart.extent(), geoDomainObject)
-  }
-
-  const updateExtent = (chart) => {
-    fnGeoProjection.fitExtent(chart.extent(), geoDomainObject)
+  const updateGeoExtent = (chart) => {
+    geoExtent = chart.extent()
   }
 
   self.subscribe('data', updateGeoDomainObject)
   self.subscribe('components', updateGeoDomainObject)
-  self.subscribe('size', updateExtent)
-  self.subscribe('padding', updateExtent)
+  self.subscribe('size', updateGeoExtent)
+  self.subscribe('padding', updateGeoExtent)
 
   return self
 }

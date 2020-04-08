@@ -4476,7 +4476,7 @@
   !*** ./src/app.js ***!
   \********************/
 
-/*! exports provided: baseChart, basePaths, bxChart, bxAxisX, bxAxisY, bxBars, bxCircles, bxArea, bxLine, bxLines, bxMouseBars, byChart, byAxisX, byAxisY, byBars, geoChart, geoRegions */
+/*! exports provided: baChart, baBars, baseChart, basePaths, brChart, brBars, bxChart, bxAxisX, bxAxisY, bxBars, bxCircles, bxArea, bxLine, bxLines, bxMouseBars, byChart, byAxisX, byAxisY, byBars, geoChart, geoRegions */
 
 /*!******************************!*\
   !*** ./src/js/d3-modules.js ***!
@@ -4490,6 +4490,14 @@
 
 /*! exports provided: hasRegistry, chartProxy, componentProxy */
 
+/*!*****************************************!*\
+  !*** ./src/js_2/composite/ba/baBars.js ***!
+  \*****************************************/
+
+/*!******************************************!*\
+  !*** ./src/js_2/composite/ba/baChart.js ***!
+  \******************************************/
+
 /*!**********************************************!*\
   !*** ./src/js_2/composite/base/baseChart.js ***!
   \**********************************************/
@@ -4497,6 +4505,14 @@
 /*!**********************************************!*\
   !*** ./src/js_2/composite/base/basePaths.js ***!
   \**********************************************/
+
+/*!*****************************************!*\
+  !*** ./src/js_2/composite/br/brBars.js ***!
+  \*****************************************/
+
+/*!******************************************!*\
+  !*** ./src/js_2/composite/br/brChart.js ***!
+  \******************************************/
 
 /*!*****************************************!*\
   !*** ./src/js_2/composite/bx/bxArea.js ***!
@@ -4562,9 +4578,9 @@
   !*** ./src/js_2/virtual/chart/base/index.js ***!
   \**********************************************/
 
-/*!************************************************************!*\
-  !*** ./src/js_2/virtual/chart/properties/geoProjection.js ***!
-  \************************************************************/
+/*!*********************************************************!*\
+  !*** ./src/js_2/virtual/chart/properties/projection.js ***!
+  \*********************************************************/
 
 /*! exports provided: hasGeoProjection */
 
@@ -4573,6 +4589,18 @@
   \*****************************************************/
 
 /*! exports provided: hasBandScaleFactory, hasContScaleFactory */
+
+/*!***********************************************!*\
+  !*** ./src/js_2/virtual/chart/types/polar.js ***!
+  \***********************************************/
+
+/*! exports provided: hasPolar */
+
+/*!********************************************!*\
+  !*** ./src/js_2/virtual/chart/types/xy.js ***!
+  \********************************************/
+
+/*! exports provided: hasXy */
 
 /*!***************************************************!*\
   !*** ./src/js_2/virtual/component/base/events.js ***!
@@ -4615,31 +4643,35 @@
 /*! exports provided: hasGeoOut */
 
 /*!*******************************************************!*\
-  !*** ./src/js_2/virtual/component/properties/axis.js ***!
-  \*******************************************************/
-
-/*! exports provided: hasBandAxisFactory, hasContAxisFactory */
-
-/*!*********************************************************!*\
-  !*** ./src/js_2/virtual/component/properties/circle.js ***!
-  \*********************************************************/
-
-/*! exports provided: hasCircle */
-
-/*!*******************************************************!*\
   !*** ./src/js_2/virtual/component/properties/draw.js ***!
   \*******************************************************/
 
 /*! exports provided: hasSingleFunctionDraw, hasSingleDrawFactory, hasMultiDrawFactory */
-
-/*!*******************************************************!*\
-  !*** ./src/js_2/virtual/component/properties/path.js ***!
-  \*******************************************************/
-
-/*! exports provided: hasPath */
 
 /*!*********************************************************!*\
   !*** ./src/js_2/virtual/component/properties/values.js ***!
   \*********************************************************/
 
 /*! exports provided: hasValue, hasLowHighValue */
+
+/*!**************************************************!*\
+  !*** ./src/js_2/virtual/component/types/axis.js ***!
+  \**************************************************/
+
+/*! exports provided: hasBandAxisFactory, hasContAxisFactory */
+
+/*!****************************************************!*\
+  !*** ./src/js_2/virtual/component/types/circle.js ***!
+  \****************************************************/
+
+/*! exports provided: hasCircle */
+
+/*!**************************************************!*\
+  !*** ./src/js_2/virtual/component/types/path.js ***!
+  \**************************************************/
+
+/*! exports provided: hasPath */
+
+/*!***************************************************!*\
+  !*** ./src/js_2/virtual/component/types/polar.js ***!
+  \***************************************************/
