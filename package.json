@@ -1,6 +1,6 @@
 {
   "name": "d3nic",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "D3 New Interactive Charts",
   "main": "dist/index.js",
   "scripts": {
