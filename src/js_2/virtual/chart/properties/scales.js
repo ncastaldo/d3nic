@@ -42,8 +42,8 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
 
   let paddingInner = 0
   let paddingOuter = 0
-  let bandScaleDomain = [0, 1]
-  let bandScaleRange = [0, 1]
+  let bandScaleDomain = null
+  let bandScaleRange = null
 
   const self = {
     ...state,

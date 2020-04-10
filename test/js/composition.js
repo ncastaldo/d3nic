@@ -28,15 +28,15 @@ const onMouseout = (d, i) => {
 }
 
 
-const polarChart = d3nic.brChart()
+const polarChart = d3nic.baChart()
   .selector('.svgPolar')
-  .angleExtent([Math.PI, 0])
-  .radiusExtent([0.4, 0.6])
+  .radiusExtent([0.1, 1])
   .size({width: 500, height: 400})
   .data([1, 10, 30, 2, 42])
   .contScaleType('scaleLinear')
   .components([
-    d3nic.brBars()
+    d3nic.baBars(),
+    d3nic.baLine().fnFillOpacity(0).fnStrokeWidth(4)
   ])
   // .draw({duration: 500})
 

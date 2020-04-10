@@ -31,73 +31,62 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
   let tickPadding = 8
 
   let position = on === 'x' ? 'bottom' : 'left'
+  let scale = null
 
   let translateAxis
-  let fnAxis
 
   const self = {
     ...state,
     ticks: (value) => {
       if (typeof value === 'undefined') return ticks
       ticks = value
-      fnAxis.ticks(ticks)
     },
     tickValues: (value) => {
       if (typeof value === 'undefined') return tickValues
       tickValues = value
-      fnAxis.tickValues(tickValues)
     },
     tickFormat: (value) => {
       if (typeof value === 'undefined') return tickFormat
       tickFormat = value
-      fnAxis.tickFormat(tickFormat)
     },
     tickSizeInner: (value) => {
       if (typeof value === 'undefined') return tickSizeInner
       tickSizeInner = value
-      fnAxis.tickSizeInner(tickSizeInner)
     },
     tickSizeOuter: (value) => {
       if (typeof value === 'undefined') return tickSizeOuter
       tickSizeOuter = value
-      fnAxis.tickSizeOuter(tickSizeOuter)
     },
     tickPadding: (value) => {
       if (typeof value === 'undefined') return tickPadding
       tickPadding = value
-      fnAxis.tickPadding(tickPadding)
     },
     position: (value) => {
       if (typeof value === 'undefined') return position
       position = value
-      changeAxis()
+    },
+    scale: (value) => {
+      if (typeof value === 'undefined') return scale
+      scale = value
     },
     translateAxis: () => {
       return translateAxis
     },
     fnAxis: () => {
-      return fnAxis
+      return computeAxis(on, position)
+        .scale(scale)
+        .ticks(ticks)
+        .tickValues(tickValues)
+        .tickFormat(tickFormat)
+        .tickSizeInner(tickSizeInner)
+        .tickSizeOuter(tickSizeOuter)
+        .tickPadding(tickPadding)
     }
   }
 
   // AWFUL SOLUTION
   self.fnStrokeWidth(1)
   self.fnStroke('none')
-
-  const changeAxis = () => {
-    fnAxis = computeAxis(on, position)
-      .ticks(ticks)
-      .tickValues(tickValues)
-      .tickFormat(tickFormat)
-      .tickSizeInner(tickSizeInner)
-      .tickSizeOuter(tickSizeOuter)
-      .tickPadding(tickPadding)
-  }
-
-  // subscription to self call on modified proxy for component
-  // self.subscribe('position', changeAxis)
-
-  changeAxis()
 
   const updateTranslate = (chart) => {
     translateAxis = computeTranslate(chart, on, position)
@@ -121,7 +110,7 @@ const hasBandAxisFactory = (on = 'x') => (state = {}) => {
   }
 
   const updateTicks = () => {
-    const domain = self.fnAxis().scale().domain()
+    const domain = self.scale().domain()
 
     if (self.ticks() <= 0) return domain
 
@@ -134,11 +123,11 @@ const hasBandAxisFactory = (on = 'x') => (state = {}) => {
     const correction = Math.floor((domain.length - 1) % j / 2) // how many on the right -> shift in case
     const fnFilterDomain = (_, i) => i % j === correction
 
-    self.fnAxis().tickValues(domain.filter(fnFilterDomain)) // won't call the proxy since the function itself is modified
+    self.tickValues(domain.filter(fnFilterDomain)) // won't call the proxy since the function itself is modified
   }
 
   const updateAxisScale = (chart) => {
-    self.fnAxis().scale(chart.fnBandScale())
+    self.scale(chart.fnBandScale())
     updateTicks() // a scale is needed
   }
 
@@ -160,7 +149,7 @@ const hasContAxisFactory = (on = 'x') => (state = {}) => {
   }
 
   const updateAxisScale = (chart) => {
-    self.fnAxis().scale(chart.fnContScale())
+    self.scale(chart.fnContScale())
   }
 
   // init may be enough
