@@ -60,9 +60,11 @@ import BbRects from '@/js/bb/bbRects.js' */
 
 // TEST
 
+import baAxisA from './js_2/composite/ba/baAxisA'
 import baChart from './js_2/composite/ba/baChart'
 import baBars from './js_2/composite/ba/baBars'
 import baLine from './js_2/composite/ba/baLine'
+import baMouseBars from './js_2/composite/ba/baMouseBars'
 
 import baseChart from '@/js_2/composite/base/baseChart'
 import basePaths from '@/js_2/composite/base/basePaths'
@@ -97,9 +99,11 @@ export {
   // xyChart,
   // event,
 
+  baAxisA,
   baChart,
   baBars,
   baLine,
+  baMouseBars,
 
   baseChart,
   basePaths,

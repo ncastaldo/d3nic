@@ -34,9 +34,15 @@ const polarChart = d3nic.baChart()
   .size({width: 500, height: 400})
   .data([1, 10, 30, 2, 42])
   .contScaleType('scaleLinear')
+  .paddingInner(0.3)
+  .paddingOuter(0.15)
   .components([
     d3nic.baBars(),
-    d3nic.baLine().fnFillOpacity(0).fnStrokeWidth(4)
+    d3nic.baLine().fnFillOpacity(0).fnStrokeWidth(2).fnStrokeDasharray([2, 2]),
+    d3nic.baAxisA().tickSizeOuter(0),
+    d3nic.baMouseBars()
+      .fnOn('mouseover', onMouseover)
+      .fnOn('mouseout', onMouseout)
   ])
   // .draw({duration: 500})
 
@@ -104,8 +110,8 @@ const update = () => {
   bandCharts.map(chart => chart.draw({duration: 1000}))
 
   const geoData = dChart.data()
-  geoData.length > 1 ? dChart.data([geoData[Math.floor(Math.random() * geoData.length)]]) : dChart.data(features)
-  dChart.draw({duration: 1000})
+  // geoData.length > 1 ? dChart.data([geoData[Math.floor(Math.random() * geoData.length)]]) : dChart.data(features)
+  // dChart.draw({duration: 1000})
 }
 
 d3.select('#update').on("click", update)

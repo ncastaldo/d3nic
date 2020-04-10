@@ -60,6 +60,7 @@
     "d3-polygon": "^1.0.5",
     "d3-quadtree": "^1.0.6",
     "d3-queue": "^3.0.7",
+    "d3-radial-axis": "^1.6.4",
     "d3-random": "^2.0.0",
     "d3-request": "^1.0.6",
     "d3-scale": "^3.2.0",

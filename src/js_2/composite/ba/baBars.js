@@ -21,7 +21,7 @@ const baBars = (state = {}) => {
     s.each((d, i, nodes) => {
       nodes[i].beforeArc = {
         startAngle: self.fnBandOut()(d, i),
-        endAngle: self.fnBandRightOut()(d, i),
+        endAngle: self.fnBandOut()(d, i) + self.bandwidthOut(),
         innerRadius: self.fnLowContOut()(d, i),
         outerRadius: self.fnLowContOut()(d, i)
       }
@@ -36,7 +36,7 @@ const baBars = (state = {}) => {
         : { ...nodes[i].beforeArc }
       nodes[i].toArc = {
         startAngle: self.fnBandOut()(d, i),
-        endAngle: self.fnBandRightOut()(d, i),
+        endAngle: self.fnBandOut()(d, i) + self.bandwidthOut(),
         innerRadius: self.fnLowContOut()(d, i),
         outerRadius: self.fnHighContOut()(d, i)
       }

@@ -1,11 +1,16 @@
 import pipe from 'lodash/fp/flow'
 import { axisBottom, axisTop, axisLeft, axisRight } from 'd3-axis'
+import { axisRadialInner, axisRadialOuter } from 'd3-radial-axis'
 import { format } from 'd3-format'
 
 const computeAxis = (on, position) => {
   return on === 'x'
     ? position === 'top' ? axisTop() : axisBottom()
-    : position === 'right' ? axisRight() : axisLeft()
+    : on === 'y'
+      ? position === 'right' ? axisRight() : axisLeft()
+      : on === 'angle'
+        ? position === 'inner' ? axisRadialInner() : axisRadialOuter()
+        : undefined
 }
 
 const computeTranslate = (chart, on, position) => {
@@ -33,7 +38,7 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
   let position = on === 'x' ? 'bottom' : 'left'
   let scale = null
 
-  let translateAxis
+  let translateAxis = null
 
   const self = {
     ...state,
@@ -73,14 +78,16 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
       return translateAxis
     },
     fnAxis: () => {
-      return computeAxis(on, position)
-        .scale(scale)
+      const fnAxis = computeAxis(on, position)
         .ticks(ticks)
         .tickValues(tickValues)
         .tickFormat(tickFormat)
         .tickSizeInner(tickSizeInner)
         .tickSizeOuter(tickSizeOuter)
         .tickPadding(tickPadding)
+      return on !== 'angle'
+        ? fnAxis.scale(scale)
+        : fnAxis.angleScale(scale).radius(self.radius())
     }
   }
 
@@ -88,15 +95,15 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
   self.fnStrokeWidth(1)
   self.fnStroke('none')
 
-  const updateTranslate = (chart) => {
+  const update = (chart) => {
     translateAxis = computeTranslate(chart, on, position)
   }
 
   // + init
-  self.subscribe('data', updateTranslate)
-  self.subscribe('components', updateTranslate)
-  self.subscribe('size', updateTranslate)
-  self.subscribe('padding', updateTranslate)
+  self.subscribe('data', update)
+  self.subscribe('components', update)
+  self.subscribe('size', update)
+  self.subscribe('padding', update)
 
   return self
 }
