@@ -25,6 +25,8 @@ const hasPolar = (state = {}) => {
 
   self.subscribe('data', updateRadius)
   self.subscribe('components', updateRadius)
+  self.subscribe('size', updateRadius)
+  self.subscribe('padding', updateRadius)
 
   return self
 }

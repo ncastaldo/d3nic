@@ -76,6 +76,7 @@ import bxChart from '@/js_2/composite/bx/bxChart'
 import bxAxisX from '@/js_2/composite/bx/bxAxisX'
 import bxAxisY from '@/js_2/composite/bx/bxAxisY'
 import bxBars from '@/js_2/composite/bx/bxBars'
+import bxBrush from './js_2/composite/bx/bxBrush'
 import bxArea from '@/js_2/composite/bx/bxArea'
 import bxLine from '@/js_2/composite/bx/bxLine'
 import bxLines from '@/js_2/composite/bx/bxLines'
@@ -115,6 +116,7 @@ export {
   bxAxisX,
   bxAxisY,
   bxBars,
+  bxBrush,
   bxCircles,
   bxArea,
   bxLine,

@@ -14,7 +14,8 @@ const chart = d3nic.bxChart()
   .components([
     d3nic.bxAxisX(), // new entry
     d3nic.bxAxisY(), // new entry
-    d3nic.bxBars()
+    d3nic.bxBars(),
+    d3nic.bxBrush(),
   ])
   .draw({duration: 500})
 
