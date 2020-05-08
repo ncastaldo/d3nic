@@ -2,14 +2,14 @@ import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasBrushFactory } from '../../virtual/component/types/brush'
+import { hasBandBrushFactory } from '../../virtual/component/types/brush'
 import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasSingleFunctionDraw } from '../../virtual/component/properties/draw'
 
 const bxBrush = (state = {}) => {
   const self = pipe(
     component,
-    hasBrushFactory('x'),
+    hasBandBrushFactory('x'),
     hasBandOut,
     hasSingleFunctionDraw
   )(state)
