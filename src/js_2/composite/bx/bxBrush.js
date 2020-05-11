@@ -9,8 +9,8 @@ import { hasSingleFunctionDraw } from '../../virtual/component/properties/draw'
 const bxBrush = (state = {}) => {
   const self = pipe(
     component,
-    hasBandBrushFactory('x'),
     hasBandOut,
+    hasBandBrushFactory('x'),
     hasSingleFunctionDraw
   )(state)
 
@@ -19,7 +19,7 @@ const bxBrush = (state = {}) => {
   self.fnNow(s =>
     s.attr('opacity', 1)
       .call(t => t.selection().call(self.fnBrush()))
-      .call(self.fnBrush().move, self.brushSelection())// brushSelection(s.node()))
+      .call(self.fnBrush().move, self.bandBrushRange())
   )
 
   return componentProxy(self)

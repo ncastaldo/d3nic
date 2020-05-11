@@ -105,7 +105,7 @@ bandCharts.map(chart => chart.draw({duration: 1000}))
 
 
 const update = () => {
-  const data = [...Array(Math.round(Math.random()*10) + 1)].map(() => Math.random())
+  const data = [...Array(Math.round(Math.random()*20) + 1)].map(() => Math.random())
   bandCharts.map(chart => chart.data(data))
   bandCharts.map(c => c.size({width: c.size().height, height: c.size().width}))
   bandCharts.map(chart => chart.draw({duration: 1000}))
