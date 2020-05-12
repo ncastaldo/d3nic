@@ -1,6 +1,7 @@
 import pipe from 'lodash/fp/flow'
 import { brushX, brushY } from 'd3-brush'
-import { event, mouse } from 'd3-selection'
+import { event } from 'd3-selection'
+import { scaleThreshold, scaleOrdinal } from 'd3-scale'
 
 const computeBrush = (on) => {
   return on === 'x' ? brushX() : brushY()
@@ -9,11 +10,22 @@ const computeBrush = (on) => {
 const hasBrushFactory = (on = 'x') => (state = {}) => {
   let chartExtent = null
 
+  let brushDomain = null
+  let brushRange = null
+
   let onBrush = () => {}
   let onEnd = () => {}
 
   const self = {
     ...state,
+    brushDomain: (value) => {
+      if (typeof value === 'undefined') return brushDomain
+      brushDomain = value
+    },
+    brushRange: (value) => {
+      if (typeof value === 'undefined') return brushRange
+      brushRange = value
+    },
     onBrush: (value) => {
       if (typeof value === 'undefined') return onBrush
       onBrush = value
@@ -44,60 +56,88 @@ const hasBrushFactory = (on = 'x') => (state = {}) => {
 }
 
 const hasBandBrushFactory = (on = 'x') => (state = {}) => {
-  let chartData = null
-  let bandDomain = null
+  const fnScaleT0 = scaleThreshold()
+  const fnScaleT1 = scaleThreshold()
 
-  let bandBrushDomain = null
-  let bandBrushRange = null
+  const fnScaleL = scaleOrdinal()
+  const fnScaleR = scaleOrdinal()
 
   const self = {
     ...state,
     ...pipe(
       hasBrushFactory(on)
-    )(state),
-    bandBrushDomain: () => {
-      return bandBrushDomain
-    },
-    bandBrushRange: () => {
-      return bandBrushRange
-    }
+    )(state)
   }
 
   const onBrush = () => {
     if (!event.selection || !event.sourceEvent || event.sourceEvent.type !== 'mousemove') { return }
-    const indexes = chartData.map(self.fnBandCenterOut())
-      .map((c, i) => c >= event.selection[0] && c <= event.selection[1] ? i : -1)
-      .filter(i => i >= 0)
-    bandBrushDomain = indexes.length
-      ? indexes.map(i => bandDomain[i])
-      : null
-    bandBrushRange = indexes.length
-      ? [indexes[0], indexes[indexes.length - 1]]
-        .map(i => ({ d: chartData[i], i }))
-        .map(({ d, i }, j) => (j === 0 ? self.fnBandLeftOut() : self.fnBandRightOut())(d, i))
-      : null
+    const s = event.selection
+
+    const brushDomain = self.brushDomain()
+
+    // little trick, using null
+    const [d0, dc, d1] = [fnScaleT0(s[0]), fnScaleT0(s[1]), fnScaleT1(s[1])]
+
+    const d = d0 === null || d0 === dc || d1 === null
+      ? null : [d0, d1]
+    const change = brushDomain !== null
+      ? !d || d0 !== brushDomain[0] || d1 !== brushDomain[1]
+      : d
+
+    if (change) {
+      self.brushDomain(d)
+      updateBrushRange()
+
+      self.group().datum(d).dispatch('brushDomain')
+    }
+
     // snapping
-    event.target.move(self.group(), bandBrushRange)
+    self.fnBrush().move(self.group(), self.brushRange())
   }
 
   const onEnd = () => {
     if (!event.sourceEvent || event.sourceEvent.type !== 'mouseup') { return }
-    console.log(event.sourceEvent)
+    if (!event.selection) {
+      self.brushDomain(null)
+    }
+    self.group().datum(self.brushDomain()).dispatch('endDomain')
   }
 
   self.onBrush(onBrush)
   self.onEnd(onEnd)
 
   const update = (chart) => {
-    chartData = chart.data()
-    bandDomain = chart.fnBandScale().domain()
+    const bandDomain = chart.fnBandScale().domain()
+
+    for (const d in self.brushDomain()) {
+      if (!bandDomain.includes(d)) {
+        self.brushDomain(null)
+        break
+      }
+    }
+
+    const centers = chart.data().map(self.fnBandCenterOut())
+    const lefts = chart.data().map(self.fnBandLeftOut())
+    const rights = chart.data().map(self.fnBandRightOut())
+
+    // fnScaleT.domain(centers).range(bandDomain)
+    fnScaleT0.domain(centers).range([...bandDomain, null])
+    fnScaleT1.domain(centers).range([null, ...bandDomain])
+
+    fnScaleL.domain(bandDomain).range(lefts)
+    fnScaleR.domain(bandDomain).range(rights)
+
+    updateBrushRange()
+  }
+
+  const updateBrushRange = () => {
+    const d = self.brushDomain()
+    const r = d ? [fnScaleL(d[0]), fnScaleR(d[1])] : null
+    self.brushRange(r)
   }
 
   // + init
-  self.subscribe('data', update)
-  self.subscribe('components', update)
-  self.subscribe('size', update)
-  self.subscribe('padding', update)
+  self.subscribe('data', 'components', 'size', 'padding', update)
 
   return self
 }
@@ -134,10 +174,7 @@ const hasContBrushFactory = (on = 'x') => (state = {}) => {
   }
 
   // + init
-  self.subscribe('data', update)
-  self.subscribe('components', update)
-  self.subscribe('size', update)
-  self.subscribe('padding', update)
+  self.subscribe('data', 'components', 'size', 'padding', update)
 
   return self
 }

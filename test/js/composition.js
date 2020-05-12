@@ -7,15 +7,23 @@ d3.select(".container").call(container => {
   container.append("svg").classed("svg4", true)
 })
 
+const data = [...Array(Math.round(Math.random()*70) + 1)].map(() => Math.random())
+const fnColor = d3.scaleSequential(d3.interpolateViridis)
+  .domain([0, data.length - 1])
+const fnFill = (d, i) => fnColor(i)
+
 const chart = d3nic.bxChart()
   .selector('svg')
-  .size({width: 300, height: 400})
-  .data([2, 5, 8, 3, 6])
+  .size({width: 500, height: 400})
+  .data(data)
   .components([
     d3nic.bxAxisX(), // new entry
     d3nic.bxAxisY(), // new entry
-    d3nic.bxBars(),
-    d3nic.bxBrush(),
+    d3nic.bxBars().fnFill(fnFill),
+    d3nic.bxBrush().fnOn('endDomain', (bd) => {
+        const dd = bd ? data.filter((_, j) => j >= bd[0] && j<=bd[1]) : []
+        bandCharts.map(chart => chart.data(dd).draw({duration: 1000}))
+    }),
   ])
   .draw({duration: 500})
 
@@ -38,7 +46,7 @@ const polarChart = d3nic.baChart()
   .paddingInner(0.3)
   .paddingOuter(0.15)
   .components([
-    d3nic.baBars(),
+    d3nic.baBars().fnFill(fnFill),
     d3nic.baLine().fnFillOpacity(0).fnStrokeWidth(2).fnStrokeDasharray([2, 2]),
     d3nic.baAxisA().tickSizeOuter(0),
     d3nic.baMouseBars()
@@ -78,7 +86,7 @@ const cChart = d3nic.byChart()
   .size({width: 500, height: 500})
   .data([0, 0.5, 1])
   .components([
-    d3nic.byBars()
+    d3nic.byBars().fnFill(fnFill)
   ])
 
 
@@ -100,13 +108,12 @@ let feature
 })()}
 
 
-bandCharts = [chart, aChart, bChart, cChart, polarChart]
+bandCharts = [aChart, bChart, cChart, polarChart]
 bandCharts.map(chart => chart.draw({duration: 1000}))
 
 
 const update = () => {
-  const data = [...Array(Math.round(Math.random()*20) + 1)].map(() => Math.random())
-  bandCharts.map(chart => chart.data(data))
+  chart.data(data)
   bandCharts.map(c => c.size({width: c.size().height, height: c.size().width}))
   bandCharts.map(chart => chart.draw({duration: 1000}))
 

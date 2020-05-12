@@ -2,10 +2,14 @@ const hasRegistry = () => {
   const registry = {}
   return {
     // registry
-    subscribe: (topic, ...fn) => {
+    subscribe: (...args) => {
+      if (args.length < 2) { return }
+      const [fn, ...topics] = args.reverse()
       // console.log('sub', topic, fn)
-      if (!(topic in registry)) { registry[topic] = [] }
-      registry[topic] = registry[topic].concat(fn)
+      for (const t of topics) {
+        if (!(t in registry)) { registry[t] = [] }
+        registry[t] = registry[t].concat(fn)
+      }
     },
     publish: (topic, data) => {
       // console.log('pub', topic, registry[topic])

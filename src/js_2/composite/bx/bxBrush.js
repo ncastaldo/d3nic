@@ -19,7 +19,7 @@ const bxBrush = (state = {}) => {
   self.fnNow(s =>
     s.attr('opacity', 1)
       .call(t => t.selection().call(self.fnBrush()))
-      .call(self.fnBrush().move, self.bandBrushRange())
+      .call(self.fnBrush().move, self.brushRange())
   )
 
   return componentProxy(self)

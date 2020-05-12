@@ -41,7 +41,10 @@ const hasBandOut = (state = {}) => {
     )
   }
 
-  self.subscribe('draw', updateOuts)
+  self.subscribe('data', updateOuts)
+  self.subscribe('components', updateOuts)
+  self.subscribe('size', updateOuts)
+  self.subscribe('padding', updateOuts)
 
   return self
 }
