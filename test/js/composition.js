@@ -21,7 +21,7 @@ const chart = d3nic.bxChart()
     d3nic.bxAxisY(), // new entry
     d3nic.bxBars().fnFill(fnFill),
     d3nic.bxBrush().fnOn('endDomain', (bd) => {
-        const dd = bd ? data.filter((_, j) => j >= bd[0] && j<=bd[1]) : []
+        const dd = bd ? data.filter((_, j) => j >= bd[0] && j<=bd[1]) : data
         bandCharts.map(chart => chart.data(dd).draw({duration: 1000}))
     }),
   ])

@@ -90,7 +90,8 @@ const hasContScaleFactory = (on) => (state = {}) => {
 
   let contScaleType = Object.keys(contScales)[0] // scaleLinear
 
-  let baseContDomain = [Infinity, -Infinity]
+  let contBaseDomain = [Infinity, -Infinity]
+  let contFixedDomain = null
 
   const getContScaleType = (maybe) => {
     return maybe in contScales
@@ -104,14 +105,19 @@ const hasContScaleFactory = (on) => (state = {}) => {
       if (typeof value === 'undefined') return contScaleType
       contScaleType = getContScaleType(value)
     },
-    baseContDomain: (value) => {
-      if (typeof value === 'undefined') return baseContDomain
-      baseContDomain = value
+    contBaseDomain: (value) => {
+      if (typeof value === 'undefined') return contBaseDomain
+      contBaseDomain = value
+    },
+    contFixedDomain: (value) => {
+      if (typeof value === 'undefined') return contFixedDomain
+      contFixedDomain = value
     },
     fnContScale: () => {
       return contScales[contScaleType]()
-        .domain(contScaleDomain)
+        .domain(contFixedDomain || contScaleDomain)
         .range(contScaleRange)
+        .clamp(contFixedDomain !== null)
     }
   }
 
@@ -133,7 +139,7 @@ const hasContScaleFactory = (on) => (state = {}) => {
           Math.min(domain[0], ...fnsValue.map(fn => fn(d, i))),
           Math.max(domain[1], ...fnsValue.map(fn => fn(d, i)))
         ]
-      }, baseContDomain)
+      }, contBaseDomain)
   }
 
   const updateScaleDomain = (chart) => {
