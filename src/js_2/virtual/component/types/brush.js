@@ -138,6 +138,7 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
 
   // + init
   self.subscribe('data', 'components', 'size', 'padding', update)
+  self.subscribe('brushDomain', updateBrushRange)
 
   return self
 }

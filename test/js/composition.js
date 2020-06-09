@@ -49,6 +49,12 @@ const polarChart = d3nic.baChart()
     d3nic.baBars().fnFill(fnFill),
     d3nic.baLine().fnFillOpacity(0).fnStrokeWidth(2).fnStrokeDasharray([2, 2]),
     d3nic.baAxisA().tickSizeOuter(0),
+    d3nic.baCircle()
+      .fnValue(d => 0.5)
+      .fnStrokeWidth(() => 2)
+      .fnStroke(() => '#444')
+      .fnFillOpacity(() => 0)
+      .fnStrokeDasharray([2, 10]),
     d3nic.baMouseBars()
       .fnOn('mouseover', onMouseover)
       .fnOn('mouseout', onMouseout)
