@@ -87,7 +87,8 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
         .tickPadding(tickPadding)
       return on !== 'angle'
         ? fnAxis.scale(scale)
-        : fnAxis.angleScale(scale).radius(self.radius())
+        : fnAxis.angleScale(scale)
+          .radius(self.radiusRange()[position === 'inner' ? 0 : 1])
     }
   }
 

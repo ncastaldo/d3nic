@@ -24,8 +24,8 @@ const byBars = (state = {}) => {
   )
 
   self.fnNow(s =>
-    s.attr('x', self.fnLowContOut())
-      .attr('width', (d, i) => self.fnHighContOut()(d, i) - self.fnLowContOut()(d, i))
+    s.attr('x', (d, i) => Math.min(self.fnHighContOut()(d, i), self.fnLowContOut()(d, i)))
+      .attr('width', (d, i) => Math.abs(self.fnLowContOut()(d, i) - self.fnHighContOut()(d, i)))
       .attr('y', self.fnBandOut())
       .attr('height', self.bandwidthOut())
       // .attr('opacity', 1) // not needed

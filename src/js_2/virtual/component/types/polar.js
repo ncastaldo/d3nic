@@ -16,7 +16,7 @@ const getArcInterpolator = (node) => {
 }
 
 const hasPolar = (state = {}) => {
-  let radius = 1
+  let radiusRange = [0, 1]
 
   const fnXTween = (_, i, nodes) => {
     const fnInterpolate = getPolarInterpolator(nodes[i])
@@ -35,8 +35,8 @@ const hasPolar = (state = {}) => {
 
   const self = {
     ...state,
-    radius: () => {
-      return radius
+    radiusRange: () => {
+      return radiusRange
     },
     fnXTween: () => {
       return fnXTween
@@ -49,14 +49,14 @@ const hasPolar = (state = {}) => {
     }
   }
 
-  const updateRadius = (chart) => {
-    radius = chart.radius()
+  const updateRadiusRange = (chart) => {
+    radiusRange = chart.radiusRange()
   }
 
-  self.subscribe('data', updateRadius)
-  self.subscribe('components', updateRadius)
-  self.subscribe('size', updateRadius)
-  self.subscribe('padding', updateRadius)
+  self.subscribe('data', updateRadiusRange)
+  self.subscribe('components', updateRadiusRange)
+  self.subscribe('size', updateRadiusRange)
+  self.subscribe('padding', updateRadiusRange)
 
   return self
 }
