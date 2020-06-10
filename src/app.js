@@ -63,6 +63,7 @@ import BbRects from '@/js/bb/bbRects.js' */
 import baArea from './js_2/composite/ba/baArea'
 import baAxisA from './js_2/composite/ba/baAxisA'
 import baChart from './js_2/composite/ba/baChart'
+import baCircles from './js_2/composite/ba/baCircles'
 import baBars from './js_2/composite/ba/baBars'
 import baCircle from './js_2/composite/ba/baCircle'
 import baLine from './js_2/composite/ba/baLine'
@@ -106,6 +107,7 @@ export {
   baAxisA,
   baChart,
   baBars,
+  baCircles,
   baCircle,
   baLine,
   baMouseBars,

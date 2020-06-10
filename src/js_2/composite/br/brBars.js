@@ -41,11 +41,7 @@ const brBars = (state = {}) => {
         outerRadius: self.fnBandRightOut()(d, i)
       }
     })
-      .attrTween('d', (d, i, nodes) =>
-        self.fnArcTween()(
-          nodes[i].fromArc,
-          nodes[i].toArc
-        ))
+      .attrTween('d', self.fnArcTween())
 
   )
 
@@ -55,11 +51,7 @@ const brBars = (state = {}) => {
       nodes[i].fromArc = { ...nodes[i].toArc }
       nodes[i].toArc = { ...nodes[i].beforeArc }
     })
-      .attrTween('d', (d, i, nodes) =>
-        self.fnArcTween()(
-          nodes[i].fromArc,
-          nodes[i].toArc
-        ))
+      .attrTween('d', self.fnArcTween())
       .attr('opacity', 0)
   )
 

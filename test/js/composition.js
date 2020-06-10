@@ -47,6 +47,7 @@ const polarChart = d3nic.baChart()
   .paddingOuter(0.15)
   .components([
     d3nic.baBars().fnFill(fnFill),
+    d3nic.baCircles().fnFill(fnFill),
     d3nic.baLine().fnFillOpacity(0).fnStrokeWidth(2).fnStrokeDasharray([2, 2]),
     d3nic.baAxisA().tickSizeOuter(0),
     d3nic.baCircle()

@@ -29,11 +29,7 @@ const bxBars = (state = {}) => {
       }
       nodes[i].toArc = { ...nodes[i].fromArc }
     })
-      .attrTween('d', (d, i, nodes) =>
-        self.fnArcTween()(
-          nodes[i].fromArc,
-          nodes[i].toArc
-        ))
+      .attrTween('d', self.fnArcTween())
   )
 
   return componentProxy(self)
