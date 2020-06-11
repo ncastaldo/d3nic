@@ -30,7 +30,8 @@ const computeTranslate = (chart, on, position) => {
 const hasAxisFactory = (on = 'x') => (state = {}) => {
   let ticks = 5
   let tickValues = null
-  let tickFormat = format('.1f')
+  let tickFormatType = null // null, if defined then dominant
+  let tickFormat = t => t
   let tickSizeInner = 6
   let tickSizeOuter = 6
   let tickPadding = 8
@@ -49,6 +50,10 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
     tickValues: (value) => {
       if (typeof value === 'undefined') return tickValues
       tickValues = value
+    },
+    tickFormatType: (value) => {
+      if (typeof value === 'undefined') return tickFormatType
+      tickFormatType = value
     },
     tickFormat: (value) => {
       if (typeof value === 'undefined') return tickFormat
@@ -81,7 +86,7 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
       const fnAxis = computeAxis(on, position)
         .ticks(ticks)
         .tickValues(tickValues)
-        .tickFormat(tickFormat)
+        .tickFormat(tickFormatType ? format(tickFormatType) : tickFormat)
         .tickSizeInner(tickSizeInner)
         .tickSizeOuter(tickSizeOuter)
         .tickPadding(tickPadding)
