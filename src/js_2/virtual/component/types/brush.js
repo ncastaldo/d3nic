@@ -96,7 +96,7 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
       // if the maxStep is specified, check if we are in the 'safe area'
       if (self.maxStep() >= 0 && d && d[0] !== d[1]) {
         const step = fnScaleL.domain()
-          .reduce((acc, f, i) => f === d[1]
+          .reduce((acc, f, i) => f === d[0]
             ? acc - i : f === d[1] ? acc + i : acc, 0)
         update = step <= self.maxStep()
       }
