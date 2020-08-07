@@ -6,9 +6,11 @@ const hasRegistry = () => {
       if (args.length < 2) { return }
       const [fn, ...topics] = args.reverse()
       // console.log('sub', topic, fn)
+      const index = {}
       for (const t of topics) {
         if (!(t in registry)) { registry[t] = [] }
-        registry[t] = registry[t].concat(fn)
+        registry[t] = registry[t].concat([fn])
+        index[t] = registry[t].length - 1
       }
     },
     publish: (topic, data) => {

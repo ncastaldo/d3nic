@@ -13,6 +13,8 @@ const hasBrushFactory = (on = 'x') => (state = {}) => {
   let brushDomain = null
   let brushRange = null
 
+  let maxStep = null
+
   let onBrush = () => {}
   let onEnd = () => {}
 
@@ -25,6 +27,10 @@ const hasBrushFactory = (on = 'x') => (state = {}) => {
     brushRange: (value) => {
       if (typeof value === 'undefined') return brushRange
       brushRange = value
+    },
+    maxStep: (value) => {
+      if (typeof value === 'undefined') return maxStep
+      maxStep = value
     },
     onBrush: (value) => {
       if (typeof value === 'undefined') return onBrush
@@ -85,10 +91,22 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
       : d
 
     if (change) {
-      self.brushDomain(d)
-      updateBrushRange()
+      let update = true
 
-      self.group().datum(d).dispatch('brushDomain')
+      // if the maxStep is specified, check if we are in the 'safe area'
+      if (self.maxStep() >= 0 && d && d[0] !== d[1]) {
+        const step = fnScaleL.domain()
+          .reduce((acc, f, i) => f === d[1]
+            ? acc - i : f === d[1] ? acc + i : acc, 0)
+        update = step <= self.maxStep()
+      }
+
+      if (update) {
+        self.brushDomain(d)
+        updateBrushRange()
+
+        self.group().datum(d).dispatch('brushDomain')
+      }
     }
 
     // snapping

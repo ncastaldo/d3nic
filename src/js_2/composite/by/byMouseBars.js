@@ -7,7 +7,7 @@ import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasRangeContOut } from '../../virtual/component/outs/cont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
-const bxBars = (state = {}) => {
+const byMouseBars = (state = {}) => {
   const self = pipe(
     component,
     hasBandOut,
@@ -18,13 +18,13 @@ const bxBars = (state = {}) => {
   self.fnOpacity(0)
 
   self.fnNow(s =>
-    s.attr('x', self.fnBandLeftOut())
-      .attr('width', (d, i) => self.fnBandRightOut()(d, i) - self.fnBandLeftOut()(d, i))
-      .attr('y', self.rangeContOut()[1])
-      .attr('height', Math.abs(self.rangeContOut()[1] - self.rangeContOut()[0]))
+    s.attr('y', self.fnBandLeftOut())
+      .attr('height', (d, i) => self.fnBandRightOut()(d, i) - self.fnBandLeftOut()(d, i))
+      .attr('x', self.rangeContOut()[0])
+      .attr('width', Math.abs(self.rangeContOut()[1] - self.rangeContOut()[0]))
   )
 
   return componentProxy(self)
 }
 
-export default bxBars
+export default byMouseBars

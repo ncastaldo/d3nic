@@ -91,6 +91,7 @@ import byBars from '@/js_2/composite/by/byBars'
 import byLines from '@/js_2/composite/by/byLines'
 import byAxisX from '@/js_2/composite/by/byAxisX'
 import byAxisY from '@/js_2/composite/by/byAxisY'
+import byMouseBars from '@/js_2/composite/by/byMouseBars'
 
 import geoChart from '@/js_2/composite/geo/geoChart'
 import geoRegions from '@/js_2/composite/geo/geoRegions'
@@ -135,6 +136,7 @@ export {
   byAxisY,
   byBars,
   byLines,
+  byMouseBars,
 
   geoChart,
   geoRegions
