@@ -13,6 +13,7 @@ const hasBrushFactory = (on = 'x') => (state = {}) => {
   let brushDomain = null
   let brushRange = null
 
+  let minStep = null
   let maxStep = null
 
   let onBrush = () => {}
@@ -27,6 +28,10 @@ const hasBrushFactory = (on = 'x') => (state = {}) => {
     brushRange: (value) => {
       if (typeof value === 'undefined') return brushRange
       brushRange = value
+    },
+    minStep: (value) => {
+      if (typeof value === 'undefined') return minStep
+      minStep = value
     },
     maxStep: (value) => {
       if (typeof value === 'undefined') return maxStep
@@ -93,12 +98,18 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
     if (change) {
       let update = true
 
-      // if the maxStep is specified, check if we are in the 'safe area'
-      if (self.maxStep() >= 0 && d && d[0] !== d[1]) {
-        const step = fnScaleL.domain()
-          .reduce((acc, f, i) => f === d[0]
-            ? acc - i : f === d[1] ? acc + i : acc, 0)
-        update = step <= self.maxStep()
+      const minStep = self.minStep()
+      const maxStep = self.maxStep()
+
+      if (minStep >= 0 || maxStep >= 0) {
+        const step = !d
+          ? null : d[0] === d[1]
+            ? 0 : fnScaleL.domain()
+              .reduce((acc, f, i) => f === d[0]
+                ? acc - i : f === d[1] ? acc + i : acc, 0)
+
+        update = !(minStep >= 0) || (step !== null && step >= minStep)
+        update = update && (!(maxStep >= 0) || (step === null || step <= maxStep))
       }
 
       if (update) {
