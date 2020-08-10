@@ -126,6 +126,7 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
 
   const onEnd = () => {
     if (!event.sourceEvent || event.sourceEvent.type !== 'mouseup') { return }
+    // in case of no selection, if outside min/max snap to correct [i.e. previous] range!!
     if (!event.selection) {
       self.brushDomain(null)
     }
@@ -138,10 +139,13 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
   const update = (chart) => {
     const bandDomain = chart.fnBandScale().domain()
 
-    for (const d in self.brushDomain()) {
-      if (!bandDomain.includes(d)) {
-        self.brushDomain(null)
-        break
+    // check everything is fine in case user gives brushDomain
+    if (self.brushDomain()) {
+      for (const d of self.brushDomain()) {
+        if (!bandDomain.includes(d)) {
+          self.brushDomain(null)
+          break
+        }
       }
     }
 
