@@ -80,6 +80,10 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
     )(state)
   }
 
+  const snap = () => {
+    self.fnBrush().move(self.group(), self.brushRange())
+  }
+
   const onBrush = () => {
     if (!event.selection || !event.sourceEvent || event.sourceEvent.type !== 'mousemove') { return }
     const s = event.selection
@@ -121,14 +125,17 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
     }
 
     // snapping
-    self.fnBrush().move(self.group(), self.brushRange())
+    snap()
   }
 
   const onEnd = () => {
     if (!event.sourceEvent || event.sourceEvent.type !== 'mouseup') { return }
-    // in case of no selection, if outside min/max snap to correct [i.e. previous] range!!
     if (!event.selection) {
-      self.brushDomain(null)
+      if (self.minStep() >= 0) {
+        snap()
+      } else {
+        self.brushDomain(null)
+      }
     }
     self.group().datum(self.brushDomain()).dispatch('endDomain')
   }
