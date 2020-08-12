@@ -90,7 +90,10 @@ const hasSingleDrawFactory = (element) => (state) => {
       .call(self.fnStyle())
       .call(self.fnBefore())
       .classed('drawn', true)
-      .transition(chart.transition())
+      
+    // breaking the scheme in order to have the selection 
+    // and not the transition for variable 'join'
+    join.transition(chart.transition())
       .call(self.fnStyle())
       .call(self.fnNow())
 
