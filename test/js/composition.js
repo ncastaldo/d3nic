@@ -24,7 +24,7 @@ const chart = d3nic.bxChart()
     d3nic.bxBrush().fnOn('endDomain', (bd) => {
         const dd = bd ? data.filter((_, j) => j >= bd[0] && j<=bd[1]) : data
         bandCharts.map(chart => chart.data(dd).draw({duration: 1000}))
-        eChart.data(dd.map(v => [v, Math.round(Math.random()*70) + 1])).draw({duration: 1000})
+        eChart.data(dd.map(v => [v, Math.round(Math.random()*70) + 1])).draw({duration: 2000})
       }),
   ])
   .draw({duration: 500})
@@ -120,7 +120,7 @@ const eChart = d3nic.xyChart()
     d3nic.xyLinesV().fnStrokeWidth(1).fnStrokeDasharray([2, 2])
   ])
 
-eChart.draw()
+eChart.draw({duration:1000})
 
 
 let feature
