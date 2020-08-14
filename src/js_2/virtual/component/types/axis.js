@@ -174,4 +174,30 @@ const hasContAxisFactory = (on = 'x') => (state = {}) => {
   return self
 }
 
-export { hasBandAxisFactory, hasContAxisFactory }
+const hasDoubleContAxisFactory = (on = 'x', index = 0) => (state = {}) => {
+  const self = {
+    ...state,
+    ...pipe(
+      hasAxisFactory(on)
+    )(state)
+  }
+
+  const updateAxisScale = (chart) => {
+    console.log(chart.fnContScale()(index))
+    self.scale(chart.fnContScale()(index))
+  }
+
+  // init may be enough
+  self.subscribe('data', updateAxisScale)
+  self.subscribe('components', updateAxisScale)
+  self.subscribe('size', updateAxisScale)
+  self.subscribe('padding', updateAxisScale)
+
+  return self
+}
+
+export {
+  hasBandAxisFactory,
+  hasContAxisFactory,
+  hasDoubleContAxisFactory
+}

@@ -135,9 +135,10 @@ const hasContScaleFactory = (on) => (state = {}) => {
           .filter(prop => prop.fnDefined(d, i))
           .map(prop => prop.fnsValue)
           .flat()
+        const values = fnsValue.map(fn => fn(d, i))
         return [
-          Math.min(domain[0], ...fnsValue.map(fn => fn(d, i))),
-          Math.max(domain[1], ...fnsValue.map(fn => fn(d, i)))
+          Math.min(domain[0], ...values),
+          Math.max(domain[1], ...values)
         ]
       }, contBaseDomain)
   }
@@ -158,7 +159,88 @@ const hasContScaleFactory = (on) => (state = {}) => {
   return self
 }
 
+const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
+  let contScaleDomain = Array(2).fill(null)
+  let contScaleRange = Array(2).fill(null)
+
+  const contScaleType = Array(2).fill(Object.keys(contScales)[0]) // scaleLinear
+
+  const contBaseDomain = Array(2).fill([Infinity, -Infinity])
+  const contFixedDomain = Array(2).fill(null)
+
+  const getContScaleType = (maybe, index) => {
+    return maybe in contScales
+      ? maybe : contScaleType[index] // previous one
+  }
+
+  const self = {
+    ...state,
+    contScaleType: (value, index) => {
+      if (typeof value === 'undefined') return k => contScaleType[k]
+      contScaleType[index] = getContScaleType(value, index)
+    },
+    contBaseDomain: (value, index) => {
+      if (typeof value === 'undefined') return k => contBaseDomain[k]
+      contBaseDomain[index] = value
+    },
+    contFixedDomain: (value, index) => {
+      if (typeof value === 'undefined') return k => contFixedDomain[k]
+      contFixedDomain[index] = value
+    },
+    fnContScale: () => {
+      return k => contScales[contScaleType[k]]()
+        .domain(contFixedDomain[k] || contScaleDomain[k])
+        .range(contScaleRange[k])
+        .clamp(contFixedDomain[k] !== null)
+    }
+  }
+
+  const computeContDomain = (chart) => {
+    const componentProperties = chart.components()
+      .filter(c => 'fnsValue' in c)
+      .map(c => ({
+        fnsValue: c.fnsValue(),
+        fnDefined: c.fnDefined()
+      }))
+
+    return chart.data()
+      .reduce((domain, d, i) => {
+        const fnsValue = componentProperties
+          .filter(prop => prop.fnDefined(d, i))
+          .map(prop => prop.fnsValue)
+          .flat()
+        const values = fnsValue.map(fn => fn(d, i))
+        return [
+          [
+            Math.min(domain[0][0], ...values.map(v => v[0])),
+            Math.max(domain[0][1], ...values.map(v => v[0]))
+          ],
+          [
+            Math.min(domain[1][0], ...values.map(v => v[1])),
+            Math.max(domain[1][1], ...values.map(v => v[1]))
+          ]
+        ]
+      }, contBaseDomain)
+  }
+
+  const updateScaleDomain = (chart) => {
+    contScaleDomain = computeContDomain(chart)
+  }
+
+  const updateScaleRange = (chart) => {
+    contScaleRange = [...Array(2)].map((_, k) => computeRange(chart, on[k], 'cont'))
+  }
+
+  self.subscribe('data', updateScaleDomain)
+  self.subscribe('components', updateScaleDomain)
+  self.subscribe('size', updateScaleRange)
+  self.subscribe('padding', updateScaleRange)
+
+  return self
+}
+
 export {
   hasBandScaleFactory,
-  hasContScaleFactory
+  hasContScaleFactory,
+  hasDoubleContScaleFactory
 }

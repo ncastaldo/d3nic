@@ -5,6 +5,7 @@ d3.select(".container").call(container => {
   container.append("svg").classed("svg2", true)
   container.append("svg").classed("svg3", true)
   container.append("svg").classed("svg4", true)
+  container.append("svg").classed("svg5", true)
 })
 
 const data = [...Array(Math.round(Math.random()*70) + 1)].map(() => Math.random())
@@ -105,6 +106,18 @@ const dChart = d3nic.geoChart()
   .components([
     d3nic.geoRegions().fnValue(d => d.geometry)
   ])
+
+const eChart = d3nic.xyChart()
+  .selector('.svg5')
+  .size({width: 600, height: 500})
+  .data([[0, 3], [0.5, 4], [1, 6], [3, 4], [2, 2]])
+  .components([
+    d3nic.xyAxisX(),
+    d3nic.xyAxisY(),
+    d3nic.xyCircles().fnFill('blue')
+  ])
+
+eChart.draw()
 
 
 let feature
