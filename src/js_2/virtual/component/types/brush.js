@@ -105,15 +105,15 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
       const minStep = self.minStep()
       const maxStep = self.maxStep()
 
-      if (minStep >= 0 || maxStep >= 0) {
+      if (minStep !== null || maxStep !== null) {
         const step = !d
           ? null : d[0] === d[1]
             ? 0 : fnScaleL.domain()
               .reduce((acc, f, i) => f === d[0]
                 ? acc - i : f === d[1] ? acc + i : acc, 0)
 
-        update = !(minStep >= 0) || (step !== null && step >= minStep)
-        update = update && (!(maxStep >= 0) || (step === null || step <= maxStep))
+        update = !(minStep !== null) || (step !== null && step >= minStep)
+        update = update && (!(maxStep !== null) || (step === null || step <= maxStep))
       }
 
       if (update) {
@@ -131,7 +131,7 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
   const onEnd = () => {
     if (!event.sourceEvent || event.sourceEvent.type !== 'mouseup') { return }
     if (!event.selection) {
-      if (self.minStep() >= 0) {
+      if (self.minStep() !== null) {
         snap()
       } else {
         self.brushDomain(null)

@@ -31,6 +31,33 @@ const hasDraw = (state) => {
   return self
 }
 
+const hasPhi = (state) => {
+  let phi = 0.2
+
+  const fnPhiTransition = (selection, transition) => {
+    if (!selection.empty()) {
+      return selection
+        .transition(transition)
+        .duration(transition.duration() * (1 - phi))
+        .delay((_, i, nodes) => {
+          return transition.delay() + (nodes.length > 1 ? i / (nodes.length - 1) * transition.duration() * phi : 0)
+        })
+    }
+    return selection.transition(transition)
+  }
+
+  const self = {
+    ...state,
+    phi: (value) => {
+      if (typeof value === 'undefined') return phi
+      phi = value
+    },
+    fnPhiTransition: () => fnPhiTransition
+  }
+
+  return self
+}
+
 const hasSingleFunctionDraw = (state) => {
   const self = {
     ...state,
@@ -90,8 +117,8 @@ const hasSingleDrawFactory = (element) => (state) => {
       .call(self.fnStyle())
       .call(self.fnBefore())
       .classed('drawn', true)
-      
-    // breaking the scheme in order to have the selection 
+
+    // breaking the scheme in order to have the selection
     // and not the transition for variable 'join'
     join.transition(chart.transition())
       .call(self.fnStyle())
@@ -114,7 +141,8 @@ const hasMultiDrawFactory = (element) => (state) => {
   const self = {
     ...state,
     ...pipe(
-      hasDraw
+      hasDraw,
+      hasPhi
     )(state)
   }
 
@@ -125,20 +153,17 @@ const hasMultiDrawFactory = (element) => (state) => {
         .call(self.fnEvents())
         .call(self.fnStyle())
         .call(self.fnBefore())
-        .call(enter => enter
-          .transition(chart.transition())
+        .call(enter => self.fnPhiTransition()(enter, chart.transition())
           .call(self.fnStyle())
           .call(self.fnNow())
         ),
       update => update
-        .call(update =>
-          update.transition(chart.transition())
-            .call(self.fnStyle())
-            .call(self.fnNow())
+        .call(update => self.fnPhiTransition()(update, chart.transition())
+          .call(self.fnStyle())
+          .call(self.fnNow())
         ),
       exit => exit
-        .call(exit => exit
-          .transition(chart.transition())
+        .call(exit => self.fnPhiTransition()(exit, chart.transition())
           .call(self.fnAfter())
           .remove()))
     self.join(join)
