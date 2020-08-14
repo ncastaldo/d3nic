@@ -160,42 +160,42 @@ const hasContScaleFactory = (on) => (state = {}) => {
 }
 
 const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
-  let contScaleDomain = Array(2).fill(null)
-  let contScaleRange = Array(2).fill(null)
+  let doubleContScaleDomain = Array(2).fill(null)
+  let doubleContScaleRange = Array(2).fill(null)
 
-  const contScaleType = Array(2).fill(Object.keys(contScales)[0]) // scaleLinear
+  const doubleContScaleType = Array(2).fill(Object.keys(contScales)[0]) // scaleLinear
 
-  const contBaseDomain = Array(2).fill([Infinity, -Infinity])
-  const contFixedDomain = Array(2).fill(null)
+  const doubleContBaseDomain = Array(2).fill([Infinity, -Infinity])
+  const doubleContFixedDomain = Array(2).fill(null)
 
   const getContScaleType = (maybe, index) => {
     return maybe in contScales
-      ? maybe : contScaleType[index] // previous one
+      ? maybe : doubleContScaleType[index] // previous one
   }
 
   const self = {
     ...state,
-    contScaleType: (value, index) => {
-      if (typeof value === 'undefined') return k => contScaleType[k]
-      contScaleType[index] = getContScaleType(value, index)
+    doubleContScaleType: (value, index) => {
+      if (typeof value === 'undefined') return k => doubleContScaleType[k]
+      doubleContScaleType[index] = getContScaleType(value, index)
     },
-    contBaseDomain: (value, index) => {
-      if (typeof value === 'undefined') return k => contBaseDomain[k]
-      contBaseDomain[index] = value
+    doubleContBaseDomain: (value, index) => {
+      if (typeof value === 'undefined') return k => doubleContBaseDomain[k]
+      doubleContBaseDomain[index] = value
     },
-    contFixedDomain: (value, index) => {
-      if (typeof value === 'undefined') return k => contFixedDomain[k]
-      contFixedDomain[index] = value
+    doubleContFixedDomain: (value, index) => {
+      if (typeof value === 'undefined') return k => doubleContFixedDomain[k]
+      doubleContFixedDomain[index] = value
     },
-    fnContScale: () => {
-      return k => contScales[contScaleType[k]]()
-        .domain(contFixedDomain[k] || contScaleDomain[k])
-        .range(contScaleRange[k])
-        .clamp(contFixedDomain[k] !== null)
+    fnDoubleContScale: () => {
+      return k => contScales[doubleContScaleType[k]]()
+        .domain(doubleContFixedDomain[k] || doubleContScaleDomain[k])
+        .range(doubleContScaleRange[k])
+        .clamp(doubleContFixedDomain[k] !== null)
     }
   }
 
-  const computeContDomain = (chart) => {
+  const computeDoubleContDomain = (chart) => {
     const componentProperties = chart.components()
       .filter(c => 'fnsValue' in c)
       .map(c => ({
@@ -220,15 +220,15 @@ const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
             Math.max(domain[1][1], ...values.map(v => v[1]))
           ]
         ]
-      }, contBaseDomain)
+      }, doubleContBaseDomain)
   }
 
   const updateScaleDomain = (chart) => {
-    contScaleDomain = computeContDomain(chart)
+    doubleContScaleDomain = computeDoubleContDomain(chart)
   }
 
   const updateScaleRange = (chart) => {
-    contScaleRange = [...Array(2)].map((_, k) => computeRange(chart, on[k], 'cont'))
+    doubleContScaleRange = [...Array(2)].map((_, k) => computeRange(chart, on[k], 'cont'))
   }
 
   self.subscribe('data', updateScaleDomain)

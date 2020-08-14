@@ -27,32 +27,6 @@ const hasContOut = (state = {}) => {
   return self
 }
 
-const hasDoubleContOut = (state = {}) => {
-  let fnDoubleContOut
-
-  const self = {
-    ...state,
-    ...pipe(
-      hasValue
-    )(state),
-    fnDoubleContOut: (value) => {
-      if (typeof value === 'undefined') return fnDoubleContOut
-      fnDoubleContOut = value
-    }
-  }
-
-  const updateOuts = (chart) => {
-    const fnContScales = [...Array(2)].map((_, k) => chart.fnContScale()(k)) // to reduce overhead
-
-    fnDoubleContOut = k =>
-      (d, i) => fnContScales[k](self.fnValue()(d, i)[k]) // fnValue must return an array [val1, val2]
-  }
-
-  self.subscribe('draw', updateOuts)
-
-  return self
-}
-
 const hasLowHighContOut = (state = {}) => {
   let fnLowContOut
   let fnHighContOut
@@ -102,4 +76,4 @@ const hasRangeContOut = (state = {}) => {
   return self
 }
 
-export { hasContOut, hasDoubleContOut, hasLowHighContOut, hasRangeContOut }
+export { hasContOut, hasLowHighContOut, hasRangeContOut }

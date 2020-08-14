@@ -4,7 +4,7 @@ import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
 import { hasCircle } from '../../virtual/component/types/circle'
-import { hasDoubleContOut } from '../../virtual/component/outs/cont'
+import { hasDoubleContOut } from '../../virtual/component/outs/double'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
 const xyCircles = (state = {}) => {

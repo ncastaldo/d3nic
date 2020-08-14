@@ -100,6 +100,8 @@ import xyChart from '@/js_2/composite/xy/xyChart'
 import xyAxisX from '@/js_2/composite/xy/xyAxisX'
 import xyAxisY from '@/js_2/composite/xy/xyAxisY'
 import xyCircles from '@/js_2/composite/xy/xyCircles'
+import xyLinesH from '@/js_2/composite/xy/xyLinesH'
+import xyLinesV from '@/js_2/composite/xy/xyLinesV'
 
 // import { event } from 'd3-selection'
 
@@ -149,7 +151,9 @@ export {
   xyChart,
   xyAxisX,
   xyAxisY,
-  xyCircles
+  xyCircles,
+  xyLinesH,
+  xyLinesV
 
   /* Chart,
   Component,
