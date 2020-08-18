@@ -183,7 +183,6 @@ const hasDoubleContAxisFactory = (on = 'x', index = 0) => (state = {}) => {
   }
 
   const updateAxisScale = (chart) => {
-    console.log(chart.fnDoubleContScale()(index))
     self.scale(chart.fnDoubleContScale()(index))
   }
 

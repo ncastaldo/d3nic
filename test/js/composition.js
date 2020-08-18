@@ -6,6 +6,7 @@ d3.select(".container").call(container => {
   container.append("svg").classed("svg3", true)
   container.append("svg").classed("svg4", true)
   container.append("svg").classed("svg5", true)
+  container.append("svg").classed("svg6", true)
 })
 
 const data = [...Array(Math.round(Math.random()*70) + 1)].map(() => Math.random())
@@ -45,8 +46,8 @@ const polarChart = d3nic.baChart()
   .size({width: 500, height: 400})
   .data([1, 10, 30, 2, 42])
   .contScaleType('scaleLinear')
-  .paddingInner(0.3)
-  .paddingOuter(0.15)
+  .bandPaddingInner(0.3)
+  .bandPaddingOuter(0.15)
   .components([
     d3nic.baBars().fnFill(fnFill),
     d3nic.baCircles().fnFill(fnFill),
@@ -121,6 +122,17 @@ const eChart = d3nic.xyChart()
   ])
 
 eChart.draw({duration:1000})
+
+
+const fChart = d3nic.bbChart()
+.selector('.svg6')
+  .size({width: 600, height: 500})
+  .data([[0, 3], [0.5, 4], [1, 6], [3, 4], [2, 2]])
+  .components([
+    d3nic.bbCircles()
+  ])
+
+fChart.draw({duration:1000})
 
 
 let feature

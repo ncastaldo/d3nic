@@ -40,8 +40,8 @@ const computeRange = (chart, on, type) => {
 const hasBandScaleFactory = (on = 'x') => (state = {}) => {
   let fnBandValue = (d, i) => i
 
-  let paddingInner = 0
-  let paddingOuter = 0
+  let bandPaddingInner = 0
+  let bandPaddingOuter = 0
   let bandScaleDomain = null
   let bandScaleRange = null
 
@@ -51,18 +51,18 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
       if (typeof value === 'undefined') return fnBandValue
       fnBandValue = value
     },
-    paddingInner: (value) => {
-      if (typeof value === 'undefined') return paddingInner
-      paddingInner = value
+    bandPaddingInner: (value) => {
+      if (typeof value === 'undefined') return bandPaddingInner
+      bandPaddingInner = value
     },
-    paddingOuter: (value) => {
-      if (typeof value === 'undefined') return paddingOuter
-      paddingOuter = value
+    bandPaddingOuter: (value) => {
+      if (typeof value === 'undefined') return bandPaddingOuter
+      bandPaddingOuter = value
     },
     fnBandScale: () => {
       return scaleBand()
-        .paddingInner(paddingInner)
-        .paddingOuter(paddingOuter)
+        .paddingInner(bandPaddingInner)
+        .paddingOuter(bandPaddingOuter)
         .domain(bandScaleDomain)
         .range(bandScaleRange)
     }
@@ -84,13 +84,79 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
   return self
 }
 
+const hasDoubleBandScaleFactory = (on = ['x', 'y']) => (state = {}) => {
+  let fnDoubleBandValue = (d, i) => [i, i]
+
+  let doubleBandPaddingInner = Array(2).fill(0)
+  let doubleBandPaddingOuter = Array(2).fill(0)
+
+  let doubleBandScaleDomain = Array(2).fill(null)
+  let doubleBandScaleRange = Array(2).fill(null)
+
+  const self = {
+    ...state,
+    fnDoubleBandValue: (value) => {
+      // without index like in the component, returns array
+      if (typeof value === 'undefined') return fnDoubleBandValue
+      fnDoubleBandValue = value
+    },
+    doubleBandPaddingInner: (value, index) => {
+      if (typeof value === 'undefined') return doubleBandPaddingInner
+      if (typeof index === 'undefined') {
+        doubleBandPaddingInner = value
+      } else {
+        doubleBandPaddingInner[index] = value
+      }
+    },
+    doubleBandPaddingOuter: (value, index) => {
+      if (typeof value === 'undefined') return doubleBandPaddingOuter
+      if (typeof index === 'undefined') {
+        doubleBandPaddingOuter = value
+      } else {
+        doubleBandPaddingOuter[index] = value
+      }
+    },
+    fnDoubleBandScale: () => {
+      return k => scaleBand()
+        .paddingInner(doubleBandPaddingInner[k])
+        .paddingOuter(doubleBandPaddingOuter[k])
+        .domain(doubleBandScaleDomain[k])
+        .range(doubleBandScaleRange[k])
+    }
+  }
+
+  const updateScaleDomain = (chart) => {
+    doubleBandScaleDomain = chart.data()
+      .map(fnDoubleBandValue)
+      .reduce(([s0, s1], [d0, d1]) => {
+        console.log(chart.data(), d0, d1)
+        s0.has(d0) || s0.add(d0)
+        s1.has(d1) || s1.add(d1)
+        return [s0, s1]
+      }, [new Set(), new Set()])
+      .map(v => { console.log(v); return v })
+      .map(s => Array.from(s))
+  }
+
+  const updateScaleRange = (chart) => {
+    doubleBandScaleRange = [...Array(2)].map((_, k) => computeRange(chart, on[k], 'band'))
+  }
+
+  self.subscribe('data', updateScaleDomain)
+  self.subscribe('components', updateScaleDomain)
+  self.subscribe('size', updateScaleRange)
+  self.subscribe('padding', updateScaleRange)
+
+  return self
+}
+
 const hasContScaleFactory = (on) => (state = {}) => {
   let contScaleDomain = null
   let contScaleRange = null
 
   let contScaleType = Object.keys(contScales)[0] // scaleLinear
 
-  let contBaseDomain = [Infinity, -Infinity]
+  let contBaseDomain = null
   let contFixedDomain = null
 
   const getContScaleType = (maybe) => {
@@ -129,6 +195,9 @@ const hasContScaleFactory = (on) => (state = {}) => {
         fnDefined: c.fnDefined()
       }))
 
+    const baseDomain = contBaseDomain !== null
+      ? contBaseDomain : [Infinity, -Infinity]
+
     return chart.data()
       .reduce((domain, d, i) => {
         const fnsValue = componentProperties
@@ -140,7 +209,7 @@ const hasContScaleFactory = (on) => (state = {}) => {
           Math.min(domain[0], ...values),
           Math.max(domain[1], ...values)
         ]
-      }, contBaseDomain)
+      }, baseDomain)
   }
 
   const updateScaleDomain = (chart) => {
@@ -163,10 +232,10 @@ const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
   let doubleContScaleDomain = Array(2).fill(null)
   let doubleContScaleRange = Array(2).fill(null)
 
-  const doubleContScaleType = Array(2).fill(Object.keys(contScales)[0]) // scaleLinear
+  let doubleContScaleType = Array(2).fill(Object.keys(contScales)[0]) // scaleLinear
 
-  const doubleContBaseDomain = Array(2).fill([Infinity, -Infinity])
-  const doubleContFixedDomain = Array(2).fill(null)
+  let doubleContBaseDomain = Array(2).fill([Infinity, -Infinity])
+  let doubleContFixedDomain = Array(2).fill(null)
 
   const getContScaleType = (maybe, index) => {
     return maybe in contScales
@@ -177,15 +246,27 @@ const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
     ...state,
     doubleContScaleType: (value, index) => {
       if (typeof value === 'undefined') return k => doubleContScaleType[k]
-      doubleContScaleType[index] = getContScaleType(value, index)
+      if (typeof index === 'undefined') {
+        doubleContScaleType = value.map(getContScaleType)
+      } else {
+        doubleContScaleType[index] = getContScaleType(value, index)
+      }
     },
     doubleContBaseDomain: (value, index) => {
       if (typeof value === 'undefined') return k => doubleContBaseDomain[k]
-      doubleContBaseDomain[index] = value
+      if (typeof index === 'undefined') {
+        doubleContBaseDomain = value
+      } else {
+        doubleContBaseDomain[index] = value
+      }
     },
     doubleContFixedDomain: (value, index) => {
       if (typeof value === 'undefined') return k => doubleContFixedDomain[k]
-      doubleContFixedDomain[index] = value
+      if (typeof index === 'undefined') {
+        doubleContFixedDomain = value
+      } else {
+        doubleContFixedDomain[index] = value
+      }
     },
     fnDoubleContScale: () => {
       return k => contScales[doubleContScaleType[k]]()
@@ -202,6 +283,9 @@ const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
         fnsValue: c.fnsValue(),
         fnDefined: c.fnDefined()
       }))
+
+    // TODO create cont base domain
+    // like in the other one
 
     return chart.data()
       .reduce((domain, d, i) => {
@@ -241,6 +325,7 @@ const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
 
 export {
   hasBandScaleFactory,
+  hasDoubleBandScaleFactory,
   hasContScaleFactory,
   hasDoubleContScaleFactory
 }

@@ -3,7 +3,7 @@ import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasDoubleContOut, hasRangeDoubleContOut } from '../../virtual/component/outs/double'
+import { hasDoubleContOut, hasRangeDoubleContOut } from '../../virtual/component/outs/doubleCont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
 const xyLinesV = (state = {}) => {

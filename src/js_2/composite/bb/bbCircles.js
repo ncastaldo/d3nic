@@ -4,27 +4,27 @@ import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
 import { hasCircle } from '../../virtual/component/types/circle'
-import { hasDoubleContOut } from '../../virtual/component/outs/doubleCont'
+import { hasDoubleBandOut } from '../../virtual/component/outs/doubleBand'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
-const xyCircles = (state = {}) => {
+const bbCircles = (state = {}) => {
   const self = pipe(
     component,
     hasCircle,
-    hasDoubleContOut,
+    hasDoubleBandOut,
     hasMultiDrawFactory('circle')
   )(state)
 
   self.fnBefore(s =>
-    s.attr('cx', self.fnDoubleContOut()(0))
-      .attr('cy', self.fnDoubleContOut()(1))
+    s.attr('cx', self.fnDoubleBandCenterOut()(0))
+      .attr('cy', self.fnDoubleBandCenterOut()(1))
       .attr('r', 0)
       .attr('opacity', 0)
   )
 
   self.fnNow(s =>
-    s.attr('cx', self.fnDoubleContOut()(0))
-      .attr('cy', self.fnDoubleContOut()(1))
+    s.attr('cx', self.fnDoubleBandCenterOut()(0))
+      .attr('cy', self.fnDoubleBandCenterOut()(1))
       .attr('r', self.fnRadius()) // parametrize
   )
 
@@ -36,4 +36,4 @@ const xyCircles = (state = {}) => {
   return componentProxy(self)
 }
 
-export default xyCircles
+export default bbCircles

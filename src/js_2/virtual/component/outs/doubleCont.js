@@ -1,7 +1,7 @@
 
 import pipe from 'lodash/fp/flow'
 
-import { hasValue, hasLowHighValue } from '../properties/values'
+import { hasValue } from '../properties/values'
 
 const hasDoubleContOut = (state = {}) => {
   let fnDoubleContOut

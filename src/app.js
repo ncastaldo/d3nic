@@ -60,6 +60,9 @@ import BbRects from '@/js/bb/bbRects.js' */
 
 // TEST
 
+import bbChart from './js_2/composite/bb/bbChart'
+import bbCircles from './js_2/composite/bb/bbCircles'
+
 import baArea from './js_2/composite/ba/baArea'
 import baAxisA from './js_2/composite/ba/baAxisA'
 import baChart from './js_2/composite/ba/baChart'
@@ -102,6 +105,7 @@ import xyAxisY from '@/js_2/composite/xy/xyAxisY'
 import xyCircles from '@/js_2/composite/xy/xyCircles'
 import xyLinesH from '@/js_2/composite/xy/xyLinesH'
 import xyLinesV from '@/js_2/composite/xy/xyLinesV'
+import xyTexts from '@/js_2/composite/xy/xyTexts'
 
 // import { event } from 'd3-selection'
 
@@ -111,6 +115,9 @@ export {
   // chart,
   // xyChart,
   // event,
+
+  bbChart,
+  bbCircles,
 
   baArea,
   baAxisA,
@@ -153,7 +160,8 @@ export {
   xyAxisY,
   xyCircles,
   xyLinesH,
-  xyLinesV
+  xyLinesV,
+  xyTexts
 
   /* Chart,
   Component,

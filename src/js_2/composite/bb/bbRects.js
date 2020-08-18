@@ -3,28 +3,26 @@ import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasCircle } from '../../virtual/component/types/circle'
-import { hasDoubleContOut } from '../../virtual/component/outs/doubleCont'
+import { hasDoubleBandOut } from '../../virtual/component/outs/band'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
-const xyCircles = (state = {}) => {
+const bbRects = (state = {}) => {
   const self = pipe(
     component,
-    hasCircle,
-    hasDoubleContOut,
-    hasMultiDrawFactory('circle')
+    hasDoubleBandOut,
+    hasMultiDrawFactory('rect')
   )(state)
 
   self.fnBefore(s =>
-    s.attr('cx', self.fnDoubleContOut()(0))
-      .attr('cy', self.fnDoubleContOut()(1))
+    s.attr('cx', self.fnBandCenterOut())
+      .attr('cy', self.fnContOut())
       .attr('r', 0)
       .attr('opacity', 0)
   )
 
   self.fnNow(s =>
-    s.attr('cx', self.fnDoubleContOut()(0))
-      .attr('cy', self.fnDoubleContOut()(1))
+    s.attr('cx', self.fnBandCenterOut())
+      .attr('cy', self.fnContOut())
       .attr('r', self.fnRadius()) // parametrize
   )
 
@@ -36,4 +34,4 @@ const xyCircles = (state = {}) => {
   return componentProxy(self)
 }
 
-export default xyCircles
+export default bbRects
