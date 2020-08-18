@@ -26,6 +26,7 @@ const chart = d3nic.bxChart()
         const dd = bd ? data.filter((_, j) => j >= bd[0] && j<=bd[1]) : data
         bandCharts.map(chart => chart.data(dd).draw({duration: 1000}))
         eChart.data(dd.map(v => [v, Math.round(Math.random()*70) + 1])).draw({duration: 2000})
+        fChart.data(dd.map(v => [v, Math.round(Math.random()*70) + 1])).draw({duration: 2000})
       }),
   ])
   .draw({duration: 500})
@@ -128,8 +129,9 @@ const fChart = d3nic.bbChart()
 .selector('.svg6')
   .size({width: 600, height: 500})
   .data([[0, 3], [0.5, 4], [1, 6], [3, 4], [2, 2]])
+  .fnDoubleBandValue((d, i) =>[i, i+1])
   .components([
-    d3nic.bbCircles()
+    d3nic.bbRects()
   ])
 
 fChart.draw({duration:1000})

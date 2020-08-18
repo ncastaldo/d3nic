@@ -32,7 +32,7 @@ const hasDoubleBandOut = (state = {}) => {
     fnDoubleBandOut = k => (d, i) => fnDoubleBandScales[k](chart.fnDoubleBandValue()(d, i)[k])
 
     fnDoubleBandCenterOut = k => (d, i) =>
-      fnDoubleBandScales[k](chart.fnDoubleBandValue()(d, i))[k] + fnDoubleBandScales[k].bandwidth() / 2
+      fnDoubleBandScales[k](chart.fnDoubleBandValue()(d, i)[k]) + fnDoubleBandScales[k].bandwidth() / 2
     doubleBandwidthOut = k => fnDoubleBandScales[k].bandwidth()
 
     fnDoubleBandLeftOut = k => (d, i) => Math.max(
