@@ -129,12 +129,10 @@ const hasDoubleBandScaleFactory = (on = ['x', 'y']) => (state = {}) => {
     doubleBandScaleDomain = chart.data()
       .map(fnDoubleBandValue)
       .reduce(([s0, s1], [d0, d1]) => {
-        console.log(chart.data(), d0, d1)
         s0.has(d0) || s0.add(d0)
         s1.has(d1) || s1.add(d1)
         return [s0, s1]
       }, [new Set(), new Set()])
-      .map(v => { console.log(v); return v })
       .map(s => Array.from(s))
   }
 

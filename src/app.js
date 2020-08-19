@@ -73,40 +73,41 @@ import baCircle from './js_2/composite/ba/baCircle'
 import baLine from './js_2/composite/ba/baLine'
 import baMouseBars from './js_2/composite/ba/baMouseBars'
 
-import baseChart from '@/js_2/composite/base/baseChart'
-import basePaths from '@/js_2/composite/base/basePaths'
+import baseChart from './js_2/composite/base/baseChart'
+import basePaths from './js_2/composite/base/basePaths'
+import baseLabelAxisX from './js_2/composite/base/baseLabelAxisX'
 
 import brChart from './js_2/composite/br/brChart'
 import brBars from './js_2/composite/br/brBars'
 
-import bxChart from '@/js_2/composite/bx/bxChart'
-import bxAxisX from '@/js_2/composite/bx/bxAxisX'
-import bxAxisY from '@/js_2/composite/bx/bxAxisY'
-import bxBars from '@/js_2/composite/bx/bxBars'
+import bxChart from './js_2/composite/bx/bxChart'
+import bxAxisX from './js_2/composite/bx/bxAxisX'
+import bxAxisY from './js_2/composite/bx/bxAxisY'
+import bxBars from './js_2/composite/bx/bxBars'
 import bxBrush from './js_2/composite/bx/bxBrush'
-import bxArea from '@/js_2/composite/bx/bxArea'
-import bxLine from '@/js_2/composite/bx/bxLine'
-import bxLines from '@/js_2/composite/bx/bxLines'
-import bxCircles from '@/js_2/composite/bx/bxCircles'
-import bxMouseBars from '@/js_2/composite/bx/bxMouseBars'
+import bxArea from './js_2/composite/bx/bxArea'
+import bxLine from './js_2/composite/bx/bxLine'
+import bxLines from './js_2/composite/bx/bxLines'
+import bxCircles from './js_2/composite/bx/bxCircles'
+import bxMouseBars from './js_2/composite/bx/bxMouseBars'
 
-import byChart from '@/js_2/composite/by/byChart'
-import byBars from '@/js_2/composite/by/byBars'
-import byLines from '@/js_2/composite/by/byLines'
-import byAxisX from '@/js_2/composite/by/byAxisX'
-import byAxisY from '@/js_2/composite/by/byAxisY'
-import byMouseBars from '@/js_2/composite/by/byMouseBars'
+import byChart from './js_2/composite/by/byChart'
+import byBars from './js_2/composite/by/byBars'
+import byLines from './js_2/composite/by/byLines'
+import byAxisX from './js_2/composite/by/byAxisX'
+import byAxisY from './js_2/composite/by/byAxisY'
+import byMouseBars from './js_2/composite/by/byMouseBars'
 
-import geoChart from '@/js_2/composite/geo/geoChart'
-import geoRegions from '@/js_2/composite/geo/geoRegions'
+import geoChart from './js_2/composite/geo/geoChart'
+import geoRegions from './js_2/composite/geo/geoRegions'
 
-import xyChart from '@/js_2/composite/xy/xyChart'
-import xyAxisX from '@/js_2/composite/xy/xyAxisX'
-import xyAxisY from '@/js_2/composite/xy/xyAxisY'
-import xyCircles from '@/js_2/composite/xy/xyCircles'
-import xyLinesH from '@/js_2/composite/xy/xyLinesH'
-import xyLinesV from '@/js_2/composite/xy/xyLinesV'
-import xyTexts from '@/js_2/composite/xy/xyTexts'
+import xyChart from './js_2/composite/xy/xyChart'
+import xyAxisX from './js_2/composite/xy/xyAxisX'
+import xyAxisY from './js_2/composite/xy/xyAxisY'
+import xyCircles from './js_2/composite/xy/xyCircles'
+import xyLinesH from './js_2/composite/xy/xyLinesH'
+import xyLinesV from './js_2/composite/xy/xyLinesV'
+import xyTexts from './js_2/composite/xy/xyTexts'
 
 // import { event } from 'd3-selection'
 
@@ -132,6 +133,7 @@ export {
 
   baseChart,
   basePaths,
+  baseLabelAxisX,
 
   brChart,
   brBars,

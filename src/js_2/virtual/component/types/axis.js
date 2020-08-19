@@ -196,6 +196,7 @@ const hasDoubleContAxisFactory = (on = 'x', index = 0) => (state = {}) => {
 }
 
 export {
+  hasAxisFactory,
   hasBandAxisFactory,
   hasContAxisFactory,
   hasDoubleContAxisFactory
