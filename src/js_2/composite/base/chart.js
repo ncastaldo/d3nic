@@ -1,14 +1,14 @@
 import pipe from 'lodash/fp/flow'
 
 import { chartProxy } from '../../common'
-import chart from '../../virtual/chart/base/index'
+import _chart from '../../virtual/chart/base/index'
 
-const baseChart = (state = {}) => {
+const chart = (state = {}) => {
   const self = pipe(
-    chart
+    _chart
   )(state)
 
   return chartProxy(self)
 }
 
-export default baseChart
+export default chart

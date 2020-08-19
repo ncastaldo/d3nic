@@ -6,7 +6,7 @@ import { componentProxy } from '../../common'
 import { hasPath } from '../../virtual/component/types/path'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
-const basePaths = (state = {}) => {
+const paths = (state = {}) => {
   const self = pipe(
     component,
     hasPath,
@@ -29,4 +29,4 @@ const basePaths = (state = {}) => {
   return componentProxy(self)
 }
 
-export default basePaths
+export default paths

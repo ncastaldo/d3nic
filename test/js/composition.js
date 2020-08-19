@@ -20,7 +20,8 @@ const chart = d3nic.bxChart()
   .data(data)
   .components([
     d3nic.bxAxisX(), // new entry
-    d3nic.baseLabelAxisX().fnFontSize(d => 16).fnFill(d => '#000').fnText(d => 'mandi').textPadding({top: 30}),
+    d3nic.labelAxisX().fnFontSize(d => 16).fnText(d => 'mandi').textPadding({top: 30}),
+    d3nic.labelAxisY().fnFontSize(d => 16).fnText(d => 'mandi').textPadding({right: 30}),
     d3nic.bxAxisY(), // new entry
     d3nic.bxBars().fnFill(fnFill),
     d3nic.bxBrush().fnOn('endDomain', (bd) => {

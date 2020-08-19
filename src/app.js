@@ -73,9 +73,10 @@ import baCircle from './js_2/composite/ba/baCircle'
 import baLine from './js_2/composite/ba/baLine'
 import baMouseBars from './js_2/composite/ba/baMouseBars'
 
-import baseChart from './js_2/composite/base/baseChart'
-import basePaths from './js_2/composite/base/basePaths'
-import baseLabelAxisX from './js_2/composite/base/baseLabelAxisX'
+import chart from './js_2/composite/base/chart'
+import paths from './js_2/composite/base/paths'
+import labelAxisX from './js_2/composite/base/labelAxisX'
+import labelAxisY from './js_2/composite/base/labelAxisY'
 
 import brChart from './js_2/composite/br/brChart'
 import brBars from './js_2/composite/br/brBars'
@@ -131,9 +132,10 @@ export {
   baLine,
   baMouseBars,
 
-  baseChart,
-  basePaths,
-  baseLabelAxisX,
+  chart,
+  paths,
+  labelAxisX,
+  labelAxisY,
 
   brChart,
   brBars,
