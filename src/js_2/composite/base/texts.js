@@ -3,27 +3,27 @@ import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
 import { componentProxy } from '../../common'
-import { hasPath } from '../../virtual/component/types/path'
+import { hasText } from '../../virtual/component/types/text'
 import { hasTransform } from '../../virtual/component/properties/transform'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
 const paths = (state = {}) => {
   const self = pipe(
     component,
-    hasPath,
+    hasText,
     hasTransform,
-    hasMultiDrawFactory('path')
+    hasMultiDrawFactory('text')
   )(state)
 
   self.fnBefore(s =>
     s.attr('opacity', 0)
-      .attr('d', self.fnPath())
       .attr('transform', self.fnTransform())
+      .text(self.fnText())
   )
 
   self.fnNow(s =>
-    s.attr('d', self.fnPath())
-      .attr('transform', self.fnTransform())
+    s.attr('transform', self.fnTransform())
+      .text(self.fnText())
   )
 
   self.fnAfter(s => s.attr('opacity', 0))
