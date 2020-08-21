@@ -16,9 +16,11 @@ const paths = (state = {}) => {
   )(state)
 
   self.fnBefore(s =>
-    s.attr('opacity', 0)
+    s.attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'central')
       .attr('transform', self.fnTransform())
       .text(self.fnText())
+      .attr('opacity', 0)
   )
 
   self.fnNow(s =>

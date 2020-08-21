@@ -24,7 +24,7 @@ const labelAxisY = (state = {}) => {
 
   self.fnBefore(s => s.attr('transform', getTransform(self))
     .attr('text-anchor', 'middle')
-    .attr('alignment-line', 'middle')
+    .attr('dominant-baseline', 'central')
     .attr('font-size', self.fnFontSize())
     .text(self.fnText())
     .attr('opacity', 0))
