@@ -5,6 +5,8 @@ const hasBandOut = (state = {}) => {
   let fnBandLeftOut
   let fnBandRightOut
 
+  let bandExtentOut
+
   const self = {
     ...state,
     fnBandOut: () => {
@@ -21,6 +23,9 @@ const hasBandOut = (state = {}) => {
     },
     fnBandRightOut: () => {
       return fnBandRightOut
+    },
+    bandExtentOut: () => {
+      return bandExtentOut
     }
   }
 
@@ -39,6 +44,13 @@ const hasBandOut = (state = {}) => {
       fnBandOut(d, i) + bandwidthOut + fnBandScale.step() * fnBandScale.paddingInner() / 2,
       fnBandScale.range()[1]
     )
+
+    const dom = fnBandScale.domain()
+    const len = dom.length
+
+    bandExtentOut = len
+      ? [fnBandOut(dom[0], 0), fnBandOut(dom[len - 1], len - 1) + bandwidthOut]
+      : fnBandScale.range()
   }
 
   self.subscribe('data', updateOuts)
@@ -49,4 +61,34 @@ const hasBandOut = (state = {}) => {
   return self
 }
 
-export { hasBandOut }
+const hasStackBandOut = (state = {}) => {
+  let stackBandExtentOut
+
+  const self = {
+    ...state,
+    stackBandExtentOut: () => {
+      return stackBandExtentOut
+    }
+  }
+
+  const updateOuts = (chart) => {
+    const fnBandScale = chart.fnBandScale() // to reduce overhead
+
+    const range = fnBandScale.range()
+    const rLen = range[1] - range[0]
+
+    stackBandExtentOut = [
+      range[0] + rLen * fnBandScale.paddingInner(), // inner is now left
+      range[1] - rLen * fnBandScale.paddingOuter()
+    ]
+  }
+
+  self.subscribe('data', updateOuts)
+  self.subscribe('components', updateOuts)
+  self.subscribe('size', updateOuts)
+  self.subscribe('padding', updateOuts)
+
+  return self
+}
+
+export { hasBandOut, hasStackBandOut }

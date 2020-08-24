@@ -6,6 +6,8 @@ import texts from './js_2/composite/base/texts'
 import labelAxisX from './js_2/composite/base/labelAxisX'
 import labelAxisY from './js_2/composite/base/labelAxisY'
 
+import arChart from './js_2/composite/ar/arChart'
+
 import bbChart from './js_2/composite/bb/bbChart'
 import bbCircles from './js_2/composite/bb/bbCircles'
 import bbRects from './js_2/composite/bb/bbRects'
@@ -21,6 +23,7 @@ import baMouseBars from './js_2/composite/ba/baMouseBars'
 
 import brChart from './js_2/composite/br/brChart'
 import brBars from './js_2/composite/br/brBars'
+import brStackBars from './js_2/composite/br/brStackBars'
 
 import bxChart from './js_2/composite/bx/bxChart'
 import bxAxisX from './js_2/composite/bx/bxAxisX'
@@ -62,6 +65,8 @@ export {
   labelAxisX,
   labelAxisY,
 
+  arChart,
+
   bbChart,
   bbCircles,
   bbRects,
@@ -77,6 +82,7 @@ export {
 
   brChart,
   brBars,
+  brStackBars,
 
   bxChart,
   bxAxisX,
