@@ -1,6 +1,6 @@
 
 import pipe from 'lodash/fp/flow'
-import * as d3 from '@/js/d3-modules.js'
+import { area } from 'd3-shape'
 
 import component from '../../virtual/component/base/index'
 
@@ -19,7 +19,7 @@ const bxArea = (state = {}) => {
 
   self.fnBefore(s =>
     s.attr('d',
-      d3.area()
+      area()
         .defined(self.fnDefined())
         .x(self.fnBandCenterOut())
         .y0(self.fnLowContOut())
@@ -30,7 +30,7 @@ const bxArea = (state = {}) => {
 
   self.fnNow(s =>
     s.attr('d',
-      d3.area()
+      area()
         .defined(self.fnDefined())
         .x(self.fnBandCenterOut())
         .y0(self.fnLowContOut())
