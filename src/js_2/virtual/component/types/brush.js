@@ -1,6 +1,5 @@
 import pipe from 'lodash/fp/flow'
 import { brushX, brushY } from 'd3-brush'
-import { event } from 'd3-selection'
 import { scaleThreshold, scaleOrdinal } from 'd3-scale'
 
 const computeBrush = (on) => {
@@ -84,7 +83,7 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
     self.fnBrush().move(self.group(), self.brushRange())
   }
 
-  const onBrush = () => {
+  const onBrush = (event) => {
     if (!event.selection || !event.sourceEvent || event.sourceEvent.type !== 'mousemove') { return }
     const s = event.selection
 
@@ -128,7 +127,7 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
     snap()
   }
 
-  const onEnd = () => {
+  const onEnd = (event) => {
     if (!event.sourceEvent || event.sourceEvent.type !== 'mouseup') { return }
     if (!event.selection) {
       if (self.minStep() !== null) {
@@ -196,7 +195,7 @@ const hasContBrushFactory = (on = 'x') => (state = {}) => {
       : null
   }, */
 
-  const onBrush = () => {
+  const onBrush = (event) => {
     if (!event.selection || !event.sourceEvent) { return }
     console.log(event.target)
   }

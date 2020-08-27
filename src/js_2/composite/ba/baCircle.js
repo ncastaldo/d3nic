@@ -10,7 +10,7 @@ import { hasSingleDrawFactory } from '../../virtual/component/properties/draw'
 
 import { componentProxy } from '../../common'
 
-const baLine = (state = {}) => {
+const baCircle = (state = {}) => {
   const self = pipe(
     component,
     hasPolar,
@@ -37,4 +37,4 @@ const baLine = (state = {}) => {
   return componentProxy(self)
 }
 
-export default baLine
+export default baCircle

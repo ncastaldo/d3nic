@@ -24,21 +24,22 @@ const chart = d3nic.bxChart()
     d3nic.labelAxisY().fnFontSize(d => 16).fnText(d => 'mandi').textPadding({right: 30}),
     d3nic.bxAxisY(), // new entry
     d3nic.bxBars().fnFill(fnFill),
-    d3nic.bxBrush().fnOn('endDomain', (bd) => {
-        const dd = bd ? data.filter((_, j) => j >= bd[0] && j<=bd[1]) : data
-        bandCharts.map(chart => chart.data(dd).draw({duration: 1000}))
-        eChart.data(dd.map(v => [v, Math.round(Math.random()*70) + 1])).draw({duration: 2000})
-        fChart.data(dd.map(v => [v, Math.round(Math.random()*5) + 1])).draw({duration: 2000})
-      }),
+    d3nic.bxBrush().fnOn('endDomain', (event, bd) => {
+      const dd = bd ? data.filter((_, j) => j >= bd[0] && j<=bd[1]) : data
+      bandCharts.map(chart => chart.data(dd).draw({duration: 1000}))
+      eChart.data(dd.map(v => [v, Math.round(Math.random()*70) + 1])).draw({duration: 2000})
+      fChart.data(dd.map(v => [v, Math.round(Math.random()*5) + 1])).draw({duration: 2000})
+    }),
   ])
   .draw({duration: 500})
 
 const circles = d3nic.bxCircles().fnStrokeWidth(2)
 
-const onMouseover = (d, i) => {
+const onMouseover = (event, d, i) => {
+  console.log(i)
   circles.join().filter(f => f === d).style('r', 10)
 }
-const onMouseout = (d, i) => {
+const onMouseout = (event, d, i) => {
   circles.join().style('r', null)
 }
 
