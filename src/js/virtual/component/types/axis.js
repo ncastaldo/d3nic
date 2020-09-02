@@ -43,46 +43,46 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
 
   const self = {
     ...state,
-    ticks: (value) => {
+    ticks (value) {
       if (typeof value === 'undefined') return ticks
       ticks = value
     },
-    tickValues: (value) => {
+    tickValues (value) {
       if (typeof value === 'undefined') return tickValues
       tickValues = value
     },
-    tickFormatType: (value) => {
+    tickFormatType (value) {
       if (typeof value === 'undefined') return tickFormatType
       tickFormatType = value
     },
-    tickFormat: (value) => {
+    tickFormat (value) {
       if (typeof value === 'undefined') return tickFormat
       tickFormat = value
     },
-    tickSizeInner: (value) => {
+    tickSizeInner (value) {
       if (typeof value === 'undefined') return tickSizeInner
       tickSizeInner = value
     },
-    tickSizeOuter: (value) => {
+    tickSizeOuter (value) {
       if (typeof value === 'undefined') return tickSizeOuter
       tickSizeOuter = value
     },
-    tickPadding: (value) => {
+    tickPadding (value) {
       if (typeof value === 'undefined') return tickPadding
       tickPadding = value
     },
-    position: (value) => {
+    position (value) {
       if (typeof value === 'undefined') return position
       position = value
     },
-    scale: (value) => {
+    scale (value) {
       if (typeof value === 'undefined') return scale
       scale = value
     },
-    translateAxis: () => {
+    translateAxis () {
       return translateAxis
     },
-    fnAxis: () => {
+    fnAxis () {
       const fnAxis = computeAxis(on, position)
         .ticks(ticks)
         .tickValues(tickValues)
@@ -107,10 +107,7 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
   }
 
   // + init
-  self.subscribe('data', update)
-  self.subscribe('components', update)
-  self.subscribe('size', update)
-  self.subscribe('padding', update)
+  self.subscribe('components', 'data', 'components', 'graphics', update)
 
   return self
 }
@@ -146,10 +143,7 @@ const hasBandAxisFactory = (on = 'x') => (state = {}) => {
   }
 
   // init may be enough
-  self.subscribe('data', updateAxisScale)
-  self.subscribe('components', updateAxisScale)
-  self.subscribe('size', updateAxisScale)
-  self.subscribe('padding', updateAxisScale)
+  self.subscribe('components', 'data', 'components', 'graphics', updateAxisScale)
 
   return self
 }
@@ -167,10 +161,7 @@ const hasContAxisFactory = (on = 'x') => (state = {}) => {
   }
 
   // init may be enough
-  self.subscribe('data', updateAxisScale)
-  self.subscribe('components', updateAxisScale)
-  self.subscribe('size', updateAxisScale)
-  self.subscribe('padding', updateAxisScale)
+  self.subscribe('components', 'data', 'components', 'graphics', updateAxisScale)
 
   return self
 }
@@ -188,10 +179,7 @@ const hasDoubleContAxisFactory = (on = 'x', index = 0) => (state = {}) => {
   }
 
   // init may be enough
-  self.subscribe('data', updateAxisScale)
-  self.subscribe('components', updateAxisScale)
-  self.subscribe('size', updateAxisScale)
-  self.subscribe('padding', updateAxisScale)
+  self.subscribe('components', 'data', 'components', 'graphics', updateAxisScale)
 
   return self
 }

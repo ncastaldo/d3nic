@@ -4,7 +4,7 @@ import { line } from 'd3-shape'
 
 import component from '../../virtual/component/base/index'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasContOut } from '../../virtual/component/outs/cont'
 import { hasSingleDrawFactory } from '../../virtual/component/properties/draw'
@@ -40,7 +40,7 @@ const bxLine = (state = {}) => {
     s.attr('opacity', 0)
   )
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default bxLine

@@ -2,7 +2,7 @@
 import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import { hasCircle } from '../../virtual/component/types/circle'
 import { hasPolar } from '../../virtual/component/types/polar'
 import { hasBandOut } from '../../virtual/component/outs/band'
@@ -52,7 +52,7 @@ const baBars = (state = {}) => {
       .attr('opacity', 0)
   )
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default baBars

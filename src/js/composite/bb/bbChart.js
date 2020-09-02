@@ -1,6 +1,6 @@
 import pipe from 'lodash/fp/flow'
 
-import { chartProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import chart from '../../virtual/chart/base/index'
 import { hasXy } from '../../virtual/chart/types/xy'
 import { hasDoubleBandScaleFactory } from '../../virtual/chart/properties/scales'
@@ -12,7 +12,7 @@ const xyChart = (state = {}) => {
     hasDoubleBandScaleFactory(['x', 'y'])
   )(state)
 
-  return chartProxy(self)
+  return getProxy(self)
 }
 
 export default xyChart

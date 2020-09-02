@@ -2,7 +2,7 @@
 import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import { hasDoubleContOut, hasRangeDoubleContOut } from '../../virtual/component/outs/doubleCont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
@@ -34,7 +34,7 @@ const xyLinesH = (state = {}) => {
     s.attr('opacity', 0)
   )
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default xyLinesH

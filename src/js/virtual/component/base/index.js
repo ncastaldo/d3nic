@@ -1,6 +1,7 @@
 import pipe from 'lodash/fp/flow'
 
-import { hasRegistry } from '../../../common'
+import { hasRegistry } from '../../common/registry'
+
 import { hasGroup } from './group'
 import { hasEvents } from './events'
 import { hasStyle } from './style'

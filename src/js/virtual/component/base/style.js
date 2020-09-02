@@ -18,31 +18,31 @@ const hasStyle = (state = {}) => {
 
   const self = {
     ...state,
-    fnStroke: (value) => {
+    fnStroke (value) {
       if (typeof value === 'undefined') return fnStroke
       fnStroke = value
     },
-    fnStrokeDasharray: (value) => {
+    fnStrokeDasharray (value) {
       if (typeof value === 'undefined') return fnStrokeDasharray
       fnStrokeDasharray = value
     },
-    fnStrokeWidth: (value) => {
+    fnStrokeWidth (value) {
       if (typeof value === 'undefined') return fnStrokeWidth
       fnStrokeWidth = value
     },
-    fnFill: (value) => {
+    fnFill (value) {
       if (typeof value === 'undefined') return fnFill
       fnFill = value
     },
-    fnFillOpacity: (value) => {
+    fnFillOpacity (value) {
       if (typeof value === 'undefined') return fnFillOpacity
       fnFillOpacity = value
     },
-    fnOpacity: (value) => {
+    fnOpacity (value) {
       if (typeof value === 'undefined') return fnOpacity
       fnOpacity = value
     },
-    fnStyle: () => {
+    fnStyle () {
       return fnStyle
     }
   }

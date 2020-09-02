@@ -2,7 +2,7 @@
 import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import { hasText } from '../../virtual/component/types/text'
 import { hasTransform } from '../../virtual/component/properties/transform'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
@@ -30,7 +30,7 @@ const paths = (state = {}) => {
 
   self.fnAfter(s => s.attr('opacity', 0))
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default paths

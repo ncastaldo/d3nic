@@ -3,7 +3,7 @@ const hasTransform = (state = {}) => {
 
   const self = {
     ...state,
-    fnTransform: (value) => {
+    fnTransform (value) {
       if (typeof value === 'undefined') return fnTransform
       fnTransform = value
     }

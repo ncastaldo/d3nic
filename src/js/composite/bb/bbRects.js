@@ -4,7 +4,7 @@ import component from '../../virtual/component/base/index'
 
 import { select } from 'd3-selection'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import { hasDoubleBandOut } from '../../virtual/component/outs/doubleBand'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
@@ -38,7 +38,7 @@ const bbRects = (state = {}) => {
       .attr('opacity', 0)
   )
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default bbRects

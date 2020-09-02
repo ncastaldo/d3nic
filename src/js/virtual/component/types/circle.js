@@ -5,15 +5,15 @@ const hasCircle = (state = {}) => {
 
   const self = {
     ...state,
-    fnCenterX: (value) => {
+    fnCenterX (value) {
       if (typeof value === 'undefined') return fnCenterX
       fnCenterX = value
     },
-    fnCenterY: (value) => {
+    fnCenterY (value) {
       if (typeof value === 'undefined') return fnCenterY
       fnCenterY = value
     },
-    fnRadius: (value) => {
+    fnRadius (value) {
       if (typeof value === 'undefined') return fnRadius
       fnRadius = value
     }

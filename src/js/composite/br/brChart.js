@@ -1,6 +1,6 @@
 import pipe from 'lodash/fp/flow'
 
-import { chartProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import chart from '../../virtual/chart/base/index'
 import { hasPolar } from '../../virtual/chart/types/polar'
 import { hasBandScaleFactory, hasContScaleFactory } from '../../virtual/chart/properties/scales'
@@ -13,7 +13,7 @@ const brChart = (state = {}) => {
     hasContScaleFactory('angle')
   )(state)
 
-  return chartProxy(self)
+  return getProxy(self)
 }
 
 export default brChart

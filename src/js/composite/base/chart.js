@@ -1,6 +1,6 @@
 import pipe from 'lodash/fp/flow'
 
-import { chartProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import _chart from '../../virtual/chart/base/index'
 
 const chart = (state = {}) => {
@@ -8,7 +8,7 @@ const chart = (state = {}) => {
     _chart
   )(state)
 
-  return chartProxy(self)
+  return getProxy(self)
 }
 
 export default chart

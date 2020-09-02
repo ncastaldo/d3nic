@@ -11,7 +11,7 @@ const hasDoubleContOut = (state = {}) => {
     ...pipe(
       hasValue
     )(state),
-    fnDoubleContOut: (value) => {
+    fnDoubleContOut (value) {
       if (typeof value === 'undefined') return fnDoubleContOut
       fnDoubleContOut = value
     }
@@ -34,7 +34,7 @@ const hasRangeDoubleContOut = (state = {}) => {
 
   const self = {
     ...state,
-    rangeDoubleContOut: () => {
+    rangeDoubleContOut () {
       return rangeDoubleContOut
     }
   }

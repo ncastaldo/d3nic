@@ -13,24 +13,24 @@ const hasPolar = (state = {}) => {
 
   const self = {
     ...state,
-    radiusExtent: (value) => {
+    radiusExtent (value) {
       if (typeof value === 'undefined') return radiusExtent
       radiusExtent = value
     },
-    angleExtent: (value) => {
+    angleExtent (value) {
       if (typeof value === 'undefined') return angleExtent
       angleExtent = value
     },
-    center: () => {
+    center () {
       return center
     },
-    radius: () => {
+    radius () {
       return radius
     },
-    radiusRange: () => {
+    radiusRange () {
       return radiusRange
     },
-    angleRange: () => {
+    angleRange () {
       return angleRange
     }
   }
@@ -49,13 +49,14 @@ const hasPolar = (state = {}) => {
     angleRange = [...angleExtent]
   }
 
-  self.subscribe('size', update)
-  self.subscribe('padding', update)
+  self.subscribe('graphics', update)
 
   const draw = (chart) => {
     const translate = `translate(${center[0]}, ${center[1]})`
 
     if (firstDraw) {
+      update(chart) // trick to subscribe successfully to registry
+
       chart.group()
         .attr('transform', translate)
     } else {

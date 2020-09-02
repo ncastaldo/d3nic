@@ -12,10 +12,10 @@ const hasGeoOut = (state = {}) => {
     ...pipe(
       hasValue
     )(state),
-    fnGeoPath: () => {
+    fnGeoPath () {
       return fnGeoPath
     },
-    fnGeoOut: (value) => {
+    fnGeoOut (value) {
       if (typeof value === 'undefined') return fnGeoOut
       fnGeoOut = value
     }

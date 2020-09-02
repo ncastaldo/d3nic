@@ -6,10 +6,10 @@ const hasGroup = (state) => {
 
   const self = {
     ...state,
-    extent: () => {
+    extent () {
       return extent
     },
-    group: () => {
+    group () {
       return group
     }
   }

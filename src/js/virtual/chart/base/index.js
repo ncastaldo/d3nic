@@ -2,7 +2,7 @@ import { select } from 'd3-selection'
 import { timeout, interval } from 'd3-timer'
 import pipe from 'lodash/fp/flow'
 
-import { hasRegistry } from '../../../common'
+import { hasRegistry } from '../../common/registry'
 
 const chart = (state = {}) => {
   let selector = 'svg'
@@ -11,7 +11,7 @@ const chart = (state = {}) => {
   let group
   let context
 
-  let fn_interval
+  let fnInterval
   let transition
 
   let firstDraw = true
@@ -52,60 +52,66 @@ const chart = (state = {}) => {
     context.clearRect(0, 0, size.width, size.height)
   }
 
+  const spreadPublish = (...args) => {
+    const [chart, ...topics] = args.reverse()
+    chart.publish(...topics, chart)
+    components.forEach(c => c.publish(...topics, chart))
+  }
+
   const self = {
     ...state,
     ...pipe(
       hasRegistry
     )(state),
-    selector: (value) => {
+    selector (value) {
       selector = value
     },
-    size: (value) => {
-      if (typeof value === 'undefined') return size
-      // CONTROL ON SIZE, freeze it maybe
+    size (value) {
+      if (typeof value === 'undefined') return { ...size }
       size = { ...size, ...value }
+      spreadPublish('graphics', this)
     },
-    padding: (value) => {
-      if (typeof value === 'undefined') return padding
-      // CONTROL ON padding, freeze it maybe
+    padding (value) {
+      if (typeof value === 'undefined') return { ...padding }
       padding = { ...padding, ...value }
+      spreadPublish('graphics', this)
     },
-    fnKey: (value) => {
+    data (value) {
+      if (typeof value === 'undefined') return [...data]
+      data = value
+      spreadPublish('data', this)
+    },
+    components (value) {
+      if (typeof value === 'undefined') return [...components]
+      components = value
+      spreadPublish('components', this)
+    },
+    transitionObject (value) {
+      if (typeof value === 'undefined') return { ...transitionObject }
+      transitionObject = { ...transitionObject, ...value }
+    },
+    fnKey (value) {
       if (typeof value === 'undefined') return fnKey
       fnKey = value
     },
-    data: (value) => {
-      if (typeof value === 'undefined') return data
-      // CONTROL ON data, MUST BE ARRAY(?)
-      data = value
-    },
-    components: (value) => {
-      if (typeof value === 'undefined') return components
-      // CONTROL ON components, MUST BE ARRAY(?)
-      components = value
-    },
-    transitionObject: (value) => {
-      if (typeof value === 'undefined') return transitionObject
-      transitionObject = value
-    },
     // getters
-    extent: () => {
+    extent () {
       return [
         [padding.left, padding.top],
         [size.width - padding.right, size.height - padding.bottom]
       ]
     },
-    group: () => {
+    group () {
       return group
     },
-    transition: () => {
+    transition () {
       return transition
     },
-    context: () => {
+    context () {
       return context
     },
     // draw
-    draw: ({ name = '', duration = 0, delay = 0 } = {}) => {
+    draw ({ name = '', duration = 0, delay = 0 } = {}) {
       // *** check this
       transitionObject = { name, duration, delay }
 
@@ -145,7 +151,7 @@ const chart = (state = {}) => {
 
       // only in case of canvas
       if (context) {
-        if (fn_interval) fn_interval.stop()
+        if (fnInterval) fnInterval.stop()
 
         // if elapsed is '-1' then stop
         const fn_drawComponentsCanvas = (elapsed) => {
@@ -158,16 +164,16 @@ const chart = (state = {}) => {
 
           // components.forEach(c => c.drawCanvas())
 
-          if (elapsed >= transitionObject.duration) fn_interval.stop()
+          if (elapsed >= transitionObject.duration) fnInterval.stop()
         }
 
         timeout(() => {
           if (transitionObject.duration) {
-            fn_interval = interval(fn_drawComponentsCanvas, 34) // draw every 34 MS
+            fnInterval = interval(fn_drawComponentsCanvas, 34) // draw every 34 MS
           } else {
             // to render the canvas in the next tick,
             // in order to have correct canvas-width and canvas-height
-            fn_interval = timeout(fn_drawComponentsCanvas, 0)
+            fnInterval = timeout(fn_drawComponentsCanvas, 0)
           }
         }, transitionObject.delay)
       }
@@ -178,6 +184,8 @@ const chart = (state = {}) => {
       // state.components.forEach(component => component.group.classed("js__keep-chart-component", true));
       // state.group.selectAll(".component:not(.js__keep-chart-component)").remove(); // may be a problem with nested charts
       // state.components.forEach(component => component.group.classed("js__keep-chart-component", false));
+
+      spreadPublish('draw', this)
     }
   }
 

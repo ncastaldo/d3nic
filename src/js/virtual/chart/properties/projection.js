@@ -11,7 +11,6 @@ const geoProjections = {
 const hasGeoProjection = (state = {}) => {
   let geoProjectionType = Object.keys(geoProjections)[0]
   let geoDomainObject
-  let geoExtent
 
   // default something
 
@@ -22,13 +21,13 @@ const hasGeoProjection = (state = {}) => {
 
   const self = {
     ...state,
-    geoProjectionType: (value) => {
+    geoProjectionType (value) {
       if (typeof value === 'undefined') return geoProjectionType
       geoProjectionType = getGeoProjectionType(value)
     },
-    fnGeoProjection: () => {
+    fnGeoProjection () {
       return geoProjections[geoProjectionType]()
-        .fitExtent(geoExtent, geoDomainObject)
+        .fitExtent(this.extent(), geoDomainObject)
     }
   }
 
@@ -54,14 +53,7 @@ const hasGeoProjection = (state = {}) => {
     }
   }
 
-  const updateGeoExtent = (chart) => {
-    geoExtent = chart.extent()
-  }
-
-  self.subscribe('data', updateGeoDomainObject)
-  self.subscribe('components', updateGeoDomainObject)
-  self.subscribe('size', updateGeoExtent)
-  self.subscribe('padding', updateGeoExtent)
+  self.subscribe('data', 'components', updateGeoDomainObject)
 
   return self
 }

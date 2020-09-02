@@ -9,22 +9,22 @@ const hasBandOut = (state = {}) => {
 
   const self = {
     ...state,
-    fnBandOut: () => {
+    fnBandOut () {
       return fnBandOut
     },
-    fnBandCenterOut: () => {
+    fnBandCenterOut () {
       return fnBandCenterOut
     },
-    bandwidthOut: () => {
+    bandwidthOut () {
       return bandwidthOut
     },
-    fnBandLeftOut: () => {
+    fnBandLeftOut () {
       return fnBandLeftOut
     },
-    fnBandRightOut: () => {
+    fnBandRightOut () {
       return fnBandRightOut
     },
-    bandExtentOut: () => {
+    bandExtentOut () {
       return bandExtentOut
     }
   }
@@ -53,10 +53,8 @@ const hasBandOut = (state = {}) => {
       : fnBandScale.range()
   }
 
-  self.subscribe('data', updateOuts)
-  self.subscribe('components', updateOuts)
-  self.subscribe('size', updateOuts)
-  self.subscribe('padding', updateOuts)
+  // cannot update only on draw, because brush may need it
+  self.subscribe('components', 'data', 'graphics', updateOuts)
 
   return self
 }
@@ -66,7 +64,7 @@ const hasStackBandOut = (state = {}) => {
 
   const self = {
     ...state,
-    stackBandExtentOut: () => {
+    stackBandExtentOut () {
       return stackBandExtentOut
     }
   }
@@ -83,10 +81,7 @@ const hasStackBandOut = (state = {}) => {
     ]
   }
 
-  self.subscribe('data', updateOuts)
-  self.subscribe('components', updateOuts)
-  self.subscribe('size', updateOuts)
-  self.subscribe('padding', updateOuts)
+  self.subscribe('components', 'data', 'graphics', updateOuts)
 
   return self
 }

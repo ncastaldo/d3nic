@@ -3,7 +3,7 @@ import { select } from 'd3-selection'
 
 import component from '../../virtual/component/base/index'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasLowHighContOut } from '../../virtual/component/outs/cont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
@@ -37,7 +37,7 @@ const byLines = (state = {}) => {
       .attr('opacity', 0)
   )
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default byLines

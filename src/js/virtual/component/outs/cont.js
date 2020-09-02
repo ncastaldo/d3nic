@@ -11,7 +11,7 @@ const hasContOut = (state = {}) => {
     ...pipe(
       hasValue
     )(state),
-    fnContOut: (value) => {
+    fnContOut (value) {
       if (typeof value === 'undefined') return fnContOut
       fnContOut = value
     }
@@ -36,11 +36,11 @@ const hasLowHighContOut = (state = {}) => {
     ...pipe(
       hasLowHighValue
     )(state),
-    fnLowContOut: (value) => {
+    fnLowContOut (value) {
       if (typeof value === 'undefined') return fnLowContOut
       fnLowContOut = value
     },
-    fnHighContOut: (value) => {
+    fnHighContOut (value) {
       if (typeof value === 'undefined') return fnHighContOut
       fnHighContOut = value
     }
@@ -62,7 +62,7 @@ const hasRangeContOut = (state = {}) => {
 
   const self = {
     ...state,
-    rangeContOut: () => {
+    rangeContOut () {
       return rangeContOut
     }
   }

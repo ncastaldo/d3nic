@@ -3,7 +3,7 @@ const hasPath = (state = {}) => {
 
   const self = {
     ...state,
-    fnPath: (value) => {
+    fnPath (value) {
       if (typeof value === 'undefined') return fnPath
       fnPath = value
     }

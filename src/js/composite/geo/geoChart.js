@@ -1,6 +1,6 @@
 import pipe from 'lodash/fp/flow'
 
-import { chartProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import chart from '../../virtual/chart/base/index'
 import { hasGeoProjection } from '../../virtual/chart/properties/projection'
 
@@ -10,7 +10,7 @@ const geoChart = (state = {}) => {
     hasGeoProjection
   )(state)
 
-  return chartProxy(self)
+  return getProxy(self)
 }
 
 export default geoChart

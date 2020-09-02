@@ -2,7 +2,7 @@
 import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasRangeContOut } from '../../virtual/component/outs/cont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
@@ -24,7 +24,7 @@ const byMouseBars = (state = {}) => {
       .attr('width', Math.abs(self.rangeContOut()[1] - self.rangeContOut()[0]))
   )
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default byMouseBars

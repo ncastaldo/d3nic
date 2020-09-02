@@ -20,31 +20,31 @@ const hasBrushFactory = (on = 'x') => (state = {}) => {
 
   const self = {
     ...state,
-    brushDomain: (value) => {
+    brushDomain (value) {
       if (typeof value === 'undefined') return brushDomain
       brushDomain = value
     },
-    brushRange: (value) => {
+    brushRange (value) {
       if (typeof value === 'undefined') return brushRange
       brushRange = value
     },
-    minStep: (value) => {
+    minStep (value) {
       if (typeof value === 'undefined') return minStep
       minStep = value
     },
-    maxStep: (value) => {
+    maxStep (value) {
       if (typeof value === 'undefined') return maxStep
       maxStep = value
     },
-    onBrush: (value) => {
+    onBrush (value) {
       if (typeof value === 'undefined') return onBrush
       onBrush = value
     },
-    onEnd: (value) => {
+    onEnd (value) {
       if (typeof value === 'undefined') return onEnd
       onEnd = value
     },
-    fnBrush: () => {
+    fnBrush () {
       return computeBrush(on)
         .extent(chartExtent)
         .on('brush.d3nic', onBrush)
@@ -57,10 +57,8 @@ const hasBrushFactory = (on = 'x') => (state = {}) => {
   }
 
   // + init
-  self.subscribe('data', update)
-  self.subscribe('components', update)
-  self.subscribe('size', update)
-  self.subscribe('padding', update)
+  self.subscribe('data', 'components', update)
+  self.subscribe('graphics', update)
 
   return self
 }
@@ -155,6 +153,8 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
       }
     }
 
+    console.log(self.fnBandCenterOut())
+
     const centers = chart.data().map(self.fnBandCenterOut())
     const lefts = chart.data().map(self.fnBandLeftOut())
     const rights = chart.data().map(self.fnBandRightOut())
@@ -176,7 +176,7 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
   }
 
   // + init
-  self.subscribe('data', 'components', 'size', 'padding', update)
+  self.subscribe('data', 'components', 'graphics', update)
   self.subscribe('brushDomain', updateBrushRange)
 
   return self
@@ -190,7 +190,7 @@ const hasContBrushFactory = (on = 'x') => (state = {}) => {
     )(state)
   }
 
-  /* brushSelection: () => {
+  /* brushSelection() {
     return brushProportion ? brushProportion.map(p => (chartExtent[1][0] - chartExtent[0][0]) * p)
       : null
   }, */
@@ -214,7 +214,7 @@ const hasContBrushFactory = (on = 'x') => (state = {}) => {
   }
 
   // + init
-  self.subscribe('data', 'components', 'size', 'padding', update)
+  self.subscribe('data', 'components', 'graphics', update)
 
   return self
 }

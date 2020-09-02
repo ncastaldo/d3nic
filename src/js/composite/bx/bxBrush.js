@@ -1,7 +1,7 @@
 import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import { hasBandBrushFactory } from '../../virtual/component/types/brush'
 import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasSingleFunctionDraw } from '../../virtual/component/properties/draw'
@@ -22,7 +22,7 @@ const bxBrush = (state = {}) => {
       .call(self.fnBrush().move, self.brushRange())
   )
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default bxBrush

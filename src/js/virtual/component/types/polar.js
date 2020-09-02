@@ -35,16 +35,16 @@ const hasPolar = (state = {}) => {
 
   const self = {
     ...state,
-    radiusRange: () => {
+    radiusRange () {
       return radiusRange
     },
-    fnXTween: () => {
+    fnXTween () {
       return fnXTween
     },
-    fnYTween: () => {
+    fnYTween () {
       return fnYTween
     },
-    fnArcTween: () => {
+    fnArcTween () {
       return fnArcTween
     }
   }
@@ -53,10 +53,7 @@ const hasPolar = (state = {}) => {
     radiusRange = chart.radiusRange()
   }
 
-  self.subscribe('data', updateRadiusRange)
-  self.subscribe('components', updateRadiusRange)
-  self.subscribe('size', updateRadiusRange)
-  self.subscribe('padding', updateRadiusRange)
+  self.subscribe('components', 'data', 'components', 'graphics', updateRadiusRange)
 
   return self
 }

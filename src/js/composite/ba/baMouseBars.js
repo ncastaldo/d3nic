@@ -2,7 +2,7 @@
 import pipe from 'lodash/fp/flow'
 import component from '../../virtual/component/base/index'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import { hasPolar } from '../../virtual/component/types/polar'
 import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasRangeContOut } from '../../virtual/component/outs/cont'
@@ -32,7 +32,7 @@ const bxBars = (state = {}) => {
       .attrTween('d', self.fnArcTween())
   )
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default bxBars

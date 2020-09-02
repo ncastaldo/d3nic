@@ -1,6 +1,6 @@
 import pipe from 'lodash/fp/flow'
 
-import { chartProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import chart from '../../virtual/chart/base/index'
 import { hasPolar } from '../../virtual/chart/types/polar'
 import { hasDoubleContScaleFactory } from '../../virtual/chart/properties/scales'
@@ -12,7 +12,7 @@ const arChart = (state = {}) => {
     hasDoubleContScaleFactory(['angle', 'radius'])
   )(state)
 
-  return chartProxy(self)
+  return getProxy(self)
 }
 
 export default arChart

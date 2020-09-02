@@ -10,19 +10,19 @@ const hasDraw = (state) => {
 
   const self = {
     ...state,
-    join: (value) => {
+    join (value) {
       if (typeof value === 'undefined') return join
       join = value
     },
-    fnBefore: (value) => {
+    fnBefore (value) {
       if (typeof value === 'undefined') return fnBefore
       fnBefore = pipe(fnBefore, value)
     },
-    fnNow: (value) => {
+    fnNow (value) {
       if (typeof value === 'undefined') return fnNow
       fnNow = pipe(fnNow, value)
     },
-    fnAfter: (value) => {
+    fnAfter (value) {
       if (typeof value === 'undefined') return fnAfter
       fnAfter = pipe(fnAfter, value)
     }
@@ -48,7 +48,7 @@ const hasPhi = (state) => {
 
   const self = {
     ...state,
-    phi: (value) => {
+    phi (value) {
       if (typeof value === 'undefined') return phi
       phi = value
     },

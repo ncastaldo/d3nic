@@ -9,7 +9,7 @@ import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasContOut } from '../../virtual/component/outs/cont'
 import { hasSingleDrawFactory } from '../../virtual/component/properties/draw'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 
 const baLine = (state = {}) => {
   const self = pipe(
@@ -44,7 +44,7 @@ const baLine = (state = {}) => {
     s.attr('opacity', 0)
   )
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default baLine

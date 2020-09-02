@@ -11,15 +11,15 @@ const hasText = (state = {}) => {
 
   const self = {
     ...state,
-    fnText: (value) => {
+    fnText (value) {
       if (typeof value === 'undefined') return fnText
       fnText = value
     },
-    fnFontSize: (value) => {
+    fnFontSize (value) {
       if (typeof value === 'undefined') return fnFontSize
       fnFontSize = value
     },
-    textPadding: (value) => {
+    textPadding (value) {
       if (typeof value === 'undefined') return textPadding
       textPadding = { ...textPadding, ...value }
     }

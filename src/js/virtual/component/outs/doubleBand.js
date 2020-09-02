@@ -9,19 +9,19 @@ const hasDoubleBandOut = (state = {}) => {
 
   const self = {
     ...state,
-    fnDoubleBandOut: () => {
+    fnDoubleBandOut () {
       return fnDoubleBandOut
     },
-    fnDoubleBandCenterOut: () => {
+    fnDoubleBandCenterOut () {
       return fnDoubleBandCenterOut
     },
-    doubleBandwidthOut: () => {
+    doubleBandwidthOut () {
       return doubleBandwidthOut
     },
-    fnDoubleBandLeftOut: () => {
+    fnDoubleBandLeftOut () {
       return fnDoubleBandLeftOut
     },
-    fnDoubleBandRightOut: () => {
+    fnDoubleBandRightOut () {
       return fnDoubleBandRightOut
     }
   }
@@ -45,10 +45,7 @@ const hasDoubleBandOut = (state = {}) => {
     )
   }
 
-  self.subscribe('data', updateOuts)
-  self.subscribe('components', updateOuts)
-  self.subscribe('size', updateOuts)
-  self.subscribe('padding', updateOuts)
+  self.subscribe('draw', updateOuts)
 
   return self
 }

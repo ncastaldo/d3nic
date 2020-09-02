@@ -3,7 +3,7 @@ import component from '../../virtual/component/base/index'
 
 import { mean, max } from 'd3-array'
 
-import { componentProxy } from '../../common'
+import { getProxy } from '../../virtual/common/proxy'
 import { hasText } from '../../virtual/component/types/text'
 import { hasAxisFactory } from '../../virtual/component/types/axis'
 import { hasSingleDrawFactory } from '../../virtual/component/properties/draw'
@@ -39,7 +39,7 @@ const labelAxisX = (state = {}) => {
     s.attr('opacity', 0)
   )
 
-  return componentProxy(self)
+  return getProxy(self)
 }
 
 export default labelAxisX
