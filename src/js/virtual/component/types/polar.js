@@ -53,7 +53,7 @@ const hasPolar = (state = {}) => {
     radiusRange = chart.radiusRange()
   }
 
-  self.subscribe('components', 'data', 'components', 'graphics', updateRadiusRange)
+  self.subscribe('data', 'components', 'graphics', updateRadiusRange)
 
   return self
 }

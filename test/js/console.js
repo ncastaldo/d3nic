@@ -17,6 +17,9 @@ const c = d3nic.bxChart()
 console.log('arr')
 c.components([...arr])
 
+console.log(c)
+
+
 
 
 console.log('draw')

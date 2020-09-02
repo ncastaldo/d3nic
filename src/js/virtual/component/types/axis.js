@@ -107,7 +107,7 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
   }
 
   // + init
-  self.subscribe('components', 'data', 'components', 'graphics', update)
+  self.subscribe('data', 'components', 'graphics', update)
 
   return self
 }
@@ -143,7 +143,7 @@ const hasBandAxisFactory = (on = 'x') => (state = {}) => {
   }
 
   // init may be enough
-  self.subscribe('components', 'data', 'components', 'graphics', updateAxisScale)
+  self.subscribe('data', 'components', 'graphics', updateAxisScale)
 
   return self
 }
@@ -161,7 +161,7 @@ const hasContAxisFactory = (on = 'x') => (state = {}) => {
   }
 
   // init may be enough
-  self.subscribe('components', 'data', 'components', 'graphics', updateAxisScale)
+  self.subscribe('data', 'components', 'graphics', updateAxisScale)
 
   return self
 }
@@ -179,7 +179,7 @@ const hasDoubleContAxisFactory = (on = 'x', index = 0) => (state = {}) => {
   }
 
   // init may be enough
-  self.subscribe('components', 'data', 'components', 'graphics', updateAxisScale)
+  self.subscribe('data', 'components', 'graphics', updateAxisScale)
 
   return self
 }
