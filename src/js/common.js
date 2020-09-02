@@ -24,7 +24,8 @@ const hasRegistry = () => {
 }
 
 const chartProxyHandler = {
-  get: (chart, fnName) => {
+  get: (chart, fnName, receiver) => {
+    console.log(fnName)
     return (...args) => {
       if (fnName in chart && typeof chart[fnName] === 'function') {
         if (fnName === 'draw' || args.length) {
@@ -33,7 +34,7 @@ const chartProxyHandler = {
           chart.publish(fnName, chart)
           chart.components().forEach(c => c.publish(fnName, chart))
 
-          return new Proxy(chart, chartProxyHandler)
+          return receiver // without creating a new proxy
         } else {
           return chart[fnName]()
         }
@@ -45,13 +46,13 @@ const chartProxyHandler = {
 }
 const chartProxy = (chart) => {
   const proxy = new Proxy(chart, chartProxyHandler)
-  proxy.publish('data', chart)
-  proxy.publish('size', chart)
+  chart.publish('data', chart)
+  chart.publish('size', chart)
   return proxy
 }
 
 const componentProxyHandler = {
-  get: (component, fnName) => {
+  get: (component, fnName, receiver) => {
     return (...args) => {
       if (fnName in component && typeof component[fnName] === 'function') {
         if (args.length) {
@@ -60,7 +61,7 @@ const componentProxyHandler = {
           // to achieve clean code and avoid calling functions directly after changes
           component.publish(fnName)
 
-          return new Proxy(component, componentProxyHandler)
+          return receiver // without creating a new proxy
         } else {
           return component[fnName]()
         }
