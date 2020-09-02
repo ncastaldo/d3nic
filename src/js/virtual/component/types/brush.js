@@ -153,8 +153,6 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
       }
     }
 
-    console.log(self.fnBandCenterOut())
-
     const centers = chart.data().map(self.fnBandCenterOut())
     const lefts = chart.data().map(self.fnBandLeftOut())
     const rights = chart.data().map(self.fnBandRightOut())
@@ -196,8 +194,8 @@ const hasContBrushFactory = (on = 'x') => (state = {}) => {
   }, */
 
   const onBrush = (event) => {
-    if (!event.selection || !event.sourceEvent) { return }
-    console.log(event.target)
+    if (!event.selection || !event.sourceEvent) { }
+    // console.log(event.target)
   }
 
   /* const onEnd = () => {

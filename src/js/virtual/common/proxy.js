@@ -4,10 +4,13 @@ const proxyHandler = {
     return (...args) => {
       if (fnName in obj && typeof obj[fnName] === 'function') {
         const v = obj[fnName](...args)
-        // undefined if no return value
-        return v === undefined ? receiver : v
+        // check on args length because v may not be undefined
+        if (fnName !== 'draw' && !args.length) {
+          return v
+        }
+      } else {
+        console.log(`No function ${fnName} here!`)
       }
-      console.log(`No function ${fnName} here!`)
       return receiver
     }
   }
