@@ -43,8 +43,6 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
   let bandPaddingInner = 0
   let bandPaddingOuter = 0
 
-  let bandScaleDomain = null
-
   const self = {
     ...state,
     fnBandValue (value) {
@@ -63,16 +61,10 @@ const hasBandScaleFactory = (on = 'x') => (state = {}) => {
       return scaleBand()
         .paddingInner(bandPaddingInner)
         .paddingOuter(bandPaddingOuter)
-        .domain(bandScaleDomain)
+        .domain(self.data().map(fnBandValue))
         .range(computeRange(this, on, 'band'))
     }
   }
-
-  const updateScaleDomain = (chart) => {
-    bandScaleDomain = chart.data().map(fnBandValue)
-  }
-
-  self.subscribe('data', 'components', updateScaleDomain)
 
   return self
 }

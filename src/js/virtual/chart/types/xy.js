@@ -2,12 +2,12 @@ const hasXy = (state = {}) => {
   const self = {
     ...state,
     xRange () {
-      return this.extent()
+      return self.extent()
         .map(point => point[0])
     },
     // not inverted
     yRange () {
-      return this.extent()
+      return self.extent()
         .map(point => point[1])
     }
   }

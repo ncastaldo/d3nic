@@ -27,19 +27,19 @@ const hasGeoProjection = (state = {}) => {
     },
     fnGeoProjection () {
       return geoProjections[geoProjectionType]()
-        .fitExtent(this.extent(), geoDomainObject)
+        .fitExtent(self.extent(), geoDomainObject)
     }
   }
 
-  const updateGeoDomainObject = (chart) => {
-    const componentProperties = chart.components()
+  const updateGeoDomainObject = () => {
+    const componentProperties = self.components()
       .filter(c => 'fnsValue' in c)
       .map(c => ({
         fnsValue: c.fnsValue(),
         fnDefined: c.fnDefined()
       }))
 
-    const geometries = chart.data()
+    const geometries = self.data()
       .map((d, i) => componentProperties
         .filter(prop => prop.fnDefined(d, i))
         .map(prop => prop.fnsValue)

@@ -35,8 +35,8 @@ const hasPolar = (state = {}) => {
     }
   }
 
-  const update = (chart) => {
-    const extent = chart.extent()
+  const update = () => {
+    const extent = self.extent()
     center = [
       mean(extent, e => e[0]),
       mean(extent, e => e[1])
@@ -49,25 +49,24 @@ const hasPolar = (state = {}) => {
     angleRange = [...angleExtent]
   }
 
-  self.subscribe('graphics', update)
+  update() // auto trigger to update results
 
-  const draw = (chart) => {
+  const draw = () => {
     const translate = `translate(${center[0]}, ${center[1]})`
 
     if (firstDraw) {
-      update(chart) // trick to subscribe successfully to registry
-
-      chart.group()
+      self.group()
         .attr('transform', translate)
     } else {
-      chart.group()
-        .transition(chart.transition())
+      self.group()
+        .transition(self.transition())
         .attr('transform', translate)
     }
 
     firstDraw = false
   }
 
+  self.subscribe('graphics', update)
   self.subscribe('draw', draw)
 
   return self
