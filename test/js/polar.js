@@ -32,7 +32,7 @@
 		{ key: 28, v1: 4, v2: 7 },
 	];
 
-	const fn_fill = d => d3.interpolateViridis(data.length ? 1-d.key/data.length : 0)
+	const fnFill = d => d3.interpolateViridis(data.length ? 1-d.key/data.length : 0)
 	
 
 	d3.select(".container").call(container => {
@@ -40,102 +40,64 @@
 		container.append("svg").classed("svg2", true)
 	})
 
-	const mouseoverBisector = (d) => {
-		arcBars.join.style("opacity", f => d.key!==f.key ? 0.5 : null)
-		sectorBars.join.style("opacity", f => d.key!==f.key ? 0.5 : null)
+	const onMouseover = (event, d) => {
+		barsList.map(bars => 
+			bars.join().style("opacity", f => d.key!==f.key ? null : 0.5))
 	}
 
-	const mouseoutBisector = (d) => {
-		arcBars.join.style("opacity", null)
-		sectorBars.join.style("opacity", null)
+	const onMouseout = (event, d) => {
+		barsList.map(bars => 
+			bars.join().style("opacity", null))
 	}
-	const arcBars = new d3nic.ArcBars({
-		fn_bottomValue: (d, i) => d.v1,
-		fn_topValue: (d, i) => d.v1 + d.v2,
-		fn_defined: d => !isNaN(d.v1) && !isNaN(d.v2),
-		fn_fill: fn_fill,
-		fn_strokeWidth: () => 0,
-		phi: 0.2
-	})
 
-	const arcChart = new d3nic.ArcChart(".svg1", {
-		size: { width: 400, height: 500 },
-		padding: { top: 0, right: 0, bottom: 0, left: 0 },
-		transitionObject: { duration: 1000 },
-		radiusRangeProportions: [0.1, 0.8],
-		angleRange: [ 1/2 * Math.PI, - Math.PI],
-		radiusPadding: { inner: 0, outer: 0 },
-		fn_key: (d, i) => d.key,
-		valueDomain: [0, NaN],
-		data: data,
-		components: [
-			arcBars,
-			new d3nic.ArcMouseBisector({
-				fn_onMouseoverAction: mouseoverBisector,
-				fn_onMouseoutAction: mouseoutBisector,
-			})
-		],
-	})
+	const barsList = [d3nic.brBars(), d3nic.baBars()]
+	const mouseBarsList = [d3nic.brMouseBars(), d3nic.baMouseBars()]
+	const chartList =  [d3nic.brChart(), d3nic.baChart()]
 
-	const sectorBars = new d3nic.SectorBars({
-		fn_topValue: (d, i) => d.v1,
-		fn_defined: d => !isNaN(d.v1),
-		fn_fill: fn_fill,
-		fn_strokeWidth: () => 0,
-		phi: 0.2
-	})
+	barsList
+		.map(bars => 
+			bars.fnLowValue(d => d.v1)
+				.fnHighValue(d => d.v1 + d.v2)
+				.fnDefined(d => !isNaN(d.v1) && !isNaN(d.v1))
+				.fnFill(fnFill))
 
-	const sectorChart = new d3nic.SectorChart(".svg2", {
-		size: { width: 400, height: 500 },
-		padding: { top: 0, right: 0, bottom: 0, left: 0 },
-		transitionObject: { duration: 1000 },
-		radiusRangeProportions: [0.1, 0.8],
-		angleRange: [  Math.PI * 2, 0],
-		anglePadding: {inner: 0, outer: 0},
-		fn_key: (d, i) => d.key,
-		valueDomain: [0, NaN],
-		data: data,
-		components: [
-			sectorBars,
-			new d3nic.SectorLine({
-				fn_value: (d, i) => d.v1,
-				fn_defined: d => !isNaN(d.v1),
-				//fn_fill: d3.schemeReds[9][4],
-				//fn_fillOpacity: 0.5,
-				fn_stroke: () => "black",
-				fn_strokeWidth: () => 2,
-			}),
-			new d3nic.SectorMouseBisector({
-				fn_onMouseoverAction: mouseoverBisector,
-				fn_onMouseoutAction: mouseoutBisector
-			})
-		],
-	})
+	mouseBarsList
+		.map(mouseBars => 
+			mouseBars.fnOn('mouseover', onMouseover)
+				.fnOn('mouseout', onMouseout))
 
-
-
-
-
+	chartList
+		.map((chart, i) => 
+			chart.selector(['.svg1', '.svg2'][i])
+				.size({width: 400, height: 500})
+				.padding({ top: 0, right: 0, bottom: 0, left: 0 })
+				.transitionObject({ duration: 1000 })
+				.radiusExtent([0.1, 0.8])
+				.angleExtent([1/2 * Math.PI, - Math.PI])
+				.fnKey(d => d.key)
+				.contBaseDomain([0, null])
+				.data(data)
+				.components([barsList[i], mouseBarsList[i]]))
+	
+	
 	const drawUpdate = () => {
 
-    arcChart.draw()
-    sectorChart.draw()
+    chartList.map(chart => chart.draw())
 
   }
 
-  const fn_update = (t) => {
+  const fnUpdate = (t) => {
     random1 = d3.randomInt(0, data.length/2)()
     random2 = d3.randomInt(data.length/2, data.length)()
 		const newData = data.filter(d => d.key >= random1 && d.key <= random2)
-		arcChart.data = newData;
-		sectorChart.data = newData;
+		
+		chartList.map(chart => chart.data(newData))
 
 		drawUpdate(t);
   }
   
-  d3.select('#update').on("click", fn_update)
+  d3.select('#update').on("click", fnUpdate)
 
 	drawUpdate()
-
 
 })()

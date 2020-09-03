@@ -8,7 +8,7 @@ import { hasBandOut } from '../../virtual/component/outs/band'
 import { hasRangeContOut } from '../../virtual/component/outs/cont'
 import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
 
-const baMouseBars = (state = {}) => {
+const brMouseBars = (state = {}) => {
   const self = pipe(
     component,
     hasPolar,
@@ -22,10 +22,10 @@ const baMouseBars = (state = {}) => {
   self.fnNow(s =>
     s.each((d, i, nodes) => {
       nodes[i].fromArc = {
-        startAngle: self.fnBandLeftOut()(d, i),
-        endAngle: self.fnBandRightOut()(d, i),
-        innerRadius: self.rangeContOut()[0],
-        outerRadius: self.rangeContOut()[1]
+        innerRadius: self.fnBandLeftOut()(d, i),
+        outerRadius: self.fnBandRightOut()(d, i),
+        startAngle: self.rangeContOut()[0],
+        endAngle: self.rangeContOut()[1]
       }
       nodes[i].toArc = { ...nodes[i].fromArc }
     })
@@ -35,4 +35,4 @@ const baMouseBars = (state = {}) => {
   return getProxy(self)
 }
 
-export default baMouseBars
+export default brMouseBars

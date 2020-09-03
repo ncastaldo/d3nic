@@ -24,6 +24,7 @@ import baMouseBars from './js/composite/ba/baMouseBars'
 import brChart from './js/composite/br/brChart'
 import brBars from './js/composite/br/brBars'
 import brStackBars from './js/composite/br/brStackBars'
+import brMouseBars from './js/composite/br/brMouseBars'
 
 import bxChart from './js/composite/bx/bxChart'
 import bxAxisX from './js/composite/bx/bxAxisX'
@@ -81,6 +82,7 @@ export {
   brChart,
   brBars,
   brStackBars,
+  brMouseBars,
 
   bxChart,
   bxAxisX,

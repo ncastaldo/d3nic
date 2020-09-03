@@ -110,8 +110,12 @@ const chart = (state = {}) => {
     context () {
       return context
     },
-    // draw
-    draw ({ name = '', duration = 0, delay = 0 } = {}) {
+    // draw ---> it accepts a transitionObject
+    draw ({
+      name = transitionObject.name,
+      duration = transitionObject.duration,
+      delay = transitionObject.delay
+    } = {}) {
       // *** check this
       transitionObject = { name, duration, delay }
 

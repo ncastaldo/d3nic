@@ -16,6 +16,8 @@ const hasStyle = (state = {}) => {
       .attr('fill-opacity', fnFillOpacity)
       .attr('opacity', fnOpacity)
 
+  console.log(state)
+
   const self = {
     ...state,
     fnStroke (value) {
