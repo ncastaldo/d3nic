@@ -1,6 +1,6 @@
 const hasText = (state = {}) => {
-  let fnText = (d, i) => d
-  let fnFontSize = (d, i) => 10
+  let text = (d, i) => d
+  let fontSize = 10
 
   let textPadding = {
     top: 0,
@@ -11,13 +11,13 @@ const hasText = (state = {}) => {
 
   const self = {
     ...state,
-    fnText (value) {
-      if (typeof value === 'undefined') return fnText
-      fnText = value
+    text (value) {
+      if (typeof value === 'undefined') return text
+      text = value
     },
-    fnFontSize (value) {
-      if (typeof value === 'undefined') return fnFontSize
-      fnFontSize = value
+    fontSize (value) {
+      if (typeof value === 'undefined') return fontSize
+      fontSize = value
     },
     textPadding (value) {
       if (typeof value === 'undefined') return textPadding

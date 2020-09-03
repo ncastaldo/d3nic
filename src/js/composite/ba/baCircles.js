@@ -42,8 +42,8 @@ const baBars = (state = {}) => {
     })
       .attrTween('cx', self.fnXTween())
       .attrTween('cy', self.fnYTween())
-      .attr('r', self.fnRadius())
-      .attr('opacity', self.fnOpacity())
+      .attr('r', self.radius())
+      .attr('opacity', self.opacity())
 
   )
 

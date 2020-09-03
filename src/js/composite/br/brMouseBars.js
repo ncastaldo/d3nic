@@ -17,7 +17,7 @@ const brMouseBars = (state = {}) => {
     hasMultiDrawFactory('path')
   )(state)
 
-  self.fnOpacity(0)
+  self.opacity(0)
 
   self.fnNow(s =>
     s.each((d, i, nodes) => {

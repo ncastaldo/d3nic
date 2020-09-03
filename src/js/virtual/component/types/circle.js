@@ -1,21 +1,21 @@
 const hasCircle = (state = {}) => {
-  let fnCenterX = (d, i) => 10
-  let fnCenterY = (d, i) => 10
-  let fnRadius = (d, i) => 5
+  let xCenter = (d, i) => 10
+  let yCenter = (d, i) => 10
+  let radius = (d, i) => 5
 
   const self = {
     ...state,
-    fnCenterX (value) {
-      if (typeof value === 'undefined') return fnCenterX
-      fnCenterX = value
+    xCenter (value) {
+      if (typeof value === 'undefined') return xCenter
+      xCenter = value
     },
-    fnCenterY (value) {
-      if (typeof value === 'undefined') return fnCenterY
-      fnCenterY = value
+    yCenter (value) {
+      if (typeof value === 'undefined') return yCenter
+      yCenter = value
     },
-    fnRadius (value) {
-      if (typeof value === 'undefined') return fnRadius
-      fnRadius = value
+    radius (value) {
+      if (typeof value === 'undefined') return radius
+      radius = value
     }
   }
 

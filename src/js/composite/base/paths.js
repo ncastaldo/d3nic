@@ -17,12 +17,12 @@ const paths = (state = {}) => {
 
   self.fnBefore(s =>
     s.attr('opacity', 0)
-      .attr('d', self.fnPath())
+      .attr('d', self.path())
       .attr('transform', self.fnTransform())
   )
 
   self.fnNow(s =>
-    s.attr('d', self.fnPath())
+    s.attr('d', self.path())
       .attr('transform', self.fnTransform())
   )
 

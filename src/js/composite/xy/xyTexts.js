@@ -18,14 +18,14 @@ const xyTexts = (state = {}) => {
   self.fnBefore(s =>
     s.attr('x', self.fnDoubleContOut()(0))
       .attr('y', self.fnDoubleContOut()(1))
-      .text(self.fnText())
+      .text(self.text())
       .attr('opacity', 0)
   )
 
   self.fnNow(s =>
     s.attr('x', self.fnDoubleContOut()(0))
       .attr('y', self.fnDoubleContOut()(1))
-      .text(self.fnText())
+      .text(self.text())
   )
 
   self.fnAfter(s =>

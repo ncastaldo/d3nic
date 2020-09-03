@@ -1,13 +1,13 @@
 import pipe from 'lodash/fp/flow'
 
 const hasDefined = (state = {}) => {
-  let fnDefined = d => true
+  let defined = d => true
 
   const self = {
     ...state,
-    fnDefined (value) {
-      if (typeof value === 'undefined') return fnDefined
-      fnDefined = value
+    defined (value) {
+      if (typeof value === 'undefined') return defined
+      defined = value
     }
   }
 
@@ -15,19 +15,19 @@ const hasDefined = (state = {}) => {
 }
 
 const hasValue = (state = {}) => {
-  let fnValue = d => d
+  let value = d => d
 
   const self = {
     ...state,
     ...pipe(
       hasDefined
     )(state),
-    fnsValue () {
-      return [fnValue]
+    values () {
+      return [value]
     },
-    fnValue (value) {
-      if (typeof value === 'undefined') return fnValue
-      fnValue = value
+    value (_value) {
+      if (typeof _value === 'undefined') return value
+      value = _value
     }
   }
 
@@ -35,24 +35,24 @@ const hasValue = (state = {}) => {
 }
 
 const hasLowHighValue = (state = {}) => {
-  let fnLowValue = d => 0
-  let fnHighValue = d => d
+  let lowValue = 0 // function or not
+  let highValue = d => d
 
   const self = {
     ...state,
     ...pipe(
       hasDefined
     )(state),
-    fnsValue () {
-      return [fnLowValue, fnHighValue]
+    values () {
+      return [lowValue, highValue]
     },
-    fnLowValue (value) {
-      if (typeof value === 'undefined') return fnLowValue
-      fnLowValue = value
+    lowValue (value) {
+      if (typeof value === 'undefined') return lowValue
+      lowValue = value
     },
-    fnHighValue (value) {
-      if (typeof value === 'undefined') return fnHighValue
-      fnHighValue = value
+    highValue (value) {
+      if (typeof value === 'undefined') return highValue
+      highValue = value
     }
   }
 

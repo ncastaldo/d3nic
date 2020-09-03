@@ -5,7 +5,7 @@ const hasEvents = (state = {}) => {
 
   const self = {
     ...state,
-    fnOn: (type, callback) => {
+    on: (type, callback) => {
       fnEvents = pipe(fnEvents, s => s.on(type, callback))
     },
     fnEvents () {

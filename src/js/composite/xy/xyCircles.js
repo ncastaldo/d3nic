@@ -25,7 +25,7 @@ const xyCircles = (state = {}) => {
   self.fnNow(s =>
     s.attr('cx', self.fnDoubleContOut()(0))
       .attr('cy', self.fnDoubleContOut()(1))
-      .attr('r', self.fnRadius()) // parametrize
+      .attr('r', self.radius()) // parametrize
   )
 
   self.fnAfter(s =>

@@ -1,48 +1,46 @@
-import { interpolateYlGnBu } from 'd3-scale-chromatic'
+import { interpolateViridis } from 'd3-scale-chromatic'
 
 const hasStyle = (state = {}) => {
-  let fnStroke = (d, i) => '#000'
-  let fnStrokeDasharray = (d, i) => 0
-  let fnStrokeWidth = (d, i) => 0
-  let fnFill = (d, i) => interpolateYlGnBu(Math.random())
-  let fnFillOpacity = (d, i) => 1
-  let fnOpacity = (d, i) => 1
+  let stroke = '#000'
+  let strokeDasharray = 0
+  let strokeWidth = 0
+  let fill = () => interpolateViridis(Math.random())
+  let fillOpacity = 1
+  let opacity = 1
 
   const fnStyle = s =>
-    s.attr('stroke', fnStroke)
-      .attr('stroke-width', fnStrokeWidth)
-      .attr('stroke-dasharray', fnStrokeDasharray)
-      .attr('fill', fnFill)
-      .attr('fill-opacity', fnFillOpacity)
-      .attr('opacity', fnOpacity)
-
-  console.log(state)
+    s.attr('stroke', stroke)
+      .attr('stroke-width', strokeWidth)
+      .attr('stroke-dasharray', strokeDasharray)
+      .attr('fill', fill)
+      .attr('fill-opacity', fillOpacity)
+      .attr('opacity', opacity)
 
   const self = {
     ...state,
-    fnStroke (value) {
-      if (typeof value === 'undefined') return fnStroke
-      fnStroke = value
+    stroke (value) {
+      if (typeof value === 'undefined') return stroke
+      stroke = value
     },
-    fnStrokeDasharray (value) {
-      if (typeof value === 'undefined') return fnStrokeDasharray
-      fnStrokeDasharray = value
+    strokeDasharray (value) {
+      if (typeof value === 'undefined') return strokeDasharray
+      strokeDasharray = value
     },
-    fnStrokeWidth (value) {
-      if (typeof value === 'undefined') return fnStrokeWidth
-      fnStrokeWidth = value
+    strokeWidth (value) {
+      if (typeof value === 'undefined') return strokeWidth
+      strokeWidth = value
     },
-    fnFill (value) {
-      if (typeof value === 'undefined') return fnFill
-      fnFill = value
+    fill (value) {
+      if (typeof value === 'undefined') return fill
+      fill = value
     },
-    fnFillOpacity (value) {
-      if (typeof value === 'undefined') return fnFillOpacity
-      fnFillOpacity = value
+    fillOpacity (value) {
+      if (typeof value === 'undefined') return fillOpacity
+      fillOpacity = value
     },
-    fnOpacity (value) {
-      if (typeof value === 'undefined') return fnOpacity
-      fnOpacity = value
+    opacity (value) {
+      if (typeof value === 'undefined') return opacity
+      opacity = value
     },
     fnStyle () {
       return fnStyle
