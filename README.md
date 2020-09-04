@@ -12,7 +12,7 @@ A *component* is the actual object that we want to visualize.
 
 ## How to use it
 
-d3nic can be used in a browser by using `<script src="https://cdn.jsdelivr.net/npm/d3nic/dist/index.js"></script>` or with npm, by simply typing `npm i d3nic`
+d3nic can be used in a browser with the script tag `<script src="https://cdn.jsdelivr.net/npm/d3nic/dist/index.js"></script>` or installed with npm with `npm i d3nic`
 
 ## An example
 
@@ -32,7 +32,7 @@ const chart = d3nic.bxChart()
 chart.draw()
 ```
 
-Now, by simply calling `chart.draw()` the chart will be plotted.
+Now, if we call calling `chart.draw()` the chart will be plotted.
 
 What if we want to use axes and have a nice transition when creating the chart? We just have to create the object this way:
 
@@ -42,8 +42,8 @@ const chart = d3nic.bxChart()
   .size({width: 500, height: 400})
   .data([2, 5, 8, 3, 6])
   .components([
-    d3nic.bxAxisX(), // new entry
-    d3nic.bxAxisY(), // new entry
+    d3nic.bxAxisX(),
+    d3nic.bxAxisY(),
     d3nic.bxBars()
   ])
   .draw({duration: 500})
@@ -58,7 +58,67 @@ chart.data([12, -5, 34, 22])
   .draw({duration: 1000, delay: 1000})
 ```
 
+## Available charts and components
+
+*Notes*
+- The *b* placeholder stands for *band*, which indicates the usage of a (D3) bandScale to place the different data elements.
+- The presence of a char from <*x*, *y*> or <*r* (*radius*), *a* (*angle*)>, placed next to a *b* char, express what dimension will be used for the bandScale, e.g. *bxChart* -> apply the band on the *x* axis, the *y* axis will be used for the actual values.
+
+#### Basic
+
+The components can be used in combination to every chart
+
+* chart
+  * circles
+  * labelAxisX
+  * labelAxisY
+  * paths
+  * texts
+
+
+#### Composite
+
+The components have to be used in combination to the related chart
+
+* bbChart
+  * bbCircles
+  * bbRects
+
+* brChart
+  * brBars
+  * brMouseBars
+  * brStackBars
+
+* bxChart
+  * bxArea
+  * bxAxisX
+  * bxAxisY
+  * bxBars
+  * bxBrush
+  * bxCircles
+  * bxLine
+  * bxLines
+  * bxMouseBars
+
+* byChart
+  * byAxisX
+  * byAxisY
+  * byBars
+  * byLines
+  * byMouseBars
+
+* geoChart
+  * geoRegions
+
+* xyChart
+  * xyAxisX
+  * xyAxisY
+  * xyCircles
+  * xyLinesH
+  * xyLinesV
+  * xyTexts
+
 ## Test it
 
-Open this [jsfiddle](https://jsfiddle.net/2tw47dxL/44/) to see how it works!
+Open this [jsfiddle](https://jsfiddle.net/xdt4f2h0/) to see how it works!
 
