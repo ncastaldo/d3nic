@@ -41,10 +41,12 @@ const hasGeoProjection = (state = {}) => {
 
     const geometries = self.data()
       .map((d, i) => componentProperties
-        .filter(prop => prop.fnDefined(d, i))
+        .filter(prop => typeof prop.fnDefined === 'function'
+          ? prop.fnDefined(d, i)
+          : prop.fnDefined)
         .map(prop => prop.fnsValue)
         .flat()
-        .map(fn => fn(d, i)))
+        .map(fn => typeof fn === 'function' ? fn(d, i) : fn))
       .flat()
 
     geoDomainObject = {

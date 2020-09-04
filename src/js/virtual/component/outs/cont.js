@@ -19,7 +19,9 @@ const hasContOut = (state = {}) => {
 
   const updateOuts = (chart) => {
     const fnContScale = chart.fnContScale() // to reduce overhead
-    fnContOut = (d, i) => fnContScale(self.fnValue()(d, i))
+    fnContOut = typeof self.fnValue() === 'function'
+      ? (d, i) => fnContScale(self.fnValue()(d, i))
+      : () => fnContScale(self.fnValue())
   }
 
   self.subscribe('draw', updateOuts)
@@ -48,8 +50,13 @@ const hasLowHighContOut = (state = {}) => {
 
   const updateOuts = (chart) => {
     const fnContScale = chart.fnContScale()
-    fnLowContOut = (d, i) => fnContScale(self.fnLowValue()(d, i))
-    fnHighContOut = (d, i) => fnContScale(self.fnHighValue()(d, i))
+    fnLowContOut = typeof self.fnLowValue() === 'function'
+      ? (d, i) => fnContScale(self.fnLowValue()(d, i))
+      : () => fnContScale(self.fnLowValue())
+
+    fnHighContOut = typeof self.fnHighValue() === 'function'
+      ? (d, i) => fnContScale(self.fnHighValue()(d, i))
+      : () => fnContScale(self.fnHighValue())
   }
 
   self.subscribe('draw', updateOuts)

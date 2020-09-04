@@ -175,10 +175,13 @@ const hasContScaleFactory = (on) => (state = {}) => {
     return chart.data()
       .reduce((domain, d, i) => {
         const fnsValue = componentProperties
-          .filter(prop => prop.fnDefined(d, i))
+          // for coherency
+          .filter(prop => typeof prop.fnDefined === 'function'
+            ? prop.fnDefined(d, i)
+            : prop.fnDefined)
           .map(prop => prop.fnsValue)
           .flat()
-        const values = fnsValue.map(fn => fn(d, i))
+        const values = fnsValue.map(fn => typeof fn === 'function' ? fn(d, i) : fn)
         return [
           Math.min(domain[0], ...values),
           Math.max(domain[1], ...values)
@@ -256,10 +259,12 @@ const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
     return chart.data()
       .reduce((domain, d, i) => {
         const fnsValue = componentProperties
-          .filter(prop => prop.fnDefined(d, i))
+          .filter(prop => typeof prop.fnDefined === 'function'
+            ? prop.fnDefined(d, i)
+            : prop.fnDefined)
           .map(prop => prop.fnsValue)
           .flat()
-        const values = fnsValue.map(fn => fn(d, i))
+        const values = fnsValue.map(fn => typeof fn === 'function' ? fn(d, i) : fn)
         return [
           [
             Math.min(domain[0][0], ...values.map(v => v[0])),
