@@ -15,7 +15,7 @@ const byMouseBars = (state = {}) => {
     hasMultiDrawFactory('rect')
   )(state)
 
-  self.opacity(0)
+  self.fnOpacity(0)
 
   self.fnNow(s =>
     s.attr('y', self.fnBandLeftOut())

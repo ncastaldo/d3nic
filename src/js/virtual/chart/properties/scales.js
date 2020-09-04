@@ -163,10 +163,10 @@ const hasContScaleFactory = (on) => (state = {}) => {
 
   const computeContDomain = (chart) => {
     const componentProperties = chart.components()
-      .filter(c => 'values' in c)
+      .filter(c => 'fnsValue' in c)
       .map(c => ({
-        values: c.values(),
-        defined: c.defined()
+        fnsValue: c.fnsValue(),
+        fnDefined: c.fnDefined()
       }))
 
     const baseDomain = contBaseDomain !== null
@@ -174,17 +174,14 @@ const hasContScaleFactory = (on) => (state = {}) => {
 
     return chart.data()
       .reduce((domain, d, i) => {
-        const values = componentProperties
-          // for coherency
-          .filter(prop => typeof prop.defined === 'function'
-            ? prop.defined(d, i)
-            : prop.defined)
-          .map(prop => prop.values)
+        const fnsValue = componentProperties
+          .filter(prop => prop.fnDefined(d, i))
+          .map(prop => prop.fnsValue)
           .flat()
-        const outValues = values.map(fn => typeof fn === 'function' ? fn(d, i) : fn)
+        const values = fnsValue.map(fn => fn(d, i))
         return [
-          Math.min(domain[0], ...outValues),
-          Math.max(domain[1], ...outValues)
+          Math.min(domain[0], ...values),
+          Math.max(domain[1], ...values)
         ]
       }, baseDomain)
   }
@@ -247,10 +244,10 @@ const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
 
   const computeDoubleContDomain = (chart) => {
     const componentProperties = chart.components()
-      .filter(c => 'values' in c)
+      .filter(c => 'fnsValue' in c)
       .map(c => ({
-        values: c.values(),
-        defined: c.defined()
+        fnsValue: c.fnsValue(),
+        fnDefined: c.fnDefined()
       }))
 
     // TODO create cont base domain
@@ -258,21 +255,19 @@ const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
 
     return chart.data()
       .reduce((domain, d, i) => {
-        const values = componentProperties
-          .filter(prop => typeof prop.defined === 'function'
-            ? prop.defined(d, i)
-            : prop.defined)
-          .map(prop => prop.values)
+        const fnsValue = componentProperties
+          .filter(prop => prop.fnDefined(d, i))
+          .map(prop => prop.fnsValue)
           .flat()
-        const outValues = values.map(fn => typeof fn === 'function' ? fn(d, i) : fn)
+        const values = fnsValue.map(fn => fn(d, i))
         return [
           [
-            Math.min(domain[0][0], ...outValues.map(v => v[0])),
-            Math.max(domain[0][1], ...outValues.map(v => v[0]))
+            Math.min(domain[0][0], ...values.map(v => v[0])),
+            Math.max(domain[0][1], ...values.map(v => v[0]))
           ],
           [
-            Math.min(domain[1][0], ...outValues.map(v => v[1])),
-            Math.max(domain[1][1], ...outValues.map(v => v[1]))
+            Math.min(domain[1][0], ...values.map(v => v[1])),
+            Math.max(domain[1][1], ...values.map(v => v[1]))
           ]
         ]
       }, doubleContBaseDomain)

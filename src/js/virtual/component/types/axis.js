@@ -98,9 +98,9 @@ const hasAxisFactory = (on = 'x') => (state = {}) => {
   }
 
   // AWFUL SOLUTION
-  self.strokeWidth(1)
-  self.stroke('none')
-  self.fill('#000')
+  self.fnStrokeWidth(1)
+  self.fnStroke('none')
+  self.fnFill('#000')
 
   const update = (chart) => {
     translateAxis = computeTranslate(chart, on, position)

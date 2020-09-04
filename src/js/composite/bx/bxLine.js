@@ -20,7 +20,7 @@ const bxLine = (state = {}) => {
   self.fnBefore(s =>
     s.attr('d',
       line()
-        .defined(self.defined())
+        .defined(self.fnDefined())
         .x(self.fnBandCenterOut())
         .y(self.fnContOut()))
       .attr('opacity', 0)
@@ -30,7 +30,7 @@ const bxLine = (state = {}) => {
   self.fnNow(s =>
     s.attr('d',
       line()
-        .defined(self.defined())
+        .defined(self.fnDefined())
         .x(self.fnBandCenterOut())
         .y(self.fnContOut())
     )

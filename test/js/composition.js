@@ -12,7 +12,7 @@ d3.select(".container").call(container => {
 const data = [...Array(Math.round(Math.random()*70) + 1)].map(() => Math.random())
 const fnColor = d3.scaleSequential(d3.interpolateViridis)
   .domain([0, data.length - 1])
-const fill = (d, i) => fnColor(i)
+const fnFill = (d, i) => fnColor(i)
 
 const chart = d3nic.bxChart()
   .selector('svg')
@@ -20,11 +20,11 @@ const chart = d3nic.bxChart()
   .data(data)
   .components([
     d3nic.bxAxisX(), // new entry
-    d3nic.labelAxisX().fontSize(d => 16).text(d => 'mandi').textPadding({top: 30}),
-    d3nic.labelAxisY().fontSize(d => 16).text(d => 'mandi').textPadding({right: 30}),
+    d3nic.labelAxisX().fnFontSize(d => 16).fnText(d => 'mandi').textPadding({top: 30}),
+    d3nic.labelAxisY().fnFontSize(d => 16).fnText(d => 'mandi').textPadding({right: 30}),
     d3nic.bxAxisY(), // new entry
-    d3nic.bxBars().fill(fill),
-    d3nic.bxBrush().on('endDomain', (event, bd) => {
+    d3nic.bxBars().fnFill(fnFill),
+    d3nic.bxBrush().fnOn('endDomain', (event, bd) => {
       const dd = bd ? data.filter((_, j) => j >= bd[0] && j<=bd[1]) : data
       bandCharts.map(chart => chart.data(dd).draw({duration: 1000}))
       eChart.data(dd.map(v => [v, Math.round(Math.random()*70) + 1])).draw({duration: 2000})
@@ -33,7 +33,7 @@ const chart = d3nic.bxChart()
   ])
   .draw({duration: 500})
 
-const circles = d3nic.bxCircles().strokeWidth(2)
+const circles = d3nic.bxCircles().fnStrokeWidth(2)
 
 const onMouseover = (event, d, i) => {
   console.log(i)
@@ -53,19 +53,19 @@ const polarChart = d3nic.baChart()
   .bandPaddingInner(0.3)
   .bandPaddingOuter(0.15)
   .components([
-    d3nic.baBars().fill(fill),
-    d3nic.baCircles().fill(fill),
-    d3nic.baLine().fillOpacity(0).strokeWidth(2).strokeDasharray([2, 2]),
+    d3nic.baBars().fnFill(fnFill),
+    d3nic.baCircles().fnFill(fnFill),
+    d3nic.baLine().fnFillOpacity(0).fnStrokeWidth(2).fnStrokeDasharray([2, 2]),
     d3nic.baAxisA().tickSizeOuter(0),
     d3nic.baCircle()
-      .value(d => 0.5)
-      .strokeWidth(() => 2)
-      .stroke(() => '#444')
-      .fillOpacity(() => 0)
-      .strokeDasharray([2, 10]),
+      .fnValue(d => 0.5)
+      .fnStrokeWidth(() => 2)
+      .fnStroke(() => '#444')
+      .fnFillOpacity(() => 0)
+      .fnStrokeDasharray([2, 10]),
     d3nic.baMouseBars()
-      .on('mouseover', onMouseover)
-      .on('mouseout', onMouseout)
+      .fnOn('mouseover', onMouseover)
+      .fnOn('mouseout', onMouseout)
   ])
   // .draw({duration: 500})
 
@@ -76,12 +76,12 @@ const aChart = d3nic.bxChart()
   .components([
     d3nic.bxAxisX(),
     d3nic.bxAxisY(),
-    d3nic.bxLine().defined((d, i) => i % 5 !== 3).fillOpacity(0).strokeWidth(2),
-    d3nic.bxLines().lowValue(d => d - 0.3).strokeWidth(2),
+    d3nic.bxLine().fnDefined((d, i) => i % 5 !== 3).fnFillOpacity(0).fnStrokeWidth(2),
+    d3nic.bxLines().fnLowValue(d => d - 0.3).fnStrokeWidth(2),
     circles,
     d3nic.bxMouseBars()
-      .on('mouseover', onMouseover)
-      .on('mouseout', onMouseout)
+      .fnOn('mouseover', onMouseover)
+      .fnOn('mouseout', onMouseout)
   ])
 
 const bChart = d3nic.bxChart()
@@ -91,8 +91,8 @@ const bChart = d3nic.bxChart()
   .components([
     d3nic.bxAxisX(),
     d3nic.bxAxisY(),
-    d3nic.bxArea().defined((d, i) => i % 5 !== 3).lowValue(d => d - 0.3),
-    d3nic.bxLines().defined((d, i) => i % 5 !== 2).lowValue(d => d - 0.3).strokeWidth(2),
+    d3nic.bxArea().fnDefined((d, i) => i % 5 !== 3).fnLowValue(d => d - 0.3),
+    d3nic.bxLines().fnDefined((d, i) => i % 5 !== 2).fnLowValue(d => d - 0.3).fnStrokeWidth(2),
   ])
 
 const cChart = d3nic.byChart()
@@ -100,7 +100,7 @@ const cChart = d3nic.byChart()
   .size({width: 500, height: 500})
   .data([0, 0.5, 1])
   .components([
-    d3nic.byBars().fill(fill)
+    d3nic.byBars().fnFill(fnFill)
   ])
 
 
@@ -110,7 +110,7 @@ const dChart = d3nic.geoChart()
   .fnKey(d => d.properties.id)
   .size({width: 600, height: 500})
   .components([
-    d3nic.geoRegions().value(d => d.geometry)
+    d3nic.geoRegions().fnValue(d => d.geometry)
   ])
 
 const eChart = d3nic.xyChart()
@@ -120,9 +120,9 @@ const eChart = d3nic.xyChart()
   .components([
     d3nic.xyAxisX(),
     d3nic.xyAxisY(),
-    d3nic.xyCircles().fill('blue'),
-    d3nic.xyLinesH().strokeWidth(1).strokeDasharray([2, 2]),
-    d3nic.xyLinesV().strokeWidth(1).strokeDasharray([2, 2])
+    d3nic.xyCircles().fnFill('blue'),
+    d3nic.xyLinesH().fnStrokeWidth(1).fnStrokeDasharray([2, 2]),
+    d3nic.xyLinesV().fnStrokeWidth(1).fnStrokeDasharray([2, 2])
   ])
 
 eChart.draw({duration:1000})

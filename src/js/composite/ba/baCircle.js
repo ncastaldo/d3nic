@@ -27,7 +27,7 @@ const baCircle = (state = {}) => {
   )
 
   self.fnNow(s =>
-    s.attr('opacity', self.opacity())
+    s.attr('opacity', self.fnOpacity())
   )
 
   self.fnAfter(s =>

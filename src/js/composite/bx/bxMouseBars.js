@@ -15,7 +15,7 @@ const bxBars = (state = {}) => {
     hasMultiDrawFactory('rect')
   )(state)
 
-  self.opacity(0)
+  self.fnOpacity(0)
 
   self.fnNow(s =>
     s.attr('x', self.fnBandLeftOut())

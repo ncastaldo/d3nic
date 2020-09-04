@@ -23,7 +23,7 @@ const baLine = (state = {}) => {
   self.fnBefore(s =>
     s.attr('d',
       areaRadial()
-        .defined(self.defined())
+        .defined(self.fnDefined())
         .angle(self.fnBandCenterOut())
         .innerRadius(self.fnLowContOut())
         .outerRadius(self.fnLowContOut())
@@ -35,7 +35,7 @@ const baLine = (state = {}) => {
   self.fnNow(s =>
     s.attr('d',
       areaRadial()
-        .defined(self.defined())
+        .defined(self.fnDefined())
         .angle(self.fnBandCenterOut())
         .innerRadius(self.fnLowContOut())
         .outerRadius(self.fnHighContOut())

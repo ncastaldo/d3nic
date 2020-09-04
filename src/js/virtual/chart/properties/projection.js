@@ -33,21 +33,18 @@ const hasGeoProjection = (state = {}) => {
 
   const updateGeoDomainObject = () => {
     const componentProperties = self.components()
-      .filter(c => 'values' in c)
+      .filter(c => 'fnsValue' in c)
       .map(c => ({
-        values: c.values(),
-        defined: c.defined()
+        fnsValue: c.fnsValue(),
+        fnDefined: c.fnDefined()
       }))
 
     const geometries = self.data()
       .map((d, i) => componentProperties
-        // for coherency
-        .filter(prop => typeof prop.defined === 'function'
-          ? prop.defined(d, i)
-          : prop.defined)
-        .map(prop => prop.values)
+        .filter(prop => prop.fnDefined(d, i))
+        .map(prop => prop.fnsValue)
         .flat()
-        .map(fn => typeof fn === 'function' ? fn(d, i) : fn))
+        .map(fn => fn(d, i)))
       .flat()
 
     geoDomainObject = {

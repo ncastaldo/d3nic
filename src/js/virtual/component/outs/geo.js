@@ -23,9 +23,7 @@ const hasGeoOut = (state = {}) => {
 
   const updateOuts = (chart) => {
     fnGeoPath.projection(chart.fnGeoProjection())
-    fnGeoOut = typeof self.value() === 'function'
-      ? (d, i) => fnGeoPath(self.value()(d, i))
-      : () => fnGeoPath(self.value())
+    fnGeoOut = (d, i) => fnGeoPath(self.fnValue()(d, i))
   }
 
   self.subscribe('draw', updateOuts)

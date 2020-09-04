@@ -27,7 +27,7 @@ const bxBars = (state = {}) => {
   self.fnNow(s =>
     s.attr('cx', self.fnBandCenterOut())
       .attr('cy', self.fnContOut())
-      .attr('r', self.radius()) // parametrize
+      .attr('r', self.fnRadius()) // parametrize
   )
 
   self.fnAfter(s =>

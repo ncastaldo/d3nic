@@ -1,11 +1,11 @@
 const hasPath = (state = {}) => {
-  let path = (d, i) => null
+  let fnPath = (d, i) => null
 
   const self = {
     ...state,
-    path (value) {
-      if (typeof value === 'undefined') return path
-      path = value
+    fnPath (value) {
+      if (typeof value === 'undefined') return fnPath
+      fnPath = value
     }
   }
 

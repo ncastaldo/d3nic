@@ -19,13 +19,13 @@ const paths = (state = {}) => {
     s.attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'central')
       .attr('transform', self.fnTransform())
-      .text(self.text())
+      .text(self.fnText())
       .attr('opacity', 0)
   )
 
   self.fnNow(s =>
     s.attr('transform', self.fnTransform())
-      .text(self.text())
+      .text(self.fnText())
   )
 
   self.fnAfter(s => s.attr('opacity', 0))

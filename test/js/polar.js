@@ -32,7 +32,7 @@
 		{ key: 28, v1: 4, v2: 7 },
 	];
 
-	const fill = d => d3.interpolateViridis(data.length ? 1-d.key/data.length : 0)
+	const fnFill = d => d3.interpolateViridis(data.length ? 1-d.key/data.length : 0)
 	
 
 	d3.select(".container").call(container => {
@@ -56,15 +56,15 @@
 
 	barsList
 		.map(bars => 
-			bars.lowValue(d => d.v1)
-				.highValue(d => d.v1 + d.v2)
-				.defined(d => !isNaN(d.v1) && !isNaN(d.v1))
-				.fill(fill))
+			bars.fnLowValue(d => d.v1)
+				.fnHighValue(d => d.v1 + d.v2)
+				.fnDefined(d => !isNaN(d.v1) && !isNaN(d.v1))
+				.fnFill(fnFill))
 
 	mouseBarsList
 		.map(mouseBars => 
-			mouseBars.on('mouseover', onMouseover)
-				.on('mouseout', onMouseout))
+			mouseBars.fnOn('mouseover', onMouseover)
+				.fnOn('mouseout', onMouseout))
 
 	chartList
 		.map((chart, i) => 

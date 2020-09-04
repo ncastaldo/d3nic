@@ -15,14 +15,14 @@ const paths = (state = {}) => {
 
   self.fnBefore(s =>
     s.attr('opacity', 0)
-      .attr('cx', self.xCenter())
-      .attr('cy', self.yCenter())
+      .attr('cx', self.fnCenterX())
+      .attr('cy', self.fnCenterY())
       .attr('r', 0))
 
   self.fnNow(s =>
-    s.attr('cx', self.xCenter())
-      .attr('cy', self.yCenter())
-      .attr('r', self.radius()))
+    s.attr('cx', self.fnCenterX())
+      .attr('cy', self.fnCenterY())
+      .attr('r', self.fnRadius()))
 
   self.fnAfter(s =>
     s.attr('r', 0)

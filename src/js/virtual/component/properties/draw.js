@@ -111,7 +111,7 @@ const hasSingleDrawFactory = (element) => (state) => {
         .remove()
     }
 
-    const join = s.datum(chart.data()) // not filtered for defined
+    const join = s.datum(chart.data()) // not filtered for fnDefined
       .append(element)
       .call(self.fnEvents())
       .call(self.fnStyle())
@@ -169,12 +169,12 @@ const hasMultiDrawFactory = (element) => (state) => {
     self.join(join)
   }
 
-  // charts whose fnKey is (d, i) => i will suffer defined translations
+  // charts whose fnKey is (d, i) => i will suffer fnDefined translations
   const draw = (chart) => {
     self.group()
       .selectAll(element)
       .data(chart.data().filter((d, i) =>
-        'defined' in self ? self.defined()(d, i) : true)
+        'fnDefined' in self ? self.fnDefined()(d, i) : true)
       , chart.fnKey())
       .call(fnDraw, chart)
   }

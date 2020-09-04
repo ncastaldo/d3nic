@@ -21,9 +21,7 @@ const hasDoubleContOut = (state = {}) => {
     const fnDoubleContScales = [...Array(2)].map((_, k) => chart.fnDoubleContScale()(k)) // to reduce overhead
 
     fnDoubleContOut = k =>
-      typeof self.value() === 'function'
-        ? (d, i) => fnDoubleContScales[k](self.value()(d, i)[k]) // value must return an array [val1, val2]
-        : () => fnDoubleContScales[k](self.value()[k])
+      (d, i) => fnDoubleContScales[k](self.fnValue()(d, i)[k]) // fnValue must return an array [val1, val2]
   }
 
   self.subscribe('draw', updateOuts)
