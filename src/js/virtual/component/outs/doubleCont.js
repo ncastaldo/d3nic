@@ -18,7 +18,7 @@ const hasDoubleContOut = (state = {}) => {
   }
 
   const updateOuts = (chart) => {
-    const fnDoubleContScales = [...Array(2)].map((_, k) => chart.fnDoubleContScale()(k)) // to reduce overhead
+    const fnDoubleContScales = chart.fnDoubleContScale() // to reduce overhead
 
     fnDoubleContOut = k =>
       typeof self.fnValue() === 'function'
@@ -42,7 +42,7 @@ const hasRangeDoubleContOut = (state = {}) => {
   }
 
   const updateOuts = (chart) => {
-    rangeDoubleContOut = k => chart.fnDoubleContScale()(k).range()
+    rangeDoubleContOut = k => chart.fnDoubleContScale()[k].range()
   }
 
   self.subscribe('draw', updateOuts)

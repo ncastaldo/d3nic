@@ -1,12 +1,12 @@
 import { interpolateYlGnBu } from 'd3-scale-chromatic'
 
 const hasStyle = (state = {}) => {
-  let fnStroke = (d, i) => '#000'
-  let fnStrokeDasharray = (d, i) => 0
-  let fnStrokeWidth = (d, i) => 0
+  let fnStroke = '#000'
+  let fnStrokeDasharray = 0
+  let fnStrokeWidth = 0
   let fnFill = (d, i) => interpolateYlGnBu(Math.random())
-  let fnFillOpacity = (d, i) => 1
-  let fnOpacity = (d, i) => 1
+  let fnFillOpacity = 1
+  let fnOpacity = 1
 
   const fnStyle = s =>
     s.attr('stroke', fnStroke)
@@ -15,8 +15,6 @@ const hasStyle = (state = {}) => {
       .attr('fill', fnFill)
       .attr('fill-opacity', fnFillOpacity)
       .attr('opacity', fnOpacity)
-
-  console.log(state)
 
   const self = {
     ...state,

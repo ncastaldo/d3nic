@@ -27,7 +27,7 @@ const hasDoubleBandOut = (state = {}) => {
   }
 
   const updateOuts = (chart) => {
-    const fnDoubleBandScales = [...Array(2)].map((_, k) => chart.fnDoubleBandScale()(k)) // to reduce overhead
+    const fnDoubleBandScales = chart.fnDoubleBandScale()
 
     fnDoubleBandOut = k => (d, i) => fnDoubleBandScales[k](chart.fnDoubleBandValue()(d, i)[k])
 

@@ -54,7 +54,7 @@ const hasBandOut = (state = {}) => {
   }
 
   // cannot update only on draw, because brush may need it
-  self.subscribe('components', 'data', 'graphics', updateOuts)
+  self.subscribe('draw', updateOuts)
 
   return self
 }
@@ -81,7 +81,7 @@ const hasStackBandOut = (state = {}) => {
     ]
   }
 
-  self.subscribe('components', 'data', 'graphics', updateOuts)
+  self.subscribe('draw', updateOuts)
 
   return self
 }
