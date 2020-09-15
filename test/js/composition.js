@@ -24,7 +24,7 @@ const chart = d3nic.bxChart()
     d3nic.labelAxisY().fnFontSize(d => 16).fnText(d => 'mandi').textPadding({right: 30}),
     d3nic.bxAxisY(), // new entry
     d3nic.bxBars().fnFill(fnFill),
-    d3nic.bxBrush().fnOn('endDomain', (event, bd) => {
+    d3nic.bxBrush().fnOn('endBandDomain', (event, bd) => {
       const dd = bd ? data.filter((_, j) => j >= bd[0] && j<=bd[1]) : data
       bandCharts.map(chart => chart.data(dd).draw({duration: 1000}))
       eChart.data(dd.map(v => [v, Math.round(Math.random()*70) + 1])).draw({duration: 2000})

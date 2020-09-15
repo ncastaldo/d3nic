@@ -41,7 +41,7 @@ const hasBrushFactory = (on = 'x') => (state = {}) => {
 }
 
 const hasBandBrushFactory = (on = 'x') => (state = {}) => {
-  let bandBrushDomain = null
+  let bandDomain = null
 
   let bandMinStep = null
   let bandMaxStep = null
@@ -57,13 +57,13 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
     ...pipe(
       hasBrushFactory(on)
     )(state),
-    bandBrushDomain (value) {
-      if (typeof value === 'undefined') return bandBrushDomain
-      bandBrushDomain = value
+    bandDomain (value) {
+      if (typeof value === 'undefined') return bandDomain
+      bandDomain = value
     },
-    bandBrushRange () {
-      return bandBrushDomain
-        ? [fnScaleL(bandBrushDomain[0]), fnScaleR(bandBrushDomain[1])]
+    bandRange () {
+      return bandDomain
+        ? [fnScaleL(bandDomain[0]), fnScaleR(bandDomain[1])]
         : null
     },
     bandMinStep (value) {
@@ -75,7 +75,7 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
       bandMaxStep = value
     },
     snap () {
-      self.fnBrush().move(self.group(), self.bandBrushRange())
+      self.fnBrush().move(self.group(), self.bandRange())
     }
   }
 
@@ -88,8 +88,8 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
 
     const d = d0 === null || d0 === dc || d1 === null
       ? null : [d0, d1]
-    const change = bandBrushDomain !== null
-      ? !d || d0 !== bandBrushDomain[0] || d1 !== bandBrushDomain[1]
+    const change = bandDomain !== null
+      ? !d || d0 !== bandDomain[0] || d1 !== bandDomain[1]
       : d
 
     if (change) {
@@ -107,8 +107,8 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
       }
 
       if (update) {
-        bandBrushDomain = d
-        self.group().datum(d).dispatch('brushDomain')
+        bandDomain = d
+        self.group().datum(d).dispatch('brushBandDomain')
       }
     }
 
@@ -122,25 +122,25 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
       if (bandMinStep !== null) {
         self.snap()
       } else {
-        bandBrushDomain = null
+        bandDomain = null
       }
     }
     self.group()
-      .datum(bandBrushDomain)
-      .dispatch('endDomain')
+      .datum(bandDomain)
+      .dispatch('endBandDomain')
   }
 
   self.onBrush(onBrush)
   self.onEnd(onEnd)
 
   const update = (chart) => {
-    const bandDomain = chart.fnBandScale().domain()
+    const bandScaleDomain = chart.fnBandScale().domain()
 
     // check everything is fine in case user gives brushDomain
-    if (bandBrushDomain) {
-      for (const d of bandBrushDomain) {
-        if (!bandDomain.includes(d)) {
-          bandBrushDomain = null
+    if (bandScaleDomain) {
+      for (const d of bandScaleDomain) {
+        if (!bandScaleDomain.includes(d)) {
+          bandDomain = null
           break
         }
       }
@@ -151,11 +151,11 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
     const rights = chart.data().map(self.fnBandRightOut())
 
     // fnScaleT.domain(centers).range(bandDomain)
-    fnScaleT0.domain(centers).range([...bandDomain, null])
-    fnScaleT1.domain(centers).range([null, ...bandDomain])
+    fnScaleT0.domain(centers).range([...bandScaleDomain, null])
+    fnScaleT1.domain(centers).range([null, ...bandScaleDomain])
 
-    fnScaleL.domain(bandDomain).range(lefts)
-    fnScaleR.domain(bandDomain).range(rights)
+    fnScaleL.domain(bandScaleDomain).range(lefts)
+    fnScaleR.domain(bandScaleDomain).range(rights)
   }
 
   // + init
