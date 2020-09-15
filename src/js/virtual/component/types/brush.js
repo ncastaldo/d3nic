@@ -9,33 +9,11 @@ const computeBrush = (on) => {
 const hasBrushFactory = (on = 'x') => (state = {}) => {
   let chartExtent = null
 
-  let brushDomain = null
-  let brushRange = null
-
-  let minStep = null
-  let maxStep = null
-
   let onBrush = () => {}
   let onEnd = () => {}
 
   const self = {
     ...state,
-    brushDomain (value) {
-      if (typeof value === 'undefined') return brushDomain
-      brushDomain = value
-    },
-    brushRange (value) {
-      if (typeof value === 'undefined') return brushRange
-      brushRange = value
-    },
-    minStep (value) {
-      if (typeof value === 'undefined') return minStep
-      minStep = value
-    },
-    maxStep (value) {
-      if (typeof value === 'undefined') return maxStep
-      maxStep = value
-    },
     onBrush (value) {
       if (typeof value === 'undefined') return onBrush
       onBrush = value
@@ -57,13 +35,17 @@ const hasBrushFactory = (on = 'x') => (state = {}) => {
   }
 
   // + init
-  self.subscribe('data', 'components', update)
-  self.subscribe('graphics', update)
+  self.subscribe('data', 'components', 'graphics', update)
 
   return self
 }
 
 const hasBandBrushFactory = (on = 'x') => (state = {}) => {
+  let bandBrushDomain = null
+
+  let bandMinStep = null
+  let bandMaxStep = null
+
   const fnScaleT0 = scaleThreshold()
   const fnScaleT1 = scaleThreshold()
 
@@ -74,67 +56,78 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
     ...state,
     ...pipe(
       hasBrushFactory(on)
-    )(state)
-  }
-
-  const snap = () => {
-    self.fnBrush().move(self.group(), self.brushRange())
+    )(state),
+    bandBrushDomain (value) {
+      if (typeof value === 'undefined') return bandBrushDomain
+      bandBrushDomain = value
+    },
+    bandBrushRange () {
+      return bandBrushDomain
+        ? [fnScaleL(bandBrushDomain[0]), fnScaleR(bandBrushDomain[1])]
+        : null
+    },
+    bandMinStep (value) {
+      if (typeof value === 'undefined') return bandMinStep
+      bandMinStep = value
+    },
+    bandMaxStep (value) {
+      if (typeof value === 'undefined') return bandMaxStep
+      bandMaxStep = value
+    },
+    snap () {
+      self.fnBrush().move(self.group(), self.bandBrushRange())
+    }
   }
 
   const onBrush = (event) => {
     if (!event.selection || !event.sourceEvent || event.sourceEvent.type !== 'mousemove') { return }
     const s = event.selection
 
-    const brushDomain = self.brushDomain()
-
     // little trick, using null
     const [d0, dc, d1] = [fnScaleT0(s[0]), fnScaleT0(s[1]), fnScaleT1(s[1])]
 
     const d = d0 === null || d0 === dc || d1 === null
       ? null : [d0, d1]
-    const change = brushDomain !== null
-      ? !d || d0 !== brushDomain[0] || d1 !== brushDomain[1]
+    const change = bandBrushDomain !== null
+      ? !d || d0 !== bandBrushDomain[0] || d1 !== bandBrushDomain[1]
       : d
 
     if (change) {
       let update = true
 
-      const minStep = self.minStep()
-      const maxStep = self.maxStep()
-
-      if (minStep !== null || maxStep !== null) {
+      if (bandMinStep !== null || bandMaxStep !== null) {
         const step = !d
           ? null : d[0] === d[1]
             ? 0 : fnScaleL.domain()
               .reduce((acc, f, i) => f === d[0]
                 ? acc - i : f === d[1] ? acc + i : acc, 0)
 
-        update = !(minStep !== null) || (step !== null && step >= minStep)
-        update = update && (!(maxStep !== null) || (step === null || step <= maxStep))
+        update = !(bandMinStep !== null) || (step !== null && step >= bandMinStep)
+        update = update && (!(bandMaxStep !== null) || (step === null || step <= bandMaxStep))
       }
 
       if (update) {
-        self.brushDomain(d)
-        updateBrushRange()
-
+        bandBrushDomain = d
         self.group().datum(d).dispatch('brushDomain')
       }
     }
 
     // snapping
-    snap()
+    self.snap()
   }
 
   const onEnd = (event) => {
     if (!event.sourceEvent || event.sourceEvent.type !== 'mouseup') { return }
     if (!event.selection) {
-      if (self.minStep() !== null) {
-        snap()
+      if (bandMinStep !== null) {
+        self.snap()
       } else {
-        self.brushDomain(null)
+        bandBrushDomain = null
       }
     }
-    self.group().datum(self.brushDomain()).dispatch('endDomain')
+    self.group()
+      .datum(bandBrushDomain)
+      .dispatch('endDomain')
   }
 
   self.onBrush(onBrush)
@@ -144,10 +137,10 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
     const bandDomain = chart.fnBandScale().domain()
 
     // check everything is fine in case user gives brushDomain
-    if (self.brushDomain()) {
-      for (const d of self.brushDomain()) {
+    if (bandBrushDomain) {
+      for (const d of bandBrushDomain) {
         if (!bandDomain.includes(d)) {
-          self.brushDomain(null)
+          bandBrushDomain = null
           break
         }
       }
@@ -163,19 +156,10 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
 
     fnScaleL.domain(bandDomain).range(lefts)
     fnScaleR.domain(bandDomain).range(rights)
-
-    updateBrushRange()
-  }
-
-  const updateBrushRange = () => {
-    const d = self.brushDomain()
-    const r = d ? [fnScaleL(d[0]), fnScaleR(d[1])] : null
-    self.brushRange(r)
   }
 
   // + init
   self.subscribe('draw', update)
-  self.subscribe('brushDomain', updateBrushRange)
 
   return self
 }
