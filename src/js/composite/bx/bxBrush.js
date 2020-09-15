@@ -14,14 +14,11 @@ const bxBrush = (state = {}) => {
     hasSingleFunctionDraw
   )(state)
 
-  // self.fnBefore(s => s.call(self.fnBrush()))
+  self.fnBefore(s => s.call(self.fnBrush()))
 
   self.fnNow(s =>
     s.attr('opacity', 1)
-      .call(t => {
-        t.selection().call(self.fnBrush())
-        self.snap()
-      })
+      .call(t => self.snap({ duration: t.duration(), delay: t.delay() }))
   )
 
   return getProxy(self)

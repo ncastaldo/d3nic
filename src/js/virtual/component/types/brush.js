@@ -74,8 +74,12 @@ const hasBandBrushFactory = (on = 'x') => (state = {}) => {
       if (typeof value === 'undefined') return bandMaxStep
       bandMaxStep = value
     },
-    snap () {
-      self.fnBrush().move(self.group(), self.bandRange())
+    snap ({ duration = 0, delay = 0 } = {}) {
+      self.group()
+        .transition('snap')
+        .delay(delay)
+        .duration(duration)
+        .call(self.fnBrush().move, self.bandRange())
     }
   }
 
