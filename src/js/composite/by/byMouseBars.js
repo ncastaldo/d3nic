@@ -17,8 +17,9 @@ const byMouseBars = (state = {}) => {
 
   self.fnOpacity(0)
 
-  self.fnNow(s =>
-    s.attr('y', self.fnBandLeftOut())
+  self.fnNow(t =>
+    t.selection()
+      .attr('y', self.fnBandLeftOut())
       .attr('height', (d, i) => self.fnBandRightOut()(d, i) - self.fnBandLeftOut()(d, i))
       .attr('x', self.rangeContOut()[0])
       .attr('width', Math.abs(self.rangeContOut()[1] - self.rangeContOut()[0]))

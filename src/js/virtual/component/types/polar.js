@@ -33,10 +33,15 @@ const hasPolar = (state = {}) => {
     return t => arc()(fnInterpolate(t))
   }
 
+  const fnArc = arc()
+
   const self = {
     ...state,
     radiusRange () {
       return radiusRange
+    },
+    fnArc () {
+      return fnArc
     },
     fnXTween () {
       return fnXTween

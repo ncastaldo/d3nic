@@ -19,17 +19,14 @@ const brMouseBars = (state = {}) => {
 
   self.fnOpacity(0)
 
-  self.fnNow(s =>
-    s.each((d, i, nodes) => {
-      nodes[i].fromArc = {
+  self.fnNow(t =>
+    t.selection()
+      .attrTween('d', (d, i) => self.fnArc()({
         innerRadius: self.fnBandLeftOut()(d, i),
         outerRadius: self.fnBandRightOut()(d, i),
         startAngle: self.rangeContOut()[0],
         endAngle: self.rangeContOut()[1]
-      }
-      nodes[i].toArc = { ...nodes[i].fromArc }
-    })
-      .attrTween('d', self.fnArcTween())
+      }))
   )
 
   return getProxy(self)

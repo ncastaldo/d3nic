@@ -1,20 +1,26 @@
-import { interpolateYlGnBu } from 'd3-scale-chromatic'
+import { interpolateViridis } from 'd3-scale-chromatic'
 
 const hasStyle = (state = {}) => {
-  let fnStroke = '#000'
-  let fnStrokeDasharray = 0
-  let fnStrokeWidth = 0
-  let fnFill = (d, i) => interpolateYlGnBu(Math.random())
-  let fnFillOpacity = 1
+  let fnStroke = null
+  let fnStrokeDasharray = null
+  let fnStrokeWidth = null
+  let fnFill = () => interpolateViridis(Math.random())
+  let fnFillOpacity = null
   let fnOpacity = 1
 
-  const fnStyle = s =>
-    s.attr('stroke', fnStroke)
-      .attr('stroke-width', fnStrokeWidth)
-      .attr('stroke-dasharray', fnStrokeDasharray)
-      .attr('fill', fnFill)
-      .attr('fill-opacity', fnFillOpacity)
-      .attr('opacity', fnOpacity)
+  // function to update values
+  const getAttrs = () => [
+    ['stroke', fnStroke],
+    ['stroke-dasharray', fnStrokeDasharray],
+    ['stroke-width', fnStrokeWidth],
+    ['fill', fnFill],
+    ['fill-opacity', fnFillOpacity],
+    ['opacity', fnOpacity]
+  ]
+
+  const fnStyle = selection => getAttrs()
+    .filter(([_, fn]) => fn !== null)
+    .reduce((s, [attr, fn]) => s.attr(attr, fn), selection)
 
   const self = {
     ...state,
