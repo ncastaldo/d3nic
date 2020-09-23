@@ -22,8 +22,9 @@ const hasValue = (state = {}) => {
     ...pipe(
       hasDefined
     )(state),
-    fnsValue () {
-      return [fnValue]
+    fnsValue (value) {
+      if (typeof value === 'undefined') return [fnValue]
+      fnValue = value[0]
     },
     fnValue (value) {
       if (typeof value === 'undefined') return fnValue
@@ -43,8 +44,10 @@ const hasLowHighValue = (state = {}) => {
     ...pipe(
       hasDefined
     )(state),
-    fnsValue () {
-      return [fnLowValue, fnHighValue]
+    fnsValue (value) {
+      if (typeof value === 'undefined') return [fnLowValue, fnHighValue]
+      fnLowValue = value[0]
+      fnHighValue = value[1]
     },
     fnLowValue (value) {
       if (typeof value === 'undefined') return fnLowValue
