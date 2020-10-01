@@ -23,7 +23,7 @@ const bxArea = (state = {}) => {
         .defined(self.fnDefined())
         .x(self.fnBandCenterOut())
         .y0(self.fnLowContOut())
-        .y1(self.fnLowContOut()))
+        .y1(self.fnHighContOut()))
       .attr('opacity', 0)
 
   )
