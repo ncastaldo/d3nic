@@ -51,6 +51,7 @@ import xyChart from './js/composite/xy/xyChart'
 import xyAxisX from './js/composite/xy/xyAxisX'
 import xyAxisY from './js/composite/xy/xyAxisY'
 import xyCircles from './js/composite/xy/xyCircles'
+import xyLine from './js/composite/xy/xyLine'
 import xyLinesH from './js/composite/xy/xyLinesH'
 import xyLinesV from './js/composite/xy/xyLinesV'
 import xyTexts from './js/composite/xy/xyTexts'
@@ -109,6 +110,7 @@ export {
   xyAxisX,
   xyAxisY,
   xyCircles,
+  xyLine,
   xyLinesH,
   xyLinesV,
   xyTexts
