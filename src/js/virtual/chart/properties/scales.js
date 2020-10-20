@@ -115,7 +115,8 @@ const hasDoubleBandScaleFactory = (on = ['x', 'y']) => (state = {}) => {
     }
   }
 
-  const updateScaleDomain = (chart) => {
+  const update = (chart) => {
+    // data / components
     doubleBandScaleDomain = chart.data()
       .map(fnDoubleBandValue)
       .reduce(([s0, s1], [d0, d1]) => {
@@ -124,9 +125,7 @@ const hasDoubleBandScaleFactory = (on = ['x', 'y']) => (state = {}) => {
         return [s0, s1]
       }, [new Set(), new Set()])
       .map(s => Array.from(s))
-  }
-
-  const update = (chart) => {
+    // draw
     fnDoubleBandScale = [0, 1].map(k => scaleBand()
       .paddingInner(doubleBandPaddingInner[k])
       .paddingOuter(doubleBandPaddingOuter[k])
@@ -134,7 +133,6 @@ const hasDoubleBandScaleFactory = (on = ['x', 'y']) => (state = {}) => {
       .range(computeRange(chart, on[k], 'band')))
   }
 
-  self.subscribe('data', 'components', updateScaleDomain)
   self.subscribe('draw', update)
 
   return self
@@ -203,18 +201,16 @@ const hasContScaleFactory = (on) => (state = {}) => {
       }, baseDomain)
   }
 
-  const updateScaleDomain = (chart) => {
-    contScaleDomain = computeContDomain(chart)
-  }
-
   const update = (chart) => {
+    // data / components
+    contScaleDomain = computeContDomain(chart)
+    // draw
     fnContScale = contScales[contScaleType]()
       .domain(contFixedDomain || contScaleDomain)
       .range(computeRange(chart, on, 'cont'))
       .clamp(contFixedDomain !== null)
   }
 
-  self.subscribe('data', 'components', updateScaleDomain)
   self.subscribe('draw', update)
 
   return self
@@ -299,18 +295,16 @@ const hasDoubleContScaleFactory = (on = ['x', 'y']) => (state = {}) => {
       }, doubleContBaseDomain)
   }
 
-  const updateScaleDomain = (chart) => {
-    doubleContScaleDomain = computeDoubleContDomain(chart)
-  }
-
   const update = (chart) => {
+    // data / components
+    doubleContScaleDomain = computeDoubleContDomain(chart)
+    // draw
     fnDoubleContScale = [0, 1].map(k => contScales[doubleContScaleType[k]]()
       .domain(doubleContFixedDomain[k] || doubleContScaleDomain[k])
       .range(computeRange(chart, on[k], 'cont'))
       .clamp(doubleContFixedDomain[k] !== null))
   }
 
-  self.subscribe('data', 'components', updateScaleDomain)
   self.subscribe('draw', update)
 
   return self
