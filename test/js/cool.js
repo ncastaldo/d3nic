@@ -6,34 +6,53 @@
   const fnRandomNumber = d3.randomInt(...nRange)
   const fnRandomValue = d3.randomInt(...vRange)
   
-  const fnFill = d => d3.interpolateViridis(d / (vRange[1] - vRange[0] - 1))
+  const fnFill = d => d3.interpolateBlues(d / (vRange[1] - vRange[0] - 1))
 
 	d3.select(".container").call(container => {
-		container.append("svg").classed("brChart", true)
-		container.append("svg").classed("bars", true)
+    container.append("svg").classed("brChart", true)
+    container.append("svg").classed("baChart", true)
+    container.append('div').style('text-align', 'center').append("svg").classed("bxChart", true)
   })
   
   // polar
 
   const brChart = d3nic.brChart()
     .selector('.brChart')
-    .size({width: 400, height: 500})
-    .padding({ top: 0, right: 0, bottom: 0, left: 0 })
+    .size({width: 350, height: 350})
     .transitionObject({ duration: 1000 })
-    .radiusExtent([0.1, 0.8])
-    .angleExtent([Math.PI, 2 / 3 * Math.PI])
+    .radiusExtent([0.1, 1])
+    .angleExtent([-Math.PI, 1 / 2 * Math.PI])
     .fnKey((_, i) => i)
-    .components([d3nic.brBars().fnLowValue(0).fnHighValue(d => d)])
+    .components([d3nic.brBars().fnLowValue(0).fnHighValue(d => d).fnFill(fnFill)])
+
+  const baChart = d3nic.baChart()
+    .selector('.baChart')
+    .size({width: 350, height: 350})
+    .transitionObject({ duration: 1000 })
+    .radiusExtent([0.1, 1])
+    .fnKey((_, i) => i)
+    .components([d3nic.baBars().fnLowValue(0).fnHighValue(d => d).fnFill(fnFill)])
+
+
+  const bxChart = d3nic.bxChart()
+    .selector('.bxChart')
+    .size({width: 350, height: 350})
+    .transitionObject({ duration: 1000 })
+    .fnKey((_, i) => i)
+    .components([d3nic.bxBars().fnLowValue(0).fnHighValue(d => d).fnFill(fnFill)])
+
 
   const update = () => {
     const number = fnRandomNumber()
     const data = [...Array(number).keys()].map(() => fnRandomValue())
 
     brChart.data(data).draw()
+    baChart.data(data).draw()
+    bxChart.data(data).draw()
   }
   
   update()
   
-  setInterval(update, 2000)
+  setInterval(update, 1000)
 
 })()
