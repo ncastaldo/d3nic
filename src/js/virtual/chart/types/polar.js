@@ -52,6 +52,8 @@ const hasPolar = (state = {}) => {
   update() // auto trigger to update results
 
   const draw = () => {
+    update()
+
     const translate = `translate(${center[0]}, ${center[1]})`
 
     if (firstDraw) {
@@ -66,7 +68,6 @@ const hasPolar = (state = {}) => {
     firstDraw = false
   }
 
-  self.subscribe('graphics', update)
   self.subscribe('draw', draw)
 
   return self
