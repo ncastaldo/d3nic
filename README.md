@@ -10,7 +10,7 @@ A *chart* is an object that may contain multiple components and is responsible o
 
 A *component* is the actual object that we want to visualize.
 
-![Demo .gif](https://github.com/ncastaldo/d3nic/tree/master/img/demo.gif)
+![Demo .gif](https://github.com/ncastaldo/d3nic/blob/master/img/demo.gif)
 
 Here you can see two charts - brChart and baChart - with their corresponding components - brBars and brBars. Most of the configuration and the data are the same but the result is quite different!
 
