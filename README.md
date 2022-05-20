@@ -1,5 +1,7 @@
 # d3nic
 
+[![license](https://img.shields.io/github/license/ncastaldo/d3nic)](LICENSE-MIT)
+
 ## What is this?
 
 d3nic is a D3.js based library that exposes methods to easily create interactive and dynamic charts.
