@@ -1,35 +1,35 @@
 (async () => {
 
 	const data = [
-		{ key: 0, v1: 4, v2: 9 },
-		{ key: 1, v1: 5, v2: 5 },
-		{ key: 2, v1: 3, v2: 4 },
-		{ key: 3, v1: 3, v2: 8 },
-		{ key: 4, v1: 2, v2: 1 },
-		{ key: 5, v1: 2, v2: 2 },
-		{ key: 6, v1: 6, v2: 8 },
-		{ key: 7, v1: 7, v2: 3 },
-		{ key: 8, v1: 3, v2: 2 },
-		{ key: 9, v1: 6, v2: 2 },
-		{ key: 10, v1: 6, v2: 5 },
-		{ key: 11, v1: 1, v2: 1 },
-		{ key: 12, v1: 3, v2: 7 },
-		{ key: 13, v1: 8, v2: 4 },
-		{ key: 14, v1: 6, v2: 7 },
-		{ key: 15, v1: 9, v2: 5 },
-		{ key: 16, v1: 2, v2: 2 },
-		{ key: 17, v1: 2, v2: 6 },
-		{ key: 18, v1: 4, v2: 7 },
-		{ key: 19, v1: 6, v2: 2 },
-		{ key: 20, v1: 6, v2: 5 },
-		{ key: 21, v1: 1, v2: 1 },
-		{ key: 22, v1: 3, v2: 7 },
-		{ key: 23, v1: 8, v2: 4 },
-		{ key: 24, v1: 6, v2: 7 },
-		{ key: 25, v1: 9, v2: 5 },
-		{ key: 26, v1: 2, v2: 2 },
-		{ key: 27, v1: 2, v2: 6 },
-		{ key: 28, v1: 4, v2: 7 },
+		{ key: 0, v: 4},
+		{ key: 1, v: 5 },
+		{ key: 2, v: 3 },
+		{ key: 3, v: 3 },
+		{ key: 4, v: 2 },
+		{ key: 5, v: 2 },
+		{ key: 6, v: 6 },
+		{ key: 7, v: 7 },
+		{ key: 8, v: 3 },
+		{ key: 9, v: 11 },
+		{ key: 10, v: 6 },
+		{ key: 11, v: 1 },
+		{ key: 12, v: 3 },
+		{ key: 13, v: 8 },
+		{ key: 14, v: 6 },
+		{ key: 15, v: 9 },
+		{ key: 16, v: 2 },
+		{ key: 17, v: 2 },
+		{ key: 18, v: 4 },
+		{ key: 19, v: 6 },
+		{ key: 20, v: 6 },
+		{ key: 21, v: 1 },
+		{ key: 22, v: 3 },
+		{ key: 23, v: 8 },
+		{ key: 24, v: 13 },
+		{ key: 25, v: 9 },
+		{ key: 26, v: 2 },
+		{ key: 27, v: 2 },
+		{ key: 28, v: 4 },
 	];
 
 	const fnFill = d => d3.interpolateViridis(data.length ? 1-d.key/data.length : 0)
@@ -56,9 +56,9 @@
 
 	barsList
 		.map(bars => 
-			bars.fnLowValue(d => d.v1)
-				.fnHighValue(d => d.v1 + d.v2)
-				.fnDefined(d => !isNaN(d.v1) && !isNaN(d.v1))
+			bars.fnLowValue(d => d.v)
+				.fnHighValue(d => d.v)
+				.fnDefined(d => !isNaN(d.v) && !isNaN(d.v))
 				.fnFill(fnFill))
 
 	mouseBarsList
