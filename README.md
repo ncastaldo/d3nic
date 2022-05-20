@@ -4,7 +4,7 @@
 
 d3nic is a D3.js based library that exposes methods to easily create interactive and dynamic charts.
 
-[DEMO at https://ncastaldo.github.io/d3nic](https://ncastaldo.github.io/d3nic)
+**[DEMO at https://ncastaldo.github.io/d3nic](https://ncastaldo.github.io/d3nic)**
 
 It is based on the concepts of _chart_ and _component_.
 
