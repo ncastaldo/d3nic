@@ -1,5 +1,4 @@
 const path = require('path')
-// const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
@@ -10,16 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
     libraryTarget: 'umd',
-    library: 'd3nic' // names that global variable (in this case, it's d3nic.
-  },
-  module: {
-    rules: [
-      /* {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: ['babel-loader']
-      } */
-    ]
+    library: 'd3nic' // global variable name
   },
   resolve: {
     extensions: ['.js'],
@@ -27,9 +17,6 @@ module.exports = {
       '@': path.resolve(__dirname, 'src')
     }
   },
-  /* externals: {
-        d3: 'd3'
-    }, */
   devServer: {
     contentBase: path.resolve(__dirname, 'test'),
     compress: true,

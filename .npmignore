@@ -18,3 +18,4 @@ webpack.config.js
 .eslintignore
 .eslintrc.json
 test
+docs
