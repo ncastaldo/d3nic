@@ -6,6 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/solid.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/brands.min.css">
   <link rel="stylesheet" href="css/main.css">
 
   <script src="https://cdn.jsdelivr.net/npm/d3-selection@3"></script>
@@ -15,54 +19,71 @@
   <script src="https://cdn.jsdelivr.net/npm/d3-random@3"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3nic/dist/index.js"></script>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/brands.min.css"
-    integrity="sha512-OivR4OdSsE1onDm/i3J3Hpsm5GmOVvr9r49K3jJ0dnsxVzZgaOJ5MfxEAxCyGrzWozL9uJGKz6un3A7L+redIQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
   <title>d3nic</title>
 </head>
 
 <body>
 
-  <nav class="shadow-md">
-    <div class="relative container mx-auto flex items-center px-6 py-4 justify-between">
-      <div>
-        <h1 class="text-4xl text-vueGreen">
-          <a href="#">d3nic</a>
-        </h1>
-      </div>
-      <a href="https://github.com/ncastaldo/d3nic" class="p-1 text-vueGreen text-4xl bg-white
-        rounded-full baseline
-        md:block fab fa-github"></a>
+  <div class="flex flex-col h-screen">
 
-    </div>
-  </nav>
-
-  <section class="p-6">
-    <div class="container mx-auto">
-      <h3 class="max-w-sm mx-auto my-2 text-lg text-center  md:text-2xl">
-        Use d3nic to easily create <span class="font-semibold">interactive</span> and
-        <span class="font-semibold">dynamic</span> charts.
-      </h3>
-    </div>
-  </section>
-
-  <section class="p-6">
-    <div class="container mx-auto flex flex-col flex-wrap items-center md:flex-row ">
-      <div class="space-y-8 w-full md:w-1/2 xl:w-1/4" id="chart-container-1">
+    <nav class="shadow-md">
+      <div class="relative container mx-auto flex items-center px-6 py-4 justify-between">
+        <div>
+          <h1 class="text-4xl text-vueGreen">
+            <a href="#">d3nic</a>
+          </h1>
+        </div>
+        <a href="https://github.com/ncastaldo/d3nic" class="p-1 text-vueGreen text-4xl bg-white
+        rounded-full baseline md:block fab fa-github"></a>
 
       </div>
-      <div class="space-y-8 w-full md:w-1/2 xl:w-1/4" id="chart-container-2">
+    </nav>
 
-      </div>
-      <div class="space-y-8 w-full md:w-1/2 xl:w-1/4" id="chart-container-3">
+    <main class="">
+      <section class="p-6">
+        <div class="container mx-auto">
+          <h3 class="max-w-sm mx-auto my-2 text-xl text-center md:max-w-md md:text-3xl">
+            use <span class="">d3nic</span> to create <span class="font-semibold">interactive</span> and
+            <span class="font-semibold">dynamic</span> charts for the Web
+          </h3>
+        </div>
+      </section>
 
-      </div>
-      <div class="space-y-8 w-full  md:w-1/2 xl:w-1/4" id="chart-container-4">
+      <section>
+        <div class="container mx-auto flex items-center justify-center">
+          <div class="w-2 h-2 mx-2 bg-vueGreen rounded-full"></div>
+          <div class="w-2 h-2 mx-2 bg-vueGreen rounded-full"></div>
+          <div class="w-2 h-2 mx-2 bg-vueGreen rounded-full"></div>
+        </div>
+      </section>
 
+      <section class="p-6 mb-3">
+        <div class="container mx-auto flex flex-col flex-wrap items-center md:flex-row ">
+          <div class="space-y-8 w-full md:w-1/2" id="chart-container-1">
+
+          </div>
+          <div class="space-y-8 w-full md:w-1/2" id="chart-container-2">
+
+          </div>
+          <div class="space-y-8 w-full md:w-1/2" id="chart-container-3">
+
+          </div>
+          <div class="space-y-8 w-full  md:w-1/2" id="chart-container-4">
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-6 bg-vueGreen flex-grow flex flex-col items-center justify-center">
+      <h3 class="text-xl text-white space-y-2">Designed by <span class="font-semibold">@ncastaldo</span></h3>
+      <div class="space-y-2">
+        <a href="https://www.linkedin.com/in/ncastaldo" class="p-1 text-white text-3xl fab fa-linkedin"></a>
+        <a href="https://ncastaldo.it" class="p-1 text-white text-3xl fas fa-globe"></a>
+        <a href="https://github.com/ncastaldo" class="p-1 text-white text-3xl fab fa-github"></a>
       </div>
-    </div>
-  </section>
+    </footer>
+  </div>
 
   <script src="js/script.js"></script>
 

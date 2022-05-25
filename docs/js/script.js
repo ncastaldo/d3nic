@@ -11,6 +11,9 @@
 
   const data = [...Array(dataLength).keys()].map(d => ({ key: d, v: fnRandom() }))
 
+  const duration = 1500
+  const delay = 1000
+  const interval = 4000
 
   // style
 
@@ -20,7 +23,7 @@
   const size = { width, height }
   const viewBox = `0 0 ${width} ${height}`
 
-  const transitionObject = { duration: 1500 }
+  const transitionObject = { duration }
 
   const fnFill = d => d3.interpolateViridis(data.length ? 1 - d.key / data.length : 0)
 
@@ -119,7 +122,7 @@
   // }
 
   const drawUpdate = () => {
-    chartList.map((chart, i) => chart.draw({ delay: i * 1500 }))
+    chartList.map((chart, i) => chart.draw({ delay: delay * i}))
   }
 
   const fnUpdate = () => {
@@ -134,6 +137,6 @@
 
   // start animation
   fnUpdate()
-  setInterval(fnUpdate, 6000)
+  setInterval(fnUpdate, interval)
 
 })()
