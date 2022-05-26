@@ -1,19 +1,19 @@
-import pipe from 'lodash/fp/flow'
+import pipe from "lodash/fp/flow";
 
 const hasEvents = (state = {}) => {
-  let fnEvents = s => s
+  let fnEvents = (s) => s;
 
   const self = {
     ...state,
     fnOn: (type, callback) => {
-      fnEvents = pipe(fnEvents, s => s.on(type, callback))
+      fnEvents = pipe(fnEvents, (s) => s.on(type, callback));
     },
-    fnEvents () {
-      return fnEvents
-    }
-  }
+    fnEvents() {
+      return fnEvents;
+    },
+  };
 
-  return self
-}
+  return self;
+};
 
-export { hasEvents }
+export { hasEvents };

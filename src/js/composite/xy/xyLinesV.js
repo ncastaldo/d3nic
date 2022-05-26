@@ -1,40 +1,43 @@
+import pipe from "lodash/fp/flow";
+import component from "../../virtual/component/base/index";
 
-import pipe from 'lodash/fp/flow'
-import component from '../../virtual/component/base/index'
-
-import { getProxy } from '../../virtual/common/proxy'
-import { hasDoubleContOut, hasRangeDoubleContOut } from '../../virtual/component/outs/doubleCont'
-import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
+import { getProxy } from "../../virtual/common/proxy";
+import {
+  hasDoubleContOut,
+  hasRangeDoubleContOut,
+} from "../../virtual/component/outs/doubleCont";
+import { hasMultiDrawFactory } from "../../virtual/component/properties/draw";
 
 const xyLinesV = (state = {}) => {
   const self = pipe(
     component,
     hasDoubleContOut,
     hasRangeDoubleContOut,
-    hasMultiDrawFactory('line')
-  )(state)
+    hasMultiDrawFactory("line")
+  )(state);
 
-  self.fnBefore(s =>
-    s.attr('x1', self.fnDoubleContOut()(0))
-      .attr('y1', self.fnDoubleContOut()(1))
-      .attr('x2', self.fnDoubleContOut()(0))
-      .attr('y2', self.fnDoubleContOut()(1))
-      .attr('opacity', 0)
-  )
+  self.fnBefore((s) =>
+    s
+      .attr("x1", self.fnDoubleContOut()(0))
+      .attr("y1", self.fnDoubleContOut()(1))
+      .attr("x2", self.fnDoubleContOut()(0))
+      .attr("y2", self.fnDoubleContOut()(1))
+      .attr("opacity", 0)
+  );
 
-  self.fnNow(s =>
-    s.attr('x1', self.fnDoubleContOut()(0))
-      .attr('y1', self.rangeDoubleContOut()(1)[0])
-      .attr('x2', self.fnDoubleContOut()(0))
-      .attr('y2', self.rangeDoubleContOut()(1)[1])
-      // .attr('opacity', 1) // not needed
-  )
+  self.fnNow(
+    (s) =>
+      s
+        .attr("x1", self.fnDoubleContOut()(0))
+        .attr("y1", self.rangeDoubleContOut()(1)[0])
+        .attr("x2", self.fnDoubleContOut()(0))
+        .attr("y2", self.rangeDoubleContOut()(1)[1])
+    // .attr('opacity', 1) // not needed
+  );
 
-  self.fnAfter(s =>
-    s.attr('opacity', 0)
-  )
+  self.fnAfter((s) => s.attr("opacity", 0));
 
-  return getProxy(self)
-}
+  return getProxy(self);
+};
 
-export default xyLinesV
+export default xyLinesV;

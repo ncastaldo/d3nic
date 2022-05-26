@@ -1,36 +1,35 @@
+import pipe from "lodash/fp/flow";
+import component from "../../virtual/component/base/index";
 
-import pipe from 'lodash/fp/flow'
-import component from '../../virtual/component/base/index'
-
-import { getProxy } from '../../virtual/common/proxy'
-import { hasText } from '../../virtual/component/types/text'
-import { hasTransform } from '../../virtual/component/properties/transform'
-import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
+import { getProxy } from "../../virtual/common/proxy";
+import { hasText } from "../../virtual/component/types/text";
+import { hasTransform } from "../../virtual/component/properties/transform";
+import { hasMultiDrawFactory } from "../../virtual/component/properties/draw";
 
 const paths = (state = {}) => {
   const self = pipe(
     component,
     hasText,
     hasTransform,
-    hasMultiDrawFactory('text')
-  )(state)
+    hasMultiDrawFactory("text")
+  )(state);
 
-  self.fnBefore(s =>
-    s.attr('text-anchor', 'middle')
-      .attr('dominant-baseline', 'central')
-      .attr('transform', self.fnTransform())
+  self.fnBefore((s) =>
+    s
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "central")
+      .attr("transform", self.fnTransform())
       .text(self.fnText())
-      .attr('opacity', 0)
-  )
+      .attr("opacity", 0)
+  );
 
-  self.fnNow(s =>
-    s.attr('transform', self.fnTransform())
-      .text(self.fnText())
-  )
+  self.fnNow((s) =>
+    s.attr("transform", self.fnTransform()).text(self.fnText())
+  );
 
-  self.fnAfter(s => s.attr('opacity', 0))
+  self.fnAfter((s) => s.attr("opacity", 0));
 
-  return getProxy(self)
-}
+  return getProxy(self);
+};
 
-export default paths
+export default paths;

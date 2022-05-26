@@ -1,26 +1,21 @@
-import pipe from 'lodash/fp/flow'
+import pipe from "lodash/fp/flow";
 
-import { hasRegistry } from '../../common/registry'
+import { hasRegistry } from "../../common/registry";
 
-import { hasGroup } from './group'
-import { hasEvents } from './events'
-import { hasStyle } from './style'
+import { hasGroup } from "./group";
+import { hasEvents } from "./events";
+import { hasStyle } from "./style";
 
 const component = (state = {}) => {
   const self = {
     ...state,
-    ...pipe(
-      hasRegistry,
-      hasGroup,
-      hasEvents,
-      hasStyle
-    )(state)
-  }
+    ...pipe(hasRegistry, hasGroup, hasEvents, hasStyle)(state),
+  };
 
-  return self
-}
+  return self;
+};
 
-export default component
+export default component;
 /*
 
 const hasComponent = (state = {}) => {

@@ -1,27 +1,27 @@
-import { select } from 'd3-selection'
+import { select } from "d3-selection";
 
 const hasGroup = (state) => {
-  let extent
-  let group = select(null)
+  let extent;
+  let group = select(null);
 
   const self = {
     ...state,
-    extent () {
-      return extent
+    extent() {
+      return extent;
     },
-    group () {
-      return group
-    }
-  }
+    group() {
+      return group;
+    },
+  };
 
   const update = (chart) => {
-    extent = chart.extent()
-    group = group.empty() ? chart.group().append('g') : group
-  }
+    extent = chart.extent();
+    group = group.empty() ? chart.group().append("g") : group;
+  };
 
-  self.subscribe('draw', update)
+  self.subscribe("draw", update);
 
-  return self
-}
+  return self;
+};
 
-export { hasGroup }
+export { hasGroup };

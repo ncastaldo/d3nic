@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"No test specified\"",
-    "serve": "webpack-dev-server",
     "lint": "eslint . --fix",
+    "serve": "webpack serve --mode development",
     "dev": "webpack --mode development",
     "build": "webpack --mode production"
   },
@@ -21,21 +21,14 @@
   },
   "homepage": "https://github.com/ncastaldo/d3nic#readme",
   "devDependencies": {
-    "@babel/core": "^7.11.4",
-    "@babel/preset-env": "^7.11.0",
-    "babel-loader": "^8.1.0",
-    "eslint": "^7.7.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "serialize-javascript": "^4.0.0",
-    "terser-webpack-plugin": "^4.1.0",
-    "uglifyjs-webpack-plugin": "^1.1.2",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-webpack-plugin": "^3.1.1",
+    "prettier": "2.6.2",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
     "d3-array": "^2.6.0",
@@ -72,6 +65,7 @@
     "d3-timer": "^2.0.0",
     "d3-transition": "^2.0.0",
     "d3-voronoi": "^1.1.4",
-    "d3-zoom": "^2.0.0"
+    "d3-zoom": "^2.0.0",
+    "lodash": "^4.17.21"
   }
 }

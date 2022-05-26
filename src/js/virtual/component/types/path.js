@@ -1,15 +1,15 @@
 const hasPath = (state = {}) => {
-  let fnPath = (d, i) => null
+  let fnPath = (d, i) => null;
 
   const self = {
     ...state,
-    fnPath (value) {
-      if (typeof value === 'undefined') return fnPath
-      fnPath = value
-    }
-  }
+    fnPath(value) {
+      if (typeof value === "undefined") return fnPath;
+      fnPath = value;
+    },
+  };
 
-  return self
-}
+  return self;
+};
 
-export { hasPath }
+export { hasPath };

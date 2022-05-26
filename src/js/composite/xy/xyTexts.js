@@ -1,38 +1,37 @@
+import pipe from "lodash/fp/flow";
+import component from "../../virtual/component/base/index";
 
-import pipe from 'lodash/fp/flow'
-import component from '../../virtual/component/base/index'
-
-import { getProxy } from '../../virtual/common/proxy'
-import { hasText } from '../../virtual/component/types/text'
-import { hasDoubleContOut } from '../../virtual/component/outs/doubleCont'
-import { hasMultiDrawFactory } from '../../virtual/component/properties/draw'
+import { getProxy } from "../../virtual/common/proxy";
+import { hasText } from "../../virtual/component/types/text";
+import { hasDoubleContOut } from "../../virtual/component/outs/doubleCont";
+import { hasMultiDrawFactory } from "../../virtual/component/properties/draw";
 
 const xyTexts = (state = {}) => {
   const self = pipe(
     component,
     hasText,
     hasDoubleContOut,
-    hasMultiDrawFactory('text')
-  )(state)
+    hasMultiDrawFactory("text")
+  )(state);
 
-  self.fnBefore(s =>
-    s.attr('x', self.fnDoubleContOut()(0))
-      .attr('y', self.fnDoubleContOut()(1))
+  self.fnBefore((s) =>
+    s
+      .attr("x", self.fnDoubleContOut()(0))
+      .attr("y", self.fnDoubleContOut()(1))
       .text(self.fnText())
-      .attr('opacity', 0)
-  )
+      .attr("opacity", 0)
+  );
 
-  self.fnNow(s =>
-    s.attr('x', self.fnDoubleContOut()(0))
-      .attr('y', self.fnDoubleContOut()(1))
+  self.fnNow((s) =>
+    s
+      .attr("x", self.fnDoubleContOut()(0))
+      .attr("y", self.fnDoubleContOut()(1))
       .text(self.fnText())
-  )
+  );
 
-  self.fnAfter(s =>
-    s.attr('opacity', 0)
-  )
+  self.fnAfter((s) => s.attr("opacity", 0));
 
-  return getProxy(self)
-}
+  return getProxy(self);
+};
 
-export default xyTexts
+export default xyTexts;

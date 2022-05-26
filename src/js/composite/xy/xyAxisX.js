@@ -1,34 +1,34 @@
-import pipe from 'lodash/fp/flow'
-import component from '../../virtual/component/base/index'
+import pipe from "lodash/fp/flow";
+import component from "../../virtual/component/base/index";
 
-import { getProxy } from '../../virtual/common/proxy'
-import { hasDoubleContAxisFactory } from '../../virtual/component/types/axis'
-import { hasSingleFunctionDraw } from '../../virtual/component/properties/draw'
+import { getProxy } from "../../virtual/common/proxy";
+import { hasDoubleContAxisFactory } from "../../virtual/component/types/axis";
+import { hasSingleFunctionDraw } from "../../virtual/component/properties/draw";
 
 const xyAxisX = (state = {}) => {
   const self = pipe(
     component,
-    hasDoubleContAxisFactory('x', 0),
+    hasDoubleContAxisFactory("x", 0),
     hasSingleFunctionDraw
-  )(state)
+  )(state);
 
-  self.fnBefore(s =>
-    s.attr('transform', self.translateAxis())
+  self.fnBefore((s) =>
+    s
+      .attr("transform", self.translateAxis())
       .call(self.fnAxis())
-      .attr('opacity', 0)
-  )
+      .attr("opacity", 0)
+  );
 
-  self.fnNow(s =>
-    s.attr('transform', self.translateAxis())
+  self.fnNow((s) =>
+    s
+      .attr("transform", self.translateAxis())
       .call(self.fnAxis())
-      .attr('opacity', 1)
-  )
+      .attr("opacity", 1)
+  );
 
-  self.fnAfter(s =>
-    s.attr('opacity', 0)
-  )
+  self.fnAfter((s) => s.attr("opacity", 0));
 
-  return getProxy(self)
-}
+  return getProxy(self);
+};
 
-export default xyAxisX
+export default xyAxisX;

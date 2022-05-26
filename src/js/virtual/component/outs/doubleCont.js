@@ -1,53 +1,50 @@
+import pipe from "lodash/fp/flow";
 
-import pipe from 'lodash/fp/flow'
-
-import { hasValue } from '../properties/values'
+import { hasValue } from "../properties/values";
 
 const hasDoubleContOut = (state = {}) => {
-  let fnDoubleContOut
+  let fnDoubleContOut;
 
   const self = {
     ...state,
-    ...pipe(
-      hasValue
-    )(state),
-    fnDoubleContOut (value) {
-      if (typeof value === 'undefined') return fnDoubleContOut
-      fnDoubleContOut = value
-    }
-  }
+    ...pipe(hasValue)(state),
+    fnDoubleContOut(value) {
+      if (typeof value === "undefined") return fnDoubleContOut;
+      fnDoubleContOut = value;
+    },
+  };
 
   const updateOuts = (chart) => {
-    const fnDoubleContScales = chart.fnDoubleContScale() // to reduce overhead
+    const fnDoubleContScales = chart.fnDoubleContScale(); // to reduce overhead
 
-    fnDoubleContOut = k =>
-      typeof self.fnValue() === 'function'
+    fnDoubleContOut = (k) =>
+      typeof self.fnValue() === "function"
         ? (d, i) => fnDoubleContScales[k](self.fnValue()(d, i)[k]) // value must return an array [val1, val2]
-        : () => fnDoubleContScales[k](self.fnValue()[k])
-  }
+        : () => fnDoubleContScales[k](self.fnValue()[k]);
+  };
 
-  self.subscribe('draw', updateOuts)
+  self.subscribe("draw", updateOuts);
 
-  return self
-}
+  return self;
+};
 
 const hasRangeDoubleContOut = (state = {}) => {
-  let rangeDoubleContOut
+  let rangeDoubleContOut;
 
   const self = {
     ...state,
-    rangeDoubleContOut () {
-      return rangeDoubleContOut
-    }
-  }
+    rangeDoubleContOut() {
+      return rangeDoubleContOut;
+    },
+  };
 
   const updateOuts = (chart) => {
-    rangeDoubleContOut = k => chart.fnDoubleContScale()[k].range()
-  }
+    rangeDoubleContOut = (k) => chart.fnDoubleContScale()[k].range();
+  };
 
-  self.subscribe('draw', updateOuts)
+  self.subscribe("draw", updateOuts);
 
-  return self
-}
+  return self;
+};
 
-export { hasDoubleContOut, hasRangeDoubleContOut }
+export { hasDoubleContOut, hasRangeDoubleContOut };

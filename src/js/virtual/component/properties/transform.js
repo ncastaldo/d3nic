@@ -1,15 +1,15 @@
 const hasTransform = (state = {}) => {
-  let fnTransform = (d, i) => null
+  let fnTransform = (d, i) => null;
 
   const self = {
     ...state,
-    fnTransform (value) {
-      if (typeof value === 'undefined') return fnTransform
-      fnTransform = value
-    }
-  }
+    fnTransform(value) {
+      if (typeof value === "undefined") return fnTransform;
+      fnTransform = value;
+    },
+  };
 
-  return self
-}
+  return self;
+};
 
-export { hasTransform }
+export { hasTransform };
